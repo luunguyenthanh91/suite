@@ -1,0 +1,13 @@
+[29-Mar-2021 19:37:06 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Class 'ComposerAutoloaderInit02252f3be4afc3416711e712fcb434ab' not found in /home/csqumogv/public_html/vendor/autoload.php:7
+Stack trace:
+#0 /home/csqumogv/public_html/public/index.php(24): require()
+#1 {main}
+  thrown in /home/csqumogv/public_html/vendor/autoload.php on line 7
+[29-Mar-2021 19:37:13 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Class 'ComposerAutoloaderInit02252f3be4afc3416711e712fcb434ab' not found in /home/csqumogv/public_html/vendor/autoload.php:7
+Stack trace:
+#0 /home/csqumogv/public_html/public/index.php(24): require()
+#1 {main}
+  thrown in /home/csqumogv/public_html/vendor/autoload.php on line 7
+[29-Mar-2021 19:38:50 Asia/Ho_Chi_Minh] PHP Warning:  require(/home/csqumogv/public_html/public/../vendor/autoload.php): failed to open stream: No such file or directory in /home/csqumogv/public_html/public/index.php on line 24
+[29-Mar-2021 19:38:50 Asia/Ho_Chi_Minh] PHP Fatal error:  require(): Failed opening required '/home/csqumogv/public_html/public/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/csqumogv/public_html/public/index.php on line 24
+[29-Mar-2021 19:40:33 Asia/Ho_Chi_Minh] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.3.0". You are running 7.2.34. in /home/csqumogv/public_html/vendor/composer/platform_check.php on line 24

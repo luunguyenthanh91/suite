@@ -1,0 +1,224 @@
+[17-Feb-2021 19:22:43 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:22:46 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:23:26 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:24:04 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:24:36 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:35:04 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:35:20 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:36:03 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:36:22 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[17-Feb-2021 19:37:35 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 20:17:48 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 20:17:53 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 20:17:59 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 20:18:35 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 22:42:50 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:43:50 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:43:52 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:04 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:06 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:07 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:27 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:28 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:44:30 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:47:12 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 22:47:13 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:198
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 198
+[19-Feb-2021 23:00:41 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:42 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:43 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:46 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:47 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:55 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
+[19-Feb-2021 23:00:57 Asia/Ho_Chi_Minh] PHP Fatal error:  Uncaught Error: Call to undefined function imagetypes() in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php:189
+Stack trace:
+#0 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/FileUpload.php(184): CKFinder_Connector_CommandHandler_Thumbnail::createThumb('/home/csqumogv/...', '/home/csqumogv/...', 1600, 1200, 80, true)
+#1 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/Core/Connector.php(72): CKFinder_Connector_CommandHandler_FileUpload->sendResponse()
+#2 /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/connector.php(90): CKFinder_Connector_Core_Connector->executeCommand('FileUpload')
+#3 {main}
+  thrown in /home/csqumogv/public_html/public/lib_upload/ckfinder/core/connector/php/php5/CommandHandler/Thumbnail.php on line 189
