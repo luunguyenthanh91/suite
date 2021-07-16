@@ -14,31 +14,7 @@
                     <center>
                         <a href="/admin/project">
                             <span class="material-icons" style="color:white;font-size: 32px;">work</span><br>
-                            <label style="font-size:12px;color:white">案件一覧</label>
-                        </a>
-                    </center>
-                </td>
-                <td>
-                    <center>
-                        <a href="/admin/cost">
-                            <span class="material-icons" style="color:white;font-size: 32px;">monetization_on</span><br>
-                            <label style="font-size:12px;color:white">支給情報</label>
-                        </a>
-                    </center>
-                </td>
-                <td>
-                    <center>
-                        <a href="/admin/earnings">
-                            <span class="material-icons" style="color:white;font-size: 32px;">favorite</span><br>
-                            <label style="font-size:12px;color:white">売上管理</label>
-                        </a>
-                    </center>
-                </td>
-                <td>
-                    <center>
-                        <a href="/admin/collaborators">
-                            <span class="material-icons" style="color:white;font-size: 32px;">person</span><br>
-                            <label style="font-size:12px;color:white">通訳者</label>
+                            <label style="font-size:12px;color:white">経費管理</label>
                         </a>
                     </center>
                 </td>
