@@ -143,224 +143,24 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' =
     Route::post('update-permission-role/{id}',                  'DoController@addListPermission');
 });
 
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'my-bank'], function () {
-    Route::get('/',                  'MyBankController@list')->name('admin.myBank');
-    Route::get('get-list',                  'MyBankController@getList')->name('admin.getMyBank');
-    Route::get('get-list-all',                  'MyBankController@getListAll')->name('admin.getAllMyBank');
-    Route::post('edit/{id}',                  'MyBankController@edit')->name('admin.editMyBank');
-    Route::get('edit/{id}',                  'MyBankController@edit')->name('admin.editMyBank');
-    Route::get('delete/{id}',                  'MyBankController@delete')->name('admin.deleteMyBank');
-    Route::post('add',                  'MyBankController@add')->name('admin.addMyBank');
-    Route::get('add',                  'MyBankController@add')->name('admin.addMyBank');
-});
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'mails'], function () {
-    Route::get('/',                  'MailTemplateController@list')->name('admin.myMails');
-    Route::get('get-list',                  'MailTemplateController@getList')->name('admin.getMails');
-    Route::get('get-list-all',                  'MailTemplateController@getListAll')->name('admin.getAllMails');
-    Route::post('edit/{id}',                  'MailTemplateController@edit')->name('admin.editMails');
-    Route::get('edit/{id}',                  'MailTemplateController@edit')->name('admin.editMails');
-    Route::get('delete/{id}',                  'MailTemplateController@delete')->name('admin.deleteMails');
-    Route::post('add',                  'MailTemplateController@add')->name('admin.addMails');
-    Route::get('add',                  'MailTemplateController@add')->name('admin.addMails');
-});
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'collaborators'], function () {
-    Route::get('/',                  'CollaboratorsController@list')->name('admin.Collaborators');
-    Route::get('get-list',                  'CollaboratorsController@getList')->name('admin.getCollaborators');
-    Route::get('get-list-all',                  'CollaboratorsController@getListAll')->name('admin.getAllCollaborators');
-    Route::post('edit/{id}',                  'CollaboratorsController@edit')->name('admin.editCollaborators');
-    Route::get('edit/{id}',                  'CollaboratorsController@edit')->name('admin.editCollaborators');
-    Route::get('get-detail-id/{id}',                  'CollaboratorsController@getDetailId')->name('admin.editCollaborators');
-    Route::get('delete/{id}',                  'CollaboratorsController@delete')->name('admin.deleteCollaborators');
-    Route::post('add',                  'CollaboratorsController@add')->name('admin.addCollaborators');
-    Route::get('add',                  'CollaboratorsController@add')->name('admin.addCollaborators');
-    Route::get('list-bank/{id}',                  'CollaboratorsController@getListBankOfCollaborators');
-    Route::get('list-collaborators-address',                  'CollaboratorsController@getListByAddress');
-    Route::get('list-collaborators-address-condition',                  'CollaboratorsController@getListByAddressAndCondition');
-    Route::get('report-day',                  'CollaboratorsController@day');
-    Route::get('report-district',                  'CollaboratorsController@district');
-    
-});
-
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'ctvjobs'], function () {
-    Route::get('/',                  'CtvJobsController@list')->name('admin.CtvJobs');
-    Route::get('get-list',                  'CtvJobsController@getList')->name('admin.getCtvJobs');
-    Route::get('get-list-all',                  'CtvJobsController@getListAll')->name('admin.getAllCtvJobs');
-    Route::post('edit/{id}',                  'CtvJobsController@edit')->name('admin.editCtvJobs');
-    Route::get('edit/{id}',                  'CtvJobsController@edit')->name('admin.editCtvJobs');
-    Route::get('get-detail-id/{id}',                  'CtvJobsController@getDetailId')->name('admin.editCtvJobs');
-    Route::get('delete/{id}',                  'CtvJobsController@delete')->name('admin.deleteCtvJobs');
-    Route::post('add',                  'CtvJobsController@add')->name('admin.addCtvJobs');
-    Route::get('add',                  'CtvJobsController@add')->name('admin.addCtvJobs');
-    Route::get('list-bank/{id}',                  'CtvJobsController@getListBankOfCtvJobs');
-    
-});
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'chi'], function () {
-    Route::get('list',                  'ChitienController@list')->name('admin.listChi');
-    Route::get('get-list',                  'ChitienController@getList')->name('admin.getChi');
-    Route::get('get-list-all',                  'ChitienController@getListAll')->name('admin.getAllChi');
-    Route::post('edit/{id}',                  'ChitienController@edit')->name('admin.editChi');
-    Route::get('edit/{id}',                  'ChitienController@edit')->name('admin.editChi');
-    Route::get('delete/{id}',                  'ChitienController@delete')->name('admin.deleteChi');
-    Route::post('add',                  'ChitienController@add')->name('admin.addChi');
-    Route::get('add',                  'ChitienController@add')->name('admin.addChi');
-    Route::get('thong-ke',                  'ChitienController@report');
-    Route::get('thong-ke-api',                  'ChitienController@reportAPI');
-});
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'cusjobs'], function () {
-    Route::get('/',                  'CusJobsController@list')->name('admin.CusJobs');
-    Route::get('get-list',                  'CusJobsController@getList')->name('admin.getCusJobs');
-    Route::get('get-list-all',                  'CusJobsController@getListAll')->name('admin.getAllCusJobs');
-    Route::post('edit/{id}',                  'CusJobsController@edit')->name('admin.editCusJobs');
-    Route::get('edit/{id}',                  'CusJobsController@edit')->name('admin.editCusJobs');
-    Route::get('get-detail-id/{id}',                  'CusJobsController@getDetailId')->name('admin.editCusJobs');
-    Route::get('delete/{id}',                  'CusJobsController@delete')->name('admin.deleteCusJobs');
-    Route::post('add',                  'CusJobsController@add')->name('admin.addCusJobs');
-    Route::get('add',                  'CusJobsController@add')->name('admin.addCusJobs');
-    Route::get('list-bank/{id}',                  'CusJobsController@getListBankOfCusJobs');
-    Route::get('/import',                  'CusJobsController@import');
-    
-});
-
 Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function () {
-    
+    //経費支払月
     Route::get('get-expenses',                  'ChitienController@getListExpenses')->name('admin.getListExpenses');
     Route::get('expenses',                  'ChitienController@getViewExpenses');
     Route::get('expenses-pdf',                  'ChitienController@pdfViewExpenses');
 
     Route::get('get-expenses-detail',                  'ChitienController@getListExpensesDetail')->name('admin.getListExpensesDetail');
     Route::get('expenses-detail/{id}',                  'ChitienController@getViewExpensesDetail');
-    
     Route::get('expenses-detail-pdf/{id}',                  'ChitienController@pdfViewExpensesDetail');
     Route::get('expenses-detail-receipt-pdf/{id}', 'ChitienController@pdfExpensesDetailReceipt');
-    Route::get('expensesview/{id}',                  'ChitienController@viewExpenses')->name('admin.viewExpenses');
-
-    Route::get('expensesdetaildelete/{id}',                  'ChitienController@deleteExpensesDetail')->name('admin.deleteExpensesDetail');
     
+    Route::get('expensesview/{id}',                  'ChitienController@viewExpenses')->name('admin.viewExpenses');
+    Route::get('expensesdetaildelete/{id}',                  'ChitienController@deleteExpensesDetail')->name('admin.deleteExpensesDetail');
     Route::post('expensesupdate/{id}',                  'ChitienController@updateExpenses')->name('admin.updateExpenses');
     Route::get('expensesupdate/{id}',                  'ChitienController@updateExpenses')->name('admin.updateExpenses');
-
     Route::get('expensesdelete/{id}',                  'ChitienController@deleteExpenses')->name('admin.deleteExpenses');
-
-
     Route::post('expensesnew',                  'ChitienController@newExpenses')->name('admin.newExpenses');
     Route::get('expensesnew',                  'ChitienController@newExpenses')->name('admin.newExpenses');
-
-    Route::get('get-project',                  'ProjectController@getListProject')->name('admin.getListProject');
-    Route::get('project',                  'ProjectController@getViewProject');
-
-    Route::post('projectnew',                  'ProjectController@addProject')->name('admin.addProject');
-    Route::get('projectnew',                  'ProjectController@addProject')->name('admin.addProject');
-
-    Route::post('projectview/{id}',                  'ProjectController@viewProject')->name('admin.viewProject');
-    Route::get('projectview/{id}',                  'ProjectController@viewProject')->name('admin.viewProject');
-
-    // Route::post('projectedit/{id}',                  'CompanyController@edit')->name('admin.edit');
-    // Route::get('projectedit/{id}',                  'CompanyController@edit')->name('admin.edit');
-
-    
-    Route::post('projectupdate/{id}',                  'ProjectController@updateProject')->name('admin.updateProject');
-    Route::get('projectupdate/{id}',                  'ProjectController@updateProject')->name('admin.updateProject');
-
-  
-    Route::get('get-partner-interpreter',                  'CompanyController@getListPD')->name('admin.getListPD');
-    Route::get('partner-interpreter',                  'CompanyController@listPD');
-    Route::get('partner-interpreter-pdf', 'CompanyController@pdfListPD');
-
-    Route::get('partner-sale-pdf', 'CompanyController@pdfListSale');
-    Route::get('get-list-sale',                  'CompanyController@getListSale')->name('admin.getAllCompanySale');
-    Route::get('partner-sale',                  'CompanyController@listSale');
-    Route::get('partner-sale-receipt-pdf/{id}', 'CompanyController@pdfSaleReceipt');   
-    Route::get('partner-interpreter-receipt-pdf/{id}', 'CompanyController@pdfInterpreterReceipt');   
-
-    Route::get('get-move-fee',                  'CompanyController@getListMoveFee')->name('admin.getListMoveFee');
-    Route::get('move-fee',                  'CompanyController@listMoveFee');
-    Route::get('move-fee-pdf', 'CompanyController@pdfMoveFee');
-    Route::get('move-fee-receipt-pdf/{id}', 'CompanyController@pdfMoveFeeReceipt');
-
-    Route::get('get-bank-fee',                  'CompanyController@getListBankFee')->name('admin.getListBankFee');
-    Route::get('bank-fee',                  'CompanyController@listBankFee');
-    Route::get('bank-fee-pdf', 'CompanyController@pdfBankFee');
-
-    Route::get('get-earnings',                  'CompanyController@getListEarnings')->name('admin.getListEarnings');
-    Route::get('earnings',                  'CompanyController@listEarnings');
-
-    Route::get('get-cost',                  'CompanyController@getListCost')->name('admin.getListCost');
-    Route::get('cost',                  'CompanyController@listCost');
-    
-    Route::get('get-benefit',                  'CompanyController@getListBenefit')->name('admin.getListBenefit');
-    Route::get('benefit',                  'CompanyController@listBenefit');
-
-    Route::get('calendar',                  'ReportController@calendar');
-
-    
-    Route::get('get-dashboard',                  'CompanyController@getListDashboard')->name('admin.getListDashboard');
-    Route::get('/',                  'CompanyController@listDashboard');
-
-    
-
-    Route::get('get-taxpd',                  'CompanyController@getListTaxPD')->name('admin.getListTaxPD');
-    Route::get('taxpd',                  'CompanyController@listTaxPD');
-    Route::get('pdf-taxpd', 'CompanyController@pdfTaxPD');
-});
-
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'company'], function () {
-    // Route::get('/',                  'CompanyController@list')->name('admin.Company');
-    // Route::get('get-list',                  'CompanyController@getList')->name('admin.getCompany');
-    // Route::get('get-list-all',                  'CompanyController@getListAll')->name('admin.getAllCompany');
-
-
-    Route::get('get-partner-interpreter',                  'CompanyController@getListPD')->name('admin.getListPD');
-    Route::get('partner-interpreter',                  'CompanyController@listPD');
-
-	Route::get('get-list-pay',                  'CompanyController@getListPay')->name('admin.getAllCompanyPay');
-    Route::get('list-pay',                  'CompanyController@listPay');
-	
-    
-    Route::get('delete/{id}',                  'CompanyController@delete')->name('admin.deleteCompany');
-   
-    Route::get('send-mail',                  'CompanyController@sendMail');
-    Route::post('send-mail-template',                  'CompanyController@SendEmailTemplateJobs');
-
-
-    Route::get('pdf/{id}', 'CompanyController@pdf');
-    Route::get('pdf-type/{id}', 'CompanyController@pdfType');
-    Route::get('pdf-type-new/{id}', 'CompanyController@pdfTypeNew');
-    Route::get('pdf-pay', 'CompanyController@pdfPay');
-    Route::get('pdf-earnings', 'CompanyController@pdfEarnings');
-
-});
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'report'], function () {
-    Route::get('/',                  'ReportController@index');
-});
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'chart-report-jobs'], function () {
-    Route::get('/',                  'ReportController@chart');
-});
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'chart-report-price'], function () {
-    Route::get('/',                  'ReportController@chartPrice');
-    Route::get('/news',                  'ReportController@chartPriceNew');
-});
-
-/* Dashboard */
-Route::group(['namespace' => 'Admin',   'prefix' => 'district'], function () {
-    Route::get('list-by-province/{id}',                  'DistrictController@getDistrictByProvinces');
-});
-Route::group(['namespace' => 'Admin',   'prefix' => 'ward'], function () {
-    Route::get('list-by-district/{id}',                  'WardsController@getWardsByDistrict');
-});
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'jlpt'], function () {
-    Route::get('/',                  'JlptController@list');
-    Route::get('get-list',                  'JlptController@getList');
-    Route::get('get-list-all',                  'JlptController@getListAll');
-    Route::post('edit/{id}',                  'JlptController@edit');
-    Route::get('edit/{id}',                  'JlptController@edit');
-    Route::get('delete/{id}',                  'JlptController@delete');
-    Route::post('add',                  'JlptController@add');
-    Route::get('add',                  'JlptController@add');
 });
 
 Route::group(['namespace' => 'Admin',  'prefix' => 'api'], function () {

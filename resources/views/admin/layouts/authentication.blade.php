@@ -9,7 +9,7 @@
 
         <link rel="icon" href="{{ asset('assets/images/fvc.png') }}" type="image/x-icon"> <!-- Favicon-->
         <!-- <title>@yield('title') - {{ config('app.name') }}</title> -->
-        <title>AlphaCep - 通訳事業管理システム</title>
+        <title>AlphaCep Suite</title>
         <meta name="description" content="@yield('meta_description', config('app.name'))">
         <meta name="author" content="@yield('meta_author', config('app.name'))">
         @yield('meta')

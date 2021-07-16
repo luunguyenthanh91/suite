@@ -1,14 +1,14 @@
-<div class="navbar navbar-expand navbar-dark" id="default-navbar" data-primary>           
-    <button class="navbar-toggler w-auto d-block rounded-0" type="button" data-toggle="sidebar" style="color:white;margin-left:-20px;">
-        <div class="material-icons" style="font-size:40px;margin-bottom:-12px;color:white">menu</div>
-        <label style="font-size:11px;">MENU</label>
-    </button>
-    <center style="width:100%">
-        <div style="font-size:26px;font-weight: bold;color:white;margin-bottom:-5px;">AlphaCep Suite</div>
-        <div style="font-size:16px;font-weight: bold;color:white">@yield('contentTitle')</div>
-    </center>
-    <div style="color:white;margin-right:-30px;margin-top:10px;">
-        <img style="width:40px;height:40px;margin-bottom:-5px;" src="{{ asset('assets/images/fvc2.png') }}" alt="logo" class="img-fluid"/>
-        <label style="font-size:8px;">AlphaCep</label>
+<div class="navbar navbar-expand navbar-dark" id="default-navbar" data-primary>     
+    <div type="button" class="btn btn-outline-secondary" style="width:50px;height:50px;" data-toggle="sidebar">
+        <div style="margin-top:10px;">        
+            <i class="fas fa-bars styleFotterIcon"></i><br>
+            <label style="margin-top:-5px;" class="styleFotterText">MENU</label>
+        </div>
     </div>
+    <center style="width:100%">
+        <div class="styleHeaderTitleText">AlphaCep Suite</div>
+        <div class="styleHeaderSubTitleText">@yield('contentTitle')</div>
+    </center>
+    <img style="width:50px;height:50px;" src="{{ asset('assets/images/fvc2.png') }}" alt="logo" class="img-fluid"/>
+    
 </div> 

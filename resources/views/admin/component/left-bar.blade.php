@@ -8,7 +8,6 @@
                         ホーム
                     </a>
                 </li>
-
                 <!-- <li class="sidebar-menu-item active open
                 {{ (request()->is('*company*')) ? 'active open' : '' }}
                 {{ (request()->is('*calendar*')) ? 'active open' : '' }}
@@ -24,10 +23,30 @@
                         <li class="sidebar-menu-item {{ (request()->is('*expenses*')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/expenses">
                                 <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
-                                <span class="sidebar-menu-text">1- 経費支払月管理表</span>
+                                <span class="sidebar-menu-text">A- 経費支払月</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item {{ (request()->is('*expenseslist*')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/expenseslist">
+                                <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
+                                <span class="sidebar-menu-text">B- 経費一覧</span>
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="sidebar-menu-item active open">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#report-col" aria-expanded="false">
+                        <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
+                        2 - 売上管理
+                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item active open">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#report-col" aria-expanded="false">
+                        <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
+                        3 - 人事管理
+                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                    </a>
                 </li>
             </ul>
         </div>
