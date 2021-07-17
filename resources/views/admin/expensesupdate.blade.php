@@ -21,16 +21,14 @@
         <div class="container page__container page-section page_container_custom" :style="'margin-top: ' + marginTop">
             <form action="" method="POST" class="p-0 mx-auto form-data" >
                 @csrf
-                <div class="row">
-                    <div class="col-lg-12">
+                <div class="row d-flex">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <label class="form-label">日付</label>
                             <input type="date" name="date" class="form-control" value="{{@$data['date']}}" >
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <label class="form-label">勘定科目</label>
                             <select class="form-control custom-select" name="typeLog">
@@ -53,21 +51,29 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-3">
                         <div class="form-group">
-                            <label class="form-label">摘要</label>
-                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="4">{{@$data['name']}}</textarea>
+                            <label class="form-label">金額</label>
+                            <input type="text" id="price" class="form-control" :value="new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format({{@$data['price'] ? @$data['price'] : 0}})">
+                            <input type="hidden" id="pricedata" name="price" class="form-control" value="{{@$data['price']}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="form-label">種類</label>
+                            <select class="form-control custom-select" name="type">
+                                <option value="" ></option>
+                                <option value="1" @if(@$data['type'] == 1) selected @endif>管理会計</option>
+                                <option value="2" @if(@$data['type'] == 2) selected @endif>税務会計</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label class="form-label">金額</label>
-                            <input type="text" id="price" class="form-control" :value="new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format({{@$data['price'] ? @$data['price'] : 0}})">
-                            <input type="hidden" id="pricedata" name="price" class="form-control" value="{{@$data['price']}}">
+                            <label class="form-label">摘要</label>
+                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="4">{{@$data['name']}}</textarea>
                         </div>
                     </div>
                 </div>

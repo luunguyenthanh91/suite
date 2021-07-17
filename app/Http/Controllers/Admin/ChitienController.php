@@ -728,6 +728,7 @@ class ChitienController extends Controller
                 $data = new Chitien();
                 $data->date = $request->date;
                 $data->typelog = $request->typelog;
+                $data->type = $request->type;
                 $data->name = $request->name;
                 $data->price = $request->price;
                 $data->file = $request->file;
