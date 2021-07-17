@@ -64,7 +64,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-label">摘要</label>
-                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="4"></textarea>
+                            <textarea type="text" name="name" class="form-control textarea col-lg-12" rows="4"></textarea>
                         </div>
                     </div>
                 </div>

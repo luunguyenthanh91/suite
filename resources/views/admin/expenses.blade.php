@@ -25,19 +25,19 @@
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
                                     <label class="form-label">月</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau">
+                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau" min="2021-03">
                                 </div>
                             </div>
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
                                     <label class="form-label">月から</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from">
+                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from" min="2021-03">
                                 </div>
                             </div>
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
                                     <label class="form-label">月まで</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to">
+                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to" min="2021-03">
                                 </div>
                             </div>
                             <div class="page-separator-line"></div>

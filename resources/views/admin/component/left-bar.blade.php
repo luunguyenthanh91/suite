@@ -23,19 +23,19 @@
                         <li class="sidebar-menu-item {{ (request()->is('*expenses')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/expenses">
                                 <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
-                                <span class="sidebar-menu-text">A- 経費支払月</span>
+                                <span class="sidebar-menu-text">A- 支払月報</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item {{ (request()->is('*expenseslist*')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/expenseslist">
                                 <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
-                                <span class="sidebar-menu-text">B- 経費科目一覧</span>
+                                <span class="sidebar-menu-text">B- 科目一覧</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item {{ (request()->is('*expensesitemnew')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/expensesitemnew">
                                 <!-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left icon-image-preview">supervisor_account</span> -->
-                                <span class="sidebar-menu-text">C- 経費科目登録</span>
+                                <span class="sidebar-menu-text">C- 科目登録</span>
                             </a>
                         </li>
                     </ul>
