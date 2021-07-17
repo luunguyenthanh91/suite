@@ -167,7 +167,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('expenseslist',                  'ChitienController@getViewListExpensesItem');
     Route::post('expensesitemnew',                  'ChitienController@newExpensesItem')->name('admin.newExpensesItem');
     Route::get('expensesitemnew',                  'ChitienController@newExpensesItem')->name('admin.newExpensesItem');
-
+    Route::get('expenseslist-pdf',                  'ChitienController@pdfViewExpensesList');
 
     Route::get('get-dashboard', 'CompanyController@getListDashboard')->name('admin.getListDashboard');
     Route::get('/', 'CompanyController@listDashboard');

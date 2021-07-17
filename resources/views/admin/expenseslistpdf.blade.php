@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>経費支払月一覧表</title>
+    <title>経費科目一覧表</title>
 </head>
 <div style='float:right;'>
     <div style='position: fixed; right:0;'>
@@ -18,7 +18,7 @@
     <table style="width:100%;">
         <tr>
             <td style="vertical-align:top;text-align:center">
-                <div style="font-size:24;">経費支払月一覧表</div>  
+                <div style="font-size:24;">経費科目一覧表</div>  
             </td>
         </tr>
     </table>
@@ -30,7 +30,7 @@
                         <td>件数： {{ number_format($data->sumData) }} 件</td>
                     </tr>
                     <tr>
-                        <td>支払月： {{$data->selectedMonth}}</td>
+                        <td>支払日付： {{$data->selectedMonth}}</td>
                     </tr>
                     <tr>
                         <td>経費合計： ¥{{ number_format($data->sumPay) }}</td>
@@ -58,18 +58,74 @@
         <div>該当のデータがありません。</div>
     @else 
         <tr>
-            <td class="bgRowHeaderPDF border-all title_form" style="width:400px">月</td>
-            <td class="bgRowHeaderPDF border-all title_form" style="width:150px">金額</td>
+            <td class="bgRowHeaderPDF border-all title_form" style="width:350px">摘要</td>
+            <td class="bgRowHeaderPDF border-all title_form" style="width:120px">金額</td>
+            <td class="bgRowHeaderPDF border-all title_form" >領収書</td>
             <td class="bgRowHeaderPDF border-all title_form" >確認者</td>
             <td class="bgRowHeaderPDF border-all title_form" >承認者</td>
         </tr>
         @foreach($data as $item)
             <tr>
                 <td class="border-all data_form"  style="vertical-align:top">
-                    <span>{{$item->date}}</span>
+                    <span>{{$item->date}}</span><br>
+                    [
+                        @if ($item->typeLog == 1)
+                        <span>租税公課</span>
+                    @endif
+                    @if ($item->typeLog == 2)
+                        <span>修繕費</span>
+                    @endif
+                    @if ($item->typeLog == 3)
+                        <span>水道光熱費</span>
+                    @endif
+                    @if ($item->typeLog == 4)
+                        <span>保険料</span>
+                    @endif
+                    @if ($item->typeLog == 5)
+                        <span>消耗品費</span>
+                    @endif
+                    @if ($item->typeLog == 6)
+                        <span>法定福利費</span>
+                    @endif
+                    @if ($item->typeLog == 7)
+                        <span>給料賃金</span>
+                    @endif
+                    @if ($item->typeLog == 8)
+                        <span>地代家賃</span>
+                    @endif
+                    @if ($item->typeLog == 9)
+                        <span>外注工賃</span>
+                    @endif
+                    @if ($item->typeLog == 10)
+                        <span>支払手数料</span>
+                    @endif
+                    @if ($item->typeLog == 11)
+                        <span>旅費交通費</span>
+                    @endif
+                    @if ($item->typeLog == 12)
+                        <span>開業費/創立費</span>
+                    @endif
+                    @if ($item->typeLog == 13)
+                        <span>通信費</span>
+                    @endif
+                    @if ($item->typeLog == 14)
+                        <span>接待交際費</span>
+                    @endif
+                    @if ($item->typeLog == 15)
+                        <span>その他</span>
+                    @endif
+                    ]<br>
+                    <span>{{$item->name}}</span>
                 </td>
                 <td class="border-all data_form" style="vertical-align:top;text-align:right">
                     ¥{{ number_format($item->price) }}
+                </td>
+                <td class="border-all data_form" style="vertical-align:top;text-align:center">
+                    @if ($item->file) 
+                        <span>あり</span>
+                    @else 
+                        <span style="color:red">なし</span>
+                    @endif
                 </td>
                 <td class="border-all data_form"></td>
                 <td class="border-all data_form"></td>
@@ -158,7 +214,7 @@ body {
 #customers2 {
 font-family: ipag;
   border-collapse: collapse;
-  width: 300px;  
+  width: 350px;  
   margin-bottom: 10px;
   margin-top: 10px;
   padding: 0px;

@@ -51,20 +51,14 @@ class ChitienController extends Controller
         $data = Chitien::orderBy($sortName , $sortType);
         
         if(@$request->ngay_bat_dau != '' ){
-            $date = date_create( $request->ngay_bat_dau);
-            $dateCondition = date_format($date,"Y-m");
-            $data = $data->where('date','=' , $dateCondition );
+            $data = $data->where('date','LIKE' , '%'.$request->ngay_bat_dau.'%' );
         }
         
         if(@$request->ngay_bat_dau_from != '' ){
-            $date = date_create( $request->ngay_bat_dau_from);
-            $dateCondition = date_format($date,"Y-m");
-            $data = $data->where('date','>=' , $dateCondition );
+            $data = $data->where('date','>=' , @$request->ngay_bat_dau_from);
         }
         if(@$request->ngay_bat_dau_to != '' ){
-            $date = date_create( $request->ngay_bat_dau_to);
-            $dateCondition = date_format($date,"Y-m");
-            $data = $data->where('date','<=' , $dateCondition );
+            $data = $data->where('date','<=' , @$request->ngay_bat_dau_to );
         }
         if(@$request->typelog_multi != '' ){
             $data = $data->whereIn('typelog', explode(',', $request->typelog_multi) );
@@ -85,6 +79,71 @@ class ChitienController extends Controller
         }
         unset($item);
         return response()->json(['data'=>$data,'count'=>$count,'pageTotal' => $pageTotal , 'totalPrice' => $totalPrice]);
+    }
+
+    function pdfViewExpensesList(Request $request) {
+        $page = $request->page - 1;
+        $sortName = "chitien.date";
+        $sortType = "DESC";
+        if(@$request->sortname != '' ){
+            $sortName = @$request->sortname;
+            $sortType = @$request->sorttype;
+        }
+        $data = Chitien::orderBy($sortName , $sortType);
+        
+        if(@$request->ngay_bat_dau != '' ){
+            $data = $data->where('date','LIKE' , '%'.$request->ngay_bat_dau.'%' );
+        }
+        
+        if(@$request->ngay_bat_dau_from != '' ){
+            $data = $data->where('date','>=' , @$request->ngay_bat_dau_from);
+        }
+        if(@$request->ngay_bat_dau_to != '' ){
+            $data = $data->where('date','<=' , @$request->ngay_bat_dau_to );
+        }
+        if(@$request->typelog_multi != '' ){
+            $data = $data->whereIn('typelog', explode(',', $request->typelog_multi) );
+        }
+
+        $count = $data->count();
+        $showCount = $request->showcount;
+        if ($showCount == 0) {
+            $showCount = $count;
+        }
+        $data = $data->offset($page * $showCount)->limit($showCount)->get();
+        $countPage = $count === 0 ? 1 : $count;
+        $pageTotal = ceil($countPage/$showCount);
+
+        $totalPrice = 0;
+        foreach ($data as &$item) {
+            $totalPrice += $item->price;
+        }
+        unset($item);
+
+        $selectedMonth = '';
+        if(@$request->ngay_bat_dau != '' ){
+            $selectedMonth = $request->ngay_bat_dau;
+        }
+        
+        if(@$request->ngay_bat_dau_from != '' ){
+            $selectedMonth = $selectedMonth . $request->ngay_bat_dau_from . '～';
+        }
+
+        if(@$request->ngay_bat_dau_to != '' ){
+            if(@$request->ngay_bat_dau_from != '' ){
+                $selectedMonth = $selectedMonth . $request->ngay_bat_dau_to;
+            } else {
+                $selectedMonth = $selectedMonth . $request->ngay_bat_dau_to . 'まで';
+            }
+        }
+
+        $count = $data->count();
+        $data->sumPay = $totalPrice;
+        $data->sumData = $count;
+        $data->selectedMonth = $selectedMonth;
+        $pdf = PDF::loadView('admin.expenseslistpdf', compact('data'));
+
+        return $pdf->download('経費科目一覧表('.$selectedMonth.').pdf');
     }
     
     function getViewExpenses(Request $request) {

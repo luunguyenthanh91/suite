@@ -149,8 +149,8 @@
             <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/expensesitemnew">
                 <i class="fa fa-plus-square"><span class="labelButton">新規登録</span></i>
             </a>
-            <a type="button" class="btn btn-outline-secondary3" style="background:DarkTurquoise" :href="'/admin/expenses-pdf?' + conditionSearch">
-                <i class="fa fa-file-pdf"><span class="labelButton">経費一覧表(PDF)</span></i>
+            <a type="button" class="btn btn-outline-secondary3" style="background:DarkTurquoise" :href="'/admin/expenseslist-pdf?' + conditionSearch">
+                <i class="fa fa-file-pdf"><span class="labelButton">経費科目一覧表(PDF)</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:#F119D4" data-toggle="modal" data-target="#myModal">
                 <i class="fas fa-search"><span class="labelButton">検索</span></i>
