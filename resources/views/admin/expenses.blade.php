@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '経費管理表')
+@section('contentTitle', '経費支払月管理表')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool3">
     <!-- header    -->
@@ -65,7 +65,7 @@
                 <i class="fa fa-plus-square"><span class="labelButton">新規登録</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:DarkTurquoise" :href="'/admin/expenses-pdf?' + conditionSearch">
-                <i class="fa fa-plus-square"><span class="labelButton">経費一覧表(PDF)</span></i>
+                <i class="fa fa-plus-square"><span class="labelButton">経費支払月一覧表(PDF)</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:#F119D4" data-toggle="modal" data-target="#myModal">
                 <i class="fas fa-search"><span class="labelButton">検索</span></i>
@@ -324,7 +324,7 @@
                                                         </table>
                                                     </div>
                                                 </td>
-                                                <td v-if='type_show == 1' style="background:Lavender">
+                                                <td v-if='type_show == 1'>
                                                     ((item.date))<br>
                                                     <a type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" :href="'/admin/expenses-detail/' + item.id">
                                                         <i class="fas fa-info-circle"><span class="labelButton">詳細</span></i>
@@ -335,7 +335,7 @@
                                                     </a>
                                                 </td>
                                                 
-                                                <td class="moneyCol" v-if='type_show == 1' style="background:Lavender">
+                                                <td class="moneyCol" v-if='type_show == 1'>
                                                     (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.price) ))
                                                 </td>
                                                 

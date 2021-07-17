@@ -24,20 +24,105 @@
                         <div class="table-responsive">
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">月</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau">
+                                    <label class="form-label">日付</label>
+                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau" min="2021-03-17">
                                 </div>
                             </div>
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">月から</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from">
+                                    <label class="form-label">日付から</label>
+                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from" min="2021-03-17">
                                 </div>
                             </div>
                             <div class="row standardColorSearch">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">月まで</label>
-                                    <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to">
+                                    <label class="form-label">日付まで</label>
+                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to" min="2021-03-17">
+                                </div>
+                            </div>
+                            <div class="page-separator-line"></div>
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label class="form-label">勘定科目</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="1" value="1" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="1">租税公課</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="2" value="2" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="2">修繕費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="3" value="3" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="3">水道光熱費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="4" value="4" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="4">保険料</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="5" value="5" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="5">消耗品費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="6" value="6" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="6">法定福利費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="7" value="7" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="7">給料賃金</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="8" value="8" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="8">地代家賃</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="9" value="9" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="9">外注工賃</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="10" value="10" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="10">支払手数料</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="11" value="11" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="11">旅費交通費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="12" value="12" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="12">開業費/創立費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="13" value="13" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="13">通信費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="14" value="14" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="14">接待交際費</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="15" value="15" v-model="checkedNames" @change="someHandlerChange()">
+                                    <label for="15">その他</label>
+                                </div>
+
+                                <div class="form-group col-lg-12">
+                                    <button type="button" @click="clearSearchStatus()" class="linkCheckboxAll">全てOFF</button>
+                                    <button type="button" @click="setSearchStatus()" class="linkCheckboxAll">全てON</button>
+                                </div>
+                            </div>
+                            <div class="page-separator-line"></div>
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label class="form-label">領収書</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="checkedReceiptStatus0" value="1" @change="someHandlerChange()" v-model="checkedCTVSex">
+                                    <label for="checkedReceiptStatus0">なし</label>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <input type="checkbox" id="checkedReceiptStatus1" value="2" @change="someHandlerChange()" v-model="checkedCTVSex">
+                                    <label for="checkedReceiptStatus1">あり</label>
                                 </div>
                             </div>
                             <div class="page-separator-line"></div>
@@ -61,11 +146,11 @@
 
         <!-- button control -->
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/expensesnew">
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/expensesitemnew">
                 <i class="fa fa-plus-square"><span class="labelButton">新規登録</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:DarkTurquoise" :href="'/admin/expenses-pdf?' + conditionSearch">
-                <i class="fa fa-plus-square"><span class="labelButton">経費一覧表(PDF)</span></i>
+                <i class="fa fa-file-pdf"><span class="labelButton">経費一覧表(PDF)</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:#F119D4" data-toggle="modal" data-target="#myModal">
                 <i class="fas fa-search"><span class="labelButton">検索</span></i>
@@ -91,8 +176,8 @@
                             <br>
                             <label class="form-label">並び替え</label>
                             <select @change="someHandlerChangeSortName()" v-model="sortNameSelect">
-                                <option value="1" >月の降順</option>
-                                <option value="2" >月の昇順</option>
+                                <option value="1" >日付の降順</option>
+                                <option value="2" >日付の昇順</option>
                             </select>
                             <label class="form-label labelSwitchShow">表示切替</label>
                             <a type="button" class="btn btn-outline-secondary2" style="background:#DB7C18" @click="switchView()" v-if='type_show == 1'>
@@ -118,32 +203,117 @@
                                         </thead>
                                         <tr>
                                             <td>
-                                                <div class="row standardColorSearch">
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="form-label">月</label>
-                                                        <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau">
-                                                    </div>
+                                            <div class="row standardColorSearch">
+                                                <div class="form-group col-lg-12">
+                                                    <label class="form-label">日付</label>
+                                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau" min="2021-03-17">
                                                 </div>
-                                                <div class="row standardColorSearch">
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="form-label">月から</label>
-                                                        <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from">
-                                                    </div>
+                                            </div>
+                                            <div class="row standardColorSearch">
+                                                <div class="form-group col-lg-12">
+                                                    <label class="form-label">日付から</label>
+                                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_from" min="2021-03-17">
                                                 </div>
-                                                <div class="row standardColorSearch">
-                                                    <div class="form-group col-lg-12">
-                                                        <label class="form-label">月まで</label>
-                                                        <input type="month" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to">
-                                                    </div>
+                                            </div>
+                                            <div class="row standardColorSearch">
+                                                <div class="form-group col-lg-12">
+                                                    <label class="form-label">日付まで</label>
+                                                    <input type="date" class="form-control search" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()" v-model="ngay_bat_dau_to" min="2021-03-17">
                                                 </div>
-                                                <div class="page-separator-line"></div>
-                                                <div class="row">
-                                                    <div class="form-group col-lg-12 textAlignCenter">
-                                                        <a type="button" class="btn btn-outline-secondary3" style="background:#673FF7" @click="someHandlerChange()">
-                                                            <i class="fas fa-search"><span class="labelButton">検索</span></i>
-                                                        </a> 
-                                                    </div>
+                                            </div>
+                                            <div class="page-separator-line"></div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-12">
+                                                    <label class="form-label">勘定科目</label>
                                                 </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="1" value="1" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="1">租税公課</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="2" value="2" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="2">修繕費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="3" value="3" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="3">水道光熱費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="4" value="4" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="4">保険料</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="5" value="5" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="5">消耗品費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="6" value="6" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="6">法定福利費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="7" value="7" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="7">給料賃金</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="8" value="8" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="8">地代家賃</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="9" value="9" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="9">外注工賃</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="10" value="10" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="10">支払手数料</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="11" value="11" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="11">旅費交通費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="12" value="12" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="12">開業費/創立費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="13" value="13" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="13">通信費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="14" value="14" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="14">接待交際費</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="15" value="15" v-model="checkedNames" @change="someHandlerChange()">
+                                                    <label for="15">その他</label>
+                                                </div>
+
+                                                <div class="form-group col-lg-12">
+                                                    <button type="button" @click="clearSearchStatus()" class="linkCheckboxAll">全てOFF</button>
+                                                    <button type="button" @click="setSearchStatus()" class="linkCheckboxAll">全てON</button>
+                                                </div>
+                                            </div>
+                                            <div class="page-separator-line"></div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-12">
+                                                    <label class="form-label">領収書</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="checkedReceiptStatus0" value="1" @change="someHandlerChange()" v-model="checkedCTVSex">
+                                                    <label for="checkedReceiptStatus0">なし</label>
+                                                </div>
+                                                <div class="form-group col-lg-12">
+                                                    <input type="checkbox" id="checkedReceiptStatus1" value="2" @change="someHandlerChange()" v-model="checkedCTVSex">
+                                                    <label for="checkedReceiptStatus1">あり</label>
+                                                </div>
+                                            </div>
+                                            <div class="page-separator-line"></div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-12 textAlignCenter">
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:#673FF7" @click="someHandlerChange()">
+                                                        <i class="fas fa-search"><span class="labelButton">検索</span></i>
+                                                    </a> 
+                                                </div>
+                                            </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -151,250 +321,146 @@
 
                             <!-- grid right bar -->
                             <div class="bodyContentRight tableFixHead">
-                            <table id="gridTable" class="table thead-border-top-0 table-nowrap">
+                                <table id="gridTable" class="table thead-border-top-0 table-nowrap">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col" style="width:100%;" v-if='type_show == 2'>
                                                     <div class="threadLabelCenter">経費</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="threadLabelCenter" id="lblOrderNumber">月 ▼</div>
+                                                    <div class="threadLabelCenter" id="lblOrderNumber">日付 ▼</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">経費合計</div>
+                                                    <div>勘定科目</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">租税公課</div>
+                                                    <div>摘要</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">修繕費</div>
+                                                    <div class="textAlignR">金額</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">水道光熱費</div>
+                                                    <div>領収書</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">保険料</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">消耗品費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">法定福利費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">給料賃金</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">地代家賃</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">外注工賃</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">支払手数料</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">旅費交通費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">開業費/創立費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">通信費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">接待交際費</div>
-                                                </th>
-                                                <th scope="col" v-if='type_show == 1'>
-                                                    <div class="textAlignR">その他</div>
+                                                    <div>備考</div>
                                                 </th>
                                                 <th scope="col" v-if='type_show == 1' style="width: 100%; "></th>
                                             </tr>
                                         </thead>
                                         <tbody class="list" id="search">
-                                            <tr v-for="item in list">
+                                        <tr v-for="item in list">
                                                 <td v-if='type_show == 2' :class="item.classStyle + ' p-0 pl-2 pb-2 fullWidth'">
                                                     <p class="rowContent">
                                                         <table class="m-0 table thead-border-top-0 table-nowrap table-mobile">
                                                             <tr>
-                                                                <td class="titleTd">月：</td>
+                                                                <td class="titleTd">日付：</td>
                                                                 <td>
                                                                     ((item.date))<br>
-                                                                    <a type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" :href="'/admin/expenses-detail/' + item.id">
+                                                                    <a type="button" class="btn btn-outline-secondary3" style="background:#F36C1F" target="_blank" :href="'/admin/expensesview/' + item.id">
                                                                         <i class="fas fa-info-circle"><span class="labelButton">詳細</span></i>
+                                                                    </a><br>
+                                                                    <a type="button" class="btn btn-outline-secondary3" style="background:blue" target="_blank" :href="'/admin/expenses-detail-receipt-pdf/' + item.id">
+                                                                        <i class="fas fa-file-pdf"><span class="labelButton">出金伝票(PDF)</span></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="titleTd">租税公課：</td>
+                                                                <td class="titleTd">勘定科目：</td>
                                                                 <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog1) ))
+                                                                    <span v-if='item.typeLog == 1'>租税公課</span>
+                                                                    <span v-if='item.typeLog == 2'>修繕費</span>
+                                                                    <span v-if='item.typeLog == 3'>水道光熱費</span>
+                                                                    <span v-if='item.typeLog == 4'>保険料</span>
+                                                                    <span v-if='item.typeLog == 5'>消耗品費</span>
+                                                                    <span v-if='item.typeLog == 6'>法定福利費</span>
+                                                                    <span v-if='item.typeLog == 7'>給料賃金</span>
+                                                                    <span v-if='item.typeLog == 8'>地代家賃</span>
+                                                                    <span v-if='item.typeLog == 9'>外注工賃</span>
+                                                                    <span v-if='item.typeLog == 10'>支払手数料</span>
+                                                                    <span v-if='item.typeLog == 11'>旅費交通費</span>
+                                                                    <span v-if='item.typeLog == 12'>開業費/創立費</span>
+                                                                    <span v-if='item.typeLog == 13'>通信費</span>
+                                                                    <span v-if='item.typeLog == 14'>接待交際費</span>
+                                                                    <span v-if='item.typeLog == 15'>その他</span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="titleTd">修繕費：</td>
+                                                                <td class="titleTd">摘要：</td>
                                                                 <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog2) ))
+                                                                    <p class="rowContent">
+                                                                        ((item.name))
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="titleTd">水道光熱費：</td>
+                                                                <td class="titleTd">金額：</td>
                                                                 <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog3) ))
+                                                                (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.price) ))
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="titleTd">保険料：</td>
+                                                                <td class="titleTd">領収書：</td>
                                                                 <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog4) ))
+                                                                    <a v-if=" item.file " type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" :href="item.file">
+                                                                        <i class="fas fa-download"><span class="labelButton">ダウンロード</span></i>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="titleTd">消耗品費：</td>
+                                                                <td class="titleTd">備考：</td>
                                                                 <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog5) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">法定福利費：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog6) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">給料賃金：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog7) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">地代家賃：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog8) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">外注工賃：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog9) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">支払手数料：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog10) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">旅費交通費：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog11) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">開業費/創立費：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog12) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">通信費：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog13) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">接待交際費：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog14) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="titleTd">その他：</td>
-                                                                <td>
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog15) ))
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="border-top:1px solid #CCC" class="titleTd">費用合計：</td>
-                                                                <td style="border-top:1px solid #CCC">
-                                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.price) ))
+                                                                    <p class="rowContent">
+                                                                        ((item.note))
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </div>
                                                 </td>
-                                                <td v-if='type_show == 1' style="background:Lavender">
+                                                <td v-if='type_show == 1'>
                                                     ((item.date))<br>
-                                                    <a type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" :href="'/admin/expenses-detail/' + item.id">
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:#F36C1F" target="_blank" :href="'/admin/expensesview/' + item.id">
                                                         <i class="fas fa-info-circle"><span class="labelButton">詳細</span></i>
+                                                    </a><br>
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:blue" target="_blank" :href="'/admin/expenses-detail-receipt-pdf/' + item.id">
+                                                        <i class="fas fa-file-pdf"><span class="labelButton">出金伝票(PDF)</span></i>
                                                     </a>
-                                                    <br>
-                                                    <a type="button" class="btn btn-outline-secondary3" style="background:green" :href="'/admin/expenses-detail-pdf/' + item.id">
-                                                        <i class="fa fa-file-pdf"><span class="labelButton">経費支払月報(PDF)</span></i>
+                                                </td>
+                                                <td v-if='type_show == 1'>
+                                                    <span v-if='item.typeLog == 1'>租税公課</span>
+                                                    <span v-if='item.typeLog == 2'>修繕費</span>
+                                                    <span v-if='item.typeLog == 3'>水道光熱費</span>
+                                                    <span v-if='item.typeLog == 4'>保険料</span>
+                                                    <span v-if='item.typeLog == 5'>消耗品費</span>
+                                                    <span v-if='item.typeLog == 6'>法定福利費</span>
+                                                    <span v-if='item.typeLog == 7'>給料賃金</span>
+                                                    <span v-if='item.typeLog == 8'>地代家賃</span>
+                                                    <span v-if='item.typeLog == 9'>外注工賃</span>
+                                                    <span v-if='item.typeLog == 10'>支払手数料</span>
+                                                    <span v-if='item.typeLog == 11'>旅費交通費</span>
+                                                    <span v-if='item.typeLog == 12'>開業費/創立費</span>
+                                                    <span v-if='item.typeLog == 13'>通信費</span>
+                                                    <span v-if='item.typeLog == 14'>接待交際費</span>
+                                                    <span v-if='item.typeLog == 15'>その他</span>
+                                                </td>
+                                                <td v-if='type_show == 1' >
+                                                    <p class="rowContent">
+                                                        ((item.name))
+                                                    </p>
+                                                </td>
+                                                <td class="moneyCol" v-if='type_show == 1'>
+                                                (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.price) ))
+                                                </td>
+                                                <td v-if='type_show == 1'>
+                                                    <a v-if=" item.file " type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" :href="item.file">
+                                                        <i class="fas fa-download"><span class="labelButton">ダウンロード</span></i>
                                                     </a>
                                                 </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1' style="background:Lavender">
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.price) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog1) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog2) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog3) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog4) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog5) ))
-                                                </td>
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog6) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog7) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog8) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog9) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog10) ))
-                                                </td>
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog11) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog12) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog13) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog14) ))
-                                                </td>
-                                                
-                                                <td class="moneyCol" v-if='type_show == 1'>
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(item.typeLog15) ))
+                                                <td v-if='type_show == 1'>
+                                                    <p class="rowContent">
+                                                        ((item.note))
+                                                    </p>
                                                 </td>
                                                 <td v-if='type_show == 1'></td>
                                             </tr>
@@ -490,13 +556,13 @@ new Vue({
         dateOrder: '',
         dateOrder_month: "{{date('Y-m')}}",
         codeJobs: '',
-        checkedNames: [0,1,2,3,4,5,6,7,8],
+        checkedNames: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
 		checkedTypes: [1,2,3],
         checkedCTVSex: [1,2],
         sortName: '',
         sortType:"DESC",
         sortNameSelect : '1',
-        showCount: '20',
+        showCount: '0',
         isMobile : ( viewPC )? false : true,
         type_show: ( viewPC )? 1 : 2,
         checkAkaji: 0,
@@ -574,19 +640,19 @@ new Vue({
         someHandlerChangeSortName: function () {
             var selVal = this.sortNameSelect;
             
-            var sName = "parent_chitien.date";
+            var sName = "chitien.date";
             var sType = "DESC";
-            var lblOrderNumber = "月";
+            var lblOrderNumber = "日付";
             switch (selVal) {
                 case "1":
-                    sName = "parent_chitien.date";
+                    sName = "chitien.date";
                     sType = "DESC";
-                    lblOrderNumber = "月 ▼";
+                    lblOrderNumber = "日付 ▼";
                     break;
                 case "2":
-                    sName = "parent_chitien.date";
+                    sName = "chitien.date";
                     sType = "ASC";
-                    lblOrderNumber = "月 ▲";
+                    lblOrderNumber = "日付 ▲";
                     break;
             }
 
@@ -613,7 +679,7 @@ new Vue({
             this.ctv_sale = '' ;
             this.codeJobs = '';
             this.page = 1;
-            this.checkedNames = [0,1,2,3,4,5,6,7,8];
+            this.checkedNames = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
             this.sortName = '';  
@@ -639,7 +705,7 @@ new Vue({
             this.ctv_sale = '' ;
             this.codeJobs = '';
             this.page = 1;
-            this.checkedNames = [0,1,2,3,4,5,6,7,8];
+            this.checkedNames =  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
             this.sortName = '';  
@@ -659,7 +725,7 @@ new Vue({
 		},
 		setSearchStatus() {
 			this.page = 1;
-            this.checkedNames = [0,1,2,3,4,5,6,7,8];
+            this.checkedNames =  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
             this.onLoadPagination();
 		},
 		clearSearchTypeJob() {
@@ -707,6 +773,9 @@ new Vue({
             if (this.ngay_bat_dau_to != '') {
                 conditionSearch += '&ngay_bat_dau_to=' + this.ngay_bat_dau_to;
             }
+            if (this.checkedNames.length > 0) {
+                conditionSearch += '&typelog_multi=' + this.checkedNames.join();
+            }
             conditionSearch += '&showcount=' + this.showCount;  
             if (this.sortName != '') {
                 conditionSearch += '&sortname=' + this.sortName;
@@ -716,7 +785,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListExpenses')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListExpensesItem')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         data.data.map(item => {

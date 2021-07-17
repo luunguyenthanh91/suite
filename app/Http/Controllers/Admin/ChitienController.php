@@ -33,6 +33,60 @@ class ChitienController extends Controller
 
     }
     
+    function getViewListExpensesItem(Request $request) {
+        return view(
+            'admin.expenseslist',
+            compact([])
+        );
+    }
+
+    function getListExpensesItem(Request $request) {
+        $page = $request->page - 1;
+        $sortName = "chitien.date";
+        $sortType = "DESC";
+        if(@$request->sortname != '' ){
+            $sortName = @$request->sortname;
+            $sortType = @$request->sorttype;
+        }
+        $data = Chitien::orderBy($sortName , $sortType);
+        
+        if(@$request->ngay_bat_dau != '' ){
+            $date = date_create( $request->ngay_bat_dau);
+            $dateCondition = date_format($date,"Y-m");
+            $data = $data->where('date','=' , $dateCondition );
+        }
+        
+        if(@$request->ngay_bat_dau_from != '' ){
+            $date = date_create( $request->ngay_bat_dau_from);
+            $dateCondition = date_format($date,"Y-m");
+            $data = $data->where('date','>=' , $dateCondition );
+        }
+        if(@$request->ngay_bat_dau_to != '' ){
+            $date = date_create( $request->ngay_bat_dau_to);
+            $dateCondition = date_format($date,"Y-m");
+            $data = $data->where('date','<=' , $dateCondition );
+        }
+        if(@$request->typelog_multi != '' ){
+            $data = $data->whereIn('typelog', explode(',', $request->typelog_multi) );
+        }
+
+        $count = $data->count();
+        $showCount = $request->showcount;
+        if ($showCount == 0) {
+            $showCount = $count;
+        }
+        $data = $data->offset($page * $showCount)->limit($showCount)->get();
+        $countPage = $count === 0 ? 1 : $count;
+        $pageTotal = ceil($countPage/$showCount);
+
+        $totalPrice = 0;
+        foreach ($data as &$item) {
+            $totalPrice += $item->price;
+        }
+        unset($item);
+        return response()->json(['data'=>$data,'count'=>$count,'pageTotal' => $pageTotal , 'totalPrice' => $totalPrice]);
+    }
+    
     function getViewExpenses(Request $request) {
         return view(
             'admin.expenses',
@@ -154,7 +208,11 @@ class ChitienController extends Controller
         $monthDate = $data->date;
         $selectedMonth = $monthDate;
 
+        
         $dataChild = Chitien::where('date', 'like', '%'.$monthDate.'%')->orderBy($sortName , $sortType)->get();
+        if(@$request->typelog_multi != '' ){
+            $dataChild = $dataChild->whereIn('typelog', explode(',', $request->typelog_multi) );
+        }
 
         $sumPay = 0;
         foreach ($dataChild as &$chitieudetailItem) {
@@ -597,6 +655,37 @@ class ChitienController extends Controller
 
         return view(
             'admin.expensesnew',
+            compact([])
+        );
+
+    }
+
+    
+    
+    function newExpensesItem(Request $request) {
+        if ($request->isMethod('post')) {
+            try {
+                // print_r($request->date);die;
+                $data = new Chitien();
+                $data->date = $request->date;
+                $data->typelog = $request->typelog;
+                $data->name = $request->name;
+                $data->price = $request->price;
+                $data->file = $request->file;
+                $data->note = $request->note;
+                $data->save();
+                return redirect('/admin/expensesview/'.$data->id)->with('message','Đã thêm dữ liệu thành công.');
+            } catch (Exception $e) {
+                print_r($e->getMessage());die;
+                $message = [
+                    "message" => "Có lỗi xảy ra khi thêm vào dữ liệu.",
+                    "status" => 2
+                ];
+            }
+        }
+
+        return view(
+            'admin.expensesitemnew',
             compact([])
         );
 

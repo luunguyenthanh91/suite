@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '経費項目')
+@section('contentTitle', '経費科目登録')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
@@ -11,112 +11,88 @@
     <div id="list-data">
 
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/expensesupdate/{{$id}}">
-                <i class="fas fa-edit"><span class="labelButton">編集</span></i>
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
+                <i class="fas fa-save"><span class="labelButton">保存</span></i>
             </a>
-            @if ($data->file)
-            <a type="button" class="btn btn-outline-secondary3" style="background:#f38434" target="_blank" href="/admin/expenses-detail-receipt-pdf/{{$id}}">
-                <i class="fas fa-file-pdf"><span class="labelButton">出金伝票(PDF)</span></i>
+            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/expenses">
+                <i class="fas fa-window-close"><span class="labelButton">キャンセル</span></i>
             </a>
-            @endif
-            @if (Auth::guard('admin')->user()->id == 1 )
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
-                <i class="fas fa-trash-alt"><span class="labelButton">削除</span></i>
-            </a> 
-            @endif      
         </div>
         <div class="container page__container page-section page_container_custom" :style="'margin-top: ' + marginTop">
             <form action="" method="POST" class="p-0 mx-auto form-data" >
                 @csrf
+                <div class="row d-flex">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">日付</label>
+                            <input type="date"　name="date" class="form-control" min="2021-03-17">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">勘定科目</label>
+                            <select class="form-control custom-select" name="typelog">
+                                <option value="" ></option>
+                                <option value="1">租税公課</option>
+                                <option value="2">修繕費</option>
+                                <option value="3">水道光熱費</option>
+                                <option value="4">保険料</option>
+                                <option value="5">消耗品費</option>
+                                <option value="6">法定福利費</option>
+                                <option value="7">給料賃金</option>
+                                <option value="8">地代家賃</option>
+                                <option value="9">外注工賃</option>
+                                <option value="10">支払手数料</option>
+                                <option value="11">旅費交通費</option>
+                                <option value="12">開業費/創立費</option>
+                                <option value="13">通信費</option>
+                                <option value="14">接待交際費</option>
+                                <option value="15">その他</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label">金額</label>
+                            <input type="text" id="price" class="form-control">
+                            <input type="hidden" id="pricedata" name="price" class="form-control">
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="flex" style="max-width: 100%">
-                            <table class="table thead-border-top-0 table-nowrap table-mobile">
-                                <tr>
-                                    <td class="titleTd">日付:</td>
-                                    <td :class="''+classRowContent">
-                                        {{@$data->date}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">勘定科目：</td>
-                                    <td :class="''+classRowContent">
-                                        @if ($data->typeLog == 1)
-                                            <span>租税公課</span>
-                                        @endif
-                                        @if ($data->typeLog == 2)
-                                            <span>修繕費</span>
-                                        @endif
-                                        @if ($data->typeLog == 3)
-                                            <span>水道光熱費</span>
-                                        @endif
-                                        @if ($data->typeLog == 4)
-                                            <span>保険料</span>
-                                        @endif
-                                        @if ($data->typeLog == 5)
-                                            <span>消耗品費</span>
-                                        @endif
-                                        @if ($data->typeLog == 6)
-                                            <span>法定福利費</span>
-                                        @endif
-                                        @if ($data->typeLog == 7)
-                                            <span>給料賃金</span>
-                                        @endif
-                                        @if ($data->typeLog == 8)
-                                            <span>地代家賃</span>
-                                        @endif
-                                        @if ($data->typeLog == 9)
-                                            <span>外注工賃</span>
-                                        @endif
-                                        @if ($data->typeLog == 10)
-                                            <span>支払手数料</span>
-                                        @endif
-                                        @if ($data->typeLog == 11)
-                                            <span>旅費交通費</span>
-                                        @endif
-                                        @if ($data->typeLog == 12)
-                                            <span>開業費/創立費</span>
-                                        @endif
-                                        @if ($data->typeLog == 13)
-                                            <span>通信費</span>
-                                        @endif
-                                        @if ($data->typeLog == 14)
-                                            <span>接待交際費</span>
-                                        @endif
-                                        @if ($data->typeLog == 15)
-                                            <span>その他</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">摘要：</td>
-                                    <td :class="''+classRowContent">
-                                        {!! @$data->name !!}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">金額：</td>
-                                    <td :class="''+classRowContent">
-                                    ¥{{ number_format($data->price) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">領収書：</td>
-                                    <td :class="''+classRowContent">
-                                        @if ($data->file)
-                                            <a type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" href="{{$data->file}}">
-                                                <i class="fas fa-download"><span class="labelButton">ダウンロード</span></i>
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">備考：</td>
-                                    <td :class="''+classRowContent">
-                                        {!! @$data->note !!}
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="form-group">
+                            <label class="form-label">摘要</label>
+                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-label">領収書</label>
+                            <li id="images">   
+                                <div class="search-form" >
+                                    <input readonly name="file" id="chooseImage_inputfile" class="form-control" type="text">
+                                </div>
+                                <div>
+                                    <a onclick="chooseFile(this)" rel="file" type="button" class="btn btn-outline-secondary3" style="background:purple">
+                                        <i class="fas fa-upload"><span class="labelButton">アップロード</span></i>
+                                    </a>
+                                    <a onclick="clearFile(this)" rel="file" type="button" class="btn btn-outline-secondary3" style="background:orange">
+                                        <i class="fas fa-trash"><span class="labelButton">クリア</span></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-label">備考</label>
+                            <textarea type="text" name="note" class="form-control textarea ckeditor col-lg-12" rows="10"></textarea>
                         </div>
                     </div>
                 </div>
@@ -164,6 +140,7 @@
 
 <script type="text/javascript">
     //<![CDATA[
+        
     jQuery(document).ready(function (){
         $('.tab_click').on('click', function (){
             $('.tab_click').removeClass('active');
@@ -176,6 +153,21 @@
     
     });
     jQuery(document).ready(function (){
+
+        $("#price").on("change", function() {
+            var flagPrice = $('#price').val();
+            flagPrice = parseInt(flagPrice.replace('￥' , '').replace(',', '').replace('.',''));
+            $('#pricedata').val(flagPrice);
+            if (flagPrice) {
+                $('#pricedata').val(flagPrice);
+                flagPrice = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(flagPrice);
+            } else {
+                flagPrice = '';
+                $('#pricedata').val(flagPrice);
+            }
+            $('#price').val(flagPrice);
+        });
+
         $('#listDate').datepick({ 
         multiSelect: 999, 
         dateFormat: 'yyyy-mm-dd',
@@ -285,13 +277,6 @@ new Vue({
         guardAddData: '',
         groupAddData: '',
         instan: 25,
-        long: '{{@$data->longitude}}',
-        lat: '{{@$data->latitude}}',
-        kinh_vido: '',
-        ga_gannhat: '{{@$data->ga}}',
-        address_pd: '{{@$data->address_pd}}',
-        groups: [],
-        loai_job : '{{@$data->loai_job}}',
         listAcountSale: [],
         loadingTableSale: 0,
         countSales: 0,
@@ -314,7 +299,8 @@ new Vue({
         isMobile : ( viewPC )? false : true,
         marginTop: "30px;",
         marginLeft: ( viewPC )? "30px;" : "0px;",
-        classRowContent: (viewPC)? "" : "rowContent "
+        classRowContent: (viewPC)? "" : "rowContent ",
+        price : ''
     },
     delimiters: ["((", "))"],
     mounted() {
@@ -331,37 +317,6 @@ new Vue({
             $temp.val(str).select();
             document.execCommand("copy");
             $temp.remove();
-        },
-        copyClipboadCTV(_i) {
-            $('#copyName').html(this.parseName(_i.name));
-            $('#copyFurigana').html(_i.address);
-            $('#copyPhone').html(this.parsePhone(_i.phone));
-
-            this.execCopyClipboad();
-        },
-        copyClipboadCTVpd(_i) {
-            $('#copyName').html(this.parseName(_i.name));
-            $('#copyFurigana').html(_i.furigana);
-            $('#copyPhone').html(this.parsePhone(_i.phone));
-
-            this.execCopyClipboad();
-        },
-        copyClipboad(_i) {
-            $('#copyName').html(_i.codejob);
-            $('#copyFurigana').html(_i.ngay_pd);
-            $('#copyPhone').html(_i.address_pd);
-
-            this.execCopyClipboad();
-        },
-        copyClipboadLink(_i) {
-            var getUrl = window.location;
-            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-            var url = baseUrl + "/projectview/" + _i.id;
-            $('#copyName').html(url);
-            $('#copyFurigana').html("");
-            $('#copyPhone').html("");
-
-            this.execCopyClipboad();
         },
         toggelPd() {
             this.showListPD = this.showListPD == 1 ? 0 : 1;
@@ -393,28 +348,6 @@ new Vue({
         },
         onSubmit(){
             $('.btn-submit').prop('disabled', true);
-            // if ('{{@$data->address_pd}}' !=  this.address_pd) {
-            //     const that = this;
-            //     $.ajax({
-            //         type: 'GET',
-            //         url: "http://api.positionstack.com/v1/forward?access_key=d4eb3bcee90d3d0a824834770881ce70&query=" + this.address_pd,
-            //         success: function(data) {
-            //             that.long = data.data[0].latitude;
-            //             that.lat = data.data[0].longitude;
-            //             setTimeout(function(){ $('.form-data').submit(); }, 1000);
-
-            //         },
-            //         error: function(xhr, textStatus, error) {
-            //             Swal.fire({
-            //                 title: "Có lỗi dữ liệu nhập vào!",
-            //                 type: "warning",
-
-            //             });
-            //         }
-            //     });
-            // } else {
-            //     setTimeout(function(){ $('.form-data').submit(); }, 1000);
-            // }
             setTimeout(function(){ $('.form-data').submit(); }, 1000);
         },
         
@@ -521,12 +454,6 @@ new Vue({
         openEdit() {
             this.edit_form = 1;
         },
-        onOpenLoction() {
-            window.open("http://maps.google.com/maps?q="+this.ga_gannhat, '_blank');
-        },
-        onOpenLoctionAddress() {
-            window.open("http://maps.google.com/maps?q="+this.address_pd, '_blank');
-        },
         addListRecord(i) {
             
             i.dateList.push({
@@ -614,54 +541,8 @@ new Vue({
         },
         removeRecord(i) {
             i.type = 'delete';
-        },
-        onPageChange(_p) {
-            this.page = _p;
-            this.onLoadPagination();
-        },
-        onSearch: function() {
-            this.page = 1;
-            this.onLoadPagination();
-        },
-        deleteRecore(_i) {
-            const that = this;
-            Swal.fire({
-                title: "Xác Nhận",
-                text: "Bạn có đồng ý xóa giá trị này không?",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Có!",
-                cancelButtonText: "Không!",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then(function(t) {
-                if (t.dismiss == "cancel") {
-                    return;
-                }
-                that.loadingTable = 1;
-                $.ajax({
-                    url: "/admin/expensesdelete/" + _i,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        Swal.fire({
-                            title: "Đã xóa!"
-                        });
-                        location.href = "/admin/expenses";
-                    },
-                    error: function(xhr, textStatus, error) {
-                        Swal.fire({
-                            title: "Có lỗi dữ liệu nhập vào!",
-                            type: "warning",
-
-                        });
-                    }
-                });
-
-            })
         }
+
     },
 });
 </script>

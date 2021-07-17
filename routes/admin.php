@@ -161,6 +161,16 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('expensesdelete/{id}',                  'ChitienController@deleteExpenses')->name('admin.deleteExpenses');
     Route::post('expensesnew',                  'ChitienController@newExpenses')->name('admin.newExpenses');
     Route::get('expensesnew',                  'ChitienController@newExpenses')->name('admin.newExpenses');
+
+    //経費一覧
+    Route::get('get-expenseslist',                  'ChitienController@getListExpensesItem')->name('admin.getListExpensesItem');
+    Route::get('expenseslist',                  'ChitienController@getViewListExpensesItem');
+    Route::post('expensesitemnew',                  'ChitienController@newExpensesItem')->name('admin.newExpensesItem');
+    Route::get('expensesitemnew',                  'ChitienController@newExpensesItem')->name('admin.newExpensesItem');
+
+
+    Route::get('get-dashboard', 'CompanyController@getListDashboard')->name('admin.getListDashboard');
+    Route::get('/', 'CompanyController@listDashboard');
 });
 
 Route::group(['namespace' => 'Admin',  'prefix' => 'api'], function () {

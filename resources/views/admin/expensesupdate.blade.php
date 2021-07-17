@@ -58,7 +58,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-label">摘要</label>
-                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="10">{{@$data['name']}}</textarea>
+                            <textarea type="text" name="name" class="form-control textarea ckeditor col-lg-12" rows="4">{{@$data['name']}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -75,8 +75,7 @@
                     <div class="col-lg-12">
                         
                         <div class="form-group">
-                            <label class="form-label">ドキュメント</label>
-
+                            <label class="form-label">領収書</label>
                             <li id="images">   
                                 <div class="search-form" >
                                     <input readonly name="file" id="chooseImage_inputfile" class="form-control" type="text" value="{{@$data['file']}}" >
