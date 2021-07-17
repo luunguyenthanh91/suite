@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '経費項目')
+@section('contentTitle', '経費科目')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
@@ -649,7 +649,7 @@ new Vue({
                         Swal.fire({
                             title: "Đã xóa!"
                         });
-                        location.href = "/admin/expenses";
+                        location.href = "/admin/expenseslist";
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({

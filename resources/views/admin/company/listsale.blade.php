@@ -159,7 +159,7 @@
                             </div>
                             <div class="col-lg-12 p-0">
                                 <input type="checkbox" id="4" value="4" v-model="checkedNames" @change="someHandlerChange()">
-                                <label for="4">通訳給与支払い</label>
+                                <label for="4">通訳報酬支払い</label>
                             </div>
                             <div class="col-lg-12 p-0">
                                 <input type="checkbox" id="5" value="5" v-model="checkedNames" @change="someHandlerChange()">
@@ -243,7 +243,7 @@
 											<th scope="col" style="text-align:center">振込金額</th>
 											<th scope="col" style="text-align:center">手数料</th>
 											<th scope="col" style="text-align:center">振込済み</th>
-											<!-- <th scope="col" style="text-align:center">通訳給与</th>
+											<!-- <th scope="col" style="text-align:center">通訳報酬</th>
 											<th scope="col" style="text-align:center">源泉所得税</th>
 											<th scope="col" style="text-align:center">交通費</th>
 											<th scope="col" style="text-align:center">純利益</th> -->
@@ -329,7 +329,7 @@
 															<p class="mb-0" v-if='item.status == 1'>通訳者選定</p>
 															<p class="mb-0" v-if='item.status == 2'>通訳待機</p>
 															<p class="mb-0" v-if='item.status == 3'>客様の入金確認</p>
-															<p class="mb-0" v-if='item.status == 4'>通訳給与支払い</p>
+															<p class="mb-0" v-if='item.status == 4'>通訳報酬支払い</p>
 															<p class="mb-0" v-if='item.status == 5'>営業報酬支払い</p>
 															<p class="mb-0" v-if='item.status == 6'>クローズ</p>
 															<p class="mb-0" v-if='item.status == 7'>キャンセル</p>

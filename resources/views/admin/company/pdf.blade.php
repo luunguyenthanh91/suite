@@ -99,8 +99,8 @@
         </tr>
         <tr>
             <td colspan="4" class="border-all data_form">
-                通訳給与合計<br/>    
-                （通訳給与)<br>    
+                通訳報酬合計<br/>    
+                （通訳報酬)<br>    
                 （交通費等)
             </td>
             <td class="border-all data_form" style="text-align: right;" >
