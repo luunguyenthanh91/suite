@@ -54,6 +54,13 @@
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                 </li>
+                <li class="logout-btn">
+                    <a class=" btn btn-success " href="{{route('admin-logout')}}" >
+                        Logout
+                    </a>
+                </li>
+
+               
             </ul>
         </div>
     </div>

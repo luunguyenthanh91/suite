@@ -410,9 +410,9 @@
                                                             <tr>
                                                                 <td class="titleTd">備考：</td>
                                                                 <td>
-                                                                    <p class="rowContent">
+                                                                    <div class="rowContent">
                                                                         ((item.note))
-                                                                    </p>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </table>

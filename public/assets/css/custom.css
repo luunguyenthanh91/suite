@@ -361,7 +361,6 @@ body {
 }
 .moneyCol {
     text-align: right;
-    width:100%;
 }
 .rowContent {
     width: 200px;
@@ -940,4 +939,13 @@ body::-webkit-scrollbar-thumb
 .standardColorSearch {
     background:#fffce3;
     margin-top:-12px;
+}
+.logout-btn {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
