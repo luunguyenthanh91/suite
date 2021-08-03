@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\HistoryLog;
 use App\Jobs\SendEmailCheckOut;
 use App\Jobs\SendEmailCheckIn;
+use App\Models\BoPhan;
 
 class UserController extends Controller
 {
@@ -139,7 +140,7 @@ class UserController extends Controller
 
     function getList(Request $request) {
         $page = $request->page - 1;
-        $users = Admin::orderBy("name" , "ASC");
+        $users = Admin::orderBy("name" , "ASC")->with('bophan');
         if(@$request->name != '' ){
             $users = $users->where('name', 'like', '%'.$request->name.'%');
         }
@@ -199,6 +200,7 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->avatar = $request->avatar;
             $user->code = $request->code;
+            $user->bophan_id = $request->bophan_id;
             $user->app_version = 1;
             $user->updated_at = date("Y-m-d");
             $user->created_at = date("Y-m-d");
@@ -208,10 +210,13 @@ class UserController extends Controller
         
         
         $menu_active = 'users';
+        
+        $bophans = BoPhan::all();
         return view(
             'admin.users.add',
             compact([
                 'menu_active',
+                'bophans',
                 'message',
             ])
         );
@@ -231,6 +236,7 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->avatar = $request->avatar;
             $user->code = $request->code;
+            $user->bophan_id = $request->bophan_id;
             if ($request->password != '') {
                 if ($request->password == $request->password_new) {
 
@@ -261,10 +267,12 @@ class UserController extends Controller
             $data->birthday = date("d/m/Y", strtotime($data->birthday) );
         }
         $menu_active = 'users';
+        $bophans = BoPhan::all();
         return view(
             'admin.users.edit',
             compact([
                 'menu_active',
+                'bophans',
                 'message',
                 'data'
             ])

@@ -23,11 +23,11 @@
             <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                 <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                    <h1 class="h2 mb-0">List User</h1>
+                    <h1 class="h2 mb-0">Danh Sách Bộ Phận</h1>
 
                     <ol class="breadcrumb m-0 p-0">
                         <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-                        <li class="breadcrumb-item active">List User</li>
+                        <li class="breadcrumb-item active">Bộ Phận</li>
                     </ol>
 
                 </div>
@@ -35,7 +35,7 @@
 
             <div class="row" role="tablist">
                 <div class="col-auto">
-                    <a href="/admin/user/add" class="btn btn-outline-secondary">New User</a>
+                    <a href="/admin/bophan/add" class="btn btn-outline-secondary">Thêm Bộ Phận</a>
                 </div>
             </div>
 
@@ -43,8 +43,8 @@
 
         <div class="container page__container page-section">
             <div class="row mb-32pt">
-                
-                <div class="col-lg-12 d-flex">
+               
+                <div class="col-lg-12 d-flex align-items-center">
 
                     <div class="flex" style="max-width: 100%">
 
@@ -52,76 +52,12 @@
 
                             <div class="table-responsive">
                                 <table class="table mb-0 thead-border-top-0 table-nowrap">
-                                    <thead >
-                                        <th>
-                                            <p class="mb-2">
-                                               No.
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
-                                               Name
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
-                                               Code Login
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
-                                               Email
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
-                                               Bộ Phận
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
-                                               Action
-                                            </p>
-                                        </th>
-                                    </thead>
                                     <tbody class="list" id="search">
-                                        <tr v-for="(item, index) in list">
+                                        <tr v-for="item in list">
                                             <td>
-                                                <p class="mb-2">
-                                                    ((item.id))
-                                                </p>
+                                               
+                                                <p class="mb-2"><a :href="'/admin/bophan/edit/' + item.id" class="text-50">((item.name))</a></p>
 
-                                            </td>
-                                            <td>
-                                                <p class="mb-2">
-                                                    ((item.name))
-                                                </p>
-
-                                            </td>
-                                            <td>
-                                                <p class="mb-2">
-                                                    ((item.code))
-                                                </p>
-
-                                            </td>
-                                            <td>
-                                                <p class="mb-2">
-                                                    ((item.email))
-                                                </p>
-
-                                            </td>
-                                            <td>
-                                                <p class="mb-2">
-
-                                                    ((item.bophan ? item.bophan.name : ''))
-                                                </p>
-
-                                            </td>
-                                            <td>
-                                                <p class="mb-2 " style="width: 50px">
-                                                    <button v-if="item.id != 1" class="btn btn-danger col-lg-12" type="button" @click="deleteRecore(item.id)"><span aria-hidden="true" class="material-icons">delete</span></button>
-                                                    <a :href="'/admin/user/edit/'+item.id" class="btn btn-success col-lg-12" type="button" ><span class="material-icons">edit</span></a>
-                                                </p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -137,7 +73,6 @@
                                             <span>Prev</span>
                                         </a>
                                     </li>
-
                                     <li class="page-item disabled" v-if="page > 3 ">
                                         <a class="page-link" href="#">
                                             <span>...</span>
@@ -150,8 +85,6 @@
                                             <span>((item))</span>
                                         </a>
                                     </li>
-                                   
-
                                     <li class="page-item" @click="onNextPage()"
                                         v-bind:class="page > count - 1 ? 'disabled' : ''">
                                         <a class="page-link" href="#">
@@ -194,18 +127,6 @@
 
 
 <script type="text/javascript">
-$( document ).ready(function() {
-    $('.upload-file').on('click', function(){
-        $('#fileToUpload').click();
-    });
-    $('#fileToUpload').on('change', function(){ 
-        //setTimeout(function(){
-            //window.location.reload();
-        //}, 3000);
-        $('#formUpload').submit();    
-    });
-});
-
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 new Vue({
@@ -237,57 +158,17 @@ new Vue({
             this.page = 1;
             this.onLoadPagination();
         },
-        removeHistory(_i) {
-            const that = this;
-            Swal.fire({
-                title: "Confirm",
-                text: "Do you agree to delete this value?",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes!",
-                cancelButtonText: "No!",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then(function(t) {
-                if (t.dismiss == "cancel") {
-                    return;
-                }
-                that.loadingTable = 1;
-                $.ajax({
-                    url: "/admin/customer/deleteFile/" + _i,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        Swal.fire({
-                            title: "Delete success!"
-                        });
-                        that.loadingTable = 0;
-                        that.onLoadPagination();
-                    },
-                    error: function(xhr, textStatus, error) {
-                        Swal.fire({
-                            title: "There was an error in the input data!",
-                            type: "warning",
-
-                        });
-                    }
-                });
-
-            })
-        },
         deleteRecore(_i) {
             const that = this;
             Swal.fire({
-                title: "Confirm",
-                text: "Do you agree to delete this value??",
+                title: "Xác Nhận",
+                text: "Bạn có đồng ý xóa giá trị này không?",
                 type: "warning",
                 showCancelButton: !0,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes!",
-                cancelButtonText: "No!",
+                confirmButtonText: "Có!",
+                cancelButtonText: "Không!",
                 allowOutsideClick: false,
                 allowEscapeKey: false
             }).then(function(t) {
@@ -296,19 +177,19 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/user/delete/" + _i,
+                    url: "/admin/bophan/delete/" + _i.id,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
-                            title: "Delete Success!"
+                            title: "Đã xóa!"
                         });
                         that.loadingTable = 0;
                         that.onLoadPagination();
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
-                            title: "There is an error in the input data!",
+                            title: "Có lỗi dữ liệu nhập vào!",
                             type: "warning",
 
                         });
@@ -322,7 +203,7 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListUser')}}?page=" + this.page + "&name=" + this.conditionName,
+                url: "{{route('admin.getListBoPhan')}}?page=" + this.page,
                 success: function(data) {
                     if (data.count > 0) {
                         data.data.map(item => {
@@ -353,7 +234,7 @@ new Vue({
                 },
                 error: function(xhr, textStatus, error) {
                     Swal.fire({
-                        title: "There is an error in the input data!",
+                        title: "Có lỗi dữ liệu nhập vào!",
                         type: "warning",
 
                     });

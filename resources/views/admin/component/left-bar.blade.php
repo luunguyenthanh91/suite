@@ -65,7 +65,7 @@
                 </li>
                 
                 <li class="sidebar-menu-item 
-                    {{ (request()->is('*user*')) ? 'active open' : '' }}
+                    {{ (request()->is('*user*')) ? 'active open' : '' }} {{ (request()->is('*bophan*')) ? 'active open' : '' }}
                     ">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-cost" aria-expanded="false">
                         3 - 人事管理
@@ -75,6 +75,11 @@
                         <li class="sidebar-menu-item {{ (request()->is('*/user*')) ? 'active open' : '' }}">
                             <a class="sidebar-menu-button" href="/admin/user/list">
                             <span class="sidebar-menu-text">A - 従業員一覧</span>
+                            </a>
+                        </li> 
+                        <li class="sidebar-menu-item {{ (request()->is('*/bophan*')) ? 'active open' : '' }}">
+                            <a class="sidebar-menu-button" href="/admin/bophan/list">
+                            <span class="sidebar-menu-text">B - Bộ Phận</span>
                             </a>
                         </li> 
                     </ul>

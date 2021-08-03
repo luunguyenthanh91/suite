@@ -6,6 +6,7 @@ use App\Models\Districts;
 use App\Models\Provinces;
 use App\Models\Wards;
 use App\Models\Roles;
+use App\Models\BoPhan;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
@@ -30,6 +31,10 @@ class Admin extends Authenticatable
     public function roles()
     {
         return $this->hasOne(Roles::class, 'id', 'role_id');
+    }
+    public function bophan()
+    {
+        return $this->hasOne(BoPhan::class, 'id', 'bophan_id');
     }
 
 }

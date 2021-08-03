@@ -130,7 +130,15 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' =
     Route::post('add',                  'PhepController@addData')->name('admin.addPhep');
 });
 
-
+Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'bophan'], function () {
+    Route::get('list',                  'BoPhanController@view');
+    Route::get('get-list',                  'BoPhanController@getList')->name('admin.getListBoPhan');
+    Route::post('edit/{id}',                  'BoPhanController@edit');
+    Route::get('edit/{id}',                  'BoPhanController@edit');
+    Route::get('delete/{id}',                  'BoPhanController@delete');
+    Route::post('add',                  'BoPhanController@add');
+    Route::get('add',                  'BoPhanController@add');
+});
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth'],  'prefix' => 'do'], function () {
     Route::get('list',                  'DoController@list')->name('admin.listDo');

@@ -33,6 +33,17 @@
         <link type="text/css" href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
         <!-- Dark Mode CSS -->
         <!-- <link type="text/css" href="{{ asset('assets/css/dark.css') }}" rel="stylesheet"> -->
+        <!-- jQuery -->
+        <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lib_upload/ckeditor/ckeditor.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/ckfinder/ckfinder.js') }}"></script>  
+        <link href="{{ asset('lib_upload/jquery-ui/css/ui-lightness/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
+        <script src="{{ asset('lib_upload/jquery-ui/js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('lib_upload/jquery.slug.js') }}"></script>
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('lib_upload/jquery.datepick.css') }}"> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.plugin.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.datepick.js') }}"></script>
         @stack('before-styles')
     
         @stack('after-styles')
@@ -65,8 +76,6 @@
         <label style="font-size:5px;">TOP</label>
         
     </div>
-    <!-- jQuery -->
-    <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
 
     <!-- Bootstrap -->
     <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
@@ -138,6 +147,7 @@
     });
    
     </script>
+    
 
 </body>
 
