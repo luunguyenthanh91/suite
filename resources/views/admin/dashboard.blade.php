@@ -9,7 +9,7 @@
 
     <div id="list-data">
         <div class="container page__container page-section">
-            
+
         </div>
     </div>
 </div>
@@ -105,7 +105,7 @@ new Vue({
     delimiters: ["((", "))"],
     mounted() {
         this.onLoadPagination();
-        this.onLoadLog();
+        // this.onLoadLog();
     },
     computed: {
         sortedProducts: function(){
@@ -114,15 +114,15 @@ new Vue({
                 let modifier = 1;
                 if(this.sortDirection === 'desc') modifier = -1;
                 if (this.sortBy == 'ctv_sales_list' || this.sortBy == 'ctv_list') {
-                    if(p1[this.sortBy].length == 0 && p2[this.sortBy].length > 0) return -1 * modifier; 
+                    if(p1[this.sortBy].length == 0 && p2[this.sortBy].length > 0) return -1 * modifier;
                     if(p1[this.sortBy].length > 0 && p2[this.sortBy].length == 0) return 1 * modifier;
                     if(p1[this.sortBy].length == 0 && p2[this.sortBy].length == 0) return 0;
 
-                    if(p1[this.sortBy][0]['name'] < p2[this.sortBy][0]['name']) return -1 * modifier; 
+                    if(p1[this.sortBy][0]['name'] < p2[this.sortBy][0]['name']) return -1 * modifier;
                     if(p1[this.sortBy][0]['name'] > p2[this.sortBy][0]['name']) return 1 * modifier;
                     return 0;
                 } else {
-                    if(p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier; 
+                    if(p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier;
                     if(p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier;
                     return 0;
                 }
@@ -151,7 +151,7 @@ new Vue({
         },
         onPageChangeLog(_p) {
             this.pageLog = _p;
-            this.onLoadLog();
+            // this.onLoadLog();
         },
         onSearch: function() {
             this.page = 1;
@@ -196,15 +196,15 @@ new Vue({
             this.conditionSearch = "";
             this.checkedNames = [4,5,6];
 			this.checkedTypes = [1,2,3];
-            this.sortName = '';  
-            this.sortType = "DESC";  
+            this.sortName = '';
+            this.sortType = "DESC";
             this.sumPay= 0;
             this.sumCount=0;
             this.sumEarning =0;
             this.sumBenefit =0;
             this.sumCost =0;
-            
-            this.onLoadPagination();    
+
+            this.onLoadPagination();
         },
 		clearSearchStatus() {
 			this.page = 1;
@@ -249,7 +249,7 @@ new Vue({
                 }
                 ticks6.unshift(month);
             });
-            setTimeout(function(){ 
+            setTimeout(function(){
                 plot6 = $.jqplot('chart6', [s9_guess,s10_guess,s9,s10], {
                 // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
                 animate: !$.jqplot.use_excanvas,
@@ -299,8 +299,8 @@ new Vue({
                     yaxis: {
                         min:0,
                         max:300,
-                        tickOptions: { 
-                            formatString: '%d' 
+                        tickOptions: {
+                            formatString: '%d'
                         },
                         label: "万円",
                         pad: 0,
@@ -334,18 +334,18 @@ new Vue({
                     ]
                 }});
 
-                $('#chart6').bind('jqplotDataHighlight', 
+                $('#chart6').bind('jqplotDataHighlight',
                     function (ev, seriesIndex, pointIndex, data) {
                         $('#info6').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
                     }
                 );
-                    
-                $('#chart6').bind('jqplotDataUnhighlight', 
+
+                $('#chart6').bind('jqplotDataUnhighlight',
                     function (ev) {
                         $('#info6').html('Nothing');
                     }
                 );
-                
+
             }, 500);
         },
         deleteRecore(_i) {
@@ -388,7 +388,7 @@ new Vue({
 
             })
         },
-        
+
         isNull (value) {
             return (value == null || value == undefined || value == "") ? true : false;
         },
@@ -404,7 +404,7 @@ new Vue({
         parsePhone(value) {
             if (this.isNull(value)) return S_HYPEN;
 
-            value = (new String(value)).replaceAll(S_HYPEN, '').replaceAll(' ', ''); 
+            value = (new String(value)).replaceAll(S_HYPEN, '').replaceAll(' ', '');
             var vLength = value.length;
             if (vLength == 11) {
                 value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 4);
@@ -414,7 +414,7 @@ new Vue({
             return value;
         },
         onLoadPagination() {
-			
+
 		},
         onPrePage() {
             if (this.page > 1) {
@@ -432,13 +432,13 @@ new Vue({
             if (this.pageLog > 1) {
                 this.pageLog = this.pageLog - 1;
             }
-            this.onLoadLog();
+            // this.onLoadLog();
         },
         onNextPageLog() {
             if (this.pageLog < this.countLog) {
                 this.pageLog = this.pageLog + 1;
             }
-            this.onLoadLog();
+            // this.onLoadLog();
         }
     },
 });

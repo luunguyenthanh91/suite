@@ -203,7 +203,8 @@ sup {
 
 a {
     color: rgba(39, 44, 51, .7);
-    text-decoration: none
+    text-decoration: none;
+    /* padding:5px; */
 }
 
 [dir] a {
@@ -211,8 +212,12 @@ a {
 }
 
 a:hover {
-    color: rgba(6, 7, 8, .7);
-    text-decoration: underline
+    /* color: rgba(6, 7, 8, .7); */
+    text-decoration: none !important;
+    background: rgba(175,0,42,0.5) !important;
+    box-shadow: 0 0 0 1px rgba(134, 142, 150, .5) !important;
+    border-color: white !important;
+    color: white !important;
 }
 
 a:not([href]):not([class]),
@@ -6565,13 +6570,19 @@ input[type=submit].btn-block {
 
 .dropdown-item:focus,
 .dropdown-item:hover {
-    color: rgba(39, 44, 51, .9);
-    text-decoration: none
+    color: rgba(39, 44, 51, .9) !important;
+    text-decoration: none;
+    background-color: rgba(175,0,42,0.5) !important;
+    border-color: white;
+    box-shadow: 0 0 0 1px rgba(134, 142, 150, .5)
 }
 
 [dir] .dropdown-item:focus,
 [dir] .dropdown-item:hover {
-    background-color: transparent
+    /* background-color: transparent */
+    background-color: rgba(175,0,42,0.5) !important;
+    border-color: white;
+    box-shadow: 0 0 0 1px rgba(134, 142, 150, .5)
 }
 
 .dropdown-item.active,
@@ -11291,8 +11302,8 @@ a.close.disabled {
     display: flex;
     /* align-items: flex-start; */
     justify-content: space-between;
-    /* background: #AF002A; */
-    background: url('../images/BKCephei.jpg') no-repeat;
+    background: #dddfe2;
+    /* background: url('../images/BKCephei.jpg') no-repeat; */
     background-size: cover;
 }
 
@@ -11309,7 +11320,7 @@ a.close.disabled {
 
 [dir] .modal-header .close {
     padding: 1rem;
-    color:white; 
+    color:black !important; 
 }
 
 [dir=ltr] .modal-header .close {
@@ -11321,8 +11332,8 @@ a.close.disabled {
 }
 
 .modal-title {
-    line-height:1.5;
-    color:white; 
+    line-height:1;
+    /* color:white;  */
     text-align:center;
     width:100%
 }
@@ -11345,13 +11356,14 @@ a.close.disabled {
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    
-    background: url('../images/BKCephei.jpg') no-repeat;
+    background: #dddfe2;
+    /* background: url('../images/BKCephei.jpg') no-repeat; */
     background-size: cover;
 }
 
 [dir] .modal-footer {
-    /* padding: .75rem; */
+    /* padding: .50rem; */
+    padding: .5rem;
     border-top: 1px solid #e9edf2
 }
 
@@ -29121,7 +29133,11 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-transform: uppercase
+    /* text-transform: uppercase; */
+    text-transform: initial;
+}
+.labelButton {
+    text-transform: initial;
 }
 
 [dir] .btn--raised {
@@ -29683,18 +29699,6 @@ body {
     padding: 1.25rem
 }
 
-.card-title {
-    font-size: 1rem;
-    font-family: Exo\ 2, Helvetica Neue, Arial, sans-serif;
-    font-weight: 600;
-    color: #303840;
-    line-height: 1.25
-}
-
-[dir] .card-title {
-    margin-bottom: 0
-}
-
 .card-subtitle {
     font-size: .8125rem;
     font-weight: 400
@@ -29814,7 +29818,16 @@ body {
 }
 
 .card-title {
+    /* font-size: 1rem; */
+    /* font-family: Exo\ 2, Helvetica Neue, Arial, sans-serif; */
+    /* font-weight: 600; */
+    color: #303840;
+    line-height: 1;
     font-weight: 500
+}
+
+[dir] .card-title {
+    margin-bottom: 0
 }
 
 .card-title[href],
@@ -30740,6 +30753,8 @@ body {
 }
 
 
+
+
 .page-separator-line {
     position: relative;
     color: #868e96;
@@ -30747,8 +30762,8 @@ body {
     align-items: center;
     justify-content: start;
     z-index: 0;
-    margin-left:-20px;
-    margin-right:-20px;
+    /* margin-left:-20px;
+    margin-right:-20px; */
 }
 
 [dir] .page-separator-line {
@@ -30808,6 +30823,10 @@ body {
 
 [dir=rtl] .page-separator:before {
     right: 0
+}
+
+.bgWhite {
+    background: white !important;
 }
 
 .page-separator__text {
@@ -38987,7 +39006,7 @@ label {
 
 .dashboard-area-tabs__tab.active:before {
     content: " ";
-    height: 4px;
+    height: 2px;
     top: 0;
     position: absolute
 }
@@ -39003,7 +39022,7 @@ label {
 }
 
 [dir] .dashboard-location-tabs__tab {
-    margin-bottom: 8px;
+    margin-bottom: 2px;
     cursor: pointer
 }
 

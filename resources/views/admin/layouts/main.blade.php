@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="dark-mode">
+<html lang="ja" dir="ltr" class="dark-mode">
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -33,17 +33,6 @@
         <link type="text/css" href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
         <!-- Dark Mode CSS -->
         <!-- <link type="text/css" href="{{ asset('assets/css/dark.css') }}" rel="stylesheet"> -->
-        <!-- jQuery -->
-        <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('lib_upload/ckeditor/ckeditor.js') }}"></script> 
-        <script type="text/javascript" src="{{ asset('lib_upload/ckfinder/ckfinder.js') }}"></script>  
-        <link href="{{ asset('lib_upload/jquery-ui/css/ui-lightness/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
-        <script src="{{ asset('lib_upload/jquery-ui/js/jquery-ui.js') }}"></script>
-        <script src="{{ asset('lib_upload/jquery.slug.js') }}"></script>
-
-        <link rel="stylesheet" type="text/css" href="{{ asset('lib_upload/jquery.datepick.css') }}"> 
-        <script type="text/javascript" src="{{ asset('lib_upload/jquery.plugin.js') }}"></script> 
-        <script type="text/javascript" src="{{ asset('lib_upload/jquery.datepick.js') }}"></script>
         @stack('before-styles')
     
         @stack('after-styles')
@@ -66,7 +55,6 @@
         <!-- Bootstrap -->
         <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
-    </div>
 
         <!-- Perfect Scrollbar -->
         <script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
@@ -122,9 +110,7 @@
             @yield('content')
         </div>
         <div class="moveTop hidden">
-            <i class="fa fa-arrow-up" style="margin-top:10px;"></i>
-            <label style="font-size:5px;">TOP</label>
-            
+            <i class="fa fa-arrow-up"></i>
         </div>
         <!-- jQuery -->
 
@@ -160,7 +146,7 @@
                 var valueMoney = $(this).val();
                 valueMoney = parseInt(valueMoney.replace('￥' , '').replace(',', '').replace('.',''));
                 if (valueMoney) {
-                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(valueMoney);
+                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name'  }).format(valueMoney);
                 } else {
                     valueMoney = '';
                 }
@@ -171,7 +157,7 @@
                 var valueMoney = $(this).val();
                 valueMoney = parseInt(valueMoney.replace('￥' , '').replace(',', '').replace('.',''));
                 if (valueMoney) {
-                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(valueMoney);
+                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name'  }).format(valueMoney);
                 } else {
                     valueMoney = '';
                 }
@@ -180,11 +166,6 @@
         });
     
         </script>
-        
-    });
-   
-    </script>
-    
 
     </body>
 

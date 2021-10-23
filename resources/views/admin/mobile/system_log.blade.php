@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '案件')
+@section('contentTitle', 'やりとり履歴')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header_mobile')
@@ -16,101 +16,28 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="page-separator">
-                            <div class="page-separator__text bgWhite">{{ trans("label.search2") }}</div>
-                        </div>
-                        <div class="card">
-                            <div class="col-lg-12" style="margin-top:15px;">
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <input type="checkbox" value="0" id="lef_akaji" v-model="checkAkaji"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label for="lef_akaji" class="statusMinus">{{ trans('label.akaji') }}</label>
-                                    </div>
-                                </div>
-                                <div class="page-separator-line"></div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label class="form-label">{{ trans('label.id') }}</label>
-                                        <input type="text" class="form-control search" v-model="project_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label class="form-label">{{ trans('label.ngay_phien_dich') }}</label>
-                                        <input type="date" class="form-control search" v-model="ngay_phien_dich" min="2021-03-17"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label class="form-label">{{ trans('label.sale') }}</label>
-                                        <input type="text" class="form-control search" v-model="ctv_sale"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label class="form-label">{{ trans('label.interpreter') }}</label>
-                                        <input type="text" class="form-control search" v-model="ctv_pd"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                    </div>
-                                </div>
-                                <div class="page-separator-line"></div>
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label class="form-label">{{ trans('label.employee_id') }}</label>
-                                        <input type="text" class="form-control search" v-model="employee_id"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="page-separator">
-                            <div class="page-separator__text">
-                            {{ trans("label.sum_search") }}
-                            </div>
+                    <div class="page-separator">
+                            <div class="page-separator__text">{{ trans("label.search2") }}</div>
                         </div>
                         <div class="card">
                             <div class="col-lg-12">
                                 <div class="row" style="margin-top:15px;">
                                     <div class="form-group col-lg-12">
-                                        <a class="dropdown-item" target="_blank" @click="todayProject()">
-                                        <i class="fas fa-search-plus"></i><span class="labelButtonDropMenu">{{ trans('label.today_interpreter2') }}<span>(</span>(( getToday() ))<span>)</span></span>
-                                        </a>  
-                                        <a class="dropdown-item" target="_blank" @click="tomorrowProject()">
-                                        <i class="fas fa-search-plus"></i><span class="labelButtonDropMenu">{{ trans('label.tomorrow_interpreter2') }}<span>(</span>(( getNextDay() ))<span>)</span></span>
-                                        </a>
-                        <div class="page-separator-line"></div>
-                                        <a class="dropdown-item" target="_blank" @click="lastMonthProject()">
-                                        <i class="fas fa-search-plus"></i><span class="labelButtonDropMenu">{{ trans('label.lastmonth2') }}<span>(</span>(( getLastMonth() ))<span>)</span></span>
-                                        </a>  
-                                        <a class="dropdown-item" target="_blank" @click="thisMonthProject()">
-                                        <i class="fas fa-search-plus"></i><span class="labelButtonDropMenu">{{ trans('label.thismonth2') }}<span>(</span>(( getThisMonth() ))<span>)</span></span>
-                                        </a>  
-                                        <a class="dropdown-item" target="_blank" @click="thisYearProject()">
-                                        <i class="fas fa-search-plus"></i><span class="labelButtonDropMenu">{{ trans('label.thisyear2') }}<span>(</span>(( getThisYear() ))<span>)</span></span>
-                                        </a>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="page-separator">
-                            <div class="page-separator__text">
-                            {{ trans("label.graph") }}( {{ trans("label.list_count_order") }})
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="col-lg-12">
-                                <div class="row" style="margin-top:15px;">
+                                        <input class="checkboxHor" type="checkbox" value="1" id="title_request" v-model="type_log"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                        <label for="title_request" class=" labelFontSize10">{{ trans('label.title_request') }}</label>
+
+                                        <input class="checkboxHor" type="checkbox" value="2" id="title_report" v-model="type_log"  @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                        <label for="title_report" class=" labelFontSize10">{{ trans('label.title_report') }}</label>
+                                    </div> 
                                     <div class="form-group col-lg-12">
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChart" data-target="#myModalChartToday">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButtonDropMenu">{{ trans('label.list_count_order_day2') }}</span>
-                                        </a> 
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartMonth" data-target="#myModalChartMonth">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButtonDropMenu">{{ trans('label.list_count_order_month2') }}</span>
-                                        </a>       
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartYear" data-target="#myModalChartYear">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButtonDropMenu">{{ trans('label.this10YearGraph_count2') }}</span>
-                                        </a>
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartArea" data-target="#myModalChartArea">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButtonDropMenu">{{ trans('label.areaGraph_count') }}</span>
-                                        </a>  
+                                        <label class="form-label">{{ trans('label.log_id') }}</label>
+                                        <input type="text" class="form-control search" v-model="item_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <label class="form-label">{{ trans('label.creator') }}</label>
+                                        <input type="text" class="form-control search" v-model="creator_name" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                     </div>
                                 </div>
                             </div>
@@ -123,145 +50,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="myModalChartToday">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.list_count_order_day') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <center class="col-lg-12">
-                            <div class="d-flex col-lg-3">
-                                <input type="month" class="form-control search" id="chart_today" @change="onLoadChart"  min="2021-03" value="{{ date('Y-m') }}">
-                            </div>
-                        </center>
-                        <div class="flex" id="chart5" style="max-width: 100%;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="myModalChartMonth">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.list_count_order_month') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <center class="col-lg-12">
-                            <div class="d-flex col-lg-2">
-                                <select id="selLang" @change="onLoadChartMonth()" class="form-control search" v-model="thisYear" >
-                                    <option value="2021" selected>2021年</option>
-                                    <option value="2022">2022年</option>
-                                    <option value="2023">2023年</option>
-                                    <option value="2024">2024年</option>
-                                    <option value="2025">2025年</option>
-                                    <option value="2026">2026年</option>
-                                    <option value="2027">2027年</option>
-                                    <option value="2028">2028年</option>
-                                    <option value="2029">2029年</option>
-                                    <option value="2030">2030年</option>                        
-                                </select>
-                            </div>
-                        </center>
-                        <div class="flex" id="chart6" style="max-width: 100%;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="myModalChartYear">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.this10YearGraph_count') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="flex" id="chart7" style="max-width: 100%;margin-top:20px;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="myModalChartArea">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.areaGraph') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="flex" id="chart4" style="max-width: 100%;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="createProject">
-            <form method="POST" class="modal-dialog char-h-mobile" action="/admin/projectnew">
-                @csrf
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.add_project') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group ">
-                            <label class="form-label">{{ trans('label.ngay_phien_dich') }}</label>
-                            <input type="text" autocomplete="off" id="listDateProj" name="ngay_pd" class="form-control" required >
-                        </div>
-                        <div class="form-group countDateLabel">
-                            <div id="txtCountDay">（{{ trans('label.count_day') }}: - ）</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">{{ trans('label.address_pd') }}</label>
-                            <div class="search-form" >
-                                <input id="addressProj" type="text" required class="form-control" name="address_pd" >
-                                <a id="link-map-proj" type="button" class="btn btn-warning" style="background:blue">{{ trans('label.google_map3') }}</a>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">{{ trans('label.contract_money') }}</label> 
-                            <div class="search-form">
-                                <input type="text" class="form-control money_parse" name="tienphiendich">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">{{ trans('label.note') }}</label>
-                            <textarea type="text" name="description" class="form-control" rows="10"></textarea>
-                        </div>
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">
-                            <span class="labelButton">{{ trans('label.ok') }}</span>
-                        </button>
-                        <button type="button" data-dismiss="modal" class="btn btn-danger">
-                            <span class="labelButton">{{ trans('label.cancel') }}</span>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog char-h-mobile">
@@ -273,194 +61,43 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.id') }}</label>
-                                <input type="text" class="form-control search" v-model="project_id">
+                                <label class="form-label">{{ trans('label.log_id') }}</label>
+                                <input type="text" class="form-control search" v-model="item_id">
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.date_start') }}</label>
-                                <input type="date" class="form-control search" v-model="dateOrder" min="2021-03-17">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.date_start_month') }}</label>
-                                <input type="month" class="form-control search" v-model="dateOrder_month">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.date_start_from') }}</label>
-                                <input type="date" class="form-control search" v-model="dateOrder_from" min="2021-03-17">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.date_start_to') }}</label>
-                                <input type="date" class="form-control search" v-model="dateOrder_to" min="2021-03-17">
+                                <label class="form-label">{{ trans('label.title') }}</label>
+                                <input type="text" class="form-control search" v-model="title">
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.ngay_phien_dich') }}</label>
-                                <input type="date" class="form-control search" v-model="ngay_phien_dich" min="2021-03-17">
-                            </div>
-                            <div class="form-group col-lg-12">                        
-                                <label class="form-label">{{ trans('label.thang_phien_dich') }}</label>
-                                <input type="month" class="form-control search"  v-model="thang_phien_dich"  min="2021-03">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.ngay_phien_dich_from') }}</label>
-                                <input type="date" class="form-control search" v-model="ngay_phien_dich_from" min="2021-03-17">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.ngay_phien_dich_to') }}</label>
-                                <input type="date" class="form-control search" v-model="ngay_phien_dich_to" min="2021-03-17">
-                            </div>                            
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label m-0">{{ trans('label.address_pd') }}</label>
-                                <input type="text" class="form-control search" v-model="conditionAddress">
+                                <label class="form-label">{{ trans('label.creator') }}</label>
+                                <input type="text" class="form-control search" v-model="creator_name">
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <input type="checkbox" value="0" id="akaji" v-model="checkAkaji">
-                                <label for="akaji" class="statusMinus">{{ trans('label.akaji') }}</label>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.status') }}</label>
-                            </div>
-                            <!-- <div class="form-group col-lg-12">
-                                <input type="checkbox" id="0" value="0" v-model="checkedNames">
-                                <label class="statusOther" for="0">{{ trans('label.status0') }}</label>
-                            </div> -->
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="1" value="1" v-model="checkedNames">
-                                <label class="statusOther" for="1">{{ trans('label.status1') }}</label>
+                                <label class="form-label">{{ trans('label.create_date') }}</label>
+                                <input type="date" class="form-control search" v-model="create_date" min="2021-03-17">
                             </div>
                             <div class="form-group col-lg-12">
-                                <input type="checkbox" id="2" value="2" v-model="checkedNames">
-                                <label class="status2" for="2">{{ trans('label.status2') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="3" value="3" v-model="checkedNames">
-                                <label class="status3" for="3">{{ trans('label.status3') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="8" value="8" v-model="checkedNames">
-                                <label class="status8" for="8">{{ trans('label.status8') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="4" value="4" v-model="checkedNames">
-                                <label class="status4" for="4">{{ trans('label.status4') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="5" value="5" v-model="checkedNames">
-                                <label class="status5" for="5">{{ trans('label.status5') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="6" value="6" v-model="checkedNames">
-                                <label class="status6" for="6">{{ trans('label.status6') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="7" value="7" v-model="checkedNames">
-                                <label class="status7" for="7">{{ trans('label.status7') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <button type="button" @click="clearSearchStatus()" class="linkCheckboxAll">{{ trans('label.all_off') }}</button>
-                                <button type="button" @click="setSearchStatus()" class="linkCheckboxAll">{{ trans('label.all_on') }}</button>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.sale') }}</label>
-                                <input type="text" class="form-control search" v-model="ctv_sale">
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.interpreter') }}</label>
-                                <input type="text" class="form-control search" v-model="ctv_pd">
+                                <label class="form-label">{{ trans('label.create_date_month') }}</label>
+                                <input type="month" class="form-control search" v-model="create_date_month">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.sex') }}</label>
+                                <label class="form-label">{{ trans('label.create_date_from') }}</label>
+                                <input type="date" class="form-control search" v-model="create_date_from" min="2021-03-17">
                             </div>
                             <div class="form-group col-lg-12">
-                                <input type="checkbox" id="sexMale" value="1" v-model="checkedCTVSex">
-                                <label for="sexMale">{{ trans('label.male') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="sexFemale" value="2" v-model="checkedCTVSex">
-                                <label for="sexFemale">{{ trans('label.female') }}</label>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.type') }}</label>  
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type0" value="1" v-model="checkedTypes">
-                                <label for="type0">{{ trans('label.type1') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type1" value="2" v-model="checkedTypes">
-                                <label for="type1">{{ trans('label.type2') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type2" value="3" v-model="checkedTypes">
-                                <label for="type2">{{ trans('label.type3') }}</label>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.type_trans') }}</label>  
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type_trans0" value="1" v-model="checkedTypeTrans">
-                                <label for="type_trans0">{{ trans('label.type_trans1') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type_trans1" value="2" v-model="checkedTypeTrans">
-                                <label for="type_trans1">{{ trans('label.type_trans2') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type_trans2" value="3" v-model="checkedTypeTrans">
-                                <label for="type_trans2">{{ trans('label.type_trans3') }}</label>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.language') }}</label>  
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type_lang0" value="VNM" v-model="checkedTypeLang">
-                                <label for="type_lang0">{{ trans('label.type_lang1') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="type_lang1" value="PHL" v-model="checkedTypeLang">
-                                <label for="type_lang1">{{ trans('label.type_lang2') }}</label>
-                            </div>
-                        </div>
-                        <div class="page-separator-line"></div>
-                        <div class="row">
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.employee_id') }}</label>
-                                <input type="text" class="form-control search" v-model="employee_id">
+                                <label class="form-label">{{ trans('label.create_date_to') }}</label>
+                                <input type="date" class="form-control search" v-model="create_date_to" min="2021-03-17">
                             </div>
                         </div>
                     </div>
@@ -480,14 +117,9 @@
         </div>
         <div class="row">
             <div class="bodyButtonTopMobile fullWidthMobile">
-                @if (Auth::guard('admin')->user()->id == 1 )
-                <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createProject">
-                    <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
+                <a type="button" class="btn btn-outline-secondary3 pdfButtonBg" target="_blank" :href="'/admin/cost-movefee-pdf?' + conditionSearch">
+                    <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.pdf_table') }}</span></i>
                 </a> 
-                @endif  
-                <a type="button" :href="'/admin/project-excel?' + conditionSearch" class="btn btn-outline-secondary3 excelButtonBg">
-                    <i class="fas fa-file-excel"><span class="labelButton">{{ trans('label.excel') }}</span></i>
-                </a>
                 <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                     <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
                 </a>   
@@ -510,12 +142,11 @@
                     <label class="form-label">of ((sumCount)) {{ trans('label.ken') }}</label>
                 </div>
                 <div class="vl"></div>
-                <a @click="refresh()" type="button" class="btn btn-outline-secondary updateButton">
+                <a @click="resetSearch()" type="button" class="btn btn-outline-secondary updateButton">
                     <i class="fas fa-sync-alt"></i>
                 </a>
             </div>
         </div>
-        
         <div class="container page__container page-section page_container_custom">
             <div class="bodyContent">
                 <div class="bodyContentRight tableFixHead">
@@ -523,38 +154,18 @@
                         <thead class="thead-light">
                             <tr> 
                                 <th scope="col" @click="sort('id')" >
-                                    <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.project') }}</div>
+                                    <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.log_id') }}</div>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="list" id="search">
                             <tr v-for="item in sortedProducts">
                                 <td :class="item.classStyle  + ' '">
-                                    <a type="button" class="btn btn-outline-secondary" target="_blank" :href="'/admin/projectview/' + item.id">
-                                        {{ trans('label.id') }}((item.id)) (<span v-if='item.status == 1'>{{ trans('label.status1') }}</span>
-                                                            <span v-if='item.status == 2'>{{ trans('label.status2') }}</span>
-                                                            <span v-if='item.status == 3'>{{ trans('label.status3') }}</span>
-                                                            <span v-if='item.status == 8'>{{ trans('label.status8') }}</span>
-                                                            <span v-if='item.status == 4'>{{ trans('label.status4') }}</span>
-                                                            <span v-if='item.status == 5'>{{ trans('label.status5') }}</span>
-                                                            <span v-if='item.status == 6'>{{ trans('label.status6') }}</span>
-                                                            <span v-if='item.status == 7'>{{ trans('label.status7') }}</span>)
-                                    </a><br>
-                                    <span v-for="itemCTV in item.ctv_sales_list">
-                                        <u><b>(( parseName(itemCTV.name) )) {{ trans('label.sama') }}</b></u><br>
-                                    </span>
-                                    (( item.ngay_pd )) ((item.address_pd))<br>
-                                    <div v-for="itemCTV in item.ctv_list">
-                                        <div>
-                                            <i v-if="itemCTV.male == 1" class="fa fa-male maleClass"></i>
-                                            <i v-if="itemCTV.male == 2" class="fa fa-female femaleClass"></i>  
-                                            (( parseName(itemCTV.name) )) (<span>
-                                                <a target="_blank" :href="'tel:'+itemCTV.phone">
-                                                (( parsePhone(itemCTV.phone) ))
-                                                </a>
-                                                </span>)
-                                        </div>
-                                    </div>
+                                {{ trans('label.log_id') }}((item.id))(<span>((item.title))</span>)</br>                                
+                                <div class="text-block" v-html="item.content">
+                                ((item.content))
+                                </div>
+                                ((item.creator_name))(<span>((item.create_date))</span>)
                                 </td>
                             </tr>
                         </tbody>
@@ -710,12 +321,18 @@ new Vue({
         dateOrder_to: '',
         dateOrder_month: '',
         codeJobs: '',
-        project_id: '{{ Request::get("keyword") }}',
+        item_id: '',
+        creator_name: '',
+        create_date: '',
+        create_date_month: '',
+        create_date_from: '',
+        create_date_to: '',
+        title: '',
+        type_log: [1,2],
         checkedNames: [0,1,2,3,4,5,6,8],
 		checkedTypes: [1,2,3],
         checkedTypeTrans: [1,2,3],
-        checkedTypeLang: ["VNM","PHL"],
-        employee_id: '',
+        checkedTypeLang: [1,2],
         checkedCTVSex: [1,2],
         sortName: '',
         sortType:"DESC",
@@ -778,24 +395,6 @@ new Vue({
         }
     },
     methods: {
-        onLoadChartArea() {
-            const that = this;
-            $.ajax({
-                type: 'GET',
-                url: "{{route('admin.getChartChartArea')}}",
-                success: function(data) {
-                    that.ReportArea = data.ReportArea;
-                    that.loadChartArea();
-                },
-                error: function(xhr, textStatus, error) {
-                    Swal.fire({
-                        title: "システムエラーが発生しました。 大変お手数ですが、サイト管理者までご連絡ください。",
-                        type: "warning",
-
-                    });
-                }
-            });
-        },
         loadChartArea() {
             var ticks4 = [];
             $.jqplot.config.enablePlugins = true;
@@ -834,20 +433,16 @@ new Vue({
                 axes: {
                     xaxis: {
                         renderer: $.jqplot.CategoryAxisRenderer,
-                        ticks: ticks4,
-                        // label: '{{ trans("label.area") }}'
+                        ticks: ticks4
                     },
                     yaxis: {
                         min:0,
-                        max:100,
-                        tickOptions: { 
-                            formatString: '%d' 
-                        },
-                        label: '{{ trans("label.list_count_order") }}'
+                        max:60,
+                        label: '{{ trans("label.list_count") }}'
                     }
                 },
                 highlighter: { show: false },
-                height: document.getElementById('myModalChartArea').clientHeight * 0.7,
+                height: 400,
                 canvasOverlay: {
                     show: false,
                     objects: [
@@ -872,7 +467,7 @@ new Vue({
                         $('#info6').html('Nothing');
                     }
                 );
-            }, 100);
+            }, 500);
         },
         onLoadChart() {
             var selDate = document.getElementById("chart_today").value;
@@ -881,9 +476,13 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getChartProjectDate')}}?year=" + that.selYear  + "&month=" + that.selMonth,
+                url: "{{route('admin.getListProject')}}?year=" + that.selYear  + "&month=" + that.selMonth,
                 success: function(data) {
-                    that.dayCount = data.dayCount;
+                    if (data.count > 0) {
+                        that.dayCount = data.dayCount;
+                    } else {
+                        that.dayCount = [];
+                    }
                     that.loadChart();
                 },
                 error: function(xhr, textStatus, error) {
@@ -934,7 +533,7 @@ new Vue({
                         // showVerticalLine : true,
                         followMouse: true
                     },
-                    // title: that.selYear + "年" + that.selMonth+"月",
+                    title: that.selYear + "年" + that.selMonth+"月",
                     seriesDefaults:{
                         renderer:$.jqplot.DateAxisRenderer,
                         pointLabels: { show: true , escapeHTML: false },
@@ -947,22 +546,19 @@ new Vue({
                         },
                         yaxis: {
                             min:0,
-                            max:15,
-                            tickOptions: { 
-                                formatString: '%d' 
-                            },
-                            label: '{{ trans("label.list_count_order") }}'
+                            max:12,
+                            label: '{{ trans("label.list_count") }}'
                         }
                     },
                     highlighter: { show: false },
-                    height: document.getElementById('myModalChartToday').clientHeight * 0.5,
+                    height: 400,
                     canvasOverlay: {
                         show: true,
                         objects: [
                             {horizontalLine: {
                                 linePattern: 'dashed',
                                 name: 'pebbles',
-                                y: 10,
+                                y: 8,
                                 lineWidth: 1,
                                 xOffset: 0.2,
                                 color: 'red',
@@ -982,26 +578,7 @@ new Vue({
                         $('#info5').html('Nothing');
                     }
                 );
-            }, 100);
-        },
-        onLoadChartMonth() {
-            this.selYear = document.getElementById("selLang").value;
-            const that = this;
-            $.ajax({
-                type: 'GET',
-                url: "{{route('admin.getChartProjectMonth')}}?year=" + that.selYear,
-                success: function(data) {
-                    that.yearReportCount = data.yearReportCount;
-                    that.loadChartMonth();
-                },
-                error: function(xhr, textStatus, error) {
-                    Swal.fire({
-                        title: "システムエラーが発生しました。 大変お手数ですが、サイト管理者までご連絡ください。",
-                        type: "warning",
-
-                    });
-                }
-            });
+            }, 500);
         },
         loadChartMonth() {
             var ticks6 = [];
@@ -1034,7 +611,7 @@ new Vue({
                     // showVerticalLine : true,
                     followMouse: true
                 },
-                // title: that.thisYear + "年",
+                title: that.thisYear + "年",
                 seriesDefaults:{
                     renderer:$.jqplot.DateAxisRenderer,
                     pointLabels: { show: true , escapeHTML: false },
@@ -1047,22 +624,19 @@ new Vue({
                     },
                     yaxis: {
                         min:0,
-                        max:300,
-                        tickOptions: { 
-                            formatString: '%d' 
-                        },
-                        label: '{{ trans("label.list_count_order") }}'
+                        max:240,
+                        label: '{{ trans("label.list_count") }}'
                     }
                 },
                 highlighter: { show: false },
-                height: document.getElementById('myModalChartMonth').clientHeight * 0.5,
+                height: 400,
                 canvasOverlay: {
                     show: true,
                     objects: [
                         {horizontalLine: {
                             linePattern: 'dashed',
                             name: 'pebbles',
-                            y: 200,
+                            y: 160,
                             lineWidth: 1,
                             xOffset: 0.2,
                             color: 'red',
@@ -1070,7 +644,6 @@ new Vue({
                         }},
                     ]
                 }});
-                plot6.replot();
                 $('#chart6').bind('jqplotDataHighlight', 
                     function (ev, seriesIndex, pointIndex, data) {
                         $('#info6').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
@@ -1081,25 +654,7 @@ new Vue({
                         $('#info6').html('Nothing');
                     }
                 );
-            }, 100);
-        },        
-        onLoadChartYear() {
-            const that = this;
-            $.ajax({
-                type: 'GET',
-                url: "{{route('admin.getChartProjectYear')}}",
-                success: function(data) {
-                    that.everyYearReportCount = data.everyYearReportCount;
-                    that.loadChartYear();
-                },
-                error: function(xhr, textStatus, error) {
-                    Swal.fire({
-                        title: "システムエラーが発生しました。 大変お手数ですが、サイト管理者までご連絡ください。",
-                        type: "warning",
-
-                    });
-                }
-            });
+            }, 500);
         },
         loadChartYear() {
             var ticks7 = [];
@@ -1144,22 +699,19 @@ new Vue({
                     },
                     yaxis: {
                         min:0,
-                        max:3000,
-                        tickOptions: { 
-                            formatString: '%d' 
-                        },
-                        label: '{{ trans("label.list_count_order") }}'
+                        max:2880,
+                        label: '{{ trans("label.list_count") }}'
                     }
                 },
                 highlighter: { show: false },
-                height: document.getElementById('myModalChartYear').clientHeight * 0.5,
+                height: 400,
                 canvasOverlay: {
                     show: true,
                     objects: [
                         {horizontalLine: {
                             linePattern: 'dashed',
                             name: 'pebbles',
-                            y: 2400,
+                            y: 1920,
                             lineWidth: 1,
                             xOffset: 0.2,
                             color: 'red',
@@ -1177,7 +729,7 @@ new Vue({
                         $('#info6').html('Nothing');
                     }
                 );
-            }, 100);
+            }, 500);
         },
         sort: function(s){
             if(s === this.sortBy) {
@@ -1295,6 +847,56 @@ new Vue({
         switchView: function() {
             this.type_show = (this.type_show == 1) ? 2 : 1;
         },
+        resetSearch() {
+            this.conditionName = '';
+            this.conditionStatus = '';
+            this.conditionAddress = '';
+            this.dateOrder = '';
+            this.dateOrder_from = '';
+            this.dateOrder_to = '';
+            this.dateOrder_month = '';
+            this.ngay_phien_dich = '';
+            this.ngay_phien_dich_from = '';
+            this.ngay_phien_dich_to = '';
+			this.thang_phien_dich = '';
+            this.name_kh = '' ;
+            this.ctv_pd = '' ;
+            this.ctv_sale = '' ;
+            this.codeJobs = '';
+            this.item_id = '';
+            this.creator_name = '';
+            this.create_date = '';
+            this.create_date_month = '';
+            this.create_date_from = '';
+            this.create_date_to = '';
+            this.type_log = [1,2];
+            this.title = '';
+            this.page = 1;
+            this.checkedNames = [0,1,2,3,4,5,6,8];
+			this.checkedTypes = [1,2,3];
+            this.checkedTypeTrans = [1,2,3];
+            this.checkedTypeLang = [1,2];
+            this.checkedCTVSex = [1,2];
+            this.sortName = '';  
+            this.sortType = "DESC";    
+            this.checkAkaji= 0;   
+
+            this.sumTienPhienDich= 0;
+            this.sumTongThuDuKien =0;
+            this.sumCost=0;
+            this.sumCostSale= 0;
+            this.sumCostInterpreter= 0;
+            this.sumCostIncomeTax= 0;
+            this.sumCostMoveFee= 0;
+            this.sumCostBankFee= 0;
+            this.sumEarning= 0;
+            this.sumBenefit= 0;
+            this.sumDeposit= 0;
+            this.sumTongKimDuocDuKien = 0;
+
+            this.onLoadPagination();
+        },
+        
         thisYearProject: function() {
             this.clearSearchCondition();
 
@@ -1497,13 +1099,19 @@ new Vue({
             this.ctv_pd = '' ;
             this.ctv_sale = '' ;
             this.codeJobs = '';
-            this.project_id = '';
+            this.item_id = '';
+            this.creator_name = '';
+            this.create_date = '';
+            this.create_date_month = '';
+            this.create_date_from = '';
+            this.create_date_to = '';
+            this.type_log = [1,2];
+            this.title = '';
             this.page = 1;
             this.checkedNames = [0,1,2,3,4,5,6,8];
 			this.checkedTypes = [1,2,3];
             this.checkedTypeTrans = [1,2,3];
-            this.checkedTypeLang = ["VNM","PHL"];
-            this.employee_id = '';
+            this.checkedTypeLang = [1,2];
             this.checkedCTVSex = [1,2];
             this.sortName = '';  
             this.sortType = "DESC";  
@@ -1602,10 +1210,10 @@ new Vue({
                 conditionSearch += '&date_start=' + this.dateOrder;
             }
             if (this.dateOrder_from != '') {
-                conditionSearch += '&date_start_from=' + this.dateOrder_from;
+                conditionSearch += '&date_start=' + this.dateOrder_from;
             }
             if (this.dateOrder_to != '') {
-                conditionSearch += '&date_start_to=' + this.dateOrder_to;
+                conditionSearch += '&date_start=' + this.dateOrder_to;
             }
             if (this.dateOrder_month != '') {
                 conditionSearch += '&date_start_month=' + this.dateOrder_month;
@@ -1631,11 +1239,29 @@ new Vue({
             if (this.codeJobs != '') {
                 conditionSearch += '&code_jobs=' + this.codeJobs;
             }
-            if (this.employee_id != '') {
-                conditionSearch += '&employee_code=' + this.employee_id;
+            if (this.item_id != '') {
+                conditionSearch += '&log_id=' + this.item_id;
             }
-            if (this.project_id != '') {
-                conditionSearch += '&project_id=' + this.project_id;
+            if (this.creator_name != '') {
+                conditionSearch += '&creator_name=' + this.creator_name;
+            }
+            if (this.create_date != '') {
+                conditionSearch += '&create_date=' + this.create_date;
+            }
+            if (this.create_date_from != '') {
+                conditionSearch += '&create_date_from=' + this.create_date_from;
+            }
+            if (this.create_date_to != '') {
+                conditionSearch += '&create_date_to=' + this.create_date_to;
+            }
+            if (this.create_date_month != '') {
+                conditionSearch += '&create_date_month=' + this.create_date_month;
+            }
+            if (this.type_log != '') {
+                conditionSearch += '&type_log=' + this.type_log.join();
+            }
+            if (this.title != '') {
+                conditionSearch += '&title=' + this.title;
             }
             if (this.checkedNames.length > 0) {
                 conditionSearch += '&status_multi=' + this.checkedNames.join();
@@ -1664,7 +1290,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListProject')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListLog')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;
@@ -1732,15 +1358,15 @@ new Vue({
 
                     // fixed 1
                     setTimeout(function() { 
-                        $('.fix-col1').attr("style","z-index:100;left:0px;background:#CCCCCC");
-                        $('.fix-col2').attr("style","z-index:100;left:80px;background:#CCCCCC");
-                        $('.fix-col3').attr("style","z-index:100;left:"+(94.63 + 80)+"px;background:#CCCCCC");
+                        $('.fix-col1').attr("style","z-index:5000;left:0px;background:#CCCCCC");
+                        $('.fix-col2').attr("style","z-index:500;left:82.4px;background:#CCCCCC");
+                        $('.fix-col3').attr("style","z-index:500;left:"+(94.63 + 82.4)+"px;background:#CCCCCC");
 
 
-                        $('.fix-col1-detail').attr("style","z-index:99;left:0px;");
-                        $('.fix-col2-detail').attr("style","z-index:99;left:80px;");
-                        $('.fix-col3-detail').attr("style","z-index:99;left:"+(94.63 + 80)+"px;");
-                    }, 100);
+                        // $('.fix-col1-detail').attr("style","z-index:101;left:0px;");
+                        $('.fix-col2-detail').attr("style","z-index:99;left:82.4px;");
+                        $('.fix-col3-detail').attr("style","z-index:99;left:"+(94.63 + 82.4)+"px;");
+                    }, 500);
                 },
                 error: function(xhr, textStatus, error) {
                     Swal.fire({

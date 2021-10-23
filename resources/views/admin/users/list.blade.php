@@ -75,11 +75,6 @@
                                         </th>
                                         <th>
                                             <p class="mb-2">
-                                               Bộ Phận
-                                            </p>
-                                        </th>
-                                        <th>
-                                            <p class="mb-2">
                                                Action
                                             </p>
                                         </th>
@@ -107,13 +102,6 @@
                                             <td>
                                                 <p class="mb-2">
                                                     ((item.email))
-                                                </p>
-
-                                            </td>
-                                            <td>
-                                                <p class="mb-2">
-
-                                                    ((item.bophan ? item.bophan.name : ''))
                                                 </p>
 
                                             </td>

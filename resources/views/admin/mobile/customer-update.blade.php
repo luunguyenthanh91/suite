@@ -1,122 +1,114 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '経費科目')
+@section('contentTitle', '顧客更新')
 
 <div class="mdk-drawer-layout__content page-content">
-    <!-- Header -->
-    @include('admin.component.header')	
-	
+    @include('admin.component.header')
+
     <!-- content -->
     <div id="list-data">
-
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/expensesupdate/{{$id}}">
-                <i class="fas fa-edit"><span class="labelButton">編集</span></i>
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
+                <i class="fas fa-save"><span class="labelButton">{{ trans('label.save') }}</span></i>
             </a>
-            @if ($data->file)
-            <a type="button" class="btn btn-outline-secondary3" style="background:#f38434" target="_blank" href="/admin/expenses-detail-receipt-pdf/{{$id}}">
-                <i class="fas fa-file-pdf"><span class="labelButton">出金伝票(PDF)</span></i>
+            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/customer-view/{{$id}}">
+                <i class="fas fa-window-close"><span class="labelButton">{{ trans('label.cancel') }}</span></i>
             </a>
-            @endif
-            @if (Auth::guard('admin')->user()->id == 1 )
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
-                <i class="fas fa-trash-alt"><span class="labelButton">削除</span></i>
-            </a> 
-            @endif      
         </div>
-        <div class="container page__container page-section page_container_custom" :style="'margin-top: ' + marginTop">
+
+        <div class="container page__container page-section page_container_custom">
             <form action="" method="POST" class="p-0 mx-auto form-data" >
                 @csrf
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="flex" style="max-width: 100%">
-                            <table class="table thead-border-top-0 table-nowrap table-mobile">
-                                <tr>
-                                    <td class="titleTd">日付:</td>
-                                    <td :class="''+classRowContent">
-                                        {{@$data->date}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">勘定科目：</td>
-                                    <td :class="''+classRowContent">
-                                        @if ($data->typeLog == 1)
-                                            <span>租税公課</span>
-                                        @endif
-                                        @if ($data->typeLog == 2)
-                                            <span>修繕費</span>
-                                        @endif
-                                        @if ($data->typeLog == 3)
-                                            <span>水道光熱費</span>
-                                        @endif
-                                        @if ($data->typeLog == 4)
-                                            <span>保険料</span>
-                                        @endif
-                                        @if ($data->typeLog == 5)
-                                            <span>消耗品費</span>
-                                        @endif
-                                        @if ($data->typeLog == 6)
-                                            <span>法定福利費</span>
-                                        @endif
-                                        @if ($data->typeLog == 7)
-                                            <span>給料賃金</span>
-                                        @endif
-                                        @if ($data->typeLog == 8)
-                                            <span>地代家賃</span>
-                                        @endif
-                                        @if ($data->typeLog == 9)
-                                            <span>外注工賃</span>
-                                        @endif
-                                        @if ($data->typeLog == 10)
-                                            <span>支払手数料</span>
-                                        @endif
-                                        @if ($data->typeLog == 11)
-                                            <span>旅費交通費</span>
-                                        @endif
-                                        @if ($data->typeLog == 12)
-                                            <span>開業費/創立費</span>
-                                        @endif
-                                        @if ($data->typeLog == 13)
-                                            <span>通信費</span>
-                                        @endif
-                                        @if ($data->typeLog == 14)
-                                            <span>接待交際費</span>
-                                        @endif
-                                        @if ($data->typeLog == 15)
-                                            <span>その他</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">摘要：</td>
-                                    <td :class="''+classRowContent">
-                                        {!! @$data->name !!}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">金額：</td>
-                                    <td :class="''+classRowContent">
-                                    ¥{{ number_format($data->price) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">領収書：</td>
-                                    <td :class="''+classRowContent">
-                                        @if ($data->file)
-                                            <a type="button" class="btn btn-outline-secondary3" style="background:purple" target="_blank" href="{{$data->file}}">
-                                                <i class="fas fa-download"><span class="labelButton">ダウンロード</span></i>
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="titleTd">備考：</td>
-                                    <td :class="''+classRowContent">
-                                        {!! @$data->note !!}
-                                    </td>
-                                </tr>
-                            </table>
+                <div class="col-lg-12">
+                    <div class="card dashboard-area-tabs p-relative o-hidden mb-0">
+                        <div class="card-header p-0 nav">
+                            <div class="row no-gutters" role="tablist">
+                                <div class="col-auto">
+                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click active" id="tab1">
+                                        <span class="flex d-flex flex-column">
+                                            <strong class="card-title">{{ trans('label.property') }}</strong>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body tab-content">
+                            <div class="tab-pane active" id="detailtab1">
+                                <div class="row">     
+                                    <div class="col-lg-12">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.id_intepreter') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.status') }}</td>
+                                                <td>
+                                                    <select class="form-control" name="status">
+                                                        <option value="1" @if(@$data->status == 1) selected @endif>{{ trans('label.cus_status_1') }}</option>
+                                                        <option value="2" @if(@$data->status == 2) selected @endif>{{ trans('label.cus_status_2') }}</option>
+                                                        <option value="3" @if(@$data->status == 3) selected @endif>{{ trans('label.cus_status_3') }}</option>
+                                                        <option value="4" @if(@$data->status == 4) selected @endif>{{ trans('label.cus_status_4') }}</option>
+                                                        <option value="5" @if(@$data->status == 5) selected @endif>{{ trans('label.cus_status_5') }}</option>
+                                                        <option value="6" @if(@$data->status == 6) selected @endif>{{ trans('label.cus_status_6') }}</option>
+                                                    </select>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.name') }}</td>
+                                                <td>
+                                                <input type="text" name="name" class="form-control" style="text-transform: uppercase;"  required  value="{{@$data->name}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.address') }}</td>
+                                                <td>
+                                                    <input type="text" name="address" class="form-control" style="text-transform: uppercase;"  value="{{@$data->address}}">
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.tel') }}</td>
+                                                <td>
+                                                <input type="text" name="phone" class="form-control" style="text-transform: uppercase;"  value="{{@$data->phone}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.website') }}</td>
+                                                <td>
+                                                    <input type="text" name="website" class="form-control" value="{{@$data->website}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.email') }}</td>
+                                                <td>
+                                                    <input type="text" name="email" class="form-control" value="{{@$data->email}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.number_cus') }}</td>
+                                                <td>
+                                                    <input type="text" name="number_cus" class="form-control" value="{{@$data->number_cus}}">
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.language') }}</td>
+                                                <td>
+                                                    <input type="text" name="type_langs" class="form-control" value="{{@$data->type_langs}}">
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.note') }}</td>
+                                                <td>
+                                                    <textarea type="text" name="note" class="form-control" rows="10">{{@$data->note}}</textarea>
+                                                </td>
+                                            </tr> 
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,6 +144,7 @@
 <script src="{{ asset('js/pages/sweet-alerts.init.js') }}"></script>
 
 
+
 <script type="text/javascript">
     //<![CDATA[
     jQuery(document).ready(function (){
@@ -161,15 +154,25 @@
             $('.tab-pane').removeClass('active');
             $('#detail'+$(this).attr('id')).addClass('active');
         });
+        $("#price").on("change", function() {
+            var flagPrice = $('#price').val();
+            flagPrice = parseInt(flagPrice.replace('￥' , '').replace(',', '').replace('.',''));
+            $('#pricedata').val(flagPrice);
+            if (flagPrice) {
+                $('#pricedata').val(flagPrice);
+                flagPrice = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(flagPrice);
+            } else {
+                flagPrice = '';
+                $('#pricedata').val(flagPrice);
+            }
+            $('#price').val(flagPrice);
+        });
 
-        
-    
-    });
-    jQuery(document).ready(function (){
         $('#listDate').datepick({ 
         multiSelect: 999, 
         dateFormat: 'yyyy-mm-dd',
         monthsToShow: 1});
+
         CKFinder.setupCKEditor( null, '/lib_upload/ckfinder/' );
         jQuery(".input_image[value!='']").parent().find('div').each( function (index, element){
             jQuery(this).toggle();
@@ -275,13 +278,6 @@ new Vue({
         guardAddData: '',
         groupAddData: '',
         instan: 25,
-        long: '{{@$data->longitude}}',
-        lat: '{{@$data->latitude}}',
-        kinh_vido: '',
-        ga_gannhat: '{{@$data->ga}}',
-        address_pd: '{{@$data->address_pd}}',
-        groups: [],
-        loai_job : '{{@$data->loai_job}}',
         listAcountSale: [],
         loadingTableSale: 0,
         countSales: 0,
@@ -302,9 +298,10 @@ new Vue({
         showListCus : 0,
         showListCtv : 0,
         isMobile : ( viewPC )? false : true,
-        marginTop: "30px;",
+        marginTop: "100px;",
         marginLeft: ( viewPC )? "30px;" : "0px;",
-        classRowContent: (viewPC)? "" : "rowContent "
+        classRowContent: (viewPC)? "" : "rowContent ",
+        price : ''
     },
     delimiters: ["((", "))"],
     mounted() {
@@ -321,37 +318,6 @@ new Vue({
             $temp.val(str).select();
             document.execCommand("copy");
             $temp.remove();
-        },
-        copyClipboadCTV(_i) {
-            $('#copyName').html(this.parseName(_i.name));
-            $('#copyFurigana').html(_i.address);
-            $('#copyPhone').html(this.parsePhone(_i.phone));
-
-            this.execCopyClipboad();
-        },
-        copyClipboadCTVpd(_i) {
-            $('#copyName').html(this.parseName(_i.name));
-            $('#copyFurigana').html(_i.furigana);
-            $('#copyPhone').html(this.parsePhone(_i.phone));
-
-            this.execCopyClipboad();
-        },
-        copyClipboad(_i) {
-            $('#copyName').html(_i.codejob);
-            $('#copyFurigana').html(_i.ngay_pd);
-            $('#copyPhone').html(_i.address_pd);
-
-            this.execCopyClipboad();
-        },
-        copyClipboadLink(_i) {
-            var getUrl = window.location;
-            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-            var url = baseUrl + "/projectview/" + _i.id;
-            $('#copyName').html(url);
-            $('#copyFurigana').html("");
-            $('#copyPhone').html("");
-
-            this.execCopyClipboad();
         },
         toggelPd() {
             this.showListPD = this.showListPD == 1 ? 0 : 1;
@@ -383,28 +349,6 @@ new Vue({
         },
         onSubmit(){
             $('.btn-submit').prop('disabled', true);
-            // if ('{{@$data->address_pd}}' !=  this.address_pd) {
-            //     const that = this;
-            //     $.ajax({
-            //         type: 'GET',
-            //         url: "http://api.positionstack.com/v1/forward?access_key=d4eb3bcee90d3d0a824834770881ce70&query=" + this.address_pd,
-            //         success: function(data) {
-            //             that.long = data.data[0].latitude;
-            //             that.lat = data.data[0].longitude;
-            //             setTimeout(function(){ $('.form-data').submit(); }, 1000);
-
-            //         },
-            //         error: function(xhr, textStatus, error) {
-            //             Swal.fire({
-            //                 title: "Có lỗi dữ liệu nhập vào!",
-            //                 type: "warning",
-
-            //             });
-            //         }
-            //     });
-            // } else {
-            //     setTimeout(function(){ $('.form-data').submit(); }, 1000);
-            // }
             setTimeout(function(){ $('.form-data').submit(); }, 1000);
         },
         
@@ -421,7 +365,7 @@ new Vue({
             value = (isNaN(value)) ? 0 : value;
             const formatter = new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
-                currency: 'JPY'
+                currency: 'JPY',currencyDisplay: 'name'
             });
             return formatter.format(value);
         },
@@ -445,9 +389,9 @@ new Vue({
             value = (new String(value)).replaceAll(S_HYPEN, '').replaceAll(' ', ''); 
             var vLength = value.length;
             if (vLength == 11) {
-                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(6, 4);
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 4);
             } else if (vLength == 10) {
-                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(6, 3);
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 3);
             }
             return value;
         },
@@ -488,34 +432,11 @@ new Vue({
             });
             
         },
-        changeTypeJobs() {
-            if (this.loai_job != 1) {
-                this.percent_vat_ctvpd  = 0;
-            } else {
-                if (this.loai_job == 3) {
-                    this.price_send_ctvpd = 0;
-                }
-                this.percent_vat_ctvpd  = 10.21;
-            }
-        },
-        changeTypeHoaHong() {
-            if (this.typehoahong == 1) {
-                this.percent_vat_ctvpd  = 0;
-            } else {
-                this.percent_vat_ctvpd  = 10.21;
-            }   
-        },
         cancleEdit() {
             this.edit_form = 0;
         },
         openEdit() {
             this.edit_form = 1;
-        },
-        onOpenLoction() {
-            window.open("http://maps.google.com/maps?q="+this.ga_gannhat, '_blank');
-        },
-        onOpenLoctionAddress() {
-            window.open("http://maps.google.com/maps?q="+this.address_pd, '_blank');
         },
         addListRecord(i) {
             
@@ -604,54 +525,8 @@ new Vue({
         },
         removeRecord(i) {
             i.type = 'delete';
-        },
-        onPageChange(_p) {
-            this.page = _p;
-            this.onLoadPagination();
-        },
-        onSearch: function() {
-            this.page = 1;
-            this.onLoadPagination();
-        },
-        deleteRecore(_i) {
-            const that = this;
-            Swal.fire({
-                title: "Xác Nhận",
-                text: "Bạn có đồng ý xóa giá trị này không?",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Có!",
-                cancelButtonText: "Không!",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then(function(t) {
-                if (t.dismiss == "cancel") {
-                    return;
-                }
-                that.loadingTable = 1;
-                $.ajax({
-                    url: "/admin/expensesdelete/" + _i,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        Swal.fire({
-                            title: "Đã xóa!"
-                        });
-                        location.href = "/admin/expenseslist";
-                    },
-                    error: function(xhr, textStatus, error) {
-                        Swal.fire({
-                            title: "Có lỗi dữ liệu nhập vào!",
-                            type: "warning",
-
-                        });
-                    }
-                });
-
-            })
         }
+
     },
 });
 </script>

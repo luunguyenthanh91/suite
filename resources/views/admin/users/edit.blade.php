@@ -81,14 +81,6 @@
                                 <label class="form-label" >Name:</label>
                                 <input type="text" name="name" class="form-control" value="{{$data->name}}">
                             </div>
-                            <div class="form-group">
-                                <label class="form-label" >Bộ Phận:</label>
-                                <select class="form-control" name="bophan_id">
-                                    @foreach($bophans as $item)
-                                        <option value="{{$item->id}}" @if(@$data->item_district == $item->id) selected @endif>{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="d-flex">
                                 <div class="form-group col-lg-12 p-0">
                                     <label class="form-label">Avatar:</label>

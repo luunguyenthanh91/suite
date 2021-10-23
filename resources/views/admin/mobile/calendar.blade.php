@@ -3,24 +3,19 @@
 @section('content')
 @section('contentTitle', 'カレンダー')
 
-<div class="mdk-drawer-layout__content page-content page-notscrool">
+<div class="mdk-drawer-layout__content page-content page-notscroolMobile">
 
-    <!-- Header -->
     @include('admin.component.header_mobile')
+    @include('admin.component.footer_mobile')
 
-    <!-- content -->
-    <div id="list-data" style="margin-left:10px;">
-        <div class="container page__container page-section page_container_custom">
-            <div class="row page_container_custom_marginright"  style="width:100%;">
-                <div :class="''+classColLG12" style="width:100%;height:100%;">
-                    <div id='calendar'></div>
-                </div>
+    <div id="list-data">
+        <div class="bodyContentMobile" style=background:white;">
+            <div class="col-lg-12"  style=margin-top:10px;">
+                <div id='calendar' style="text-align:center;"></div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    @include('admin.component.footer')
 </div>
 
 <!-- menu -->
@@ -38,21 +33,41 @@
 
 <script type="text/javascript">
 var viewPC = !/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-var headerControl =  {
-    left: 'today',
+var headerControl = (viewPC)? {
+    left: 'prev,next,today',
     center: 'title',
-    right:'prevYear,prev,next,nextYear'
-};
-var footerControl = {
+    right:'dayGridMonth,dayGridWeek,dayGridDay,listWeek'
+} : {
     left: '',
-    center: 'dayGridMonth,dayGridWeek,dayGridDay,listWeek',
+    center: 'prevYear,prev,today,next,nextYear,title,dayGridWeek,dayGridDay,dayGridMonth,listWeek',
     right:''
 };
-var heightScr = $(window).height();
+var footerControl = (viewPC)? {
+    left: '',
+    center: '',
+    right: ''
+} : {
+    left: '',
+    center: '',
+    right:''
+};
+var heightScr = $(window).height() - 150;
 var widthScr = $(window).width();
         
 var calendar;
 var listDate = [];
+var listHolidayDate = [];
+@foreach($holidays as $item)
+    listHolidayDate.push(
+        {
+            title: '{{@$item->title}}',
+            start: '{{@$item->start}}',
+            textColor:'red',
+            rendering: 'background',
+            color:"#ffd0d0",
+        }
+    );
+@endforeach
 @foreach($data as $item)
     @foreach($item->ngay_pd as $itemdateList)
     var imgDiv = '';
@@ -65,8 +80,8 @@ var listDate = [];
     if ('{{$item->status}}' == '3') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -78,8 +93,8 @@ var listDate = [];
     } else if ('{{$item->status}}' == '4') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -91,8 +106,8 @@ var listDate = [];
     }  else if ('{{$item->status}}' == '5') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -104,8 +119,8 @@ var listDate = [];
     }   else if ('{{$item->status}}' == '8') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -117,8 +132,8 @@ var listDate = [];
     } else if ('{{$item->status}}' == '6') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -131,8 +146,8 @@ var listDate = [];
     } else if ('{{$item->status}}' == '7') {
         listDate.push(
             {
-                title: '<s>'+'{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
-                url: '/admin/projectview/{{$item->id}}',
+                title: '<s>'+'受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
+                                    url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -144,8 +159,8 @@ var listDate = [];
     } else if ('{{$item->status}}' == '2') {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                 url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -157,8 +172,8 @@ var listDate = [];
     } else {
         listDate.push(
             {
-                title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                url: '/admin/projectview/{{$item->id}}',
+                title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                 url: '/admin/projectview/{{$item->id}}',
                 extendedProps: {
                     isResourceHtml: 'YES'
                 },
@@ -176,7 +191,7 @@ var listDate = [];
 
         calendar = new FullCalendar.Calendar(calendarEl, {
             height: heightScr,
-            themeSystem: 'standard',
+            themeSystem: 'bootstrap',
             windowResize: function(view) {
                 
             },
@@ -228,14 +243,14 @@ var listDate = [];
                 return { domNodes: arrayOfDomNodes }
             },
             eventSources : [
-                {
-                    googleCalendarApiKey: 'AIzaSyBjxrUOpSUO31Ia7roHJiWs-_hG7uTgUsk',
-                    // googleCalendarId でも url でもどちらでも動作する
-                    googleCalendarId: 'japanese__ja@holiday.calendar.google.com',
-                    textColor:'red',
-                    rendering: 'background',
-                    color:"#ffd0d0"
-                }
+                // {
+                //     googleCalendarApiKey: 'AIzaSyBjxrUOpSUO31Ia7roHJiWs-_hG7uTgUsk',
+                //     // googleCalendarId でも url でもどちらでも動作する
+                //     googleCalendarId: 'japanese__ja@holiday.calendar.google.com',
+                //     textColor:'red',
+                //     rendering: 'background',
+                //     color:"#ffd0d0"
+                // }
             ],
             stickyHeaderDates: true,
             initialDate: '2021-03-17',
@@ -246,6 +261,7 @@ var listDate = [];
             // contentHeight:"auto",
             handleWindowResize:true,
             weekends: true,
+            eventOrder:"title",
             buttonText: {
                 today:    '今日',
                 month:    '月',
@@ -281,9 +297,19 @@ var listDate = [];
                 event.jsEvent.preventDefault()
                 window.open(event.event.url, "_blank");
                 }
-            }
+            },
+            
+            eventDidMount: function(info) {
+                $(info.el).tooltip({
+                    title: info.event.title,
+                    html: true,
+                    container: 'body',
+                    delay: { "show": 50, "hide": 50},
+                });
+            },
         });
-
+        
+        calendar.addEventSource(listHolidayDate);
         calendar.render();
     });
     
@@ -309,7 +335,6 @@ new Vue({
     },
     methods: {
 		onLoadPagination() {
-            
             console.log(this.checkedNames.length);
             if ( this.checkedNames.length > 0) {
                     listDate = [];
@@ -328,7 +353,7 @@ new Vue({
                                 if ('{{$item->status}}' == '3') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -341,7 +366,7 @@ new Vue({
                                 } else if ('{{$item->status}}' == '4') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -354,7 +379,7 @@ new Vue({
                                 }  else if ('{{$item->status}}' == '5') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -367,7 +392,7 @@ new Vue({
                                 }   else if ('{{$item->status}}' == '8') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -380,7 +405,7 @@ new Vue({
                                 } else if ('{{$item->status}}' == '6') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -394,7 +419,7 @@ new Vue({
                                 } else if ('{{$item->status}}' == '7') {
                                     listDate.push(
                                         {
-                                            title: '<s>'+'{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
+                                            title: '<s>受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -407,7 +432,7 @@ new Vue({
                                 } else if ('{{$item->status}}' == '2') {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -420,7 +445,7 @@ new Vue({
                                 } else {
                                     listDate.push(
                                         {
-                                            title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                             url: '/admin/projectview/{{$item->id}}',
                                             extendedProps: {
                                                 isResourceHtml: 'YES'
@@ -466,7 +491,6 @@ new Vue({
                     
             } else {
                 listDate = [];
-                    
                 @foreach($data as $item)
                     @foreach($item->ngay_pd as $itemdateList)
                         var imgDiv = '';
@@ -478,8 +502,8 @@ new Vue({
                         if ('{{$item->status}}' == '3') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -491,8 +515,8 @@ new Vue({
                         } else if ('{{$item->status}}' == '4') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -504,8 +528,8 @@ new Vue({
                         }  else if ('{{$item->status}}' == '5') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -517,8 +541,8 @@ new Vue({
                         }   else if ('{{$item->status}}' == '8') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -530,8 +554,8 @@ new Vue({
                         } else if ('{{$item->status}}' == '6') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -544,8 +568,8 @@ new Vue({
                         } else if ('{{$item->status}}' == '7') {
                             listDate.push(
                                 {
-                                    title: '<s>'+'{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
-                                    url: '/admin/projectview/{{$item->id}}',
+                                    title: '<s>'+'受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase()+'</s>',
+                                            url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
                                     },
@@ -557,7 +581,7 @@ new Vue({
                         } else if ('{{$item->status}}' == '2') {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                     url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
@@ -570,7 +594,7 @@ new Vue({
                         } else {
                             listDate.push(
                                 {
-                                    title: '{{$item->address_pd}} '+'<br>'+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
+                                    title: '受注No.{{$item->id}}('+'{{@$item->ctvSalesList[0]->name}}'.toUpperCase()+')<br>{{$item->address_pd}} '+'<br>'+imgDiv+'{{@$item->ctvList[0]->name}}'.toUpperCase(),
                                     url: '/admin/projectview/{{$item->id}}',
                                     extendedProps: {
                                         isResourceHtml: 'YES'
@@ -593,7 +617,7 @@ new Vue({
             this.onLoadPagination();
 		},
 		setSearchStatus() {
-            this.checkedNames = [0,1,2,3,4,5,6,8];
+            this.checkedNames = [0,1,2,3,4,5,6,7,8];
             this.onLoadPagination();
 		},
         showLeftBar: function() {

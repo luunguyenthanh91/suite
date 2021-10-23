@@ -1,31 +1,168 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '月の費用')
+@section('contentTitle', '営業者更新')
 
-<div class="mdk-drawer-layout__content page-content">
-    <!-- Header -->
-    @include('admin.component.header')	
-	
-    <!-- content -->
+<div class="mdk-drawer-layout__content page-content page-notscrool">
+    @include('admin.component.header_mobile')
+    @include('admin.component.footer_mobile')
+
     <div id="list-data">
-
-        <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
-                <i class="fas fa-save"><span class="labelButton">保存</span></i>
-            </a>
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/expenses">
-                <i class="fas fa-window-close"><span class="labelButton">キャンセル</span></i>
-            </a>
+        <div class="row">
+            <div class="bodyButtonTopMobile fullWidthMobile">
+                <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
+                    <i class="fas fa-save"><span class="labelButton">{{ trans('label.save') }}</span></i>
+                </a>
+                <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/partner-sale-view/{{$id}}">
+                    <i class="fas fa-window-close"><span class="labelButton">{{ trans('label.cancel') }}</span></i>
+                </a>
+            </div>
         </div>
-        <div class="container page__container page-section page_container_custom" :style="'margin-top: ' + marginTop">
+        <div class="container page__container page-section page_container_custom">
             <form action="" method="POST" class="p-0 mx-auto form-data" >
                 @csrf
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label class="form-label">月</label>
-                            <input type="month" name="date" class="form-control" required>
+                <div>
+                    @if ( @$message && @$message['status'] === 1 )
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>{{ $message['message'] }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                    @endif
+                    @if ( @$message && @$message['status'] === 2 )
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>{{ $message['message'] }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                    @endif
+                </div>
+                <div class="col-lg-12">
+                    <div class="card dashboard-area-tabs p-relative o-hidden poViewMobile">
+                    <div class="card-header p-0 nav">
+                            <div class="row no-gutters" role="tablist">
+                                <div class="col-auto">
+                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click active" id="tab1">
+                                        <span class="flex d-flex flex-column">
+                                            <strong class="card-title">{{ trans('label.sale') }}</strong>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab2">
+                                        <span class="flex d-flex flex-column">
+                                            <strong class="card-title">{{ trans('label.bank_name1') }}</strong>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body tab-content">
+                            <div class="tab-pane active" id="detailtab1">
+                                <div class="row">     
+                                <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.sale_id') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.status') }}</td>
+                                                <td>
+                                                    <select class="form-control" name="status">
+                                                        <option value="0" @if(@$data->status == 0) selected @endif>{{ trans('label.status_not') }}</option>
+                                                        <option value="1" @if(@$data->status == 1) selected @endif>{{ trans('label.status_yes') }}</option>
+                                                        <option value="2" @if(@$data->status == 2) selected @endif>{{ trans('label.status_cancel') }}</option>
+                                                    </select>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.name') }}</td>
+                                                <td>
+                                                <input type="text" name="name" class="form-control" style="text-transform: uppercase;"  required  value="{{@$data->name}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.address') }}</td>
+                                                <td>
+                                                    <input type="text" name="address" class="form-control" style="text-transform: uppercase;"  value="{{@$data->address}}">
+                                                    <a id="link-map-po" type="button" class="btn btn-warning googleMapButtonBg">{{ trans('label.google_map3') }}</a>
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.tel') }}</td>
+                                                <td>
+                                                <input type="text" name="phone" class="form-control" style="text-transform: uppercase;"  value="{{@$data->phone}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.email') }}</td>
+                                                <td>
+                                                    <input type="text" name="email" class="form-control" value="{{@$data->email}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.id_customer') }}</td>
+                                                <td>
+                                                    <input type="text" name="customer_id" class="form-control" value="{{@$data->customer_id}}">
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.note') }}</td>
+                                                <td>
+                                                    <textarea type="text" name="note" class="form-control" rows="10">{{@$data->note}}</textarea>
+                                                </td>
+                                            </tr> 
+                                        </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="detailtab2">
+                                <div class="row">     
+                                    <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                        <tr>
+                                            <td>{{ trans('label.bank_account_name') }}</td>
+                                            <td>
+                                                <input type="text" name="ten_bank" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ten_bank}}">
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.bank_account_code') }}</td>
+                                            <td>
+                                                <input type="text" name="ms_nganhang" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ms_nganhang}}">
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.bank_branch_name') }}</td>
+                                            <td>
+                                                <input type="text" name="chinhanh" class="form-control" style="text-transform: uppercase;"  value="{{@$data->chinhanh}}">
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.bank_branch_code') }}</td>
+                                            <td>
+                                                <input type="text" name="ms_chinhanh" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ms_chinhanh}}">
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.bank_number') }}</td>
+                                            <td>
+                                                <input type="text" name="stk" class="form-control" style="text-transform: uppercase;"  value="{{@$data->stk}}">
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.bank_sign') }}</td>
+                                            <td>
+                                                <input type="text" name="ten_chutaikhoan" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ten_chutaikhoan}}">
+                                            </td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,30 +175,20 @@
         <span id="copyFurigana"></span><br>
         <span id="copyPhone"></span><br>
     </div>
-    
-    <!-- // END Page Content -->
-
-    <!-- Footer -->
-
-    @include('admin.component.footer')
-
-    <!-- // END Footer -->
 
 </div>
 @include('admin.component.left-bar')
-<!-- // END drawer-layout__content -->
-
-<!-- Drawer -->
-
 @stop
 
 @section('page-script')
 <link href="{{ asset('js/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <script src="{{ asset('js/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/pages/sweet-alerts.init.js') }}"></script>
+
+
+
 <script type="text/javascript">
     //<![CDATA[
-        
     jQuery(document).ready(function (){
         $('.tab_click').on('click', function (){
             $('.tab_click').removeClass('active');
@@ -69,19 +196,13 @@
             $('.tab-pane').removeClass('active');
             $('#detail'+$(this).attr('id')).addClass('active');
         });
-
-        
-    
-    });
-    jQuery(document).ready(function (){
-
         $("#price").on("change", function() {
             var flagPrice = $('#price').val();
             flagPrice = parseInt(flagPrice.replace('￥' , '').replace(',', '').replace('.',''));
             $('#pricedata').val(flagPrice);
             if (flagPrice) {
                 $('#pricedata').val(flagPrice);
-                flagPrice = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(flagPrice);
+                flagPrice = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(flagPrice);
             } else {
                 flagPrice = '';
                 $('#pricedata').val(flagPrice);
@@ -93,6 +214,7 @@
         multiSelect: 999, 
         dateFormat: 'yyyy-mm-dd',
         monthsToShow: 1});
+
         CKFinder.setupCKEditor( null, '/lib_upload/ckfinder/' );
         jQuery(".input_image[value!='']").parent().find('div').each( function (index, element){
             jQuery(this).toggle();
@@ -218,7 +340,7 @@ new Vue({
         showListCus : 0,
         showListCtv : 0,
         isMobile : ( viewPC )? false : true,
-        marginTop: "30px;",
+        marginTop: "100px;",
         marginLeft: ( viewPC )? "30px;" : "0px;",
         classRowContent: (viewPC)? "" : "rowContent ",
         price : ''
@@ -285,7 +407,7 @@ new Vue({
             value = (isNaN(value)) ? 0 : value;
             const formatter = new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
-                currency: 'JPY'
+                currency: 'JPY',currencyDisplay: 'name'
             });
             return formatter.format(value);
         },
@@ -309,9 +431,9 @@ new Vue({
             value = (new String(value)).replaceAll(S_HYPEN, '').replaceAll(' ', ''); 
             var vLength = value.length;
             if (vLength == 11) {
-                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(6, 4);
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 4);
             } else if (vLength == 10) {
-                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(6, 3);
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 3);
             }
             return value;
         },
@@ -351,23 +473,6 @@ new Vue({
                 }
             });
             
-        },
-        changeTypeJobs() {
-            if (this.loai_job != 1) {
-                this.percent_vat_ctvpd  = 0;
-            } else {
-                if (this.loai_job == 3) {
-                    this.price_send_ctvpd = 0;
-                }
-                this.percent_vat_ctvpd  = 10.21;
-            }
-        },
-        changeTypeHoaHong() {
-            if (this.typehoahong == 1) {
-                this.percent_vat_ctvpd  = 0;
-            } else {
-                this.percent_vat_ctvpd  = 10.21;
-            }   
         },
         cancleEdit() {
             this.edit_form = 0;

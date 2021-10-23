@@ -6,9 +6,11 @@
     <div class="vertical-center">
         <div class="container page__container">
             <div class="textAlignCenter">
-                <img class="loginIcon" src="{{ asset('assets/images/fvc2_.png') }}" />
+                <img class="loginIcon" src="{{ asset('assets/images/fvc.png') }}" />
             </div>
-            <div class="styleHeaderTitleText2 mb-40pt textAlignCenter">{{ trans('label.login_header') }}</div>
+            <div class="styleHeaderTitleText2 mb-40pt textAlignCenter">
+                {{ trans('label.login_header') }}
+            </div>
             <form id="login-form" action="{{route('post-login')}}" method="POST" class="col-md-3 p-0 mx-auto">
                 @csrf
                 <div class="col-lg-12">
@@ -62,8 +64,8 @@
                         <label class="form-label styleHeaderLogoText" for="password">{{ trans('label.pass') }}</label>
                         <input id="password" type="password" class="form-control" autocomplete="off" data-val="true" data-val-required="{{ trans('label.msg1', ['arg' => 'pass']) }}" id="Password" name="password">
                     </div>
-                    <div class="text-center">
-                        <button class="btn btn-warning">{{ trans('label.login') }}</button>
+                    <div class="form-group" style="margin-top:40px;">
+                        <button class="btn btn-warning col-lg-12">{{ trans('label.login') }}</button>
                     </div>
                 </div>
             </form>

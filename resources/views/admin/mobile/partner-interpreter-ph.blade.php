@@ -1,51 +1,15 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '通訳者（ベトナム語）')
+@section('contentTitle', '通訳者（フィリピン語）')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header_mobile')
     @include('admin.component.footer_mobile')
 
     <div id="list-data">
-        <div class="modal fade" id="leftMenu">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.menu') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="page-separator">
-                            <div class="page-separator__text">
-                            {{ trans("label.graph") }}
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="col-lg-12">
-                                <div class="row" style="margin-top:15px; margin-right:0px;">
-                                    <div class="form-group col-lg-12">
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChart" data-target="#myModalChartArea">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.intepreter_count') }}</span>
-                                        </a> 
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartMonth" data-target="#myModalChartMonth">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.chart_interpreter_month') }}</span>
-                                        </a> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="newPartnerInterpreter">
-            <form method="POST" class="modal-dialog char-h-mobile" action="/admin/new-partner-interpreter/VNM">
+            <form method="POST" class="modal-dialog char-h-mobile" action="/admin/new-partner-interpreter/PHL">
                 @csrf
                 <div class="modal-content" >
                     <div class="modal-header">
@@ -160,6 +124,42 @@
                 </div>
             </form>
         </div>
+        <div class="modal fade" id="leftMenu">
+            <div class="modal-dialog char-h-mobile">
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{ trans('label.menu') }}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="page-separator">
+                            <div class="page-separator__text">
+                            {{ trans("label.graph") }}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="col-lg-12">
+                                <div class="row" style="margin-top:15px; margin-right:0px;">
+                                    <div class="form-group col-lg-12">
+                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChart" data-target="#myModalChartArea">
+                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.intepreter_count') }}</span>
+                                        </a> 
+                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartMonth" data-target="#myModalChartMonth">
+                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.chart_interpreter_month') }}</span>
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
+                            <span class="labelButton">{{ trans('label.close') }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog char-h-mobile">
                 <div class="modal-content" >
@@ -183,7 +183,7 @@
                                     <a type="button" class="btn btn-warning" style="background:blue" href="https://www.google.co.jp/maps">{{ trans('label.google_map3') }}</a>
                                 </div>
                             </div>
-                        </div>         
+                        </div>                   
                         <div class="page-separator-line"></div>
                         <div class="row">
                             <div class="form-group col-lg-12">
@@ -268,6 +268,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal footer -->
                     <div class="modal-footer">
                     <a type="button" class="btn btn-outline-secondary3 clearButtonBg" @click="clearSearch()">
                             <span class="labelButton">{{ trans('label.clear_search') }}</span>
@@ -279,11 +281,12 @@
                             <span class="labelButton">{{ trans('label.close') }}</span>
                         </a>
                     </div>
+                    
                 </div>
             </div>
         </div>
         <div class="modal fade" id="myModalChartArea">
-            <div class="modal-dialog char-h-mobile">
+            <div class="modal-dialog  char-h-mobile"  >
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h4 class="modal-title">{{ trans('label.areaGraph2') }}</h4>
@@ -301,7 +304,7 @@
             </div>
         </div>
         <div class="modal fade" id="myModalChartMonth">
-            <div class="modal-dialog char-h-mobile">
+            <div class="modal-dialog  char-h-mobile"  >
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h4 class="modal-title">{{ trans('label.chart_interpreter_month') }}{{ trans('label.graph') }}</h4>
@@ -320,15 +323,15 @@
         </div>
         <div class="row">
             <div class="bodyButtonTopMobile fullWidthMobile">
+                <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#newPartnerInterpreter">
+                    <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.interpreter_add') }}</span></i>
+                </a> 
                 <a type="button" class="btn btn-outline-secondary3" style="background:#da1d81" target="_blank" @click="notReceiptSearch()">
                     <i class="fas fa-key"><span class="labelButton">{{ trans('label.not_approve') }}</span></i>
                 </a>
-                <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#newPartnerInterpreter">
-                    <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
-                </a> 
                 @if (Auth::guard('admin')->user()->id == 1 )    
                 <a type="button" href="/admin/collaborators/export" class="btn btn-outline-secondary3" style="background:orange">
-                    <i class="fas fa-file-excel"></i>
+                    <i class="fas fa-file-excel"><span class="labelButton">{{ trans('label.excel') }}</span></i>
                 </a>
                 @endif  
                 <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
@@ -340,7 +343,6 @@
                 </a> 
             </div>
         </div>
-        
         <div class="row">
             <div class="d-flex fullWidthMobile">
                 <div class="gridControl3">
@@ -381,7 +383,8 @@
                                     <span v-if='item.jplt == 4'>N4</span>
                                     <span v-if='item.jplt == 5'>N5</span>
                                     )
-                                    </a><br>
+                                    </a>
+                                    <br>
                                     <i v-if="item.male == 1" class="fa fa-male maleClass"></i>
                                     <i v-if="item.male == 2" class="fa fa-female femaleClass"></i>    
                                     (( parseName(item.name) )) ( <a :href="'tel:'+item.phone"> (( parsePhone(item.phone) ))</a> )<br>
@@ -543,7 +546,7 @@ new Vue({
         LongLat: '',
 		checkedTypes: [1,2,3],
         checkedCTVSex: [1,2],
-        TypeLang: ["VNM"],
+        TypeLang: ["PHL"],
         sortName: '',
         sortType:"DESC",
         sortNameSelect : '1',
@@ -756,7 +759,7 @@ new Vue({
             this.multi_JLPT= [1,2,3,4,5];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
-            this.TypeLang = ["VNM"];
+            this.TypeLang = ["PHL"];
             this.sortName = '';  
             this.sortType = "DESC";    
             this.checkAkaji= 0;   
@@ -833,7 +836,7 @@ new Vue({
             this.multi_JLPT= [1,2,3,4,5];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
-            this.TypeLang = ["VNM"];
+            this.TypeLang = ["PHL"];
             this.sortName = '';  
             this.sortType = "DESC";  
             this.checkAkaji= 0;     
@@ -977,7 +980,7 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getChartInterpreterMonth')}}?type_lang=VNM",
+                url: "{{route('admin.getChartInterpreterMonth')}}?type_lang=PHL",
                 success: function(data) {
                     that.ReportMonth = data.ReportMonth;
                     that.loadChartMonth();
@@ -1114,7 +1117,7 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getChartInterpreter')}}?type_lang=VNM",
+                url: "{{route('admin.getChartInterpreter')}}?type_lang=PHL",
                 success: function(data) {
                     that.ReportArea = data.ReportArea;
                     that.loadChartArea();

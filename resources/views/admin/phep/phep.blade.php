@@ -227,11 +227,6 @@
 <!-- Sweet alert init js-->
 <script src="{{ asset('js/pages/sweet-alerts.init.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('lib_upload/ckeditor/ckeditor.js') }}"></script> 
-<script type="text/javascript" src="{{ asset('lib_upload/ckfinder/ckfinder.js') }}"></script>  
-<link href="{{ asset('lib_upload/jquery-ui/css/ui-lightness/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
-<script src="{{ asset('lib_upload/jquery-ui/js/jquery-ui.js') }}"></script>
-<script src="{{ asset('lib_upload/jquery.slug.js') }}"></script>
 
 
 <script type="text/javascript">

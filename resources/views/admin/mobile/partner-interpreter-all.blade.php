@@ -1,165 +1,13 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '通訳者（ベトナム語）')
+@section('contentTitle', '通訳者')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header_mobile')
     @include('admin.component.footer_mobile')
 
     <div id="list-data">
-        <div class="modal fade" id="leftMenu">
-            <div class="modal-dialog char-h-mobile">
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.menu') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="page-separator">
-                            <div class="page-separator__text">
-                            {{ trans("label.graph") }}
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="col-lg-12">
-                                <div class="row" style="margin-top:15px; margin-right:0px;">
-                                    <div class="form-group col-lg-12">
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChart" data-target="#myModalChartArea">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.intepreter_count') }}</span>
-                                        </a> 
-                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartMonth" data-target="#myModalChartMonth">
-                                        <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.chart_interpreter_month') }}</span>
-                                        </a> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
-                            <span class="labelButton">{{ trans('label.close') }}</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="newPartnerInterpreter">
-            <form method="POST" class="modal-dialog char-h-mobile" action="/admin/new-partner-interpreter/VNM">
-                @csrf
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.interpreter_add') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.name') }}</label>
-                                <div class="search-form" >
-                                    <input type="text" autocomplete="off" name="name" class="form-control"  required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.furigana') }}</label>
-                                <div class="search-form" >
-                                    <input type="text" autocomplete="off" name="furigana" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.sex') }}</label>
-                                <div class="custom-controls-stacked">
-                                    <div class="custom-control custom-radio">
-                                        <input id="radiomale1" name="male" type="radio" class="custom-control-input" value="1">
-                                        <label for="radiomale1" class="custom-control-label">{{ trans('label.male') }}</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input id="radiomale2" name="male" type="radio" class="custom-control-input" value="2">
-                                        <label for="radiomale2" class="custom-control-label">{{ trans('label.female') }}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.address') }}</label>
-                                <div class="search-form">
-                                    <input id="address" type="text" name="address" class="form-control" required v-model="address" >
-                                    <a id="link-map-address" style="background-color: #5567ff;" class="btn btn-primary ">Goolgeマップ</a>
-                                </div>                    
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.latlog') }}</label>
-                                <input type="text" name="latitude_longitude" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group d-flex">          
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.tel') }}</label>
-                                <input type="text" name="phone" class="form-control" >
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.email') }}</label>
-                                <input type="text" name="email" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group d-flex ">     
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.jplevel') }}</label>
-                                <div class="search-form" >
-                                    <select class="form-control" name="lever_nihongo">
-                                        <option value=""></option>
-                                        <option value="1" >N1</option>
-                                        <option value="2">N2</option>
-                                        <option value="3">N3</option>
-                                        <option value="4">N4</option>
-                                        <option value="5">N5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.jlpt') }}</label>
-                                <div class="search-form" >
-                                    <select class="form-control" name="jplt">
-                                        <option value=""></option>
-                                        <option value="1">N1</option>
-                                        <option value="2">N2</option>
-                                        <option value="3">N3</option>
-                                        <option value="4">N4</option>
-                                        <option value="5">N5</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label class="form-label">{{ trans('label.note') }}</label>
-                                <div class="search-form" >
-                                <textarea type="text" class="form-control" name="note" rows="10"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        
-                    <button type="submit" class="btn btn-success">
-                            <span class="labelButton">{{ trans('label.ok') }}</span>
-                        </button>
-                        <button type="button" data-dismiss="modal" class="btn btn-danger">
-                            <span class="labelButton">{{ trans('label.cancel') }}</span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog char-h-mobile">
                 <div class="modal-content" >
@@ -183,7 +31,25 @@
                                     <a type="button" class="btn btn-warning" style="background:blue" href="https://www.google.co.jp/maps">{{ trans('label.google_map3') }}</a>
                                 </div>
                             </div>
-                        </div>         
+                        </div>                 
+                        <div class="page-separator-line"></div>  
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                <label class="form-label">{{ trans('label.language') }}</label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="checkbox" id="type_lang1" value="VNM" v-model="TypeLang">
+                                <label for="type_lang1">{{ trans('label.type_lang1') }}</label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="checkbox" id="type_lang2" value="PHL" v-model="TypeLang">
+                                <label for="type_lang2">{{ trans('label.type_lang2') }}</label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <button type="button" @click="clearSearchTypeLang()" class="linkCheckboxAll">{{ trans('label.all_off') }}</button>
+                                <button type="button" @click="setSearchTypeLang()" class="linkCheckboxAll">{{ trans('label.all_on') }}</button>
+                            </div>
+                        </div>               
                         <div class="page-separator-line"></div>
                         <div class="row">
                             <div class="form-group col-lg-12">
@@ -268,6 +134,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal footer -->
                     <div class="modal-footer">
                     <a type="button" class="btn btn-outline-secondary3 clearButtonBg" @click="clearSearch()">
                             <span class="labelButton">{{ trans('label.clear_search') }}</span>
@@ -279,11 +147,48 @@
                             <span class="labelButton">{{ trans('label.close') }}</span>
                         </a>
                     </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="leftMenu">
+            <div class="modal-dialog char-h-mobile">
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{ trans('label.menu') }}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="page-separator">
+                            <div class="page-separator__text">
+                            {{ trans("label.graph") }}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="col-lg-12">
+                                <div class="row" style="margin-top:15px; margin-right:0px;">
+                                    <div class="form-group col-lg-12">
+                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChart" data-target="#myModalChartArea">
+                                            <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.intepreter_count') }}</span>
+                                        </a> 
+                                        <a class="dropdown-item" data-toggle="modal" @click="onLoadChartMonth" data-target="#myModalChartMonth">
+                                            <i class="fas fa-chart-bar"></i><span class="labelButton">{{ trans('label.chart_interpreter_month') }}</span>
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-outline-secondary3"  style="background:gray" data-dismiss="modal">
+                            <span class="labelButton">{{ trans('label.close') }}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" id="myModalChartArea">
-            <div class="modal-dialog char-h-mobile">
+            <div class="modal-dialog  char-h-mobile">
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h4 class="modal-title">{{ trans('label.areaGraph2') }}</h4>
@@ -301,7 +206,7 @@
             </div>
         </div>
         <div class="modal fade" id="myModalChartMonth">
-            <div class="modal-dialog char-h-mobile">
+            <div class="modal-dialog  char-h-mobile">
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h4 class="modal-title">{{ trans('label.chart_interpreter_month') }}{{ trans('label.graph') }}</h4>
@@ -323,24 +228,20 @@
                 <a type="button" class="btn btn-outline-secondary3" style="background:#da1d81" target="_blank" @click="notReceiptSearch()">
                     <i class="fas fa-key"><span class="labelButton">{{ trans('label.not_approve') }}</span></i>
                 </a>
-                <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#newPartnerInterpreter">
-                    <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
-                </a> 
                 @if (Auth::guard('admin')->user()->id == 1 )    
                 <a type="button" href="/admin/collaborators/export" class="btn btn-outline-secondary3" style="background:orange">
-                    <i class="fas fa-file-excel"></i>
+                    <i class="fas fa-file-excel"><span class="labelButton">{{ trans('label.excel') }}</span></i>
                 </a>
                 @endif  
                 <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                     <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
-                </a>  
+                </a>    
                 <div class="vl3"></div> 
                 <a type="button" class="btn btn-outline-secondary3 menuButtonMobile" data-toggle="modal" data-target="#leftMenu">
                     <i class="fas fa-th-large"></i>
                 </a> 
             </div>
         </div>
-        
         <div class="row">
             <div class="d-flex fullWidthMobile">
                 <div class="gridControl3">
@@ -375,6 +276,9 @@
                                 <td :class="item.classStyle  + ' '">
                                     <a type="button" class="btn btn-outline-secondary" target="_blank" :href="'/admin/partner-interpreter-view/' + item.id">
                                     {{ trans('label.id_intepreter') }}((item.id)) (
+                                    <span v-if="item.type_lang == 'VNM'">{{ trans('label.type_lang1') }}</span>
+                                    <span v-if="item.type_lang == 'PHL'">{{ trans('label.type_lang2') }}</span>
+                                    /
                                     <span v-if='item.jplt == 1'>N1</span>
                                     <span v-if='item.jplt == 2'>N2</span>
                                     <span v-if='item.jplt == 3'>N3</span>
@@ -543,7 +447,7 @@ new Vue({
         LongLat: '',
 		checkedTypes: [1,2,3],
         checkedCTVSex: [1,2],
-        TypeLang: ["VNM"],
+        TypeLang: ["VNM","PHL"],
         sortName: '',
         sortType:"DESC",
         sortNameSelect : '1',
@@ -756,7 +660,7 @@ new Vue({
             this.multi_JLPT= [1,2,3,4,5];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
-            this.TypeLang = ["VNM"];
+            this.TypeLang = ["VNM","PHL"];
             this.sortName = '';  
             this.sortType = "DESC";    
             this.checkAkaji= 0;   
@@ -833,7 +737,7 @@ new Vue({
             this.multi_JLPT= [1,2,3,4,5];
 			this.checkedTypes = [1,2,3];
             this.checkedCTVSex = [1,2];
-            this.TypeLang = ["VNM"];
+            this.TypeLang = ["VNM","PHL"];
             this.sortName = '';  
             this.sortType = "DESC";  
             this.checkAkaji= 0;     
@@ -853,6 +757,14 @@ new Vue({
 		setSearchStatusJLPT() {
 			this.page = 1;
             this.multi_JLPT = [1,2,3,4,5];
+		},
+		clearSearchTypeLang() {
+			this.page = 1;
+            this.TypeLang = [];
+		},
+		setSearchTypeLang() {
+			this.page = 1;
+            this.TypeLang = ["VNM","PHL"];
 		},
 		clearSearchTypeJob() {
 			this.page = 1;
@@ -977,7 +889,7 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getChartInterpreterMonth')}}?type_lang=VNM",
+                url: "{{route('admin.getChartInterpreterMonth')}}",
                 success: function(data) {
                     that.ReportMonth = data.ReportMonth;
                     that.loadChartMonth();
@@ -1114,7 +1026,7 @@ new Vue({
             const that = this;
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getChartInterpreter')}}?type_lang=VNM",
+                url: "{{route('admin.getChartInterpreter')}}",
                 success: function(data) {
                     that.ReportArea = data.ReportArea;
                     that.loadChartArea();

@@ -35,7 +35,7 @@
         </form>
     </div>
     <div class="btn-group group-menu-header" style="padding-left:10px;">
-        <button type="button" class="btn btn-warning background6 toggle-menu">
+        <button type="button" class="btn btn-warning background0 toggle-menu">
             <i class="fas fa-bars" style="color:white">
             <br>
             <span style="font-size 2px;color:white">{{ trans('label.menu_header') }}</span></i>

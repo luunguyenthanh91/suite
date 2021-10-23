@@ -20,11 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Admin' , 'middleware' => ['adminAuth'] ], function () {
 
     // Route::get('/', 'HomeController@index')->name('home.index');
-    Route::get('/',                                     'CompanyController@listDashboard')->name('dashboard.index');
+    Route::get('/',                                     'ProjectController@dashboard')->name('dashboard.index');
     
 });
-Route::group(['namespace' => 'FE', 'middleware' => ['adminAuth'],  'prefix' => 'user'], function () {
-   
+Route::group(['namespace' => 'FE'], function () {
+    Route::get('/report_interpreter/{slug}','HomeController@reportInterpreter');
+    Route::post('/report_interpreter/{slug}','HomeController@reportInterpreter');
 });
 
 
