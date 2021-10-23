@@ -26,7 +26,24 @@ class WSController extends Controller
     private $defSortType = "DESC";
 
     function addWorkSheet(Request $request) {
-        
+        try {
+            $data = new WorkSheet();
+
+            $data->status = 0;
+            $data->month = $request->month;
+            $data->user_id = $request->user_id;
+            $data->note = $request->note;
+            $data->created_on = date('Y-m-d');
+            $data->created_by = Auth::guard('admin')->user()->id;
+
+            $data->save();
+            
+            return redirect('/admin/worksheet-view/'.$data->id);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());
+            die;
+        }
     }
 
     function updateWorkSheet(Request $request,$id) {

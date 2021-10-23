@@ -89,6 +89,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('worksheet-view/{id}', 'WSController@viewWorkSheet')->name('admin.viewWorkSheet');
     Route::post('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
     Route::get('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
+    Route::post('new-worksheet', 'WSController@addWorkSheet')->name('admin.addWorkSheet');
+    
+
 
     //AlphaCep
     Route::get('get-po', 'POController@getListPO')->name('admin.getListPO');
