@@ -36,7 +36,7 @@ class SendEmailTemplate implements ShouldQueue
     public function handle()
     {
         foreach ($this->users as $user) {
-            Mail::to(['support@alphacep.co.jp','luunguyenthanh91@gmail.com'])->send(new MailTemplate($this->data));
+            Mail::to(['support@alphacep.co.jp'])->send(new MailTemplate($this->data));
         }
     }
 }

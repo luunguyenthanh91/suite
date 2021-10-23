@@ -5073,8 +5073,10 @@ fieldset:disabled a.btn {
 }
 
 [dir] .btn-outline-secondary:hover {
-    background-color: #868e96;
-    border-color: #868e96
+    /* background-color: #868e96;
+    border-color: #868e96 */
+    background-color: rgba(175,0,42,0.5);
+    border-color: white
 }
 
 [dir] .btn-outline-secondary.focus,
@@ -5110,6 +5112,8 @@ fieldset:disabled a.btn {
 [dir] .show>.btn-outline-secondary.dropdown-toggle:focus {
     box-shadow: inset 0 0px 0px rgba(39, 44, 51, .125), 0 0 0 1px rgba(134, 142, 150, .5)
 }
+
+
 
 .btn-outline-success {
     color: #77c13a
@@ -11286,7 +11290,10 @@ a.close.disabled {
 .modal-header {
     display: flex;
     /* align-items: flex-start; */
-    justify-content: space-between
+    justify-content: space-between;
+    /* background: #AF002A; */
+    background: url('../images/BKCephei.jpg') no-repeat;
+    background-size: cover;
 }
 
 [dir] .modal-header {
@@ -11301,7 +11308,8 @@ a.close.disabled {
 }
 
 [dir] .modal-header .close {
-    padding: 1rem
+    padding: 1rem;
+    color:white; 
 }
 
 [dir=ltr] .modal-header .close {
@@ -11313,9 +11321,10 @@ a.close.disabled {
 }
 
 .modal-title {
-    line-height:2;
+    line-height:1.5;
     color:white; 
     text-align:center;
+    width:100%
 }
 
 [dir] .modal-title {
@@ -11335,7 +11344,10 @@ a.close.disabled {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end
+    justify-content: flex-end;
+    
+    background: url('../images/BKCephei.jpg') no-repeat;
+    background-size: cover;
 }
 
 [dir] .modal-footer {
@@ -30735,8 +30747,8 @@ body {
     align-items: center;
     justify-content: start;
     z-index: 0;
-    margin-left:-10px;
-    margin-right:-10px;
+    margin-left:-20px;
+    margin-right:-20px;
 }
 
 [dir] .page-separator-line {
@@ -30947,12 +30959,12 @@ body {
 }
 
 [dir] .page-section {
-    padding-top: 1rem;
+    padding-top: 3rem;
     padding-bottom: 1rem
 }
-@media (min-width:768px) {
+@media (min-width:600px) {
     [dir] .page-section {
-        padding-top: 1rem;
+        padding-top: 3rem;
         padding-bottom: 1rem
     }
 }

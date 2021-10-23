@@ -20,13 +20,61 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\MailTemplate;
+use App\Models\MailPo;
 use NumberFormatter;
 use PDF;
+use App\Jobs\SendEmailTemplatePO;
+use App\Models\Admin;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
     private $limit = 20;
 
+    function SendEmailPo(Request $request) {
+        $mailTemplate = MailTemplate::where('id',15)->first();
+        $bodyMail = '';
+        $subject = '';
+        if ($mailTemplate) {
+            $countPd = count(explode(',',$request->ngay_pd));
+            $newPo = new MailPo();
+            $newPo->address_pd = $request->address_pd ;
+            $newPo->ngay_pd = $request->ngay_pd ;
+            $newPo->count_ngay_pd = $countPd ;
+            $newPo->name = $request->name ;
+            // $newPo->mail = $request->mail ;
+            $newPo->price = $request->price ;
+            $newPo->type_train = $request->type_train ;
+            $newPo->sale_price = $request->sale_price ;
+            $newPo->note = $request->note_create_po ;
+            $newPo->create_at = now() ;
+            $newPo->save();
+            $subject = $mailTemplate->subject;
+            $subject = str_replace("[address_pd]",$request->address_pd, $subject);
+            $subject = str_replace("[ngay_pd]",$request->ngay_pd, $subject);
+            
+            $bodyMail = $mailTemplate->body;
+            $bodyMail = str_replace("[name]",$request->name, $bodyMail);
+            $bodyMail = str_replace("[mail]",$request->mail, $bodyMail);
+            $bodyMail = str_replace("[ngay_pd]",$request->ngay_pd, $bodyMail);
+            $bodyMail = str_replace("[address_pd]",$request->address_pd, $bodyMail);
+            $bodyMail = str_replace("[price]",$request->price, $bodyMail);
+            $bodyMail = str_replace("[type_train]",$request->type_train == 0 ? '込み' : '実費' , $bodyMail);
+            $bodyMail = str_replace("[sale_price]",$request->sale_price, $bodyMail);
+            $bodyMail = str_replace("[note]",$request->note, $bodyMail);
+            $message = [
+                'title' => $subject,
+                'mail_to' => $mailTemplate->to_mail,
+                'mail_cc' => 'admin@alphacep.co.jp',
+                'body' => $bodyMail
+            ];
+            SendEmailTemplatePO::dispatch($message)->delay(now()->addMinute(1));
+            return redirect($request->redirect);
+        } else {
+            return response()->json(['code'=> 200 , 'logs' => 'Template Mail Không Tồn Tại.' ]); 
+        }
+    }
     function list(Request $request) {
         return view(
             'admin.company.list',
@@ -62,6 +110,7 @@ class CompanyController extends Controller
                 $item->price_total += $value->phi_phien_dich + $value->phi_giao_thong;
                 $item->price_move +=  $value->phi_giao_thong;
                 $item->price_ctv += $value->phi_phien_dich;
+                $item->phi_phien_dich_total += $value->phi_phien_dich;
 
                 $priceMove += $value->phi_giao_thong;
                 $ctvPrice += $value->phi_phien_dich;
@@ -70,7 +119,20 @@ class CompanyController extends Controller
 
             $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
             $data->tong_chuyen_khoan +=  $item->phi_chuyen_khoan;
+            $data->tong_chuyen_pd = $priceMove + $ctvPrice;
+            $data->thue_phien_dich = floor($item->price_ctv * $data->percent_vat_ctvpd / 100);
+            $data->phi_phien_dich = $ctvPrice;
+            $data->phi_giao_thong = $priceMove;
+            $data->tong_phi_phien_dich = $data->thue_phien_dich + $data->phi_phien_dich;
             $priceSend = $item->phi_chuyen_khoan;
+            $data->ten_phien_dich = strtoupper($item['userInfo']->name);
+
+            if ($item->ngay_chuyen_khoan) {
+                $dateParse = explode('-', $item->ngay_chuyen_khoan);
+                $data->ngay_chuyen_khoan_nam = $dateParse[0];
+                $data->ngay_chuyen_khoan_thang = $dateParse[1];
+                $data->ngay_chuyen_khoan_ngay = $dateParse[2];
+            }
         }
 
         $dataSales = CtvJobsJoin::where('jobs_id' , $request->id)->get();
@@ -79,96 +141,14 @@ class CompanyController extends Controller
             $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
             $data->tong_chuyen_khoan +=  $item->phi_chuyen_khoan;
         }
-
-        $dataCustomer = CusJobsJoin::where('jobs_id' , $request->id)->get();
-        foreach($dataCustomer as &$item) {
-            $item['userInfo'] = CusJobs::where("id" , $item->cus_jobs_id)->first();
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
-            $data->tong_chuyen_khoan +=  $item->phi_chuyen_khoan;
-        }
-
-        // echo "<pre>";print_r($dataSales);die;
-        if ($data->tong_thu != 0) {
-            $data->price_nhanduoc = $data->tong_thu - $data->tong_chi;
-        } else {
-            $data->price_nhanduoc = 0;
-        }
-        $dataUpdate = Company::find($request->id);
-        $dataUpdate->price_nhanduoc = $data->price_nhanduoc;
-        $dataUpdate->save();
-        $allMyBank = MyBank::get();
-        $id = $request->id;
-        $typesList = [];
-        $typesList[] = ["name" => '空港出迎え' , 'id' => 1];
-        $typesList[] = ["name" => '入寮' , 'id' => 2];
-        $typesList[] = ["name" => '役所の転入' , 'id' => 3];
-        $typesList[] = ["name" => '銀行口座開設' , 'id' => 4];
-        $typesList[] = ["name" => '日本語講習' , 'id' => 5];
-        $typesList[] = ["name" => 'その他の講習' , 'id' => 6];
-        $typesList[] = ["name" => '配属' , 'id' => 7];
-        $typesList[] = ["name" => '定期巡回' , 'id' => 8];
-        $typesList[] = ["name" => '臨時面会' , 'id' => 9];
-        $typesList[] = ["name" => '試験' , 'id' => 10];
-        $typesList[] = ["name" => 'その他' , 'id' => 11];
-        $contentPd = '';
-        foreach ($data->type_jobs as $itemPD) {
-            foreach ($typesList as $itemList) {
-                if ($itemList['id'] == $itemPD) {
-                    $contentPd .= $itemList['name'] . ',';
-                }
-            }
-        }
-        $id = $request->id;
-        $allMailTemplate = MailTemplate::whereIn('id',[8,9,10,11,13])->orderBy("name" , "ASC")->get();
-        $flagSendMail = 0;
-        $flagCustomer = 0;
-        $itemSendMail = [];
-        if (count($dataColla) > 0 ) {
-            $flagSendMail = 1;
-            $itemSendMail = $dataColla[0];
-            $flagCustomer = $itemSendMail->userInfo->id;
-        }
-        foreach ($allMailTemplate as &$itemMail) {
-            if ($flagSendMail == 1) {
-
-                $itemMail->cc_mail = $itemSendMail->userInfo->email;
-                $itemMail->subject = str_replace("[ordernumber]",$data->codejob,$itemMail->subject);
-                $itemMail->subject = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->subject);
-                $itemMail->body = str_replace("[name]",$itemSendMail->userInfo->name,$itemMail->body);
-                $itemMail->body = str_replace("[ordernumber]",$data->codejob,$itemMail->body);
-                $itemMail->body = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->body);
-                $itemMail->body = str_replace("[workcontent]", $contentPd ,$itemMail->body);
-                $itemMail->body = str_replace("[workplace]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[worktime]",$data->phone_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[othername]",$itemSendMail->userInfo->furigana,$itemMail->body);
-                $itemMail->body = str_replace("[phone]",$itemSendMail->userInfo->phone,$itemMail->body);
-                $itemMail->body = str_replace("[your-email]",$itemSendMail->userInfo->email,$itemMail->body);
-                $itemMail->body = str_replace("[companyname]",$data->ten_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[place]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[name_interpreter]",$itemSendMail->userInfo->name,$itemMail->body);
-                // setlocale(LC_MONETARY,"ja_JP");
-                $fmt = new NumberFormatter( 'ja_JP', NumberFormatter::CURRENCY );
-                $itemMail->body = str_replace("[customer_totalmoney]",$fmt->formatCurrency($data->tong_thu,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_totalmoney]",$fmt->formatCurrency(($priceMove + $priceSend + $ctvPrice),'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_money]",$fmt->formatCurrency($ctvPrice,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[move_money]",$fmt->formatCurrency($priceMove,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[bank_money]",$fmt->formatCurrency($priceSend,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[total_money]",$fmt->formatCurrency(($data->tong_thu - $priceMove - $priceSend - $ctvPrice),'JPY'),$itemMail->body);
-            }
-        }
-        unset($itemMail);
-        if ($data->date_company_pay != '') {
-            $dateParse = explode('-',$data->date_company_pay);
-            $data->date_company_pay = $dateParse[0].'年'.$dateParse[1].'月'.$dateParse[2].'日';
-        }
-        // echo "<pre>";print_r($dataSales[0]);die;
-        // return view(
-        //     'admin.company.pdf',
-        //     compact(['data' , 'dataSales' ,'dataColla'])
-        // );
+        
+        $data->year = date('Y');
+        $data->month = date('m');
+        $data->date = date('d');
+        $data->worker = strtoupper(Auth::guard('admin')->user()->name);
         $pdf = PDF::loadView('admin.company.pdf', compact('data' , 'dataSales' , 'dataColla'));
-        $name = $data->codejob;
-        return $pdf->download('支払明細書('.$name.').pdf');
+        $name = $data->id;
+        return $pdf->download('支払明細書(受注No.'.$name.').pdf');
     }
 
     function pdfType(Request $request , $id) {
@@ -256,35 +236,6 @@ class CompanyController extends Controller
             $itemSendMail = $dataColla[0];
             $flagCustomer = $itemSendMail->userInfo->id;
         }
-        foreach ($allMailTemplate as &$itemMail) {
-            if ($flagSendMail == 1) {
-
-                $itemMail->cc_mail = $itemSendMail->userInfo->email;
-                $itemMail->subject = str_replace("[ordernumber]",$data->codejob,$itemMail->subject);
-                $itemMail->subject = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->subject);
-                $itemMail->body = str_replace("[name]",$itemSendMail->userInfo->name,$itemMail->body);
-                $itemMail->body = str_replace("[ordernumber]",$data->codejob,$itemMail->body);
-                $itemMail->body = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->body);
-                $itemMail->body = str_replace("[workcontent]", $contentPd ,$itemMail->body);
-                $itemMail->body = str_replace("[workplace]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[worktime]",$data->phone_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[othername]",$itemSendMail->userInfo->furigana,$itemMail->body);
-                $itemMail->body = str_replace("[phone]",$itemSendMail->userInfo->phone,$itemMail->body);
-                $itemMail->body = str_replace("[your-email]",$itemSendMail->userInfo->email,$itemMail->body);
-                $itemMail->body = str_replace("[companyname]",$data->ten_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[place]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[name_interpreter]",$itemSendMail->userInfo->name,$itemMail->body);
-                // setlocale(LC_MONETARY,"ja_JP");
-                $fmt = new NumberFormatter( 'ja_JP', NumberFormatter::CURRENCY );
-                $itemMail->body = str_replace("[customer_totalmoney]",$fmt->formatCurrency($data->tong_thu,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_totalmoney]",$fmt->formatCurrency(($priceMove + $priceSend + $ctvPrice),'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_money]",$fmt->formatCurrency($ctvPrice,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[move_money]",$fmt->formatCurrency($priceMove,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[bank_money]",$fmt->formatCurrency($priceSend,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[total_money]",$fmt->formatCurrency(($data->tong_thu - $priceMove - $priceSend - $ctvPrice),'JPY'),$itemMail->body);
-            }
-        }
-        unset($itemMail);
         if ($data->date_company_pay != '') {
             $dateParse = explode('-',$data->date_company_pay);
             $data->date_company_pay = $dateParse[0].'年'.$dateParse[1].'月'.$dateParse[2].'日';
@@ -294,9 +245,173 @@ class CompanyController extends Controller
         //     'admin.company.pdf',
         //     compact(['data' , 'dataSales' ,'dataColla'])
         // );
+        // $data->year = date('Y');
+        // $data->month = date('m');
+        // $data->date = date('d');
+
+        if ($item->date_company_pay) {
+            $dateParse = explode('-', $item->date_company_pay);
+            $data->year = $dateParse[0];
+            $data->month = $dateParse[1];
+            $data->date = $dateParse[2];
+        }
+
+        $data->worker = strtoupper(Auth::guard('admin')->user()->name);
         $pdf = PDF::loadView('admin.company.pdf-type', compact('data' , 'dataSales' , 'dataColla'));
-        $name = $data->codejob;
-        return $pdf->download('受領書('.$name.').pdf');
+        $name = $data->id;
+        return $pdf->download('受領書(受注No.'.$name.').pdf');
+    }
+
+    function pdfTypeNew(Request $request , $id) {
+        $data = Company::find($request->id);
+        $data->tong_chi = 0;
+        $data->type_jobs = trim($data->type_jobs,",");
+        if( $data->type_jobs ) {
+            $flagType = explode(',' , $data->type_jobs);
+            $data->type_jobs = $flagType;
+        } else {
+            $data->type_jobs = [];
+        }
+
+        $dataColla = CollaboratorsJobs::where('jobs_id' , $request->id)->get();
+        $priceMove = 0;
+        $priceSend = 0;
+        $ctvPrice = 0;
+        foreach($dataColla as &$item) {
+            $item['userInfo'] = Collaborators::where("id" , $item->collaborators_id)->with('bank')->first();
+            $item['dateList'] = DetailCollaboratorsJobs::where("collaborators_jobs_id" , $item->id)->get();
+            $item->price_total = 0;
+            foreach ($item['dateList'] as &$value) {
+                # code...
+                $value['type'] = 'update';
+                $item->price_total += $value->phi_phien_dich + $value->phi_giao_thong;
+                $priceMove += $value->phi_giao_thong;
+                $ctvPrice += $value->phi_phien_dich;
+            }
+            unset($value);
+
+            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
+            $priceSend = $item->phi_chuyen_khoan;
+        }
+
+        $dataSales = CtvJobsJoin::where('jobs_id' , $request->id)->get();
+        foreach($dataSales as &$item) {
+            $item['userInfo'] = CtvJobs::where("id" , $item->ctv_jobs_id)->first();
+            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
+        }
+
+        $dataCustomer = CusJobsJoin::where('jobs_id' , $request->id)->get();
+        foreach($dataCustomer as &$item) {
+            $item['userInfo'] = CusJobs::where("id" , $item->cus_jobs_id)->first();
+            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
+        }
+
+        // echo "<pre>";print_r($dataSales);die;
+        if ($data->tong_thu != 0) {
+            $data->price_nhanduoc = $data->tong_thu - $data->tong_chi;
+        } else {
+            $data->price_nhanduoc = 0;
+        }
+        $dataUpdate = Company::find($request->id);
+        $dataUpdate->price_nhanduoc = $data->price_nhanduoc;
+        $dataUpdate->save();
+        $allMyBank = MyBank::get();
+        $id = $request->id;
+        $typesList = [];
+        $typesList[] = ["name" => '空港出迎え' , 'id' => 1];
+        $typesList[] = ["name" => '入寮' , 'id' => 2];
+        $typesList[] = ["name" => '役所の転入' , 'id' => 3];
+        $typesList[] = ["name" => '銀行口座開設' , 'id' => 4];
+        $typesList[] = ["name" => '日本語講習' , 'id' => 5];
+        $typesList[] = ["name" => 'その他の講習' , 'id' => 6];
+        $typesList[] = ["name" => '配属' , 'id' => 7];
+        $typesList[] = ["name" => '定期巡回' , 'id' => 8];
+        $typesList[] = ["name" => '臨時面会' , 'id' => 9];
+        $typesList[] = ["name" => '試験' , 'id' => 10];
+        $typesList[] = ["name" => 'その他' , 'id' => 11];
+        $contentPd = '';
+        foreach ($data->type_jobs as $itemPD) {
+            foreach ($typesList as $itemList) {
+                if ($itemList['id'] == $itemPD) {
+                    $contentPd .= $itemList['name'] . ',';
+                }
+            }
+        }
+        $id = $request->id;
+        $allMailTemplate = MailTemplate::whereIn('id',[8,9,10,11,13])->orderBy("name" , "ASC")->get();
+        $flagSendMail = 0;
+        $flagCustomer = 0;
+        $itemSendMail = [];
+        if (count($dataColla) > 0 ) {
+            $flagSendMail = 1;
+            $itemSendMail = $dataColla[0];
+            $flagCustomer = $itemSendMail->userInfo->id;
+        }
+        if ($data->date_company_pay != '') {
+            $dateParse = explode('-',$data->date_company_pay);
+            $data->date_company_pay = $dateParse[0].'年'.$dateParse[1].'月'.$dateParse[2].'日';
+        }
+        // echo "<pre>";print_r($dataSales[0]);die;
+        // return view(
+        //     'admin.company.pdf',
+        //     compact(['data' , 'dataSales' ,'dataColla'])
+        // );
+
+        
+        if ($item->date_start) {
+            $dateParse = explode('-', $item->date_start);
+            $data->year = $dateParse[0];
+            $data->month = $dateParse[1];
+            $data->date = $dateParse[2];
+        }
+        // $data->year = date('Y');
+        // $data->month = date('m');
+        // $data->date = date('d');
+        $data->worker = strtoupper(Auth::guard('admin')->user()->name);
+        $pdf = PDF::loadView('admin.company.pdf-type-new', compact('data' , 'dataSales' , 'dataColla'));
+        $name = $data->id;
+        return $pdf->download('受注書(受注No.'.$name.').pdf');
+    }    
+    
+    function pdfMoveFeeReceipt(Request $request , $id) {
+        $data = Company::find($request->id);
+        $data->sale_name = '';
+
+        $dataSales = CollaboratorsJobs::where('jobs_id' , $request->id)->get();
+        foreach($dataSales as &$item) {
+            $item['userInfo'] = Collaborators::where("id" , $item->collaborators_id)->with('bank')->first();
+            $data->ten_phien_dich = strtoupper($item['userInfo']->name);
+            
+            $item['dateList'] = DetailCollaboratorsJobs::where("collaborators_jobs_id" , $item->id)->get();
+            $hoadon = 0;
+            $price = 0;
+            foreach ( $item->dateList as $valueDate) {
+                # code...
+                if ($valueDate->file_hoa_don != '') {
+                    $data->file_hoa_don = $valueDate->file_hoa_don;
+                    $hoadon = 1;
+                }
+                $price += $valueDate->phi_giao_thong;
+            }
+
+            $data->sale_name = strtoupper($item['userInfo']->name);
+            $data->file_hoa_don_status = $hoadon;
+            $data->price = $price;
+            
+        }
+        
+        unset($item);
+
+        if ($data->ngay_pd) {
+            $dateParse = explode('-', $data->ngay_pd);
+            $data->year = $dateParse[0];
+            $data->month = $dateParse[1];
+            $data->date = $dateParse[2];
+        }
+
+        $pdf = PDF::loadView('admin.movefeereceiptpdf', compact('data' , 'dataSales'));
+        $name = $data->id."-".$data->sale_name;
+        return $pdf->download('交通費領収書(受注No.'.$name.').pdf');
     }
 
     function pdfTaxPD(Request $request) {
@@ -987,7 +1102,7 @@ class CompanyController extends Controller
         //         $itemMail->cc_mail = $itemSendMail->userInfo->email;
         //         $itemMail->subject = str_replace("[ordernumber]",$data->codejob,$itemMail->subject);
         //         $itemMail->subject = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->subject);
-        //         $itemMail->body = str_replace("[name]",$itemSendMail->userInfo->name,$itemMail->body);
+        //         $itemMail->body = str_replace("[name]",strtoupper($itemSendMail->userInfo->name),$itemMail->body);
         //         $itemMail->body = str_replace("[ordernumber]",$data->codejob,$itemMail->body);
         //         $itemMail->body = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->body);
         //         $itemMail->body = str_replace("[workcontent]", $contentPd ,$itemMail->body);
@@ -998,7 +1113,7 @@ class CompanyController extends Controller
         //         $itemMail->body = str_replace("[your-email]",$itemSendMail->userInfo->email,$itemMail->body);
         //         $itemMail->body = str_replace("[companyname]",$data->ten_nguoilienlac,$itemMail->body);
         //         $itemMail->body = str_replace("[place]",$data->address_pd,$itemMail->body);
-        //         $itemMail->body = str_replace("[name_interpreter]",$itemSendMail->userInfo->name,$itemMail->body);
+        //         $itemMail->body = str_replace("[name_interpreter]",strtoupper($itemSendMail->userInfo->name),$itemMail->body);
         //         // setlocale(LC_MONETARY,"ja_JP");
         //         $fmt = new NumberFormatter( 'ja_JP', NumberFormatter::CURRENCY );
         //         $itemMail->body = str_replace("[customer_totalmoney]",$fmt->formatCurrency($data->tong_thu,'JPY'),$itemMail->body);
@@ -1024,134 +1139,6 @@ class CompanyController extends Controller
 
         // $name = $data->codejob;
         return $pdf->download('入金リスト('.$data->selectedMonth.').pdf');
-    }
-
-    function pdfTypeNew(Request $request , $id) {
-        $data = Company::find($request->id);
-        $data->tong_chi = 0;
-        $data->type_jobs = trim($data->type_jobs,",");
-        if( $data->type_jobs ) {
-            $flagType = explode(',' , $data->type_jobs);
-            $data->type_jobs = $flagType;
-        } else {
-            $data->type_jobs = [];
-        }
-
-        $dataColla = CollaboratorsJobs::where('jobs_id' , $request->id)->get();
-        $priceMove = 0;
-        $priceSend = 0;
-        $ctvPrice = 0;
-        foreach($dataColla as &$item) {
-            $item['userInfo'] = Collaborators::where("id" , $item->collaborators_id)->with('bank')->first();
-            $item['dateList'] = DetailCollaboratorsJobs::where("collaborators_jobs_id" , $item->id)->get();
-            $item->price_total = 0;
-            foreach ($item['dateList'] as &$value) {
-                # code...
-                $value['type'] = 'update';
-                $item->price_total += $value->phi_phien_dich + $value->phi_giao_thong;
-                $priceMove += $value->phi_giao_thong;
-                $ctvPrice += $value->phi_phien_dich;
-            }
-            unset($value);
-
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
-            $priceSend = $item->phi_chuyen_khoan;
-        }
-
-        $dataSales = CtvJobsJoin::where('jobs_id' , $request->id)->get();
-        foreach($dataSales as &$item) {
-            $item['userInfo'] = CtvJobs::where("id" , $item->ctv_jobs_id)->first();
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
-        }
-
-        $dataCustomer = CusJobsJoin::where('jobs_id' , $request->id)->get();
-        foreach($dataCustomer as &$item) {
-            $item['userInfo'] = CusJobs::where("id" , $item->cus_jobs_id)->first();
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan;
-        }
-
-        // echo "<pre>";print_r($dataSales);die;
-        if ($data->tong_thu != 0) {
-            $data->price_nhanduoc = $data->tong_thu - $data->tong_chi;
-        } else {
-            $data->price_nhanduoc = 0;
-        }
-        $dataUpdate = Company::find($request->id);
-        $dataUpdate->price_nhanduoc = $data->price_nhanduoc;
-        $dataUpdate->save();
-        $allMyBank = MyBank::get();
-        $id = $request->id;
-        $typesList = [];
-        $typesList[] = ["name" => '空港出迎え' , 'id' => 1];
-        $typesList[] = ["name" => '入寮' , 'id' => 2];
-        $typesList[] = ["name" => '役所の転入' , 'id' => 3];
-        $typesList[] = ["name" => '銀行口座開設' , 'id' => 4];
-        $typesList[] = ["name" => '日本語講習' , 'id' => 5];
-        $typesList[] = ["name" => 'その他の講習' , 'id' => 6];
-        $typesList[] = ["name" => '配属' , 'id' => 7];
-        $typesList[] = ["name" => '定期巡回' , 'id' => 8];
-        $typesList[] = ["name" => '臨時面会' , 'id' => 9];
-        $typesList[] = ["name" => '試験' , 'id' => 10];
-        $typesList[] = ["name" => 'その他' , 'id' => 11];
-        $contentPd = '';
-        foreach ($data->type_jobs as $itemPD) {
-            foreach ($typesList as $itemList) {
-                if ($itemList['id'] == $itemPD) {
-                    $contentPd .= $itemList['name'] . ',';
-                }
-            }
-        }
-        $id = $request->id;
-        $allMailTemplate = MailTemplate::whereIn('id',[8,9,10,11,13])->orderBy("name" , "ASC")->get();
-        $flagSendMail = 0;
-        $flagCustomer = 0;
-        $itemSendMail = [];
-        if (count($dataColla) > 0 ) {
-            $flagSendMail = 1;
-            $itemSendMail = $dataColla[0];
-            $flagCustomer = $itemSendMail->userInfo->id;
-        }
-        foreach ($allMailTemplate as &$itemMail) {
-            if ($flagSendMail == 1) {
-
-                $itemMail->cc_mail = $itemSendMail->userInfo->email;
-                $itemMail->subject = str_replace("[ordernumber]",$data->codejob,$itemMail->subject);
-                $itemMail->subject = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->subject);
-                $itemMail->body = str_replace("[name]",$itemSendMail->userInfo->name,$itemMail->body);
-                $itemMail->body = str_replace("[ordernumber]",$data->codejob,$itemMail->body);
-                $itemMail->body = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->body);
-                $itemMail->body = str_replace("[workcontent]", $contentPd ,$itemMail->body);
-                $itemMail->body = str_replace("[workplace]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[worktime]",$data->phone_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[othername]",$itemSendMail->userInfo->furigana,$itemMail->body);
-                $itemMail->body = str_replace("[phone]",$itemSendMail->userInfo->phone,$itemMail->body);
-                $itemMail->body = str_replace("[your-email]",$itemSendMail->userInfo->email,$itemMail->body);
-                $itemMail->body = str_replace("[companyname]",$data->ten_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[place]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[name_interpreter]",$itemSendMail->userInfo->name,$itemMail->body);
-                // setlocale(LC_MONETARY,"ja_JP");
-                $fmt = new NumberFormatter( 'ja_JP', NumberFormatter::CURRENCY );
-                $itemMail->body = str_replace("[customer_totalmoney]",$fmt->formatCurrency($data->tong_thu,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_totalmoney]",$fmt->formatCurrency(($priceMove + $priceSend + $ctvPrice),'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_money]",$fmt->formatCurrency($ctvPrice,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[move_money]",$fmt->formatCurrency($priceMove,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[bank_money]",$fmt->formatCurrency($priceSend,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[total_money]",$fmt->formatCurrency(($data->tong_thu - $priceMove - $priceSend - $ctvPrice),'JPY'),$itemMail->body);
-            }
-        }
-        unset($itemMail);
-        if ($data->date_company_pay != '') {
-            $dateParse = explode('-',$data->date_company_pay);
-            $data->date_company_pay = $dateParse[0].'年'.$dateParse[1].'月'.$dateParse[2].'日';
-        }
-        // echo "<pre>";print_r($dataSales[0]);die;
-        // return view(
-        //     'admin.company.pdf',
-        //     compact(['data' , 'dataSales' ,'dataColla'])
-        // );
-        $pdf = PDF::loadView('admin.company.pdf-type-new', compact('data' , 'dataSales' , 'dataColla'));
-        $name = $data->codejob;
-        return $pdf->download('受注書('.$name.').pdf');
     }
 
     // function getListAll(Request $request) {
@@ -2060,12 +2047,7 @@ class CompanyController extends Controller
 
     
 
-    function listCost(Request $request) {
-        return view(
-            'admin.cost',
-            compact([])
-        );
-    }
+    
 
     function getListCost(Request $request) {
         $page = $request->page - 1;
@@ -2541,8 +2523,6 @@ class CompanyController extends Controller
 
         return response()->json(['data'=>$data,'count'=>$count,'pageTotal' => $pageTotal,'sumPay' => $sumPay]);
     }
-
-    
 
     function listDashboard(Request $request) {
         $yearNow = date('Y');
@@ -3193,8 +3173,6 @@ class CompanyController extends Controller
 
         return response()->json(['data3'=>$data3,'data'=>$data,'count'=>$count3,'pageTotal' => $pageTotal3,'sumPay' => $sumPay, 'sumEarningMonth' => $sumEarningMonth, 'sumEarningYear' => $sumEarningYear, 'sumBenefitMonth' => $sumBenefitMonth, 'dayPrices' => $yearReportPrice, 'sumBenefitYear' => $sumBenefitYear, 'sumCountYear' => $sumCountYear, 'sumCountMonth' => $sumCountMonth]);
     }
-
-    
 
     function listBankFee(Request $request) {
         return view(
@@ -4323,6 +4301,7 @@ class CompanyController extends Controller
         }
 
         unset($item);
+        
 
         return response()->json(['data'=>$data,'count'=>$count,'pageTotal' => $pageTotal, 'sumPriceTotal' => $sumPriceTotal ]);
     }
@@ -4550,7 +4529,7 @@ class CompanyController extends Controller
 
         $pdf = PDF::loadView('admin.partnerinterpreterpdf', compact('data'));
 
-        return $pdf->download('給与一覧表('.$data->selectedMonth.').pdf');
+        return $pdf->download('通訳報酬一覧表('.$data->selectedMonth.').pdf');
     }
 
     function pdfMoveFee(Request $request) {
@@ -4916,15 +4895,32 @@ class CompanyController extends Controller
 
         $data = $data->where('company.ngay_pd', '>=' , '2021-03-17' );
         if(@$request->ngay_phien_dich != '' ){
-            // echo $request->ngay_phien_dich;die;
-            // $data = $data->join('detail_collaborators_jobs', 'detail_collaborators_jobs.company_id', '=', 'company.id');
             $data = $data->where('company.ngay_pd', 'LIKE' , '%'.$request->ngay_phien_dich.'%' );
+        }
+        if(@$request->ngay_phien_dich_from != '' ){
+            $data = $data->where('company.ngay_pd', '>=' , $request->ngay_phien_dich_from );
+        }
+        if(@$request->ngay_phien_dich_to != '' ){
+            $data = $data->where('company.ngay_pd', '<=' , $request->ngay_phien_dich_to );
         }
         if(@$request->thang_phien_dich != '' ){
 			$data = $data->where('company.ngay_pd', 'LIKE' , '%'.$request->thang_phien_dich.'%' );
         }
         if(@$request->thang_chuyen_khoan != '' ){
             $newDataJobs = CtvJobsJoin::where('ctv_jobs_join.ngay_chuyen_khoan', 'LIKE' , '%'.$request->thang_chuyen_khoan.'%' )->get();
+            $listCompany = [];
+            if($newDataJobs) {
+                foreach($newDataJobs as $item) {
+                    if (!in_array($item->jobs_id,$listCompany)) {
+                        $listCompany[] = $item->jobs_id;
+                    }
+
+                }
+            }
+            $data = $data->whereIn('id',$listCompany);
+        }
+        if(@$request->ngay_chuyen_khoan != '' ){
+            $newDataJobs = CtvJobsJoin::where('ctv_jobs_join.ngay_chuyen_khoan', '=' , $request->ngay_chuyen_khoan )->get();
             $listCompany = [];
             if($newDataJobs) {
                 foreach($newDataJobs as $item) {
@@ -5297,20 +5293,22 @@ class CompanyController extends Controller
             $data->sale_name = strtoupper($item['userInfo']->name);
 
             $OldDate = $item->ngay_chuyen_khoan;
-            list($data->year, $data->month, $data->day) = explode("-", $OldDate);
+            if ($OldDate) {
+                list($data->year, $data->month, $data->day) = explode("-", $OldDate);
+            }
         }
         
         unset($itemMail);
 
-        $pdf = PDF::loadView('admin.partnersalereceiptpdf', compact('data' , 'dataSales'));
-        $name = $data->codejob."-".$data->sale_name;
-        return $pdf->download('出金伝票('.$name.').pdf');
+        $pdf = PDF::loadView('admin.cost-sale-receipt-pdf', compact('data' , 'dataSales'));
+        $name = $data->id."-".$data->sale_name;
+        return $pdf->download('支払明細書(受注No.'.$name.').pdf');
     }
     
     function pdfInterpreterReceipt(Request $request , $id) {
         $data = Company::find($request->id);
         
-        $data->receipt_type = "通訳給与";
+        $data->receipt_type = "通訳報酬";
         $data->price_total = 0;
         $data->sale_name = '';
         $data->year = '';
@@ -5334,498 +5332,8 @@ class CompanyController extends Controller
         $name = $data->codejob."-".$data->sale_name;
         return $pdf->download('出金伝票('.$name.').pdf');
     }
+
     
-    function pdfMoveFeeReceipt(Request $request , $id) {
-        $data = Company::find($request->id);
-        
-        $data->receipt_type = "通訳給与";
-        $data->price_total = 0;
-        $data->sale_name = '';
-        $data->year = '';
-        $data->month = '';
-        $data->day = '';
-
-        $dataSales = CollaboratorsJobs::where('jobs_id' , $request->id)->get();
-        foreach($dataSales as &$item) {
-            $item['userInfo'] = Collaborators::where("id" , $item->collaborators_id)->with('bank')->first();
-            $item['dateList'] = DetailCollaboratorsJobs::where("collaborators_jobs_id" , $item->id)->get();
-            $hoadon = 0;
-            $price = 0;
-            foreach ( $item->dateList as $valueDate) {
-                # code...
-                if ($valueDate->file_hoa_don != '') {
-                    $data->file_hoa_don = $valueDate->file_hoa_don;
-                    $hoadon = 1;
-                }
-                $price += $valueDate->phi_giao_thong;
-            }
-
-            $data->sale_name = strtoupper($item['userInfo']->name);
-            $data->file_hoa_don_status = $hoadon;
-            $data->price = $price;
-        }
-        
-        unset($item);
-
-        // return view(
-        //     'admin.movefeereceiptpdf',
-        //     compact(['data' , 'dataSales'])
-        // );
-
-        $pdf = PDF::loadView('admin.movefeereceiptpdf', compact('data' , 'dataSales'));
-        $name = $data->codejob."-".$data->sale_name;
-        return $pdf->download('領収書('.$name.').pdf');
-    }
-
-    /*
-    function edit(Request $request,$id) {
-        $message = [
-            "message" => "",
-            "status" => 0
-        ];
-        if ($request->isMethod('post')) {
-            try {
-                $data = Company::find($request->id);
-                if ($data) {
-                    $data->name_company = $request->name_company;
-                    // $data->phone = $request->phone;
-                    // $data->email = $request->email;
-                    // $data->address = $request->address;
-                    $data->longitude = $request->longitude;
-                    $data->latitude = $request->latitude;
-                    // $data->tong_chidukien = $request->tong_chidukien;
-                    $data->tong_thu_du_kien = $request->tong_thu_du_kien;
-                    $data->codejob = $request->codejob;
-                    // $data->ga = $request->ga;
-                    // $data->title_jobs = $request->title_jobs;
-                    $data->description = $request->description;
-                    $data->ten_nguoilienlac = $request->ten_nguoilienlac;
-                    $data->phone_nguoilienlac = $request->phone_nguoilienlac;
-                    $data->date_start = $request->date_start;
-                    $data->total_day_pd = count(explode(',', $request->ngay_pd));
-                    // $data->price_phiendich = $request->price_phiendich;
-                    $data->price_giaothong = $request->price_giaothong;
-                    // $data->status_fax = $request->status_fax;
-                    $data->status_bank = $request->status_bank ? $request->status_bank : 0;
-                    $data->loai_job = $request->loai_job ? $request->loai_job : 1;
-                    $data->price_send_ctvpd = $request->price_send_ctvpd;
-                    if ($data->loai_job == 3) {
-                        $data->price_send_ctvpd = 0;
-                    }
-                    $data->percent_vat_ctvpd = $request->percent_vat_ctvpd;
-                    $data->price_vat_ctvpd = floor($request->percent_vat_ctvpd * $request->price_send_ctvpd / 100);
-                    $data->price_sale = $request->price_sale;
-                    $data->price_company_duytri = $request->price_company_duytri;
-                    $data->tienphiendich = $request->tienphiendich;
-                    $data->tienphiendich = str_replace(',','',$data->tienphiendich);
-                    $data->tienphiendich = str_replace('￥','',$data->tienphiendich);
-                    $data->typehoahong = $request->typehoahong ? $request->typehoahong : 0;
-                    $data->ortherPrice = $request->ortherPrice;
-                    $data->descriptionPrice = $request->descriptionPrice;
-                    if ($data->loai_job == 1) {
-                        $data->tong_kimduocdukien = $request->tong_thu_du_kien - $request->price_send_ctvpd - $data->price_vat_ctvpd - $request->price_sale - $request->price_company_duytri - $request->ortherPrice;
-                    } else {
-                        $data->tong_kimduocdukien = $request->tong_thu_du_kien - $request->price_sale - $request->price_company_duytri - $request->ortherPrice;
-                    }
-                    // $data->price_status_thucte = $request->price_status_thucte;
-                    $data->status = $request->status;
-                    $data->ngay_pd = $request->ngay_pd;
-                    $data->tong_chi = $request->tong_chi;
-                    $data->status_chi = $request->status_chi;
-                    // $data->status_ctv = $request->status_ctv;
-                    // $data->status_ctv_pd = $request->status_ctv_pd;
-                    if($request->types){
-                        $flagTypes = ',' . implode(',' , $request->types) . ',';
-                        $data->type_jobs = $flagTypes;
-                    } else {
-                        $data->type_jobs = '';
-                    }
-
-                    $data->address_pd = $request->address_pd;
-                    $data->stk_thanh_toan_id = $request->stk_thanh_toan_id;
-                    // $data->hoahong = $request->hoahong;
-                    // $data->price_giaothongthucte = $request->price_giaothongthucte;
-                    // $data->chang_ctv = $request->chang_ctv;
-                    // $data->house_tts = $request->house_tts ? $request->house_tts : 0;
-                    $data->tong_thu = $request->tong_thu;
-                    // $data->price_company_pay = $request->price_company_pay;
-                    $data->date_company_pay = $request->date_company_pay;
-                    // $data->collaborators_price = $request->collaborators_price;
-                    // $data->price_hoahong = $request->price_hoahong;
-                    // $data->date_pay_collaborators = $request->date_pay_collaborators;
-                    $data->price_nhanduoc = $request->price_nhanduoc;
-                    $data->created_at = date('Y-m-d H:i:s');
-                    $data->updated_at = date('Y-m-d H:i:s');
-                    $data->save();
-                }
-
-
-                if ($request->jobsConnect && count($request->jobsConnect)  > 0  ) {
-                    foreach ($request->jobsConnect as $item) {
-                        if ($item['id'] === 'new') {
-                            if ($item['type'] !== 'delete') {
-                                $dataBank = new CollaboratorsJobs();
-                                $dataBank->jobs_id = $data->id;
-                                $dataBank->collaborators_id = $item['collaborators_id'];
-                                $dataBank->price_total = $item['price_total'];
-                                $dataBank->bank_id = $item['bank_id'];
-                                $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                if (@$item['status']) {
-                                    $dataBank->status =$item['status'];
-                                } else {
-                                    $dataBank->status = 0;
-                                }
-                                $dataBank->paytaxplace = @$item['paytaxplace'] ? $item['paytaxplace'] : 0;
-                                $dataBank->paytaxdate = $item['paytaxdate'];
-                                if (@$item['paytaxstatus']) {
-                                    $dataBank->paytaxstatus =$item['paytaxstatus'];
-                                } else {
-                                    $dataBank->paytaxstatus = 0;
-                                }
-                                $dataBank->save();
-                                if (@$item['dateList']) {
-                                    foreach (@$item['dateList'] as $itemChild) {
-                                        if ($itemChild['id'] === 'new') {
-                                            if ($itemChild['type'] !== 'delete') {
-                                                $dataDetail = new DetailCollaboratorsJobs();
-                                                $dataDetail->collaborators_jobs_id = $dataBank->id;
-                                                $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-                                                $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-                                                $dataDetail->gio_ket_thuc = $itemChild['gio_ket_thuc'];
-                                                $dataDetail->gio_tang_ca = $itemChild['gio_tang_ca'];
-                                                $dataDetail->note = $itemChild['note'];
-                                                $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-                                                $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-                                                // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-                                                $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-                                                $dataDetail->company_id = $data->id;
-                                                $dataDetail->save();
-                                            }
-                                        } else {
-                                            $dataDetail = DetailCollaboratorsJobs::find($itemChild['id']);
-                                            if ($dataDetail) {
-                                                if ($itemChild['type'] === 'delete') {
-                                                    $dataDetail->delete();
-                                                } else {
-                                                    $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-                                                    $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-                                                    $dataDetail->gio_ket_thuc = $itemChild['gio_ket_thuc'];
-                                                    $dataDetail->gio_tang_ca = $itemChild['gio_tang_ca'];
-                                                    $dataDetail->note = $itemChild['note'];
-                                                    $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-                                                    $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-                                                    // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-                                                    $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-                                                    $dataDetail->company_id = $data->id;
-                                                    $dataDetail->save();
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-
-                            }
-                        } else {
-                            $dataBank = CollaboratorsJobs::find($item['id']);
-                            if ($dataBank) {
-                                if ($item['type'] === 'delete') {
-                                    $dataBank->delete();
-                                    DetailCollaboratorsJobs::where('collaborators_jobs_id',$item['id'])->delete();
-                                } else {
-                                    $dataBank->price_total = $item['price_total'];
-                                    $dataBank->bank_id = $item['bank_id'];
-                                    $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                    $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                    if (@$item['status']) {
-                                        $dataBank->status =$item['status'];
-                                    } else {
-                                        $dataBank->status = 0;
-                                    }
-                                    $dataBank->paytaxplace = @$item['paytaxplace'] ? $item['paytaxplace'] : 0;
-                                    $dataBank->paytaxdate = $item['paytaxdate'];
-                                    if (@$item['paytaxstatus']) {
-                                        $dataBank->paytaxstatus =$item['paytaxstatus'];
-                                    } else {
-                                        $dataBank->paytaxstatus = 0;
-                                    }
-                                    $dataBank->save();
-                                    if (@$item['dateList']) {
-                                        foreach (@$item['dateList'] as $itemChild) {
-                                            if ($itemChild['id'] === 'new') {
-                                                if ($itemChild['type'] !== 'delete') {
-                                                    $dataDetail = new DetailCollaboratorsJobs();
-                                                    $dataDetail->collaborators_jobs_id = $dataBank->id;
-                                                    $dataDetail->ngay_phien_dich = @$itemChild['ngay_phien_dich'];
-                                                    $dataDetail->gio_phien_dich = @$itemChild['gio_phien_dich'];
-                                                    $dataDetail->gio_ket_thuc = @$itemChild['gio_ket_thuc'];
-                                                    $dataDetail->gio_tang_ca = @$itemChild['gio_tang_ca'];
-                                                    $dataDetail->note = @$itemChild['note'];
-                                                    $dataDetail->phi_phien_dich = @$itemChild['phi_phien_dich'];
-                                                    $dataDetail->phi_giao_thong = @$itemChild['phi_giao_thong'];
-                                                    // $dataDetail->file_bao_cao = @$itemChild['file_bao_cao'];
-                                                    $dataDetail->file_hoa_don = @$itemChild['file_hoa_don'];
-                                                    $dataDetail->company_id = $data->id;
-                                                    $dataDetail->save();
-                                                }
-                                            } else {
-                                                $dataDetail = DetailCollaboratorsJobs::find($itemChild['id']);
-                                                if ($dataDetail) {
-                                                    if ($itemChild['type'] === 'delete') {
-                                                        $dataDetail->delete();
-                                                    } else {
-                                                        $dataDetail->ngay_phien_dich = @$itemChild['ngay_phien_dich'];
-                                                        $dataDetail->gio_phien_dich = @$itemChild['gio_phien_dich'];
-                                                        $dataDetail->gio_ket_thuc = @$itemChild['gio_ket_thuc'];
-                                                        $dataDetail->gio_tang_ca = @$itemChild['gio_tang_ca'];
-                                                        $dataDetail->note = @$itemChild['note'];
-                                                        $dataDetail->phi_phien_dich = @$itemChild['phi_phien_dich'];
-                                                        $dataDetail->phi_giao_thong = @$itemChild['phi_giao_thong'];
-                                                        // $dataDetail->file_bao_cao = @$itemChild['file_bao_cao'];
-                                                        $dataDetail->file_hoa_don = @$itemChild['file_hoa_don'];
-                                                        $dataDetail->company_id = $data->id;
-                                                        $dataDetail->save();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-                if ($request->jobsSale && count($request->jobsSale)  > 0  ) {
-                    foreach ($request->jobsSale as $item) {
-
-                        if ($item['id'] === 'new') {
-                            if ($item['type'] !== 'delete') {
-                                $dataBank = new CtvJobsJoin();
-                                $dataBank->jobs_id = $data->id;
-                                $dataBank->ctv_jobs_id = $item['ctv_jobs_id'];
-                                $dataBank->price_total = $item['price_total'];
-                                if (@$item['status']) {
-                                    $dataBank->status =$item['status'];
-                                } else {
-                                    $dataBank->status = 0;
-                                }
-                                $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                $dataBank->payplace = @$item['payplace'] ? $item['payplace']  :  0;
-                                $dataBank->save();
-
-                            }
-                        } else {
-                            $dataBank = CtvJobsJoin::find($item['id']);
-                            if ($dataBank) {
-                                if ($item['type'] === 'delete') {
-                                    $dataBank->delete();
-                                } else {
-                                    $dataBank->price_total = $item['price_total'];
-                                    if (@$item['status']) {
-                                        $dataBank->status =$item['status'];
-                                    } else {
-                                        $dataBank->status = 0;
-                                    }
-
-                                    $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                    $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                    $dataBank->payplace = @$item['payplace'] ? $item['payplace']  :  0;
-                                    $dataBank->save();
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-                if ($request->jobsCustomer && count($request->jobsCustomer)  > 0  ) {
-                    foreach ($request->jobsCustomer as $item) {
-
-                        if ($item['id'] === 'new') {
-                            if ($item['type'] !== 'delete') {
-                                $dataBank = new CusJobsJoin();
-                                $dataBank->jobs_id = $data->id;
-                                $dataBank->cus_jobs_id = $item['cus_jobs_id'];
-                                $dataBank->price_total = $item['price_total'];
-                                if (@$item['status']) {
-                                    $dataBank->status =$item['status'];
-                                } else {
-                                    $dataBank->status = 0;
-                                }
-                                $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                $dataBank->save();
-
-                            }
-                        } else {
-                            $dataBank = CusJobsJoin::find($item['id']);
-                            if ($dataBank) {
-                                if ($item['type'] === 'delete') {
-                                    $dataBank->delete();
-                                } else {
-                                    $dataBank->price_total = $item['price_total'];
-                                    if (@$item['status']) {
-                                        $dataBank->status =$item['status'];
-                                    } else {
-                                        $dataBank->status = 0;
-                                    }
-
-                                    $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-                                    $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-                                    $dataBank->save();
-
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-                $message = [
-                    "message" => "Đã thay đổi dữ liệu thành công.",
-                    "status" => 1
-                ];
-            } catch (Exception $e) {
-
-                echo "<pre>";
-                print_r($e->getMessage());die;
-                $message = [
-                    "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
-                    "status" => 2
-                ];
-            }
-
-        }
-        $data = Company::find($request->id);
-        $data->tong_chi = 0;
-        $data->type_jobs = trim($data->type_jobs,",");
-        if( $data->type_jobs ) {
-            $flagType = explode(',' , $data->type_jobs);
-            $data->type_jobs = $flagType;
-        } else {
-            $data->type_jobs = [];
-        }
-
-        $dataColla = CollaboratorsJobs::where('jobs_id' , $request->id)->get();
-        $priceMove = 0;
-        $priceSend = 0;
-        $ctvPrice = 0;
-        foreach($dataColla as &$item) {
-            $item['userInfo'] = Collaborators::where("id" , $item->collaborators_id)->with('bank')->first();
-            $item['dateList'] = DetailCollaboratorsJobs::where("collaborators_jobs_id" , $item->id)->get();
-            $item->price_total = 0;
-            foreach ($item['dateList'] as &$value) {
-                # code...
-                $value['type'] = 'update';
-                $item->price_total += $value->phi_phien_dich + $value->phi_giao_thong;
-                $item->phi_giao_thong_total += $value->phi_giao_thong;
-                $item->phi_phien_dich_total += $value->phi_phien_dich;
-                $priceMove += $value->phi_giao_thong;
-                $ctvPrice += $value->phi_phien_dich;
-            }
-			$item->thue_phien_dich_total = floor($item->phi_phien_dich_total * $data->percent_vat_ctvpd / 100);
-            unset($value);
-            if ($data->loai_job != 2) {
-                $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan + $item->thue_phien_dich_total;
-            }
-            $priceSend = $item->phi_chuyen_khoan;
-        }
-
-        $dataSales = CtvJobsJoin::where('jobs_id' , $request->id)->get();
-        foreach($dataSales as &$item) {
-            $item['userInfo'] = CtvJobs::where("id" , $item->ctv_jobs_id)->first();
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan + $item->thue_phien_dich_total;
-        }
-
-        $dataCustomer = CusJobsJoin::where('jobs_id' , $request->id)->get();
-        foreach($dataCustomer as &$item) {
-            $item['userInfo'] = CusJobs::where("id" , $item->cus_jobs_id)->first();
-            $data->tong_chi += $item->price_total + $item->phi_chuyen_khoan + $item->thue_phien_dich_total;
-        }
-
-        // echo "<pre>";print_r($dataSales);die;
-        if ($data->tong_thu != 0) {
-            $data->price_nhanduoc = $data->tong_thu - $data->tong_chi;
-        } else {
-            $data->price_nhanduoc = 0;
-        }
-        $dataUpdate = Company::find($request->id);
-        $dataUpdate->price_nhanduoc = $data->price_nhanduoc;
-        $dataUpdate->save();
-        $allMyBank = MyBank::get();
-        $id = $request->id;
-        $typesList = [];
-        $typesList[] = ["name" => '空港出迎え' , 'id' => 1];
-        $typesList[] = ["name" => '入寮' , 'id' => 2];
-        $typesList[] = ["name" => '役所の転入' , 'id' => 3];
-        $typesList[] = ["name" => '銀行口座開設' , 'id' => 4];
-        $typesList[] = ["name" => '日本語講習' , 'id' => 5];
-        $typesList[] = ["name" => 'その他の講習' , 'id' => 6];
-        $typesList[] = ["name" => '配属' , 'id' => 7];
-        $typesList[] = ["name" => '定期巡回' , 'id' => 8];
-        $typesList[] = ["name" => '臨時面会' , 'id' => 9];
-        $typesList[] = ["name" => '試験' , 'id' => 10];
-        $typesList[] = ["name" => 'その他' , 'id' => 11];
-        $contentPd = '';
-        foreach ($data->type_jobs as $itemPD) {
-            foreach ($typesList as $itemList) {
-                if ($itemList['id'] == $itemPD) {
-                    $contentPd .= $itemList['name'] . ',';
-                }
-            }
-        }
-        $id = $request->id;
-        $allMailTemplate = MailTemplate::whereIn('id',[8,9,10,11,13])->orderBy("name" , "ASC")->get();
-        $flagSendMail = 0;
-        $flagCustomer = 0;
-        $itemSendMail = [];
-        if (count($dataColla) > 0 ) {
-            $flagSendMail = 1;
-            $itemSendMail = $dataColla[0];
-            $flagCustomer = $itemSendMail->userInfo->id;
-        }
-        foreach ($allMailTemplate as &$itemMail) {
-            if ($flagSendMail == 1) {
-
-                $itemMail->cc_mail = $itemSendMail->userInfo->email;
-                $itemMail->subject = str_replace("[ordernumber]",$data->codejob,$itemMail->subject);
-                $itemMail->subject = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->subject);
-                $itemMail->body = str_replace("[name]",$itemSendMail->userInfo->name,$itemMail->body);
-                $itemMail->body = str_replace("[ordernumber]",$data->codejob,$itemMail->body);
-                $itemMail->body = str_replace("[dateinterpreter]",$data->ngay_pd,$itemMail->body);
-                $itemMail->body = str_replace("[workcontent]", $contentPd ,$itemMail->body);
-                $itemMail->body = str_replace("[workplace]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[worktime]",$data->phone_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[othername]",$itemSendMail->userInfo->furigana,$itemMail->body);
-                $itemMail->body = str_replace("[phone]",$itemSendMail->userInfo->phone,$itemMail->body);
-                $itemMail->body = str_replace("[your-email]",$itemSendMail->userInfo->email,$itemMail->body);
-                $itemMail->body = str_replace("[companyname]",$data->ten_nguoilienlac,$itemMail->body);
-                $itemMail->body = str_replace("[place]",$data->address_pd,$itemMail->body);
-                $itemMail->body = str_replace("[name_interpreter]",$itemSendMail->userInfo->name,$itemMail->body);
-                // setlocale(LC_MONETARY,"ja_JP");
-                $fmt = new NumberFormatter( 'ja_JP', NumberFormatter::CURRENCY );
-                $itemMail->body = str_replace("[customer_totalmoney]",$fmt->formatCurrency($data->tong_thu,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_totalmoney]",$fmt->formatCurrency(($priceMove + $priceSend + $ctvPrice),'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[interpreter_money]",$fmt->formatCurrency($ctvPrice,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[move_money]",$fmt->formatCurrency($priceMove,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[bank_money]",$fmt->formatCurrency($priceSend,'JPY'),$itemMail->body);
-                $itemMail->body = str_replace("[total_money]",$fmt->formatCurrency(($data->tong_thu - $priceMove - $priceSend - $ctvPrice),'JPY'),$itemMail->body);
-            }
-        }
-        unset($itemMail);
-        return view(
-            'admin.projectedit_old',
-            compact(['flagCustomer', 'flagSendMail', 'allMailTemplate', 'message' , 'id' ,'data' , 'dataColla' , 'allMyBank' , 'dataSales' , 'id' , 'typesList' , 'dataCustomer'])
-        );
-    }
-
-    */
-
     function SendEmailTemplateJobs(Request $request)
     {
         if (!$request->userId) {
@@ -5869,310 +5377,6 @@ class CompanyController extends Controller
     public function aaac($value) {
         echo $value;die; 
     }
-    // function add(Request $request) {
-    //     $message = [
-    //         "message" => "",
-    //         "status" => 0
-    //     ];
-    //     if ($request->isMethod('post')) {
-    //         try {
-    //             $data = new Company();
-    //             $data->name_company = $request->name_company;
-                
-    //             $data->tienphiendich = $request->tienphiendich;
-    //             // $data->phone = $request->phone;
-    //             // $data->email = $request->email;
-    //             // $data->address = $request->address;
-    //             $data->longitude = $request->longitude;
-    //             $data->latitude = $request->latitude;
-    //             $data->total_day_pd = count(explode(',', $request->ngay_pd));
-
-    //             $data->tong_thu_du_kien = $request->tong_thu_du_kien;
-    //             // $data->ga = $request->ga;
-    //             // $data->tong_chidukien = $request->tong_chidukien;
-
-    //             // $data->title_jobs = $request->title_jobs;
-    //             $data->description = $request->description;
-    //             $data->codejob = date("Y/m/d H:i:s") . '';
-    //             $data->codejob = str_replace('/', '' , str_replace(' ', '' , str_replace(':', '' , $data->codejob) ) );
-    //             $data->ten_nguoilienlac = $request->ten_nguoilienlac;
-    //             $data->phone_nguoilienlac = $request->phone_nguoilienlac;
-    //             $data->date_start = $request->date_start;
-    //             // $data->price_phiendich = $request->price_phiendich;
-    //             $data->price_giaothong = $request->price_giaothong;
-    //             $data->status_bank = $request->status_bank ? $request->status_bank : 0;
-    //             $data->status_fax = $request->status_fax ? $request->status_fax : 0;
-    //             // $data->price_status_thucte = $request->price_status_thucte;
-    //             $data->status = $request->status;
-    //             $data->ngay_pd = $request->ngay_pd;
-    //             // $data->tong_chi = $request->tong_chi;
-    //             $data->status_chi = $request->status_chi ? $request->status_chi : 0;
-
-    //             $data->price_send_ctvpd = $request->price_send_ctvpd;
-    //             $data->percent_vat_ctvpd = $request->percent_vat_ctvpd;
-    //             $data->price_vat_ctvpd = floor($request->percent_vat_ctvpd * $request->price_send_ctvpd / 100);
-    //             $data->price_sale = $request->price_sale;
-    //             $data->price_company_duytri = $request->price_company_duytri;
-    //             $data->ortherPrice = $request->ortherPrice;
-    //             $data->tong_kimduocdukien = $request->tong_thu_du_kien - $request->price_send_ctvpd - $data->price_vat_ctvpd - $request->price_sale - $request->price_company_duytri - $request->ortherPrice;
-    //             // $data->status_ctv = $request->status_ctv;
-    //             // $data->status_ctv_pd = $request->status_ctv_pd;
-    //             if($request->types){
-    //                 $flagTypes = ',' . implode(',' , $request->types) . ',';
-    //                 $data->type_jobs = $flagTypes;
-    //             } else {
-    //                 $data->type_jobs = '';
-    //             }
-    //             $data->address_pd = $request->address_pd;
-    //             // $data->stk_thanh_toan_id = $request->stk_thanh_toan_id;
-    //             $data->hoahong = $request->hoahong ? $request->hoahong : 0;
-    //             // $data->price_giaothongthucte = $request->price_giaothongthucte;
-    //             // $data->chang_ctv = $request->chang_ctv;
-    //             $data->house_tts =  $request->house_tts ? $request->house_tts : 0;
-    //             // $data->tong_thu = $request->tong_thu;
-    //             // $data->price_company_pay = $request->price_company_pay;
-    //             // $data->date_company_pay = $request->date_company_pay;
-    //             // $data->collaborators_price = $request->collaborators_price;
-    //             // $data->price_hoahong = $request->price_hoahong;
-    //             // $data->date_pay_collaborators = $request->date_pay_collaborators;
-    //             // $data->price_nhanduoc = $request->price_nhanduoc;
-    //             $data->created_at = date('Y-m-d H:i:s');
-    //             $data->save();
-
-    //             if ($request->jobsConnect && count($request->jobsConnect)  > 0  ) {
-    //                 foreach ($request->jobsConnect as $item) {
-    //                     if ($item['id'] === 'new') {
-    //                         if ($item['type'] !== 'delete') {
-    //                             $dataBank = new CollaboratorsJobs();
-    //                             $dataBank->jobs_id = $data->id;
-    //                             $dataBank->collaborators_id = $item['collaborators_id'];
-    //                             $dataBank->price_total = $item['price_total'];
-    //                             $dataBank->bank_id = $item['bank_id'];
-    //                             $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                             $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                             $dataBank->paytaxplace = @$item['paytaxplace'] ? $item['paytaxplace'] : 0;
-    //                             $dataBank->paytaxdate = $item['paytaxdate'];
-    //                             if (@$item['paytaxstatus']) {
-    //                                 $dataBank->paytaxstatus =$item['paytaxstatus'];
-    //                             } else {
-    //                                 $dataBank->paytaxstatus = 0;
-    //                             }
-    //                             $dataBank->save();
-    //                             if (@$item['dateList']) {
-    //                                 foreach (@$item['dateList'] as $itemChild) {
-    //                                     if ($itemChild['id'] === 'new') {
-    //                                         if ($itemChild['type'] !== 'delete') {
-    //                                             $dataDetail = new DetailCollaboratorsJobs();
-    //                                             $dataDetail->collaborators_jobs_id = $dataBank->id;
-    //                                             $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-    //                                             $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-    //                                             $dataDetail->note = $itemChild['note'];
-    //                                             $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-    //                                             $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-    //                                             // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-    //                                             $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-    //                                             $dataDetail->company_id = $data->id;
-    //                                             $dataDetail->save();
-    //                                         }
-    //                                     } else {
-    //                                         $dataDetail = DetailCollaboratorsJobs::find($itemChild['id']);
-    //                                         if ($dataDetail) {
-    //                                             if ($itemChild['type'] === 'delete') {
-    //                                                 $dataDetail->delete();
-    //                                             } else {
-    //                                                 $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-    //                                                 $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-    //                                                 $dataDetail->note = $itemChild['note'];
-    //                                                 $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-    //                                                 $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-    //                                                 // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-    //                                                 $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-    //                                                 $dataDetail->company_id = $data->id;
-    //                                                 $dataDetail->save();
-    //                                             }
-    //                                         }
-    //                                     }
-    //                                 }
-    //                             }
-
-
-    //                         }
-    //                     } else {
-    //                         $dataBank = CollaboratorsJobs::find($item['id']);
-    //                         if ($dataBank) {
-    //                             if ($item['type'] === 'delete') {
-    //                                 $dataBank->delete();
-    //                                 DetailCollaboratorsJobs::where('collaborators_jobs_id',$item['id'])->delete();
-    //                             } else {
-    //                                 $dataBank->price_total = $item['price_total'];
-    //                                 $dataBank->bank_id = $item['bank_id'];
-    //                                 $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                                 $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                                 $dataBank->save();
-    //                                 if (@$item['dateList']) {
-    //                                     foreach (@$item['dateList'] as $itemChild) {
-    //                                         if ($itemChild['id'] === 'new') {
-    //                                             if ($itemChild['type'] !== 'delete') {
-    //                                                 $dataDetail = new DetailCollaboratorsJobs();
-    //                                                 $dataDetail->collaborators_jobs_id = $dataBank->id;
-    //                                                 $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-    //                                                 $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-    //                                                 $dataDetail->note = $itemChild['note'];
-    //                                                 $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-    //                                                 $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-    //                                                 // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-    //                                                 $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-    //                                                 $dataDetail->company_id = $data->id;
-    //                                                 $dataDetail->save();
-    //                                             }
-    //                                         } else {
-    //                                             $dataDetail = DetailCollaboratorsJobs::find($itemChild['id']);
-    //                                             if ($dataDetail) {
-    //                                                 if ($itemChild['type'] === 'delete') {
-    //                                                     $dataDetail->delete();
-    //                                                 } else {
-    //                                                     $dataDetail->ngay_phien_dich = $itemChild['ngay_phien_dich'];
-    //                                                     $dataDetail->gio_phien_dich = $itemChild['gio_phien_dich'];
-    //                                                     $dataDetail->note = $itemChild['note'];
-    //                                                     $dataDetail->phi_phien_dich = $itemChild['phi_phien_dich'];
-    //                                                     $dataDetail->phi_giao_thong = $itemChild['phi_giao_thong'];
-    //                                                     // $dataDetail->file_bao_cao = $itemChild['file_bao_cao'];
-    //                                                     $dataDetail->file_hoa_don = $itemChild['file_hoa_don'];
-    //                                                     $dataDetail->company_id = $data->id;
-    //                                                     $dataDetail->save();
-    //                                                 }
-    //                                             }
-    //                                         }
-    //                                     }
-    //                                 }
-
-    //                             }
-    //                         }
-    //                     }
-
-    //                 }
-    //             }
-    //             if ($request->jobsSale && count($request->jobsSale)  > 0  ) {
-    //                 foreach ($request->jobsSale as $item) {
-
-    //                     if ($item['id'] === 'new') {
-    //                         if ($item['type'] !== 'delete') {
-    //                             $dataBank = new CtvJobsJoin();
-    //                             $dataBank->jobs_id = $data->id;
-    //                             $dataBank->ctv_jobs_id = $item['ctv_jobs_id'];
-    //                             $dataBank->price_total = $item['price_total'];
-    //                             if (@$item['status']) {
-    //                                 $dataBank->status =$item['status'];
-    //                             } else {
-    //                                 $dataBank->status = 0;
-    //                             }
-    //                             $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                             $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                             $dataBank->payplace = @$item['payplace'] ? $item['payplace']  :  0;
-    //                             $dataBank->save();
-
-    //                         }
-    //                     } else {
-    //                         $dataBank = CtvJobsJoin::find($item['id']);
-    //                         if ($dataBank) {
-    //                             if ($item['type'] === 'delete') {
-    //                                 $dataBank->delete();
-    //                             } else {
-    //                                 $dataBank->price_total = $item['price_total'];
-    //                                 if (@$item['status']) {
-    //                                     $dataBank->status =$item['status'];
-    //                                 } else {
-    //                                     $dataBank->status = 0;
-    //                                 }
-    //                                 $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                                 $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                                 $dataBank->payplace = @$item['payplace'] ? $item['payplace']  :  0;
-    //                                 $dataBank->save();
-
-    //                             }
-    //                         }
-    //                     }
-
-    //                 }
-    //             }
-
-    //             if ($request->jobsCustomer && count($request->jobsCustomer)  > 0  ) {
-    //                 foreach ($request->jobsCustomer as $item) {
-
-    //                     if ($item['id'] === 'new') {
-    //                         if ($item['type'] !== 'delete') {
-    //                             $dataBank = new CusJobsJoin();
-    //                             $dataBank->jobs_id = $data->id;
-    //                             $dataBank->cus_jobs_id = $item['cus_jobs_id'];
-    //                             $dataBank->price_total = $item['price_total'];
-    //                             if (@$item['status']) {
-    //                                 $dataBank->status =$item['status'];
-    //                             } else {
-    //                                 $dataBank->status = 0;
-    //                             }
-    //                             $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                             $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                             $dataBank->save();
-
-    //                         }
-    //                     } else {
-    //                         $dataBank = CusJobsJoin::find($item['id']);
-    //                         if ($dataBank) {
-    //                             if ($item['type'] === 'delete') {
-    //                                 $dataBank->delete();
-    //                             } else {
-    //                                 $dataBank->price_total = $item['price_total'];
-    //                                 if (@$item['status']) {
-    //                                     $dataBank->status =$item['status'];
-    //                                 } else {
-    //                                     $dataBank->status = 0;
-    //                                 }
-    //                                 $dataBank->ngay_chuyen_khoan = $item['ngay_chuyen_khoan'];
-    //                                 $dataBank->phi_chuyen_khoan = $item['phi_chuyen_khoan'];
-    //                                 $dataBank->save();
-
-    //                             }
-    //                         }
-    //                     }
-
-    //                 }
-    //             }
-    //             $message = [
-    //                 "message" => "Đã thêm dữ liệu thành công.",
-    //                 "status" => 1
-    //             ];
-    //             return redirect('/admin/projectview/'.$data->id)->with('message','Đã thêm dữ liệu thành công.');
-    //         } catch (Exception $e) {
-
-    //             echo "<pre>";
-    //             print_r($e->getMessage());die;
-    //             $message = [
-    //                 "message" => "Có lỗi xảy ra khi thêm vào dữ liệu.",
-    //                 "status" => 2
-    //             ];
-    //         }
-
-    //     }
-
-    //     $typesList = [];
-    //     $typesList[] = ["name" => '空港出迎え' , 'id' => 1];
-    //     $typesList[] = ["name" => '入寮' , 'id' => 2];
-    //     $typesList[] = ["name" => '役所の転入' , 'id' => 3];
-    //     $typesList[] = ["name" => '銀行口座開設' , 'id' => 4];
-    //     $typesList[] = ["name" => '日本語講習' , 'id' => 5];
-    //     $typesList[] = ["name" => 'その他の講習' , 'id' => 6];
-    //     $typesList[] = ["name" => '配属' , 'id' => 7];
-    //     $typesList[] = ["name" => '定期巡回' , 'id' => 8];
-    //     $typesList[] = ["name" => '臨時面会' , 'id' => 9];
-    //     $typesList[] = ["name" => '試験' , 'id' => 10];
-    //     $typesList[] = ["name" => 'その他' , 'id' => 11];
-    //     $allMyBank = MyBank::get();
-    //     return view(
-    //         'admin.projectnew',
-    //         compact(['message' , 'allMyBank' , 'typesList'])
-    //     );
-
-    // }
 
     function delete(Request $request,$id) {
         CollaboratorsJobs::where('jobs_id' , $id)->delete();

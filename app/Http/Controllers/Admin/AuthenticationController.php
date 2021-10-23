@@ -42,9 +42,9 @@ class AuthenticationController extends BaseController
             'password' => 'required|min:6'
         ];
         $messages = [
-            'email.required' => 'メールアドレスを入力してください。',
-            'password.required' => 'パスワードを入力してください。',
-            'password.min' => '6文字以上のパスワードを入力してください。',
+            'email.required' => trans('label.msg1', ['arg' => trans('label.email')]),
+            'password.required' => trans('label.msg1', ['arg' => trans('label.pass')]),
+            'password.min' =>  trans('label.msg2', ['arg' => 6]),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         

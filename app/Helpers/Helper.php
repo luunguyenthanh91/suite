@@ -7,6 +7,13 @@ use App\Models\Settings;
 use App\Models\ProductRatings;
 class Helper
 {
+    public static function decodeCurrency($value) {
+        $value = trim($value);
+        if (is_null($value) || $value == '') return 0;
+        return str_replace("￥", "",  str_replace(".", "", str_replace(",", "", $value)));
+    }
+
+
     public static function convertSlug($title) {
         $replacement = '-';
         $map = array();

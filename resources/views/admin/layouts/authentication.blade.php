@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="dark-mode">
-      <head>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="icon" href="{{ asset('assets/images/fvc.png') }}" type="image/x-icon"> <!-- Favicon-->
+        <link rel="icon" href="{{ asset('assets/images/fvc.png') }}" type="image/x-icon">
+         <!-- Favicon-->
         <!-- <title>@yield('title') - {{ config('app.name') }}</title> -->
-        <title>AlphaCep Suite</title>
+        <title>{{ trans('label.login_header') }}</title>
         <meta name="description" content="@yield('meta_description', config('app.name'))">
         <meta name="author" content="@yield('meta_author', config('app.name'))">
         @yield('meta')
@@ -41,48 +42,52 @@
             @yield('page-styles')
         @endif    
 
+        <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('lib_upload/jquery.datepick.css') }}"> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.plugin.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.datepick.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lib_upload/ckeditor/ckeditor.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/ckfinder/ckfinder.js') }}"></script>  
+        <link href="{{ asset('lib_upload/jquery-ui/css/ui-lightness/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
+        <script src="{{ asset('lib_upload/jquery-ui/js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('lib_upload/jquery.slug.js') }}"></script>
     </head>
 
-    
-
-<body class="layout-app ">
-    <div class="preloader">
-        <div class="sk-chase">
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
+    <body class="layout-app ">
+        <div class="preloader">
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
         </div>
-    </div>
-    <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
-        @yield('content')
-    </div>
+        <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+            @yield('content')
+        </div>
 
-    <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
 
-    <!-- Bootstrap -->
-    <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
+        <!-- Perfect Scrollbar -->
+        <script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
 
-    <!-- Perfect Scrollbar -->
-    <script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
+        <!-- DOM Factory -->
+        <script src="{{ asset('assets/vendor/dom-factory.js') }}"></script>
 
-    <!-- DOM Factory -->
-    <script src="{{ asset('assets/vendor/dom-factory.js') }}"></script>
+        <!-- MDK -->
+        <script src="{{ asset('assets/vendor/material-design-kit.js') }}"></script>
 
-    <!-- MDK -->
-    <script src="{{ asset('assets/vendor/material-design-kit.js') }}"></script>
+        <!-- App JS -->
+        <script src="{{ asset('assets/js/app.js') }}"></script>
 
-    <!-- App JS -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+        <!-- Preloader -->
+        <script src="{{ asset('assets/js/preloader.js') }}"></script>
+        @yield('page-script')
 
-    <!-- Preloader -->
-    <script src="{{ asset('assets/js/preloader.js') }}"></script>
-    @yield('page-script')
-
-
-</body>
+    </body>
 
 </html>

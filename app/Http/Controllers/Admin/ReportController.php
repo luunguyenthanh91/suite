@@ -7,6 +7,7 @@ use App\Models\BankCollaborators;
 use App\Models\Collaborators;
 use App\Models\Company;
 use App\Models\CtvJobs;
+use App\Models\NationalHoliday;
 use App\Models\CtvJobsJoin;
 use App\Models\CollaboratorsJobs;
 use App\Models\MyBank;
@@ -53,8 +54,7 @@ class ReportController extends Controller
         );
 
     }
-    function calendar(Request $request) {
-        $now = date('Y-m-d');
+    public function getCalendar(Request $request) {
         $page = $request->page - 1;
         $data = Company::orderBy("company.id" , "DESC")->with('dateList')->with([
             'ctvList' => function($q) {
@@ -78,13 +78,34 @@ class ReportController extends Controller
             $item->ngay_pd = explode(',',$item->ngay_pd);
         }
         unset($item);
+
+        $data->national_holiday = NationalHoliday::orderBy("start" , "ASC")->get();
+
+        return $data;
+    }
+    function calendar(Request $request) {
+        $now = date('Y-m-d');
+        $data = $this->getCalendar($request);
+        $holidays = $data->national_holiday;
+
         // echo "<pre>";
         // print_r($data);die;
         return view(
             'admin.calendar',
-            compact(['data' , 'now'])
+            compact(['data' , 'now', 'holidays'])
         );
+    }
+    function calendarMobile(Request $request) {
+        $now = date('Y-m-d');
+        $data = $this->getCalendar($request);
+        $holidays = $data->national_holiday;
 
+        // echo "<pre>";
+        // print_r($data);die;
+        return view(
+            'admin.mobile.calendar',
+            compact(['data' , 'now', 'holidays'])
+        );
     }
     function chart(Request $request) {
         $dayJobs = [];
@@ -133,7 +154,6 @@ class ReportController extends Controller
 
     }
     function chartPrice(Request $request) {
-       
         $yearNow = date('Y');
         $yearReportPrice = [];
         for($i = 1; $i < 13 ; $i++ ) {

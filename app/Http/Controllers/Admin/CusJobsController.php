@@ -18,11 +18,15 @@ class CusJobsController extends Controller
 {
     private $limit = 20;
     
+    function viewCustomer(Request $request,$id) {
+        $data = CusJobs::find($request->id);
+        return view('admin.customer-view', compact(['data' , 'id']));
+    }
 
     function list(Request $request) {
         $district = District::all();
         return view(
-            'admin.cusjobs.list',
+            'admin.customer',
             compact(['district'])
         );
 

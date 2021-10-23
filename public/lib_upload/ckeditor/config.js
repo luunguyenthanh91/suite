@@ -10,22 +10,29 @@ CKEDITOR.editorConfig = function( config )
 	// config.uiColor = '#AADC6E';
 	
 
+        // config.toolbar_MyToolbar =
+        // [
+        //     ['Source','-','Templates'],
+        //     [ 'Cut','Copy','Paste','PasteText','PasteFromWord','RemoveFormat','-','Undo','Redo' ] ,
+        //     [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],
+		// 	['Outdent','Indent','-','Blockquote','CreateDiv','-', 'TextColor','BGColor'],
+		// 	['Link','Unlink','Anchor'],
+            
+        //     '/',
+            
+		// 	['Format','Font','FontSize'],
+  	    //     ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+        //     [ 'Bold','Italic','Underline','Strike','Subscript','Superscript' ] ,
+        //     ['NumberedList', 'BulletedList'],
+		// 	[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],
+		// 	['Maximize','PageBreak' ]
+        // ];
+
         config.toolbar_MyToolbar =
         [
-            ['Source','-','Templates'],
-            [ 'Cut','Copy','Paste','PasteText','PasteFromWord','RemoveFormat','-','Undo','Redo' ] ,
-            [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ],
-			['Outdent','Indent','-','Blockquote','CreateDiv','-', 'TextColor','BGColor'],
-			['Link','Unlink','Anchor'],
-            
-            '/',
-            
-			['Format','Font','FontSize'],
-  	        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
-            [ 'Bold','Italic','Underline','Strike','Subscript','Superscript' ] ,
-            ['NumberedList', 'BulletedList'],
-			[ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar'],
-			['Maximize','PageBreak' ]
+			['Source'],['Font','FontSize','Bold','Italic','Underline','Strike','-','Subscript','Superscript','-','TextColor','BGColor'],
+  	        ['JustifyLeft','JustifyCenter','JustifyRight','-','NumberedList', 'BulletedList','-','Outdent','Indent','-','Image','Table','HorizontalRule','SpecialChar'],
+			['Maximize']
         ];
 
         config.toolbar = 'MyToolbar';

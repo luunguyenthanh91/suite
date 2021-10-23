@@ -9,7 +9,7 @@
 
         <link rel="icon" href="{{ asset('assets/images/fvc.png') }}" type="image/x-icon"> <!-- Favicon-->
         <!-- <title>@yield('title') - {{ config('app.name') }}</title> -->
-        <title>AlphaCep Suite</title>
+        <title>{{ trans('label.login_header') }}</title>
         <meta name="description" content="@yield('meta_description', config('app.name'))">
         <meta name="author" content="@yield('meta_author', config('app.name'))">
         @yield('meta')
@@ -52,103 +52,140 @@
             @yield('page-styles')
         @endif    
         @yield('before-styles')
+        <script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('lib_upload/jquery.datepick.css') }}"> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.plugin.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/jquery.datepick.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lib_upload/ckeditor/ckeditor.js') }}"></script> 
+        <script type="text/javascript" src="{{ asset('lib_upload/ckfinder/ckfinder.js') }}"></script>  
+        <link href="{{ asset('lib_upload/jquery-ui/css/ui-lightness/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
+        <script src="{{ asset('lib_upload/jquery-ui/js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('lib_upload/jquery.slug.js') }}"></script>
 
+        
+        <!-- Bootstrap -->
+        <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
+    </div>
+
+        <!-- Perfect Scrollbar -->
+        <script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
+
+        <!-- DOM Factory -->
+        <script src="{{ asset('assets/vendor/dom-factory.js') }}"></script>
+
+        <!-- MDK -->
+        <script src="{{ asset('assets/vendor/material-design-kit.js') }}"></script>
+
+        <!-- App JS -->
+        <script src="{{ asset('assets/js/app.js') }}"></script>
+
+        <!-- Preloader -->
+        <script src="{{ asset('assets/js/preloader.js') }}"></script>
+
+        <!-- Global Settings -->
+        <script src="{{ asset('assets/js/settings.js') }}"></script>
+
+        <!-- Moment.js -->
+        <script src="{{ asset('assets/vendor/moment.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/moment-range.js') }}"></script>
+
+        <!-- Chart.js -->
+        <script src="{{ asset('assets/vendor/Chart.min.js') }}"></script>
+
+
+
+        <!-- List.js -->
+        <script src="{{ asset('assets/vendor/list.min.js') }}"></script>
+        <script src="{{ asset('assets/js/list.js') }}"></script>
+
+        <!-- Preloader -->
+        <script src="{{ asset('assets/js/preloader.js') }}"></script>
+        <script src="{{ asset('assets/js/vue.js') }}"></script>
+        <script src="{{ asset('assets/js/custome.js') }}"></script>
     </head>
 
     
 
-<body class="layout-app" id="appMobile">
-    <div class="preloader">
-        <div class="sk-chase">
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
-            <div class="sk-chase-dot"></div>
+    <body class="layout-app" id="appMobile">
+        <div class="preloader">
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
         </div>
-    </div>
-    <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
-        @yield('content')
-    </div>
-    <div class="moveTop hidden">
-        <i class="fa fa-arrow-up" style="margin-top:10px;"></i>
-        <label style="font-size:5px;">TOP</label>
-        
-    </div>
+        <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+            @yield('content')
+        </div>
+        <div class="moveTop hidden">
+            <i class="fa fa-arrow-up" style="margin-top:10px;"></i>
+            <label style="font-size:5px;">TOP</label>
+            
+        </div>
+        <!-- jQuery -->
 
-    <!-- Bootstrap -->
-    <script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
-
-    <!-- Perfect Scrollbar -->
-    <script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
-
-    <!-- DOM Factory -->
-    <script src="{{ asset('assets/vendor/dom-factory.js') }}"></script>
-
-    <!-- MDK -->
-    <script src="{{ asset('assets/vendor/material-design-kit.js') }}"></script>
-
-    <!-- App JS -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-
-    <!-- Preloader -->
-    <script src="{{ asset('assets/js/preloader.js') }}"></script>
-
-    <!-- Global Settings -->
-    <script src="{{ asset('assets/js/settings.js') }}"></script>
-
-    <!-- Moment.js -->
-    <script src="{{ asset('assets/vendor/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/moment-range.js') }}"></script>
-
-    <!-- Chart.js -->
-    <script src="{{ asset('assets/vendor/Chart.min.js') }}"></script>
-
-
-
-    <!-- List.js -->
-    <script src="{{ asset('assets/vendor/list.min.js') }}"></script>
-    <script src="{{ asset('assets/js/list.js') }}"></script>
-
-    <!-- Preloader -->
-    <script src="{{ asset('assets/js/preloader.js') }}"></script>
-    <script src="{{ asset('assets/js/vue.js') }}"></script>
-    <script src="{{ asset('assets/js/custome.js') }}"></script>
-    @yield('page-script')
-    <script>
-    $( document ).ready(function() {
-        $('.btnToggleMenu').on('click' , function () {
-            $('#leftTD').toggleClass('hiddenMenu');
-            $('#default-drawer').toggleClass('changeWidthMenu');
-        });
-        $('.toggleSearch').on('click' , function () {
-            $('.form-search').toggleClass('hidden');
-        });
-        if( !/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            $('.navbar-toggler ').click();
-        }
-        $(window).scroll(function (event) {
-            var scroll = $(window).scrollTop();
-            if (scroll  > 300) {
-                $('.moveTop').removeClass("hidden");
-            } else {
-                $('.moveTop').addClass("hidden");
+        @yield('page-script')
+        <script>
+        $( document ).ready(function() {
+            $('.btnToggleMenu').on('click' , function () {
+                $('#leftTD').toggleClass('hiddenMenu');
+                $('#default-drawer').toggleClass('changeWidthMenu');
+            });
+            $('.toggleSearch').on('click' , function () {
+                $('.form-search').toggleClass('hidden');
+            });
+            if( !/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                $('.navbar-toggler ').click();
             }
-            // Do something
-        });
+            $(window).scroll(function (event) {
+                var scroll = $(window).scrollTop();
+                if (scroll  > 300) {
+                    $('.moveTop').removeClass("hidden");
+                } else {
+                    $('.moveTop').addClass("hidden");
+                }
+                // Do something
+            });
 
-        $('.moveTop').on('click', function() {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-            return false;
+            $('.moveTop').on('click', function() {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                return false;
+            });
+            
+            $('.money_parse').on('change', function(){
+                var valueMoney = $(this).val();
+                valueMoney = parseInt(valueMoney.replace('￥' , '').replace(',', '').replace('.',''));
+                if (valueMoney) {
+                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(valueMoney);
+                } else {
+                    valueMoney = '';
+                }
+                $(this).val(valueMoney);
+            });
+            
+            $('.money_parse1').on('change', function(){
+                var valueMoney = $(this).val();
+                valueMoney = parseInt(valueMoney.replace('￥' , '').replace(',', '').replace('.',''));
+                if (valueMoney) {
+                    valueMoney = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(valueMoney);
+                } else {
+                    valueMoney = '';
+                }
+                $(this).val(valueMoney);
+            });
         });
+    
+        </script>
         
     });
    
     </script>
     
 
-</body>
+    </body>
 
 </html>
