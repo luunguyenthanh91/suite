@@ -73,6 +73,10 @@
                             <label class="form-label">{{ trans('label.user_id') }}</label>
                             <input type="text" class="form-control search" v-model="user_id">
                         </div>
+                        <div class="form-group col-lg-12">
+                            <label class="form-label">{{ trans('label.user_name') }}</label>
+                            <input type="text" class="form-control search" v-model="user_name">
+                        </div>
                         <div class="page-separator-line"></div>
                         <div class="form-group">
                             <div class="form-group col-lg-12">
@@ -210,6 +214,10 @@
                                     <label class="form-label">{{ trans('label.user_id') }}</label>
                                     <input type="text" class="form-control search" v-model="user_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                 </div>
+                                <div class="form-group col-lg-12">
+                                    <label class="form-label">{{ trans('label.user_name') }}</label>
+                                    <input type="text" class="form-control search" v-model="user_name" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                </div>
                             </div>                             
                         </div>
                     </div>
@@ -316,30 +324,33 @@
                                                     (( removeTime(item.month) ))
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col3-detail'">
-                                                    (( removeTime(item.user_id) ))
+                                                    {{ trans('label.user_id') }}(( item.user_id ))<br>
+                                                    (( item.employee_name ))<br>
+                                                    (( item.employee_depname ))
                                                     </td>
                                                     <td>
-                                                    <span v-if="item.status==0">{{ trans('label.po_status1') }}</span>
-                                                    <span v-if="item.status==1">{{ trans('label.po_status2') }}</span>   
-                                                    <span v-if="item.status==2">{{ trans('label.cancel') }}</span>    
+                                                    <span v-if="item.status==0">{{ trans('label.ws_status1') }}</span>
+                                                    <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
+                                                    <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
+                                                    <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
                                                     </td>
                                                     <td>
                                                     ((item.created_on)) 
                                                     </td>
                                                     <td>
-                                                    ((item.created_by)) 
+                                                    ((item.created_by_name)) 
                                                     </td>
                                                     <td>
                                                     ((item.checked_on)) 
                                                     </td>
                                                     <td>
-                                                    ((item.checked_by)) 
+                                                    ((item.checked_by_name)) 
                                                     </td>
                                                     <td>
                                                     ((item.approved_on)) 
                                                     </td>
                                                     <td>
-                                                    ((item.approved_by)) 
+                                                    ((item.approved_by_name)) 
                                                     </td>
                                                     <td >
                                                     <span class="text-block" v-html="item.note">
@@ -518,6 +529,9 @@ new Vue({
         type_train_search: '',
         project_id_search:'',
         name_search: '',
+
+        user_id: '',
+        user_name:'',
 
         created_by: '',
         checked_by: '',
@@ -811,6 +825,9 @@ new Vue({
             this.checked_by = '';
             this.approved_by = '';
 
+            this.user_id='';
+            this.user_name='';
+
             this.checkedNames = [0,1,2,3];
             this.month = '';
             this.month_from = '';
@@ -855,6 +872,9 @@ new Vue({
             this.created_by = '';
             this.checked_by = '';
             this.approved_by = '';
+
+            this.user_id='';
+            this.user_name='';
 
             this.checkedNames = [0,1,2,3];
             this.month = '';
@@ -947,15 +967,13 @@ new Vue({
             if (this.item_id != '') {
                 conditionSearch += '&item_id=' + this.item_id;
             }
-            if (this.type_train_search != '') {
-                conditionSearch += '&type_train=' + this.type_train_search;
+            if (this.user_id != '') {
+                conditionSearch += '&user_id=' + this.user_id;
             }
-            if (this.project_id_search != '') {
-                conditionSearch += '&project_id=' + this.project_id_search;
+            if (this.user_name != '') {
+                conditionSearch += '&user_name=' + this.user_name;
             }
-            if (this.name_search != '') {
-                conditionSearch += '&name=' + this.name_search;
-            }
+
             if (this.created_by != '') {
                 conditionSearch += '&created_by=' + this.created_by;
             }    
@@ -979,31 +997,31 @@ new Vue({
                 conditionSearch += '&created_on_month=' + this.created_on_month;
             }         
 
-if (this.checked_on != '') {
-    conditionSearch += '&checked_on=' + this.checked_on;
-}
-if (this.checked_on_from != '') {
-    conditionSearch += '&checked_on_from=' + this.checked_on_from;
-}
-if (this.checked_on_to != '') {
-    conditionSearch += '&checked_on_to=' + this.checked_on_to;
-}
-if (this.checked_on_month != '') {
-    conditionSearch += '&checked_on_month=' + this.checked_on_month;
-}
+            if (this.checked_on != '') {
+                conditionSearch += '&checked_on=' + this.checked_on;
+            }
+            if (this.checked_on_from != '') {
+                conditionSearch += '&checked_on_from=' + this.checked_on_from;
+            }
+            if (this.checked_on_to != '') {
+                conditionSearch += '&checked_on_to=' + this.checked_on_to;
+            }
+            if (this.checked_on_month != '') {
+                conditionSearch += '&checked_on_month=' + this.checked_on_month;
+            }
 
-if (this.approved_on != '') {
-    conditionSearch += '&approved_on=' + this.approved_on;
-}
-if (this.approved_on_from != '') {
-    conditionSearch += '&approved_on_from=' + this.approved_on_from;
-}
-if (this.approved_on_to != '') {
-    conditionSearch += '&approved_on_to=' + this.approved_on_to;
-}
-if (this.approved_on_month != '') {
-    conditionSearch += '&approved_on_month=' + this.approved_on_month;
-}
+            if (this.approved_on != '') {
+                conditionSearch += '&approved_on=' + this.approved_on;
+            }
+            if (this.approved_on_from != '') {
+                conditionSearch += '&approved_on_from=' + this.approved_on_from;
+            }
+            if (this.approved_on_to != '') {
+                conditionSearch += '&approved_on_to=' + this.approved_on_to;
+            }
+            if (this.approved_on_month != '') {
+                conditionSearch += '&approved_on_month=' + this.approved_on_month;
+            }
 
             if (this.checkedNames.length > 0) {
                 conditionSearch += '&status_multi=' + this.checkedNames.join();
@@ -1016,44 +1034,6 @@ if (this.approved_on_month != '') {
             }
             if (this.month_to != '') {
                 conditionSearch += '&month_to=' + this.month_to;
-            }
-
-
-
-
-            if (this.conditionAddress != '') {
-                conditionSearch += '&address=' + this.conditionAddress;
-            }
-            if (this.conditionName != '') {
-                conditionSearch += '&name=' + this.conditionName;
-            }
-            if (this.ctv_sale != '') {
-                conditionSearch += '&ctv_sale=' + this.ctv_sale;
-            }
-            if (this.conditionStatus != '') {
-                conditionSearch += '&status=' + this.conditionStatus;
-            }
-            if (this.name_kh != '') {
-                conditionSearch += '&name_kh=' + this.name_kh;
-            }
-            if (this.ctv_pd != '') {
-                conditionSearch += '&ctv_pd=' + this.ctv_pd;
-            }
-            if (this.codeJobs != '') {
-                conditionSearch += '&code_jobs=' + this.codeJobs;
-            }
-            if (this.checkedTypes.length > 0) {
-                conditionSearch += '&loai_job_multi=' + this.checkedTypes.join();
-            }
-            if (this.checkedCTVSex.length > 0) {
-                conditionSearch += '&ctv_sex=' + this.checkedCTVSex.join();
-            }
-            if (this.sortName != '') {
-                conditionSearch += '&sortname=' + this.sortName;
-                conditionSearch += '&sorttype=' + this.sortType;                
-            }
-            if (this.checkAkaji != 0) {
-                conditionSearch += '&check_akaji=' + this.checkAkaji;
             }
             conditionSearch += '&showcount=' + this.showCount; 
             this.conditionSearch = conditionSearch;          
@@ -1092,12 +1072,12 @@ if (this.approved_on_month != '') {
                     setTimeout(function() { 
                         $('.fix-col1').attr("style","z-index:10;left:0px;background:#CCCCCC");
                         $('.fix-col2').attr("style","z-index:10;left:80px;background:#CCCCCC");
-                        $('.fix-col3').attr("style","z-index:10;left:"+(94.63 + 80)+"px;background:#CCCCCC");
+                        $('.fix-col3').attr("style","z-index:10;left:"+(90 + 80)+"px;background:#CCCCCC");
 
 
                         $('.fix-col1-detail').attr("style","z-index:9;left:0px;");
                         $('.fix-col2-detail').attr("style","z-index:9;left:80px;");
-                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(94.63 + 80)+"px;");
+                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(90 + 80)+"px;");
                     }, 100);
                 },
                 error: function(xhr, textStatus, error) {

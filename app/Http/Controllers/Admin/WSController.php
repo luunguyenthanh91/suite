@@ -78,6 +78,26 @@ class WSController extends Controller
         if(@$request->user_id != '' ){
 			$data = $data->where('user_id', 'LIKE' , '%'.$request->user_id.'%' );
         }
+        if(@$request->user_name != '' ){
+            $newData = Admin::where('name','like', '%'.$request->user_name.'%')->get();
+            $listIdIn = [];
+            if($newData) {
+                foreach($newData as $item) {
+                    $listIdIn[] = $item->id;
+                }
+            }
+
+            $newDataJobs = WorkSheet::whereIn('user_id',$listIdIn)->get();
+            $listCompany = [];
+            if($newDataJobs) {
+                foreach($newDataJobs as $item) {
+                    if (!in_array($item->jobs_id,$listCompany)) {
+                        $listCompany[] = $item->id;
+                    }
+                }
+            }
+            $data = $data->whereIn('id',$listIdIn);
+        }
         if(@$request->created_on != '' ){
             $data = $data->where('created_on', $request->created_on);
         }
@@ -117,6 +137,22 @@ class WSController extends Controller
         $data = $data->offset($page * $showCount)->limit($showCount)->get();
         $countPage = $count === 0 ? 1 : $count;
         $pageTotal = ceil($countPage/$showCount);
+
+        foreach ($data as &$item) {
+            $employee = Admin::where('code' ,$item->user_id)->first();
+            $item->employee_name = $employee->name;
+            $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+            $item->employee_depname = $bophan->name;
+
+            $created_user = Admin::where('id' ,$item->created_by)->first();
+            $item->created_by_name = $created_user->name;
+
+            $checked_user = Admin::where('id' ,$item->checked_by)->first();
+            $item->checked_by_name = $checked_user->name;
+
+            $approved_user = Admin::where('id' ,$item->approved_by)->first();
+            $item->approved_by_name = $approved_user->name;
+        }
 
         return response()->json([
             'data'=>$data,

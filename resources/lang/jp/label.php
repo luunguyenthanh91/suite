@@ -32,6 +32,7 @@ return [
     'month_from' => '月から',
     'month_to' => '月まで',
     'user_id' => '社員No.',
+    'user_name' => '氏名',
     'status' => 'ステータス',
     'created_by' => '作成者',
     'created_on' => '作成日',
