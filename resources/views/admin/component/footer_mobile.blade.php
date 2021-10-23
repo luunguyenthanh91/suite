@@ -21,13 +21,13 @@
                 <span style="font-size 5px;color:white">{{ trans('label.calendar') }}</span>
             </a>
         </button>
-        <!-- <button type="button" class="btn btn-warning background4">
+        <button type="button" class="btn btn-warning background4">
             <a href="/admin/earnings">
                 <i class="fas fa-dollar-sign" style="color:white"></i>
                 <br>
                 <span style="font-size 5px;color:white">{{ trans('label.earning') }}</span>
             </a>
-        </button> -->
+        </button>
         <button type="button" class="btn btn-warning background5">
             <a href="/admin/partner-interpreter">
                 <i class="fas fa-user" style="color:white"></i>
