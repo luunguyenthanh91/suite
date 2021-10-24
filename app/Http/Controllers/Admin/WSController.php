@@ -146,13 +146,19 @@ class WSController extends Controller
             $item->employee_depname = $bophan->name;
 
             $created_user = Admin::where('id' ,$item->created_by)->first();
-            $item->created_by_name = $created_user->name;
+            if ($created_user) {
+                $item->created_by_name = $created_user->name;
+            }
 
             $checked_user = Admin::where('id' ,$item->checked_by)->first();
-            $item->checked_by_name = $checked_user->name;
+            if ($checked_user) {
+                $item->checked_by_name = $checked_user->name;
+            }
 
             $approved_user = Admin::where('id' ,$item->approved_by)->first();
-            $item->approved_by_name = $approved_user->name;
+            if ($approved_user) {
+                $item->approved_by_name = $approved_user->name;
+            }
         }
 
         return response()->json([
