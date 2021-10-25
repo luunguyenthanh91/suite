@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="btn-group group-menu-header">
-        <button type="button" class="btn btn-warning toggle-menu background6">
+        <button type="button" class="btn btn-warning toggle-menu background0">
             <i class="fas fa-bars"></i><span class="labelButton">{{ trans('label.menu_header') }}</span>
         </button>
         <div class="box-menu hidden">

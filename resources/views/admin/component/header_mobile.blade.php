@@ -35,10 +35,8 @@
         </form>
     </div>
     <div class="btn-group group-menu-header" style="padding-left:10px;">
-        <button type="button" class="btn btn-warning background6 toggle-menu">
-            <i class="fas fa-bars" style="color:white">
-            <br>
-            <span style="font-size 2px;color:white">{{ trans('label.menu_header') }}</span></i>
+    <button type="button" class="btn btn-warning toggle-menu background0">
+            <i class="fas fa-bars"></i><span class="labelButton">{{ trans('label.menu_header') }}</span>
         </button>
         <div class="box-menu hidden">
             <span class="arrow-up"></span>
@@ -48,114 +46,91 @@
                     <i class="fas fa-home"></i><span class="labelButton">{{ trans('label.home') }}</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item {{ (request()->is('*list-po')) ? 'active open' : '' }} ">
-                    <a class="sidebar-menu-button" href="/admin/po">
-                    <span class="sidebar-menu-text">{{ trans('label.pomenu') }}</span>
-                    </a>
-                </li>
                 <li class="sidebar-menu-item {{ (request()->is('*project*')) ? 'active open' : '' }} {{ (request()->is('calendar')) ? 'active open' : '' }} ">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-project" aria-expanded="false">
-                    {{ trans('label.projectmenu') }}
+                    {{ trans('label.person_management1') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-project" style="">
                         <li class="sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/project">
-                                <span class="sidebar-menu-text">{{ trans('label.projectmenu1') }}</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*/calendar')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/calendar">
-                                <span class="sidebar-menu-text">{{ trans('label.projectmenu2') }}</span>
+                                <span class="sidebar-menu-text">{{ trans('label.person_management1_1') }}</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="sidebar-menu-item {{ (request()->is('*cost*')) ? 'active open' : '' }} ">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-cost" aria-expanded="false">
-                        {{ trans('label.costmenu') }}
+                        {{ trans('label.person_management2') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-cost" style="">
                         <li class="sidebar-menu-item {{ (request()->is('*/cost')) ? 'active open' : '' }}">
                             <a class="sidebar-menu-button" href="/admin/cost">
-                            <span class="sidebar-menu-text">{{ trans('label.costmenu1') }}</span>
-                            </a>
-                        </li> 
-
-                        <li class="sidebar-menu-item {{ (request()->is('*/cost-sale')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/cost-sale">
-                            <span class="sidebar-menu-text">{{ trans('label.costmenu2') }}</span>
+                            <span class="sidebar-menu-text">{{ trans('label.person_management2_1') }}</span>
                             </a>
                         </li>  
-                        <li class="sidebar-menu-item {{ (request()->is('*/cost-interpreter')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/cost-interpreter">
-                                <span class="sidebar-menu-text">{{ trans('label.costmenu3') }}</span>            
+                        <li class="sidebar-menu-item {{ (request()->is('*/cost')) ? 'active open' : '' }}">
+                            <a class="sidebar-menu-button" href="/admin/cost">
+                            <span class="sidebar-menu-text">{{ trans('label.person_management2_2') }}</span>
                             </a>
                         </li> 
-                        <li class="sidebar-menu-item {{ (request()->is('*/cost-incometax')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/cost-incometax">
-                            <span class="sidebar-menu-text">{{ trans('label.costmenu4') }}</span>
+                        <li class="sidebar-menu-item {{ (request()->is('*/cost')) ? 'active open' : '' }}">
+                            <a class="sidebar-menu-button" href="/admin/cost">
+                            <span class="sidebar-menu-text">{{ trans('label.person_management2_3') }}</span>
                             </a>
-                        </li> 
-                        <li class="sidebar-menu-item {{ (request()->is('*/cost-movefee')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/cost-movefee">
-                                <span class="sidebar-menu-text">{{ trans('label.costmenu5') }}</span>
-                            </a>
-                        </li> 
-                        <li class="sidebar-menu-item {{ (request()->is('*/cost-bankfee')) ? 'active open' : '' }}">
-                            <a class="sidebar-menu-button" href="/admin/cost-bankfee">
-                                <span class="sidebar-menu-text">{{ trans('label.costmenu6') }}</span>
-                            </a>
-                        </li>   
+                        </li>
                     </ul>
                 </li>
-                <li class="sidebar-menu-item {{ (request()->is('*/deposit')) ? 'active open' : '' }}">
-                    <a class="sidebar-menu-button" href="/admin/deposit">
-                        <span class="sidebar-menu-text">{{ trans('label.depositmenu') }}</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item {{ (request()->is('*earnings')) ? 'active open' : '' }}">
-                    <a class="sidebar-menu-button" href="/admin/earnings">
-                        <span class="sidebar-menu-text">{{ trans('label.benefitmenu') }}</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item {{ (request()->is('*partner-sale')) ? 'active open' : '' }} ">
-                    <a class="sidebar-menu-button" href="/admin/partner-sale">
-                        <span class="sidebar-menu-text">{{ trans('label.salemenu') }}</span>
-                    </a>
-                </li>   
                 <li class="sidebar-menu-item {{ (request()->is('*partner-interpreter*')) ? 'active open' : '' }}">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-interpreter" aria-expanded="false">
-                    {{ trans('label.interpretermenu') }}
+                    {{ trans('label.service_management') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-interpreter" style="">
                         <li class="sidebar-menu-item {{ (request()->is('*partner-interpreter')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/partner-interpreter">
-                            <span class="sidebar-menu-text">{{ trans('label.interpretermenu1') }}</span>
+                            <span class="sidebar-menu-text">{{ trans('label.service_management_1') }}</span>
                             </a>
                         </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*partner-interpreter-vn')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/partner-interpreter-vn">
-                            <span class="sidebar-menu-text"> {{ trans('label.interpretermenu2') }}</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*partner-interpreter-ph')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/partner-interpreter-ph">
-                            <span class="sidebar-menu-text">{{ trans('label.interpretermenu3') }}</span>
+                        <li class="sidebar-menu-item {{ (request()->is('*partner-interpreter')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/partner-interpreter">
+                            <span class="sidebar-menu-text">{{ trans('label.service_management_2') }}</span>
                             </a>
                         </li>
                     </ul>
-                </li>     
-                <li class="sidebar-menu-item {{ (request()->is('*customer')) ? 'active open' : '' }} ">
-                    <a class="sidebar-menu-button" href="/admin/customer">
-                        <span class="sidebar-menu-text">{{ trans('label.customermenu') }}</span>
-                    </a>
                 </li>   
                 <li class="sidebar-menu-item {{ (request()->is('*system*')) ? 'active open' : '' }} {{ (request()->is('*mailtemplate*')) ? 'active open' : '' }}">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-system" aria-expanded="false">
-                    {{ trans('label.system_menu') }}
+                    {{ trans('label.money_management') }}
+                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                    </a>
+                    <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
+                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/system_log">
+                            <span class="sidebar-menu-text">{{ trans('label.money_management_1') }}</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/system_log">
+                            <span class="sidebar-menu-text">{{ trans('label.money_management_2') }}</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/system_log">
+                            <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/system_log">
+                            <span class="sidebar-menu-text">{{ trans('label.money_management_4') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+                <li class="sidebar-menu-item {{ (request()->is('*system*')) ? 'active open' : '' }} {{ (request()->is('*mailtemplate*')) ? 'active open' : '' }}">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-system" aria-expanded="false">
+                    {{ trans('label.doc_management') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
@@ -165,7 +140,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>          
+                </li>        
             </ul>
             <div style="border-top:1px solid #CCC;margin-left:0px;">
                 <div style="text-transform:uppercase;text-align:center;margin-top:10px;margin-bottom:-5px;">
