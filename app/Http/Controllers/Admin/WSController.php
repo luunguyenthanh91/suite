@@ -15,6 +15,9 @@ use App\Jobs\SendEmailTemplate;
 use App\Jobs\SendEmailTemplatePO;
 use Helper;
 use App\Models\Admin;
+use App\Models\HistoryLog;
+use App\Models\WorkPartern;
+use App\Models\NationalHoliday;
 use App\Models\BoPhan;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +54,95 @@ class WSController extends Controller
         
     }
 
+   
+    function worksheetsubmit(Request $request,$id) {
+        try {
+            $data = WorkSheet::find($request->id);
+            if ($data) {
+                $data->submited_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->submited_on = date('Y-m-d');
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    } 
+
+    function worksheetcheck(Request $request,$id) {
+        try {
+            $data = WorkSheet::find($request->id);
+            if ($data) {
+                $data->checked_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->checked_on = date('Y-m-d');
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    }
+
+    function worksheetapprove(Request $request,$id) {
+        try {
+            $data = WorkSheet::find($request->id);
+            if ($data) {
+                $data->approved_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->approved_on = date('Y-m-d');
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    }
+
+    public function worksheetpdf(Request $request, $id) {
+        $data = WorkSheet::find($id);
+        
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $data->employee_name = $employee->name;
+
+        $data->file_name = trans('label.worksheet')."_".$data->month."_".$employee->employee_name."(".$employee->code.")";
+
+        $pdf = PDF::loadView('admin.worksheet-pdf', compact('data'));
+
+        return $pdf->download($data->file_name.'.pdf');
+    }
+
     function deleteWorkSheet(Request $request,$id) {
         $data = WorkSheet::find($id);
         $data->delete();
@@ -59,12 +151,217 @@ class WSController extends Controller
 
     function viewWorkSheet(Request $request,$id) {
         $data = WorkSheet::find($request->id);
+
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $data->employee_name = $employee->name;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $data->employee_depname = $bophan->name;
+
+        $created_user = Admin::where('id' ,$data->created_by)->first();
+        if ($created_user) {
+            $data->created_by_name = $created_user->name;
+            $data->created_by_sign = $created_user->sign_name;
+        }
+
+        $submited_user = Admin::where('id' ,$data->submited_by)->first();
+        if ($submited_user) {
+            $data->submited_by_name = $submited_user->name;
+            $data->submited_by_sign = $submited_user->sign_name;
+        }
+
+        $checked_user = Admin::where('id' ,$data->checked_by)->first();
+        if ($checked_user) {
+            $data->checked_by_name = $checked_user->name;
+            $data->checked_by_sign = $checked_user->sign_name;
+        }
+
+        $approved_user = Admin::where('id' ,$data->approved_by)->first();
+        if ($approved_user) {
+            $data->approved_by_name = $approved_user->name;
+            $data->approved_by_sign = $approved_user->sign_name;
+        }
+
         return view('admin.worksheet-view', compact(['data' , 'id']));
     }
 
     function listWorkSheet(Request $request) {
         return view('admin.worksheet', compact([]));
     }
+
+    public function days_in_month($month, $year) {
+        // calculate number of days in a month
+        return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+    }
+
+    function getListWorkDays(Request $request) {
+        $data = [];
+        $daycount = 0;
+        $worktimelist = [];
+        $overworktimelist = [];
+
+        
+        $employee = Admin::where('code' ,$request->user_id)->first();
+        $user_id = $employee->id;
+        $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
+        $workpartern_timecount = $workpartern->timecount;
+
+        $selMonth = $request->month;
+        list($year, $month) = explode('-', $selMonth);
+
+        $days = $this->days_in_month($month, $year);
+        $week = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+          ];
+        
+        for($i = 1; $i <=  $days; $i++)
+		{
+            $timestamp = mktime(0, 0, 0, $month, $i, $year);
+            $date = date('w', $timestamp);
+
+            $ws_type = 0;
+
+            $starttime = "";
+            $hour1 = "";
+            $min1 = "";
+            $sec1 = "";
+            $hour2 = "";
+            $min2 = "";
+            $sec2 = "";
+            $time_count = "";
+            $overtime_count = "";
+            $min_count = "";
+            $offDay_title = "";
+
+            $startdate = "";
+            $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
+            $offDay = NationalHoliday::where('start', $selDate)->first();
+            if ($offDay) {
+                $offDay_title = $offDay->title;
+            }
+
+            $classStyle = "status6";
+            if ($offDay) {
+                $classStyle = "status6Minus";
+            }
+
+            $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+            if ($historyLog) {
+                $starttime = $historyLog->time;
+                $startdate = $historyLog->date;
+                $ws_type = 1;
+                $classStyle = "status4";
+                if ($offDay) {
+                    $classStyle = "status4Minus";
+                }
+                $daycount++;
+            }
+
+            $endtime = "";
+            $enddate = "";
+            $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+            if ($historyLog2) {
+                $endtime = $historyLog2->time;
+                $enddate = $historyLog->date;
+            }
+
+            if ($ws_type == 1) {
+                list($year1, $month1, $day1) = explode('-', $startdate);
+                list($hour1, $min1, $sec1) = explode(':', $starttime);
+                list($year2, $month2, $day2) = explode('-', $enddate);
+                list($hour2, $min2, $sec2) = explode(':', $endtime);
+
+                $d1 = date_create($startdate." ".$starttime);
+                $d2 = date_create($enddate." ".$endtime);
+                $diff_date = date_diff($d1, $d2);
+                $worktimelist[] = $diff_date;
+
+                $time_count = $diff_date->h;
+                $min_count = $diff_date->i;
+                if ($time_count >= $workpartern_timecount) {
+                    $overtime_count = $time_count - $workpartern_timecount;
+                }
+            }
+            
+            $starttime = "";
+            if ($hour1) {
+                $starttime = $hour1.":".$min1;
+            }
+            $endtime = "";
+            if ($hour2) {
+                $endtime = $hour2.":".$min2;
+            }
+            $time_count_str = "";
+            if ($time_count) {
+                $time_count_str = $time_count.":".$min_count;
+            }
+            $overtime_count_str = "";
+            if ($overtime_count || $min_count) {
+                $overtime_count_str = $overtime_count.":".$min_count;
+                $overworktimelist[] = $overtime_count_str;
+            }
+            $data[] = [
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$i,
+                'date'=>$week[$date],
+                'ws_type'=>$ws_type,
+                'starttime'=>$starttime,
+                'endtime'=>$endtime,
+                'time_count'=> $time_count_str,
+                'overtime_count'=> $overtime_count_str,
+                'classStyle' => $classStyle,
+                'offdaytitle' => $offDay_title
+            ];
+		}
+
+        $count = $days;
+        $pageTotal = 1;
+
+        return response()->json([
+            'data'=>$data,
+            'count'=>$count,
+            'pageTotal' => $pageTotal,
+            'daycount' => $daycount,
+            'worktimecount' => $this->CalculateTime($worktimelist),
+            'overworktimecount' => $this->CalculateTime2($overworktimelist),
+        ]);
+    }
+
+    public function CalculateTime($times) {
+        $i = 0;
+        foreach ($times as $time) {
+            $hour = $time->h;
+            $min = $time->i;
+            $i += $hour * 60 + $min;
+        }
+
+        if($h = floor($i / 60)) {
+            $i %= 60;
+        }
+
+        return sprintf('%02d:%02d', $h, $i);
+    }
+
+    public function CalculateTime2($times) {
+        $i = 0;
+        foreach ($times as $time) {
+            list($hour, $min) = explode(":", $time);
+            $i += $hour * 60 + $min;
+        }
+
+        if($h = floor($i / 60)) {
+            $i %= 60;
+        }
+
+        return sprintf('%02d:%02d', $h, $i);
+    }
+
 
     function getListWorkSheet(Request $request) {
         $page = $request->page - 1;

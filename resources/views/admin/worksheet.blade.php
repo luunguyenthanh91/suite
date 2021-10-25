@@ -283,11 +283,26 @@
                                                     <th class="sticky-col fix-col2" scope="col" @click="sort('month')">
                                                         <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
                                                     </th>
-                                                    <th class="sticky-col fix-col3" scope="col" @click="sort('user_id')">
+                                                    <th class="sticky-col fix-col3" scope="col" @click="sort('user_name')">
+                                                        <div v-bind:class="[sortBy === 'user_name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('user_id')">
                                                         <div v-bind:class="[sortBy === 'user_id' ? sortDirection : '']">{{ trans('label.user_id') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('employee_depname')">
+                                                        <div v-bind:class="[sortBy === 'employee_depname' ? sortDirection : '']">{{ trans('label.employee_depname') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('work_day_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_day_count' ? sortDirection : '']">{{ trans('label.work_day_count') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('work_time_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_time_count' ? sortDirection : '']">{{ trans('label.work_time_count') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('work_overtime_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_overtime_count' ? sortDirection : '']">{{ trans('label.work_overtime_count') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('created_on')">
                                                         <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
@@ -324,15 +339,25 @@
                                                     (( removeTime(item.month) ))
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col3-detail'">
-                                                    {{ trans('label.user_id') }}(( item.user_id ))<br>
-                                                    (( item.employee_name ))<br>
-                                                    (( item.employee_depname ))
+                                                    (( item.employee_name ))                                                  
+                                                    </td>
+                                                    <td>
+                                                    (( item.user_id ))                                                  
+                                                    </td>
+                                                    <td>
+                                                    (( item.employee_depname ))                                                    
                                                     </td>
                                                     <td>
                                                     <span v-if="item.status==0">{{ trans('label.ws_status1') }}</span>
                                                     <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
                                                     <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
                                                     </td>
                                                     <td>
                                                     ((item.created_on)) 
