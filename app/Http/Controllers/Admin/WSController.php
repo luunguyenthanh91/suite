@@ -323,13 +323,21 @@ class WSController extends Controller
         $count = $days;
         $pageTotal = 1;
 
+        $worktimecount_str = "";
+        if ($worktimelist) {
+            $worktimecount_str = $this->CalculateTime($worktimelist);
+        }
+        $overworktimecount_str = "";
+        if ($overworktimelist) {
+            $overworktimecount_str = $this->CalculateTime2($overworktimelist);
+        }
         return response()->json([
             'data'=>$data,
             'count'=>$count,
             'pageTotal' => $pageTotal,
             'daycount' => $daycount,
-            'worktimecount' => $this->CalculateTime($worktimelist),
-            'overworktimecount' => $this->CalculateTime2($overworktimelist),
+            'worktimecount' => $worktimecount_str,
+            'overworktimecount' => $overworktimecount_str,
         ]);
     }
 
