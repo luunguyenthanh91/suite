@@ -98,7 +98,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('worksheetapprove/{id}', 'WSController@worksheetapprove')->name('admin.worksheetapprove');
     Route::post('worksheetapprove/{id}', 'WSController@worksheetapprove')->name('admin.worksheetapprove');
     Route::get('worksheet-pdf/{id}', 'WSController@worksheetpdf');
-    
+    Route::post('worksheet-delete/{id}', 'WSController@deleteWorksheet')->name('admin.deleteWorksheet');
+    Route::get('worksheet-delete/{id}', 'WSController@deleteWorksheet')->name('admin.deleteWorksheet');
+
 
 
     //AlphaCep
