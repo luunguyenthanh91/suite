@@ -328,8 +328,8 @@ class WSController extends Controller
             'count'=>$count,
             'pageTotal' => $pageTotal,
             'daycount' => $daycount,
-            'worktimecount' => $this->CalculateTime($worktimelist),
-            'overworktimecount' => $this->CalculateTime2($overworktimelist),
+            'worktimecount' => '',
+            'overworktimecount' => '',
         ]);
     }
 
