@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '勤怠ビュー')
+@section('contentTitle', '出勤簿ビュー')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')	
@@ -11,10 +11,10 @@
             <a type="button" class="btn btn-outline-secondary3" style="background:orange" target="_blank" href="/admin/worksheet-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.worksheet_pdf') }}</span></i>
             </a>  
+            @if (Auth::guard('admin')->user()->id == 1 )
             <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/worksheet-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
-            @if (Auth::guard('admin')->user()->id == 1 )
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
                 <i class="fas fa-trash-alt"><span class="labelButton">{{ trans('label.delete') }}</span></i>
             </a> 
@@ -70,7 +70,7 @@
                                     </div>
                                 </td>
                                 <td class="signTableTd">
-                                    <a type="button" class="btn btn-outline-secondary signButtonCheck" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
+                                    <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
                                         {{ trans('label.submit') }}
                                     </a> 
                                     <div class="plusRed" v-if="'{{@$data->submited_on}}' != ''">
@@ -277,23 +277,14 @@
                                                 <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
                                                     <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
                                                 </th>
-                                                <th scope="col"  @click="sort('note')">
-                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
-                                                </th>
                                                 <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
                                                     <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
                                                 </th>
                                                 <th scope="col"  @click="sort('overtime_count')" class="textAlignCenter">
                                                     <div v-bind:class="[sortBy === 'overtime_count' ? sortDirection : '']">{{ trans('label.overtime_count') }}</div>
                                                 </th>
-                                                <th scope="col"  @click="sort('overtime_count_night')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'overtime_count_night' ? sortDirection : '']">{{ trans('label.overtime_count_night') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('holiday_time_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'holiday_time_count' ? sortDirection : '']">{{ trans('label.holiday_time_count') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('holiday_overtime_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'holiday_overtime_count' ? sortDirection : '']">{{ trans('label.holiday_overtime_count') }}</div>
+                                                <th scope="col"  @click="sort('note')">
+                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                 </th>
                                                 <th scope="col"  style="width: 100%; "></th>
                                             </tr>
@@ -321,17 +312,14 @@
                                                 <td class="textAlignCenter">
                                                    (( item.endtime ))
                                                 </td>
-                                                <td class="textAlignCenter">
-                                                   
-                                                </td>
                                                 <td  class="textAlignCenter">
                                                 (( item.time_count ))
                                                 </td>
                                                 <td  class="textAlignCenter">
                                                 (( item.overtime_count ))
                                                 </td>
-                                                <td  class="textAlignCenter"></td>
-                                                <td  class="textAlignCenter"></td>
+                                                <td class="textAlignCenter">
+                                                </td>
                                                 <td style="width: 100%; "></td>
                                             </tr>
                                         </tbody>

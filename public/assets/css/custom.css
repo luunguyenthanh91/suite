@@ -1387,6 +1387,9 @@ body::-webkit-scrollbar-thumb
 .signButtonCheck {
     background:#8a2be2 !important;width:100%;height:100%;color:white
 }
+.signButtonSubmit {
+    background:mediumturquoise !important;width:100%;height:100%;color:white
+}
 
 .signTable {
     border:1px solid #CCC;
