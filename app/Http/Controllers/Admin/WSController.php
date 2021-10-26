@@ -283,9 +283,7 @@ class WSController extends Controller
 
                 $time_count = $diff_date->h;
                 $min_count = $diff_date->i;
-                if ($time_count >= $workpartern_timecount) {
-                    $overtime_count = $time_count - $workpartern_timecount;
-                }
+                $overtime_count = $time_count - $workpartern_timecount;
             }
             
             $starttime = "";
@@ -300,11 +298,13 @@ class WSController extends Controller
             if ($time_count) {
                 $time_count_str = $time_count.":".$min_count;
             }
+
             $overtime_count_str = "";
-            if ($overtime_count || $min_count) {
+            if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
                 $overtime_count_str = $overtime_count.":".$min_count;
                 $overworktimelist[] = $overtime_count_str;
             }
+            
             $data[] = [
                 'year'=>$year,
                 'month'=>$month,
@@ -328,8 +328,8 @@ class WSController extends Controller
             'count'=>$count,
             'pageTotal' => $pageTotal,
             'daycount' => $daycount,
-            'worktimecount' => '',
-            'overworktimecount' => '',
+            'worktimecount' => $this->CalculateTime($worktimelist),
+            'overworktimecount' => $this->CalculateTime2($overworktimelist),
         ]);
     }
 
