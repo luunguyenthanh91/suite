@@ -146,6 +146,9 @@ class WSController extends Controller
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime;
+        $off_hol = $workpartern->breaktime;
+        $off_sat = $workpartern->off_sat;
+        $off_sun = $workpartern->off_sun;
 
         $selMonth = $request->month;
         list($year, $month) = explode('-', $selMonth);
@@ -193,7 +196,10 @@ class WSController extends Controller
             }
 
             if ($workpartern_type == 1) {
-                if (!$offDay) {
+                if ($offDay && $off_hol==1) { }
+                else if ($off_sat==1 && $date==6) {}
+                else if ($off_sun==1 && $date==0) {}
+                else {
                     $starttime = $workpartern_starttime;
                     $startdate = $selDate;
                     $ws_type = 1;
@@ -218,7 +224,10 @@ class WSController extends Controller
             $enddate = "";
 
             if ($workpartern_type == 1) {
-                if (!$offDay) {
+                if ($offDay && $off_hol==1) {}
+                else if ($off_sat==1 && $date==6) {}
+                else if ($off_sun==1 && $date==0) {}
+                else {
                     $endtime = $workpartern_endtime;
                     $enddate = $selDate;
                 }
