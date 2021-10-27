@@ -880,7 +880,7 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/worksheetcheck/" + _i,
+                    url: "/admin/worksheetsubmit/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
