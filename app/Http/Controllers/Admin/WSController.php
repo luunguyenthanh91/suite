@@ -598,7 +598,7 @@ class WSController extends Controller
         $file_name = trans('label.worksheet')."_".$ws->month."_".$employee->name."(".$employee->code.")";
         
 
-        $worktimecount = $this->CalculateTime($worktimelist);
+        $worktimecount = $this->CalculateTime2($worktimelist);
         $overworktimecount = $this->CalculateTime2($overworktimelist);
 
         $pdf = PDF::loadView('admin.worksheet-pdf',
