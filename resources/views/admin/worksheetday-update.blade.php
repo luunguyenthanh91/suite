@@ -59,19 +59,19 @@
                                                 </td>
                                             </tr>    
                                             <tr>
-                                                <td>{{ trans('label.worksheet_id') }}</td>
+                                                <td>{{ trans('label.datetime') }}</td>
                                                 <td>
                                                     {{$date}}
                                                 </td>
                                             </tr>   
                                             <tr>
-                                                <td>{{ trans('label.worksheet_id') }}</td>
+                                                <td>{{ trans('label.time_start') }}</td>
                                                 <td>
                                                     {{$time1}}
                                                 </td>
                                             </tr> 
                                             <tr>
-                                                <td>{{ trans('label.worksheet_id') }}</td>
+                                                <td>{{ trans('label.time_end') }}</td>
                                                 <td>
                                                     {{$time2}}
                                                 </td>
