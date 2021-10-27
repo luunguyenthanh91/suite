@@ -320,7 +320,7 @@
                                                 <td  class="textAlignCenter">
                                                 (( item.overtime_count ))
                                                 </td>
-                                                <td class="textAlignCenter">
+                                                <td>
                                                     <span class="text-block" v-html="item.note">
                                                     (( item.note ))
                                                     </span>
