@@ -192,7 +192,7 @@ class WSController extends Controller
                 $classStyle = "status6Minus";
             }
 
-            if (workpartern_type == 1) {
+            if ($workpartern_type == 1) {
                 if (!$offDay) {
                     $starttime = $workpartern_starttime;
                     $startdate = $selDate;
@@ -217,7 +217,7 @@ class WSController extends Controller
             $endtime = "";
             $enddate = "";
 
-            if (workpartern_type == 1) {
+            if ($workpartern_type == 1) {
                 if (!$offDay) {
                     $endtime = $workpartern_endtime;
                     $enddate = $selDate;
