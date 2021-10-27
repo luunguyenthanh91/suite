@@ -321,6 +321,9 @@
                                                 (( item.overtime_count ))
                                                 </td>
                                                 <td class="textAlignCenter">
+                                                    <span class="text-block" v-html="item.note">
+                                                    (( item.note ))
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
