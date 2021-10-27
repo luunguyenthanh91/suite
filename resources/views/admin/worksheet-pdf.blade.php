@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>出勤簿</title>
+    <title>{{ trans('label.worksheet') }}</title>
 </head>
 <div style='float:right;'>
     <div style='position: fixed; right:0;'>
@@ -16,35 +16,64 @@
 </div>
 <body>
     <div style="margin-top:10px;margin-bottom:10px; margin-left:10px;margin-right:10px;">
-        <div style='text-align:center; vertical-align:middle; height:50px;width:100%;border-bottom:3px solid black'>
-            <div style="font-size:24;"><b>出 勤 簿</b></div>   
-        </div>
-        <div style='text-align:right; width:100%;font-size:12pt;height:30px;margin-top:5px;'>
-        <span style="margin-right20px;"></span>
-        </div>
-        <div class="fontweight" style='text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:-20px;'>
-        {{$employee_depname}}
-        </div>
-        <div class="fontweight" style='text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
         
-        {{$employee_name}} ({{$employee_code}})
+        <div style='text-align:center; vertical-align:middle; height:45px;width:100%;border-bottom:2px solid black'>
+            <div style="font-size:24;"><b>{{ trans('label.worksheet2') }}</b></div>
         </div>
-        <div class="fontweight" style='text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
-        
-        {{$selyear}} 年 {{$selmonth}} 月度
+        <div style='text-align:right; width:100%;font-size:8pt;height:30px;margin-top:5px;'>
+        <u><span style="margin-right20px;">{{ trans('label.created_on') }}：</span>{{$year}} {{ trans('label.year') }} {{$month}} {{ trans('label.month') }} {{$day}} {{ trans('label.date') }}</u>
         </div>
-
-        <table style='width:100%;border-collapse:collapse;margin-top:15'>
+        <table style="width:100%;margin-top:-25px;">
             <tr>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.datetime') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.day') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.ws_type') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.time_start') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.time_end') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.breaktime') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.time_count') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.overtime_count2') }}</td>
-                <td class="bgRowHeaderPDF border-all title_form">{{ trans('label.note') }}</td>
+                <td style="text-align:left;">
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:0px;'>
+                    {{ trans('label.dep') }}: <b>{{$employee_depname}}</b>
+                    </div>
+
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
+                    {{ trans('label.employee_code') }}: <b>{{$employee_code}}</b>
+                    </div>
+
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
+                    {{ trans('label.user_name') }}: <b>{{$employee_name}}</b>
+                    </div>
+                    <div class="fontweight" style='text-align:left; height:19px; width:200px;margin-top:10px;'>
+                    <span style="background-color:#FF8F22;color:white;font-weight: bold;">{{$selyear}} {{ trans('label.year') }} {{$selmonth}} {{ trans('label.month2') }}</span>
+                    </div>
+                </td>
+                <td style="width:150px;">
+                    <table id="customers3" style="margin-top:20px !important;"> 
+                        <tr>
+                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.submit') }}</td>
+                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.check') }}</td>
+                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.approve') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="height:37px;border:1px solid #000">
+                            <div class="circle">{{$submited_by_sign}}</div>
+                            </td>
+                            <td style="height:37px;border:1px solid #000">
+                            <div class="circle">{{$checked_by_sign}}</div>
+                            </td>
+                            <td style="height:37px;border:1px solid #000">
+                            <div class="circle">{{$approved_by_sign}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table style='width:100%;border-collapse:collapse;margin-top:5px;font-size:10.5'>
+            <tr>
+                <td class="headerColor border-all title_form">{{ trans('label.datetime') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.day') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.ws_type') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.time_start') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.time_end') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.breaktime2') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.time_count') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.overtime_count2') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.note') }}</td>
             </tr>
             @foreach($data as $item)
             <tr>
@@ -52,10 +81,19 @@
                 {{ $item['day'] }}
                 </td>
                 <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['date'] }}
+                @if ($item['datenumber'] == 0 || $item['datenumber'] == 6) 
+                    <span style="color:gray">{{ $item['date'] }}</span>
+                @elseif ($item['offdaytitle'] != "")
+                    <span style="color:red">{{ $item['date'] }}(祝)</span>
+                @else
+                    {{ $item['date'] }}
+                @endif
+                
                 </td>
                 <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['ws_type'] }}
+                @if ($item['ws_type'] == 1)
+                {{ trans('label.work_day') }}
+                @endif 
                 </td>
                 <td class="border-all data_form"  style="vertical-align:top;text-align:center">
                 {{ $item['starttime'] }}
@@ -77,6 +115,37 @@
                 </td>
             </tr>
             @endforeach    
+        </table>
+        <table style="width:100%;;margin-top:5px;">
+            <tr>
+                <td>
+                    <div class="fontweight" style='text-align:left; height:60px;padding:5px;margin-right:5px;border:1px solid black;vertical-align:top;'>
+                        <u>{{ trans('label.note') }}:</u>
+                    </div>
+                </td>
+                <td style="width:200px;">
+                    <table id="customers3" style="width:200px;"> 
+                        <tr>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_day_count') }}:</td>
+                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
+                            {{ $daycount }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_time_count') }}:</td>
+                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
+                            {{ $worktimecount }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_overtime_count') }}:</td>
+                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
+                            {{ $overworktimecount }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
         </table>
     </div>
 <style>
@@ -155,9 +224,65 @@ body {
 .condau {
     height : 80px;
 }
-.bgRowHeaderPDF {
-    background-color: #d1d1d1
+.headerColor {
+    background-color: #FFFFF0
 }
+
+.circle {
+    width: 30px;
+    height: 30px;
+    line-height: 22px;
+    border-radius: 130%;
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    /* background: red */
+    border:1px solid red;
+  }
+  .plusRed {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px !important;
+  }
+  .plusRed img {
+      width: 53px;
+      height: 52px;
+      position: absolute;
+      left: 9px;
+      top: 3px;
+      object-fit: cover;
+      object-position: center;
+  }
+  .plusRed .title1 {
+      position: absolute;
+      left: 24px;
+      top: 8px;
+      color: red;
+      font-size: 8px !important;
+      font-family: system-ui !important;
+      margin: 0px;
+  } 
+  .plusRed .title2 {
+      position: absolute;
+      left: 14px;
+      top: 23px;
+      color: red;
+      font-size: 8px !important;
+      font-family: system-ui !important;
+      margin: 0px;
+      width: 100%;
+  } 
+  .plusRed .title3 {
+      position: absolute;
+      left: 29px;
+      top: 38px;
+      color: red;
+      font-size: 8px !important;
+      font-family: system-ui !important;
+      margin: 0px;
+  } 
 
 
 #customers2 {

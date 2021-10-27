@@ -1378,6 +1378,9 @@ body::-webkit-scrollbar-thumb
     align-items: center;
     padding: 10px;
 }
+.headerColor {
+    background-color: #FFFACD;
+}
 .border_bottom{
     border-bottom: 1px solid #ddd;
 }
