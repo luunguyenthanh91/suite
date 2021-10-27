@@ -311,15 +311,14 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".$starttime);
                 $d2 = date_create($enddate." ".$endtime);
                 $diff_date = date_diff($d1, $d2);
-                $worktimelist[] = $diff_date;
-
-                $min_count = $diff_date->i;
                 if ($breaktime != "") {
                     $time_count = $diff_date->h - intval($breaktime);
                 } else {
                     $time_count = $diff_date->h;
                 }
+                $min_count = $diff_date->i;
                 $overtime_count = $time_count - $workpartern_timecount;
+                $worktimelist[] = $time_count.":".$min_count;
             }
             
             $starttime = "";
@@ -372,7 +371,7 @@ class WSController extends Controller
             'count'=>$count,
             'pageTotal' => $pageTotal,
             'daycount' => $daycount,
-            'worktimecount' => $this->CalculateTime($worktimelist),
+            'worktimecount' => $this->CalculateTime2($worktimelist),
             'overworktimecount' => $this->CalculateTime2($overworktimelist),
         ];
     }
@@ -675,7 +674,7 @@ class WSController extends Controller
     }
 
     public function CalculateTime2($times) {
-        if (sizeof($times)==0) return "";
+        if (sizeof($times)==0) return "0:0";
 
         $i = 0;
         foreach ($times as $time) {
