@@ -52,7 +52,17 @@ class WSController extends Controller
     }
 
     function updateWorkSheet(Request $request,$id) {
-        
+        if ($request->isMethod('post')) {
+            $data = WorkSheet::find($request->id);
+            if ($data) {
+                $data->note = $request->note;
+                $data->save();
+            }
+            return redirect('/admin/worksheet-view/'.$data->id);
+        }
+
+        $data = WorkSheet::find($request->id);
+        return view('admin.worksheet-update', compact(['data' , 'id']));
     }
    
     function worksheetsubmit(Request $request,$id) {
@@ -183,6 +193,7 @@ class WSController extends Controller
             $overtime_count = "";
             $min_count = "";
             $offDay_title = "";
+            $dayid = "";
 
             $startdate = "";
             $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
@@ -210,6 +221,7 @@ class WSController extends Controller
             } else {
                 $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
                 if ($historyLog) {
+                    $dayid = $historyLog->id;
                     $starttime = $historyLog->time;
                     $startdate = $historyLog->date;
                     $ws_type = 1;
@@ -285,6 +297,7 @@ class WSController extends Controller
             }
             
             $data[] = [
+                'dayid'=>$dayid,
                 'year'=>$year,
                 'month'=>$month,
                 'day'=>$i,

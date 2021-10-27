@@ -256,6 +256,8 @@
                                     <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
                                         <thead class="thead-light">
                                             <tr>
+                                                <th scope="col">
+                                                </th>
                                                 <th scope="col" @click="sort('year')" >
                                                     <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
                                                 </th>
@@ -292,6 +294,11 @@
                                         <tbody class="list" id="search">
                                             <tr v-for="item in sortedProducts">
                                                 <td :class="item.classStyle  + ' '" style="left:0px">
+                                                    <a v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
+                                                        <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
+                                                    </a>
+                                                </td>
+                                                <td :class="item.classStyle  + ' '">
                                                 (( item.year ))
                                                 </td>
                                                 <td :class="item.classStyle  + ' '">

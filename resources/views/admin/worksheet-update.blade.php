@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '勤怠更新')
+@section('contentTitle', '出勤簿更新')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
@@ -13,7 +13,7 @@
             <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
                 <i class="fas fa-save"><span class="labelButton">{{ trans('label.save') }}</span></i>
             </a>
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/po-view/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/worksheet-view/{{$id}}">
                 <i class="fas fa-window-close"><span class="labelButton">{{ trans('label.cancel') }}</span></i>
             </a>
         </div>
@@ -40,85 +40,53 @@
                                 <div class="row">                                                
                                     <div class="col-lg-12">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
-                                            <tr>
-                                                <td>{{ trans('label.order_id') }}</td>
-                                                <td>
-                                                {{@$data->id}} 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.status') }}</td>
-                                                <td>
-                                                <div class="search-form" >
-                                                    <select class="form-control" name="status">
-                                                        <option value="0" @if(@$data->status == 0) selected @endif>{{ trans('label.po_status1') }}</option>
-                                                        <option value="1" @if(@$data->status == 1) selected @endif>{{ trans('label.po_status2') }}</option>
-                                                        <option value="2" @if(@$data->status == 2) selected @endif>{{ trans('label.cancel') }}</option>
-                                                    </select>
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.id') }}</td>
-                                                <td>
-                                                    <input type="text" name="project_id" class="form-control" value="{{@$data->project_id}}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.ngay_phien_dich') }}</td>
-                                                <td>
-                                                <input type="text" autocomplete="off" name="ngay_pd" id="listDatePo" class="form-control"  required value="{{@$data->ngay_pd}}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.count_day') }}</td>
-                                                <td>
-                                                <div id="txtCountDayPo">{{@$data->count_ngay_pd}}</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.address_pd') }}</td>
-                                                <td>
-                                                <div class="search-form" >
-                                                    <input type="text" id="address"  name="address_pd" class="form-control" value="{{@$data->address_pd}}">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.sale2') }}</td>
-                                                <td>
-                                                <div class="search-form" >
-                                                    <input type="text" name="name" class="form-control" style="text-transform: uppercase;"  required  value="{{@$data->name}}">
-                                                </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.contract_money') }}</td>
-                                                <td>
-                                                <input type="text" class="form-control money_parse" name="price" value="{{@$data->price}}">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.move_fee') }}</td>
-                                                <td>
-                                                    <div class="custom-controls-stacked">
-                                                        <div class="custom-control custom-radio">
-                                                            <input id="radiomale1" name="type_train" type="radio" class="custom-control-input" @if(0==@$data->type_train) checked @endif value="0">
-                                                            <label for="radiomale1" class="custom-control-label">{{ trans('label.include') }}</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio">
-                                                            <input id="radiomale2" name="type_train" type="radio" class="custom-control-input" @if(1==@$data->type_train) checked @endif value="1">
-                                                            <label for="radiomale2" class="custom-control-label">{{ trans('label.exclude') }}</label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.sale_cost') }}</td>
-                                                <td>
-                                                <input type="text" class="form-control money_parse" name="sale_price" value="{{@$data->sale_price}}">
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>{{ trans('label.worksheet_id') }}</td>
+                                            <td>
+                                                {{@$data->id}}
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.status') }}</td>
+                                            <td>
+                                                @if ( @$data->status == 0 )
+                                                    <span>{{ trans('label.ws_status1') }}</span>
+                                                @endif
+                                                @if ( @$data->status == 1 )
+                                                    <span>{{ trans('label.ws_status2') }}</span>
+                                                @endif
+                                                @if ( @$data->status == 2 )
+                                                    <span>{{ trans('label.ws_status3') }}</span>
+                                                @endif
+                                                @if ( @$data->status == 3 )
+                                                    <span>{{ trans('label.ws_status4') }}</span>
+                                                @endif
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>{{ trans('label.month') }}</td>
+                                            <td>
+                                            (( parseMonth('{{$data->month}}') ))
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ trans('label.employee_depname') }}</td>
+                                            <td>
+                                            (( parseName('{{@$data->employee_depname}}') ))
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ trans('label.user_name') }}</td>
+                                            <td>
+                                            (( parseName('{{@$data->employee_name}}') ))
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ trans('label.user_id') }}</td>
+                                            <td>
+                                            (( parseName('{{@$data->user_id}}') ))
+                                            </td>
+                                        </tr>
                                             <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
@@ -132,122 +100,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label class="form-label">{{ trans('label.status') }}</label>
-                        <div class="search-form" >
-                            <select class="form-control" name="status">
-                                <option value="0" @if(@$data->status == 0) selected @endif>{{ trans('label.status_not') }}</option>
-                                <option value="1" @if(@$data->status == 1) selected @endif>{{ trans('label.status_yes') }}</option>
-                                <option value="2" @if(@$data->status == 2) selected @endif>{{ trans('label.status_cancel') }}</option>
-                            </select>
-                        </div>
-                    </div> -->
-                    <!-- <div class="card dashboard-area-tabs p-relative o-hidden mb-0">
-                        <div class="card-header p-0 nav">
-                            <div class="row no-gutters" role="tablist">
-                                <div class="col-auto">
-                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click active" id="tab1">
-                                        <span class="flex d-flex flex-column">
-                                            <strong class="card-title">{{ trans('label.property') }}</strong>
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="col-auto border-left border-right">
-                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab2">
-                                        <span class="flex d-flex flex-column">
-                                            <strong class="card-title">{{ trans('label.account') }}</strong>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body tab-content">
-                            <div class="tab-pane active" id="detailtab1">
-                                <div class="row">   
-
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.name') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="name" class="form-control" style="text-transform: uppercase;"  required  value="{{@$data->name}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.address') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="address" class="form-control" style="text-transform: uppercase;"  value="{{@$data->address}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.tel') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="phone" class="form-control" style="text-transform: uppercase;"  value="{{@$data->phone}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.email') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="email" class="form-control" value="{{@$data->email}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.note') }}</label>
-											<textarea type="text" name="note" class="form-control textarea ckeditor" rows="10">{{@$data->note}}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="detailtab2">
-                                <div class="row">
-                                    <div class="col-lg-12 d-flex">
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_account_name') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="ten_bank" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ten_bank}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_account_code') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="ms_nganhang" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ms_nganhang}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 d-flex">
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_branch_name') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="chinhanh" class="form-control" style="text-transform: uppercase;"  value="{{@$data->chinhanh}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_branch_code') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="ms_chinhanh" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ms_chinhanh}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_number') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="stk" class="form-control" style="text-transform: uppercase;"  value="{{@$data->stk}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label class="form-label">{{ trans('label.bank_sign') }}</label>
-                                            <div class="search-form" >
-                                                <input type="text" name="ten_chutaikhoan" class="form-control" style="text-transform: uppercase;"  value="{{@$data->ten_chutaikhoan}}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </form>
         </div>
@@ -455,6 +307,10 @@ new Vue({
         },
         parseName (value) {
             return this.isNull(value)? S_HYPEN : value.toUpperCase();
+        },
+        parseMonth (value) {
+            return this.isNull(value)? S_HYPEN : 
+            value.replace("-", " 年 ")+" 月度";
         },
         parseAddr(value) {
             return this.isNull(value)? S_HYPEN : value;
