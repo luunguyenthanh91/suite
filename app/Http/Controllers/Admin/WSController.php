@@ -277,6 +277,11 @@ class WSController extends Controller
                 $overtime_count_str = $overtime_count.":".$min_count;
                 $overworktimelist[] = $overtime_count_str;
             }
+
+            $breaktime_str = "";
+            if ($ws_type == 1) {
+                $breaktime_str = $breaktime;
+            }
             
             $data[] = [
                 'year'=>$year,
@@ -290,7 +295,7 @@ class WSController extends Controller
                 'overtime_count'=> $overtime_count_str,
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
-                'breaktime' => $breaktime,
+                'breaktime' => $breaktime_str,
                 'note' => ''
             ];
 		}
@@ -455,6 +460,11 @@ class WSController extends Controller
                 $overworktimelist[] = $overtime_count_str;
             }
             
+            $breaktime_str = "";
+            if ($ws_type == 1) {
+                $breaktime_str = $breaktime;
+            }
+            
             $data[] = [
                 'year'=>$year,
                 'month'=>$month,
@@ -468,7 +478,7 @@ class WSController extends Controller
                 'overtime_count'=> $overtime_count_str,
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
-                'breaktime' => $breaktime,
+                'breaktime' => $breaktime_str,
                 'note' => ''
             ];
 		}
