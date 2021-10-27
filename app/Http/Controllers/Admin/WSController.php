@@ -67,7 +67,7 @@ class WSController extends Controller
         $user_id = $historyLog1->userId;
         $date = $historyLog1->date;
         $time1 = $historyLog1->time;
-        $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date1)->where('type' ,'2')->first();
+        $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date)->where('type' ,'2')->first();
         $time2 = $historyLog2->time;
 
         $data = WorkSheet::find($ws_id);
