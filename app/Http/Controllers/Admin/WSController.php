@@ -251,8 +251,8 @@ class WSController extends Controller
                 $worktimelist[] = $diff_date;
 
                 $min_count = $diff_date->i;
-                if (!$breaktime) {
-                    $time_count = $diff_date->h - $breaktime;
+                if ($breaktime != "") {
+                    $time_count = $diff_date->h - intval($breaktime);
                 } else {
                     $time_count = $diff_date->h;
                 }
