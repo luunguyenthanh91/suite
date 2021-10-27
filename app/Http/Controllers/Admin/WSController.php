@@ -144,7 +144,7 @@ class WSController extends Controller
         $workpartern_timecount = $workpartern->timecount;
         $workpartern_type = $workpartern->type;
         $workpartern_starttime = $workpartern->starttime;
-        $workpartern_endttime = $workpartern->endtime;
+        $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime;
 
         $selMonth = $request->month;
