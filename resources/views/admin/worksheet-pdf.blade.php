@@ -49,17 +49,17 @@
                             <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.approve') }}</td>
                         </tr>
                         <tr>
-                            <td style="height:37px;border:1px solid #000">
+                            <td style="height:40px;border:1px solid #000">
                             @if ($submited_by_sign != "") 
                             <div class="circle">{{$submited_by_sign}}</div>
                             @endif
                             </td>
-                            <td style="height:37px;border:1px solid #000">
+                            <td style="height:40px;border:1px solid #000">
                             @if ($checked_by_sign != "") 
                             <div class="circle">{{$checked_by_sign}}</div>
                             @endif
                             </td>
-                            <td style="height:37px;border:1px solid #000">
+                            <td style="height:40px;border:1px solid #000">
                             @if ($approved_by_sign != "") 
                             <div class="circle">{{$approved_by_sign}}</div>
                             @endif

@@ -310,6 +310,12 @@
                                                     <th scope="col" @click="sort('created_by')">
                                                         <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('submited_on')">
+                                                        <div v-bind:class="[sortBy === 'submited_on' ? sortDirection : '']">{{ trans('label.submited_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('submited_by')">
+                                                        <div v-bind:class="[sortBy === 'submited_by' ? sortDirection : '']">{{ trans('label.submited_by') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('checked_on')">
                                                         <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
                                                     </th>
@@ -354,16 +360,25 @@
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
                                                     </td>
                                                     <td>
+                                                    (( item.daycount ))    
                                                     </td>
                                                     <td>
+                                                    (( item.worktimecount ))    
                                                     </td>
                                                     <td>
+                                                    (( item.overworktimecount ))    
                                                     </td>
                                                     <td>
                                                     ((item.created_on)) 
                                                     </td>
                                                     <td>
                                                     ((item.created_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.submited_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.submited_by_name)) 
                                                     </td>
                                                     <td>
                                                     ((item.checked_on)) 

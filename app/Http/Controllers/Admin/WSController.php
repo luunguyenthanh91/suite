@@ -131,14 +131,14 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDays(Request $request) {
+    function getListWorkDaysItem(Request $request, $user_code, $selMonth) {
         $data = [];
         $daycount = 0;
         $worktimelist = [];
         $overworktimelist = [];
 
         
-        $employee = Admin::where('code' ,$request->user_id)->first();
+        $employee = Admin::where('code' ,$user_code)->first();
         $user_id = $employee->id;
         $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
         $workpartern_timecount = $workpartern->timecount;
@@ -150,7 +150,6 @@ class WSController extends Controller
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
 
-        $selMonth = $request->month;
         list($year, $month) = explode('-', $selMonth);
 
         $days = $this->days_in_month($month, $year);
@@ -303,13 +302,33 @@ class WSController extends Controller
         $count = $days;
         $pageTotal = 1;
 
-        return response()->json([
+        return [
             'data'=>$data,
             'count'=>$count,
             'pageTotal' => $pageTotal,
             'daycount' => $daycount,
             'worktimecount' => $this->CalculateTime($worktimelist),
             'overworktimecount' => $this->CalculateTime2($overworktimelist),
+        ];
+    }
+
+    function getListWorkDays(Request $request) {
+        $listdata = $this->getListWorkDaysItem($request, $request->user_id, $request->month);
+
+        $data = $listdata['data'];
+        $count = $listdata['count'];
+        $pageTotal = $listdata['pageTotal'];
+        $daycount = $listdata['daycount'];
+        $worktimecount = $listdata['worktimecount'];
+        $overworktimecount = $listdata['overworktimecount'];
+
+        return response()->json([
+            'data'=>$data,
+            'count'=>$count,
+            'pageTotal' => $pageTotal,
+            'daycount' => $daycount,
+            'worktimecount' => $worktimecount,
+            'overworktimecount' => $overworktimecount,
         ]);
     }
 
@@ -680,14 +699,28 @@ class WSController extends Controller
         $pageTotal = ceil($countPage/$showCount);
 
         foreach ($data as &$item) {
-            $employee = Admin::where('code' ,$item->user_id)->first();
+            $user_code = $item->user_id;
+            $month = $item->month;
+
+            $employee = Admin::where('code' ,$user_code)->first();
             $item->employee_name = $employee->name;
             $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
             $item->employee_depname = $bophan->name;
 
+            $listdata = $this->getListWorkDaysItem($request, $user_code, $month);
+
+            $item->daycount = $listdata['daycount'];
+            $item->worktimecount = $listdata['worktimecount'];
+            $item->overworktimecount = $listdata['overworktimecount'];
+
             $created_user = Admin::where('id' ,$item->created_by)->first();
             if ($created_user) {
                 $item->created_by_name = $created_user->name;
+            }
+
+            $submited_user = Admin::where('id' ,$item->submited_by)->first();
+            if ($submited_user) {
+                $item->submited_by_name = $submited_user->name;
             }
 
             $checked_user = Admin::where('id' ,$item->checked_by)->first();
