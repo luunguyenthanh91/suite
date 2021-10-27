@@ -142,6 +142,10 @@ class WSController extends Controller
         $user_id = $employee->id;
         $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
         $workpartern_timecount = $workpartern->timecount;
+        $workpartern_type = $workpartern->type;
+        $workpartern_starttime = $workpartern->starttime;
+        $workpartern_endttime = $workpartern->endtime;
+        $breaktime = $workpartern->breaktime;
 
         $selMonth = $request->month;
         list($year, $month) = explode('-', $selMonth);
@@ -188,24 +192,42 @@ class WSController extends Controller
                 $classStyle = "status6Minus";
             }
 
-            $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
-            if ($historyLog) {
-                $starttime = $historyLog->time;
-                $startdate = $historyLog->date;
-                $ws_type = 1;
-                $classStyle = "status4";
-                if ($offDay) {
-                    $classStyle = "status4Minus";
+            if (workpartern_type == 1) {
+                if (!$offDay) {
+                    $starttime = $workpartern_starttime;
+                    $startdate = $selDate;
+                    $ws_type = 1;
+                    $classStyle = "status2";
+                    $daycount++;
                 }
-                $daycount++;
+            } else {
+                $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                if ($historyLog) {
+                    $starttime = $historyLog->time;
+                    $startdate = $historyLog->date;
+                    $ws_type = 1;
+                    $classStyle = "status2";
+                    if ($offDay) {
+                        $classStyle = "status2Minus";
+                    }
+                    $daycount++;
+                }
             }
 
             $endtime = "";
             $enddate = "";
-            $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
-            if ($historyLog2) {
-                $endtime = $historyLog2->time;
-                $enddate = $historyLog->date;
+
+            if (workpartern_type == 1) {
+                if (!$offDay) {
+                    $endtime = $workpartern_endtime;
+                    $enddate = $selDate;
+                }
+            } else {
+                $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                if ($historyLog2) {
+                    $endtime = $historyLog2->time;
+                    $enddate = $historyLog->date;
+                }
             }
 
             if ($ws_type == 1) {
@@ -219,8 +241,12 @@ class WSController extends Controller
                 $diff_date = date_diff($d1, $d2);
                 $worktimelist[] = $diff_date;
 
-                $time_count = $diff_date->h;
                 $min_count = $diff_date->i;
+                if (!$breaktime) {
+                    $time_count = $diff_date->h - $breaktime;
+                } else {
+                    $time_count = $diff_date->h;
+                }
                 $overtime_count = $time_count - $workpartern_timecount;
             }
             
@@ -255,7 +281,7 @@ class WSController extends Controller
                 'overtime_count'=> $overtime_count_str,
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
-                'breaktime' => '',
+                'breaktime' => $breaktime,
                 'note' => ''
             ];
 		}

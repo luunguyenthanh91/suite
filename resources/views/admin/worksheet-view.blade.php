@@ -885,7 +885,7 @@ new Vue({
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
-                            title: "提出しました!"
+                            title: "提出の処理が終わりました。"
                         });
                         location.href = "/admin/worksheet-view/" + _i;
                     },
@@ -922,7 +922,7 @@ new Vue({
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
-                            title: "更新しました!"
+                            title: "確認の処理が終わりました。"
                         });
                         location.href = "/admin/worksheet-view/" + _i;
                     },
@@ -959,7 +959,7 @@ new Vue({
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
-                            title: "更新しました!"
+                            title: "承認の処理が終わりました。"
                         });
                         location.href = "/admin/worksheet-view/" + _i;
                     },

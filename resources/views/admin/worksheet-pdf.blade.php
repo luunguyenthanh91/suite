@@ -50,13 +50,19 @@
                         </tr>
                         <tr>
                             <td style="height:37px;border:1px solid #000">
+                            @if ($submited_by_sign != "") 
                             <div class="circle">{{$submited_by_sign}}</div>
+                            @endif
                             </td>
                             <td style="height:37px;border:1px solid #000">
+                            @if ($checked_by_sign != "") 
                             <div class="circle">{{$checked_by_sign}}</div>
+                            @endif
                             </td>
                             <td style="height:37px;border:1px solid #000">
+                            @if ($approved_by_sign != "") 
                             <div class="circle">{{$approved_by_sign}}</div>
+                            @endif
                             </td>
                         </tr>
                     </table>
@@ -126,19 +132,19 @@
                 <td style="width:200px;">
                     <table id="customers3" style="width:200px;"> 
                         <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_day_count') }}:</td>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_day_count') }}</td>
                             <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
                             {{ $daycount }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_time_count') }}:</td>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_time_count') }}</td>
                             <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
                             {{ $worktimecount }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_overtime_count') }}:</td>
+                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_overtime_count') }}</td>
                             <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
                             {{ $overworktimecount }}
                             </td>

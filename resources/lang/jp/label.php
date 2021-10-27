@@ -57,7 +57,7 @@ return [
     'holiday_overtime_count' => '休日深夜残業時間',
     'month_from' => '月から',
     'month_to' => '月まで',
-    'user_id' => '社員No.',
+    'user_id' => '社員番号',
     'user_name' => '氏名',
     'employee_depname' => '部署',
     'status' => 'ステータス',
