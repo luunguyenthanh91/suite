@@ -54,7 +54,6 @@ class WSController extends Controller
     function updateWorkSheet(Request $request,$id) {
         
     }
-
    
     function worksheetsubmit(Request $request,$id) {
         try {
@@ -62,6 +61,7 @@ class WSController extends Controller
             if ($data) {
                 $data->submited_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->submited_on = date('Y-m-d');
+                $data->status = 1;
                 $data->save();
             }
 
@@ -87,6 +87,7 @@ class WSController extends Controller
             if ($data) {
                 $data->checked_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->checked_on = date('Y-m-d');
+                $data->status = 2;
                 $data->save();
             }
 
@@ -112,6 +113,7 @@ class WSController extends Controller
             if ($data) {
                 $data->approved_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->approved_on = date('Y-m-d');
+                $data->status = 3;
                 $data->save();
             }
 
@@ -701,6 +703,17 @@ class WSController extends Controller
         foreach ($data as &$item) {
             $user_code = $item->user_id;
             $month = $item->month;
+
+            $item->classStyle = "";
+            if ($item->status == 0) {
+                $item->classStyle = "status2";
+            } else if ($item->status == 1) {
+                $item->classStyle = "status3";
+            } else if ($item->status == 2) {
+                $item->classStyle = "status4";
+            } else if ($item->status == 3) {
+                $item->classStyle = "status6";
+            }
 
             $employee = Admin::where('code' ,$user_code)->first();
             $item->employee_name = $employee->name;
