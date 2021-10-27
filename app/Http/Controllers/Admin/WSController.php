@@ -51,6 +51,29 @@ class WSController extends Controller
         }
     }
 
+    function updateWorkSheetDay(Request $request,$id) {
+        $ws_id = $request->id;
+
+        if ($request->isMethod('post')) {
+            $data = HistoryLog::find($id);
+            if ($data) {
+                $data->note = $request->note;
+                $data->save();
+            }
+            return redirect('/admin/worksheet-view/'.$ws_id);
+        }
+
+        $historyLog1 = HistoryLog::find($id);
+        $user_id = $historyLog1->userId;
+        $date = $historyLog1->date;
+        $time1 = $historyLog1->time;
+        $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date1)->where('type' ,'2')->first();
+        $time2 = $historyLog2->time;
+
+        $data = WorkSheet::find($ws_id);
+        return view('admin.worksheetday-update', compact(['data' , 'id', 'ws_id', 'date', 'time1', 'time2']));
+    }
+
     function updateWorkSheet(Request $request,$id) {
         if ($request->isMethod('post')) {
             $data = WorkSheet::find($request->id);
