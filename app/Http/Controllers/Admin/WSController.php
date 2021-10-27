@@ -242,6 +242,7 @@ class WSController extends Controller
             $min_count = "";
             $offDay_title = "";
             $dayid = "";
+            $note = "";
 
             $startdate = "";
             $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
@@ -278,6 +279,7 @@ class WSController extends Controller
                         $classStyle = "status2Minus";
                     }
                     $daycount++;
+                    $note = $historyLog->note;
                 }
             }
 
@@ -358,7 +360,7 @@ class WSController extends Controller
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
                 'breaktime' => $breaktime_str,
-                'note' => ''
+                'note' => $note
             ];
 		}
 
@@ -446,6 +448,7 @@ class WSController extends Controller
             $overtime_count = "";
             $min_count = "";
             $offDay_title = "";
+            $note = "";
 
             $startdate = "";
             $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
@@ -481,6 +484,7 @@ class WSController extends Controller
                         $classStyle = "status2Minus";
                     }
                     $daycount++;
+                    $note = $historyLog->note;
                 }
             }
 
@@ -561,7 +565,7 @@ class WSController extends Controller
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
                 'breaktime' => $breaktime_str,
-                'note' => ''
+                'note' => $note,
             ];
 		}
        

@@ -323,7 +323,7 @@
                                                 <td class="textAlignCenter">
                                                 </td>
                                                 <td>
-                                                    <a v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
+                                                    <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
                                                         <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
                                                     </a>
                                                 </td>
