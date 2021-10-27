@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '出勤簿更新')
+@section('contentTitle', '出勤ビュー')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
@@ -10,12 +10,14 @@
     <!-- content -->
     <div id="list-data">
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
-                <i class="fas fa-save"><span class="labelButton">{{ trans('label.save') }}</span></i>
+            @if (Auth::guard('admin')->user()->id == 1 )
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/worksheetday-update/{{$id}}">
+                <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/worksheet-view/{{$id}}">
-                <i class="fas fa-window-close"><span class="labelButton">{{ trans('label.cancel') }}</span></i>
-            </a>
+            <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
+                <i class="fas fa-trash-alt"><span class="labelButton">{{ trans('label.delete') }}</span></i>
+            </a> 
+            @endif
         </div>
 
         <div class="container page__container page-section page_container_custom">
@@ -40,57 +42,48 @@
                                 <div class="row">                                                
                                     <div class="col-lg-12">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
-                                        <tr>
-                                            <td>{{ trans('label.worksheet_id') }}</td>
-                                            <td>
-                                                {{@$data->id}}
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.status') }}</td>
-                                            <td>
-                                                @if ( @$data->status == 0 )
-                                                    <span>{{ trans('label.ws_status1') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 1 )
-                                                    <span>{{ trans('label.ws_status2') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 2 )
-                                                    <span>{{ trans('label.ws_status3') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 3 )
-                                                    <span>{{ trans('label.ws_status4') }}</span>
-                                                @endif
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.month') }}</td>
-                                            <td>
-                                            (( parseMonth('{{$data->month}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.employee_depname') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_depname}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_id') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->user_id}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_name') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_name}}') ))
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ trans('label.employee_depname') }}</td>
+                                                <td>
+                                                (( parseName('{{$employee_depname}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_id') }}</td>
+                                                <td>
+                                                (( parseName('{{$employee_code}}') ))
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.user_name') }}</td>
+                                                <td>
+                                                (( parseName('{{$employee_name}}') ))
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.datetime') }}</td>
+                                                <td>
+                                                    {{$date}}
+                                                </td>
+                                            </tr>   
+                                            <tr>
+                                                <td>{{ trans('label.time_start') }}</td>
+                                                <td>
+                                                    {{$time1}}
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.time_end') }}</td>
+                                                <td>
+                                                    {{$time2}}
+                                                </td>
+                                            </tr> 
                                             <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
-                                                <textarea type="text" name="note" class="form-control" rows="10">{{@$data->note}}</textarea>
+                                                    <div class="text-block" v-html="">
+                                                    <p>{!! @$data->note !!}</p>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -222,6 +215,45 @@ new Vue({
         
     },
     methods: {
+        deleteRecore(_i) {
+            const that = this;
+            Swal.fire({
+                title: "Xác Nhận",
+                text: "Bạn có đồng ý xóa giá trị này không?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Có!",
+                cancelButtonText: "Không!",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then(function(t) {
+                if (t.dismiss == "cancel") {
+                    return;
+                }
+                that.loadingTable = 1;
+                $.ajax({
+                    url: "/admin/worksheetday-delete/" + _i,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        Swal.fire({
+                            title: "Đã xóa!"
+                        });
+                        location.href = "/admin/worksheet";
+                    },
+                    error: function(xhr, textStatus, error) {
+                        Swal.fire({
+                            title: "Có lỗi dữ liệu nhập vào!",
+                            type: "warning",
+
+                        });
+                    }
+                });
+
+            })
+        },
         goGoogleMap() {
             var address = $('#address').val();
             if (address.trim() == '') {

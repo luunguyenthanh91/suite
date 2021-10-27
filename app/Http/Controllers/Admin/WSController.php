@@ -51,6 +51,27 @@ class WSController extends Controller
         }
     }
 
+    
+
+    function viewWorkSheetDay(Request $request,$id) {
+        $data = HistoryLog::find($id);
+        $user_id = $data->userId;
+        $date = $data->date;
+        $time1 = $data->time;
+
+        $employee = Admin::where('id' ,$user_id)->first();
+        $employee_name = $employee->name;
+        $employee_code = $employee->code;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $employee_depname = $bophan->name;
+
+        $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date)->where('type' ,'2')->first();
+        $time2 = $historyLog2->time;
+
+        return view('admin.worksheetday-view', compact(['id', 'data', 'employee_code', 'employee_depname', 'employee_name', 'date', 'time1', 'time2']));
+    
+    }
+
     function updateWorkSheetDay(Request $request,$id) {
         if ($request->isMethod('post')) {
             $data = HistoryLog::find($id);

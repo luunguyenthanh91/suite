@@ -47,17 +47,17 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>{{ trans('label.user_name') }}</td>
-                                                <td>
-                                                (( parseName('{{$employee_name}}') ))
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
                                                 (( parseName('{{$employee_code}}') ))
                                                 </td>
-                                            </tr>    
+                                            </tr>  
+                                            <tr>
+                                                <td>{{ trans('label.user_name') }}</td>
+                                                <td>
+                                                (( parseName('{{$employee_name}}') ))
+                                                </td>
+                                            </tr>  
                                             <tr>
                                                 <td>{{ trans('label.datetime') }}</td>
                                                 <td>
