@@ -43,19 +43,19 @@
                                             <tr>
                                                 <td>{{ trans('label.employee_depname') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->employee_depname}}') ))
+                                                (( parseName('{{$employee_depname}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.user_name') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->employee_name}}') ))
+                                                (( parseName('{{$employee_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->user_id}}') ))
+                                                (( parseName('{{$employee_code}}') ))
                                                 </td>
                                             </tr>    
                                             <tr>

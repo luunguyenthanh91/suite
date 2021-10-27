@@ -52,26 +52,30 @@ class WSController extends Controller
     }
 
     function updateWorkSheetDay(Request $request,$id) {
-        $ws_id = $request->id;
-
         if ($request->isMethod('post')) {
             $data = HistoryLog::find($id);
             if ($data) {
                 $data->note = $request->note;
                 $data->save();
             }
-            return redirect('/admin/worksheet-view/'.$ws_id);
+            return redirect('/admin/worksheetday-view/'.$id);
         }
 
-        $historyLog1 = HistoryLog::find($id);
-        $user_id = $historyLog1->userId;
-        $date = $historyLog1->date;
-        $time1 = $historyLog1->time;
+        $data = HistoryLog::find($id);
+        $user_id = $data->userId;
+        $date = $data->date;
+        $time1 = $data->time;
+
+        $employee = Admin::where('id' ,$user_id)->first();
+        $employee_name = $employee->name;
+        $employee_code = $employee->code;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $employee_depname = $bophan->name;
+
         $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date)->where('type' ,'2')->first();
         $time2 = $historyLog2->time;
 
-        $data = WorkSheet::find($ws_id);
-        return view('admin.worksheetday-update', compact(['data' , 'id', 'ws_id', 'date', 'time1', 'time2']));
+        return view('admin.worksheetday-update', compact(['id', 'data', 'employee_code', 'employee_depname', 'employee_name', 'date', 'time1', 'time2']));
     }
 
     function updateWorkSheet(Request $request,$id) {
