@@ -460,7 +460,7 @@ class WSController extends Controller
                 'month'=>$month,
                 'day'=>$i,
                 'date'=>$week[$date],
-                'datenumber '=>$datenumber,
+                'datenumber '=>$date,
                 'ws_type'=>$ws_type,
                 'starttime'=>$starttime,
                 'endtime'=>$endtime,
