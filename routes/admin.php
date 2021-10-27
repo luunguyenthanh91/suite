@@ -89,9 +89,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('worksheet-view/{id}', 'WSController@viewWorkSheet')->name('admin.viewWorkSheet');
     Route::post('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
     Route::get('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
+    
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');
     Route::post('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');
     Route::get('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');
+    
     Route::post('new-worksheet', 'WSController@addWorkSheet')->name('admin.addWorkSheet');
     Route::get('getListWorkDays', 'WSController@getListWorkDays')->name('admin.getListWorkDays');
     Route::get('worksheetsubmit/{id}', 'WSController@worksheetsubmit')->name('admin.worksheetsubmit');
