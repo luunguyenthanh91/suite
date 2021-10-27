@@ -26,15 +26,15 @@
         <table style="width:100%;margin-top:-25px;">
             <tr>
                 <td style="text-align:left;">
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:0px;'>
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:0px;'>
                     {{ trans('label.dep') }}: <b>{{$employee_depname}}</b>
                     </div>
 
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:5px;'>
                     {{ trans('label.employee_code') }}: <b>{{$employee_code}}</b>
                     </div>
 
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:200px; border-bottom:1px solid black;margin-top:5px;'>
+                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:5px;'>
                     {{ trans('label.user_name') }}: <b>{{$employee_name}}</b>
                     </div>
                     <div class="fontweight" style='text-align:left; height:19px; width:200px;margin-top:10px;'>
