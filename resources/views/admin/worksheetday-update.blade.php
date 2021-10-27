@@ -13,7 +13,7 @@
             <a type="button" class="btn btn-outline-secondary3" style="background:green" @click="onSubmit()">
                 <i class="fas fa-save"><span class="labelButton">{{ trans('label.save') }}</span></i>
             </a>
-            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/worksheet-view/{{$ws_id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:red" href="/admin/worksheetday-view/{{$id}}">
                 <i class="fas fa-window-close"><span class="labelButton">{{ trans('label.cancel') }}</span></i>
             </a>
         </div>
