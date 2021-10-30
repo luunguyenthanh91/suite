@@ -89,7 +89,16 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('worksheet-view/{id}', 'WSController@viewWorkSheet')->name('admin.viewWorkSheet');
     Route::post('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
     Route::get('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
+
+    Route::get('get-payslip', 'PaySController@getListPayslip')->name('admin.getListPayslip');
+    Route::get('payslip', 'PaySController@listPayslip'); 
+    Route::get('payslip-view/{id}', 'PaySController@viewPayslip')->name('admin.viewPayslip');
+    Route::post('payslip-update/{id}', 'PaySController@updatePayslip')->name('admin.updatePayslip');
+    Route::get('payslip-update/{id}', 'PaySController@updatePayslip')->name('admin.updatePayslip');
     
+    Route::post('new-payslip', 'PaySController@addPayslip')->name('admin.addPayslip');
+    
+
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');
     Route::post('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');
     Route::get('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');

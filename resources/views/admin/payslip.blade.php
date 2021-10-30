@@ -1,18 +1,18 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '勤務表')
+@section('contentTitle', '給与明細')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')
 
     <div id="list-data">
-        <div class="modal fade" id="createWorkSheet">
-            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-worksheet">
+        <div class="modal fade" id="createPayslip">
+            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-payslip">
                 @csrf
                 <div class="modal-content" >
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.new_worksheet') }}</h4>
+                        <h4 class="modal-title">{{ trans('label.new_payslip') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.worksheet_id') }}</label>
+                            <label class="form-label">{{ trans('label.payslip_id') }}</label>
                             <input type="text" class="form-control search" v-model="item_id">
                         </div>
                         <div class="page-separator-line"></div>
@@ -199,7 +199,7 @@
                         <div class="col-lg-12">
                             <div class="row" style="margin-top:15px;">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.worksheet_id') }}</label>
+                                    <label class="form-label">{{ trans('label.payslip_id') }}</label>
                                     <input type="text" class="form-control search" v-model="item_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
             <div id="second" class="rightPanel">
 
             <div class="bodyButtonTop">
-                    <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createWorkSheet">
+                    <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createPayslip">
                         <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
                     </a> 
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
@@ -278,7 +278,7 @@
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="sticky-col fix-col1" scope="col" @click="sort('id')">
-                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.worksheet_id') }}</div>
+                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.payslip_id') }}</div>
                                                     </th>
                                                     <th class="sticky-col fix-col2" scope="col" @click="sort('month')">
                                                         <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
@@ -295,26 +295,11 @@
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('work_day_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_day_count' ? sortDirection : '']">{{ trans('label.work_day_count') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('work_time_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_time_count' ? sortDirection : '']">{{ trans('label.work_time_count') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('work_overtime_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_overtime_count' ? sortDirection : '']">{{ trans('label.work_overtime_count') }}</div>
-                                                    </th>
                                                     <th scope="col"  @click="sort('created_on')">
                                                         <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('created_by')">
                                                         <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('submited_on')">
-                                                        <div v-bind:class="[sortBy === 'submited_on' ? sortDirection : '']">{{ trans('label.submited_on') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('submited_by')">
-                                                        <div v-bind:class="[sortBy === 'submited_by' ? sortDirection : '']">{{ trans('label.submited_by') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('checked_on')">
                                                         <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
@@ -337,7 +322,7 @@
                                             <tbody class="list" id="search">
                                                 <tr v-for="item in sortedProducts">
                                                     <td :class="item.classStyle  + ' sticky-col fix-col1-detail'" style="left:0px">
-                                                    <a target="_blank" :href="'/admin/worksheet-view/' + item.id">
+                                                    <a target="_blank" :href="'/admin/payslip-view/' + item.id">
                                                     ((item.id))
                                                     </a>
                                                     </td>
@@ -360,25 +345,10 @@
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
                                                     </td>
                                                     <td>
-                                                    (( item.daycount ))    
-                                                    </td>
-                                                    <td>
-                                                    (( item.worktimecount ))    
-                                                    </td>
-                                                    <td>
-                                                    (( item.overworktimecount ))    
-                                                    </td>
-                                                    <td>
                                                     ((item.created_on)) 
                                                     </td>
                                                     <td>
                                                     ((item.created_by_name)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.submited_on)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.submited_by_name)) 
                                                     </td>
                                                     <td>
                                                     ((item.checked_on)) 
@@ -1080,7 +1050,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListWorkSheet')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListPayslip')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;
