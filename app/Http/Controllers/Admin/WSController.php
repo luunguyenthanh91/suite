@@ -43,6 +43,54 @@ class WSController extends Controller
             $data->created_on = date('Y-m-d');
             $data->created_by = Auth::guard('admin')->user()->id;
 
+            $employee = Admin::where('code' ,$data->user_id)->first();
+            $data->employee_name = $employee->name;
+            $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+            $data->employee_depname = $bophan->name;
+            $payslip_partern = $employee->payslip_partern;
+
+            $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+            $data->kihonkyu = $pay_partern->kihonkyu;
+            $jikyu = $pay_partern->jikyu;
+            if ($jikyu != "") {
+                $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+                $worktimecount = $listdata['worktimecount'];
+                list($work_h, $work_m) = explode(":", $worktimecount);
+                $data->kihonkyu = $work_h * $jikyu + ($work_m * $jikyu/60);
+            }
+            $data->tsukin_teate = $pay_partern->tsukin_teate;
+            $data->plus_zei_total = $data->kihonkyu;
+            $data->plus_nozei_total = $data->tsukin_teate;
+            
+
+            $data->kenkouhoken = $pay_partern->kenkouhoken;
+            $data->koseinenkin = $pay_partern->koseinenkin;
+            $data->koyohoken = $pay_partern->koyohoken;
+            if ($jikyu != "") {
+                $data->koyohoken = round($data->kihonkyu*0.3/100);
+            }
+            $data->shotokuzei = $pay_partern->shotokuzei;
+            $data->juminzei = $pay_partern->juminzei;
+            
+            $data->pay_total = $data->plus_total - $data->minus_total;
+            list($year, $month) = explode("-", $data->month);
+            $date = date('Y-m-d', strtotime('+1 month', strtotime(
+                $year . "-" . $month . "-" . str_pad(10, 2, '0', STR_PAD_LEFT)
+            )));
+            while (true) {
+                list($nextyear, $nextmonth, $nextdate) = explode("-", $date);
+                $timestamp = mktime(0, 0, 0, $nextyear, $nextmonth, $nextdate);
+                $w_date = date('w', $timestamp);
+                $selDate = $nextyear . "-" . $nextmonth . "-" . str_pad($nextdate, 2, '0', STR_PAD_LEFT);
+                $offDay = NationalHoliday::where('start', $selDate)->first();
+                if ($offDay || $w_date==6 || $w_date==0) {
+                    $date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
+                    continue;
+                }
+                break;
+            }
+            $data->pay_day = $date;
+
             $data->save();
             
             return redirect('/admin/payslip-view/'.$data->id);
@@ -363,54 +411,8 @@ class WSController extends Controller
 
     function viewPayslip(Request $request,$id) {
         $data = Payslip::find($request->id);
-
-        $employee = Admin::where('code' ,$data->user_id)->first();
-        $data->employee_name = $employee->name;
-        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-        $data->employee_depname = $bophan->name;
-        $payslip_partern = $employee->payslip_partern;
-
-        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
-        $data->kihonkyu = $pay_partern->kihonkyu;
-        if ($data->kihonkyu == "" || $data->kihonkyu == null) {
-            $jikyu = $pay_partern->jikyu;
-            $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
-            $worktimecount = $listdata['worktimecount'];
-            list($work_h, $work_m) = explode(":", $worktimecount);
-            $data->kihonkyu = $work_h * $jikyu + ($work_m * $jikyu/60);
-        }
-        $data->tsukin_teate = $pay_partern->tsukin_teate;
-        $data->plus_zei_total = $data->kihonkyu;
-        $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
-
-        $data->kenkouhoken = $pay_partern->kenkouhoken;
-        $data->koseinenkin = $pay_partern->koseinenkin;
-        $data->koyohoken = $pay_partern->koyohoken;
-        $data->shotokuzei = $pay_partern->shotokuzei;
-        $data->juminzei = $pay_partern->juminzei;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
-
-        $data->pay_total = $data->plus_total - $data->minus_total;
-        list($year, $month) = explode("-", $data->month);
-        $date = date('Y-m-d', strtotime('+1 month', strtotime(
-            $year . "-" . $month . "-" . str_pad(10, 2, '0', STR_PAD_LEFT)
-        )));
-        while (true) {
-            list($nextyear, $nextmonth, $nextdate) = explode("-", $date);
-            $timestamp = mktime(0, 0, 0, $nextyear, $nextmonth, $nextdate);
-            $w_date = date('w', $timestamp);
-            $selDate = $nextyear . "-" . $nextmonth . "-" . str_pad($nextdate, 2, '0', STR_PAD_LEFT);
-            $offDay = NationalHoliday::where('start', $selDate)->first();
-            if ($offDay || $w_date==6 || $w_date==0) {
-                $date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
-                continue;
-            }
-            break;
-        }
-        $data->pay_day = $date;
-
-
 
         $created_user = Admin::where('id' ,$data->created_by)->first();
         if ($created_user) {
