@@ -90,13 +90,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
     Route::get('worksheet-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
 
-    Route::get('get-payslip', 'PaySController@getListPayslip')->name('admin.getListPayslip');
-    Route::get('payslip', 'PaySController@listPayslip'); 
-    Route::get('payslip-view/{id}', 'PaySController@viewPayslip')->name('admin.viewPayslip');
-    Route::post('payslip-update/{id}', 'PaySController@updatePayslip')->name('admin.updatePayslip');
-    Route::get('payslip-update/{id}', 'PaySController@updatePayslip')->name('admin.updatePayslip');
+    Route::get('get-payslip', 'WSController@getListPayslip')->name('admin.getListPayslip');
+    Route::get('payslip', 'WSController@listPayslip'); 
+    Route::get('payslip-view/{id}', 'WSController@viewPayslip')->name('admin.viewPayslip');
+    Route::post('payslip-update/{id}', 'WSController@updatePayslip')->name('admin.updatePayslip');
+    Route::get('payslip-update/{id}', 'WSController@updatePayslip')->name('admin.updatePayslip');
     
-    Route::post('new-payslip', 'PaySController@addPayslip')->name('admin.addPayslip');
+    Route::post('new-payslip', 'WSController@addPayslip')->name('admin.addPayslip');
     
 
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');

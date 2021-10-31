@@ -37,8 +37,7 @@
                             <label><u>(( parseMonth('{{@$data->month}}') ))</u></label>
                             <br>
                             <label>{{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></label><br>
-                            <label>{{ trans('label.work_day_count') }}: (( daycount ))</label><span style="margin-left:20px"><span>{{ trans('label.work_time_count') }}: (( worktimecount ))
-                            <span style="spaceLabel">(<span>{{ trans('label.work_overtime_count') }}: (( overworktimecount ))<span>)</span><br>
+                            <label>{{ trans('label.pay_day') }}: {{@$data->pay_day}}</label><span style="margin-left:20px"><span>{{ trans('label.pay_total') }}: (( parseMoney({{@$data->pay_total}}) ))
                             </div>
                     </div>
                     <div class="col-lg-auto">
@@ -116,6 +115,13 @@
                                     </span>
                                 </a>
                             </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab2">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.worksheet') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body tab-content">
@@ -159,15 +165,15 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>{{ trans('label.user_name') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_name}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>{{ trans('label.user_id') }}</td>
                                             <td>
                                             (( parseName('{{@$data->user_id}}') ))
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ trans('label.user_name') }}</td>
+                                            <td>
+                                            (( parseName('{{@$data->employee_name}}') ))
                                             </td>
                                         </tr>
                                         <tr>
@@ -222,7 +228,7 @@
                             <div class="gridControl">
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-3">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
                                     </div>
@@ -248,6 +254,8 @@
                                             </tr>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.plus") }}</div>
                                     </div>
@@ -256,25 +264,124 @@
                                             <tr>
                                                 <td>{{ trans('label.kihonkyu') }}</td>
                                                 <td>
-                                                (( kihonkyu ))
-                                                </td>
-                                                <td class="colHeader">{{ trans('label.plus_zei_total') }}</td>
-                                                <td>
-                                                (( plus_zei_total ))
+                                                (( parseMoney({{@$data->kihonkyu}}) ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.tsukin_teate') }}</td>
                                                 <td>
-                                                (( tsukin_teate ))
+                                                (( parseMoney({{@$data->tsukin_teate}}) ))
                                                 </td>
-                                                <td class="colHeader">{{ trans('label.plus_nozei_total') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
                                                 <td>
-                                                (( plus_nozei_total ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.plus_zei_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->plus_zei_total}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.plus_nozei_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->plus_nozei_total}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>                                                
+                                                <td>{{ trans('label.plus_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->plus_total}}) ))
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.minus") }}</div>
                                     </div>
@@ -283,39 +390,222 @@
                                             <tr>
                                                 <td>{{ trans('label.kenkouhoken') }}</td>
                                                 <td>
-                                                (( kenkouhoken ))
-                                                </td>
-                                                <td class="colHeader">{{ trans('label.minus_total') }}</td>
-                                                <td>
-                                                (( minus_total ))
+                                                (( parseMoney({{@$data->kenkouhoken}}) ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.koseinenkin') }}</td>
                                                 <td>
-                                                (( koseinenkin ))
+                                                (( parseMoney({{@$data->koseinenkin}}) ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.koyohoken') }}</td>
                                                 <td>
-                                                (( koyohoken ))
+                                                (( parseMoney({{@$data->koyohoken}}) ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.shotokuzei') }}</td>
                                                 <td>
-                                                (( shotokuzei ))
+                                                (( parseMoney({{@$data->shotokuzei}}) ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.juminzei') }}</td>
                                                 <td>
-                                                (( juminzei ))
+                                                (( parseMoney({{@$data->juminzei}}) ))
+                                                {{@$data->juminzei}}
+                                                </td>
+                                            </tr>
+                                            
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.minus_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->minus_total}}) ))
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            
+                                        <tr>
+                                                <td>{{ trans('label.pay_day') }}</td>
+                                                <td>
+                                                {{@$data->pay_day}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->pay_total}}) ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab2">
+                            <div class="gridControl">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col" @click="sort('year')" >
+                                                    <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
+                                                </th>
+                                                <th @click="sort('month')">
+                                                    <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('date')">
+                                                    <div v-bind:class="[sortBy === 'date' ? sortDirection : '']">{{ trans('label.date') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('day')">
+                                                    <div v-bind:class="[sortBy === 'day' ? sortDirection : '']">{{ trans('label.day') }}</div>
+                                                </th>
+                                                <th scope="col" @click="sort('ws_type')">
+                                                    <div v-bind:class="[sortBy === 'ws_type' ? sortDirection : '']">{{ trans('label.ws_type') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('time_start')" class="textAlignCenter">
+                                                    <div v-bind:class="[sortBy === 'time_start' ? sortDirection : '']">{{ trans('label.time_start') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
+                                                    <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
+                                                    <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('overtime_count')" class="textAlignCenter">
+                                                    <div v-bind:class="[sortBy === 'overtime_count' ? sortDirection : '']">{{ trans('label.overtime_count') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('note')">
+                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
+                                                </th>
+                                                <th scope="col">
+                                                </th>
+                                                <th scope="col"  style="width: 100%; "></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list" id="search">
+                                            <tr v-for="item in sortedProducts">
+                                                <td :class="item.classStyle  + ' '">
+                                                (( item.year ))
+                                                </td>
+                                                <td :class="item.classStyle  + ' '">
+                                                (( item.month ))
+                                                </td>
+                                                <td :class="item.classStyle  + ' '">
+                                                (( item.day ))
+                                                </td>
+                                                <td :class="item.classStyle  + ' '">
+                                                (( item.date ))<span v-if="item.offdaytitle"><span class="spaceLabel">(</span>(( item.offdaytitle ))<span>)</span></span>
+                                                </td>
+                                                <td>
+                                                    <span v-if="item.ws_type==1">{{ trans('label.work_day') }}</span>
+                                                </td>
+                                                <td class="textAlignCenter">
+                                                    (( item.starttime ))
+                                                </td>
+                                                <td class="textAlignCenter">
+                                                   (( item.endtime ))
+                                                </td>
+                                                <td  class="textAlignCenter">
+                                                (( item.time_count ))
+                                                </td>
+                                                <td  class="textAlignCenter">
+                                                (( item.overtime_count ))
+                                                </td>
+                                                <td>
+                                                    <span class="text-block" v-html="item.note">
+                                                    (( item.note ))
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
+                                                        <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
+                                                    </a>
+                                                </td>
+                                                <td style="width: 100%; "></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

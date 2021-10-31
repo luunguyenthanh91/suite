@@ -57,6 +57,7 @@ return [
     'plus_total' => '総支給額',
     'minus_total' => '控除額合計',
     'pay_total' => '差引支給額',
+    'pay_day' => '支払日',
     'minus' => '控除',
     'check' => '確認',
     'approve' => '承認',
