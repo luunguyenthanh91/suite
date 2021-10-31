@@ -99,7 +99,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('new-payslip', 'WSController@addPayslip')->name('admin.addPayslip');
     Route::post('payslip-delete/{id}', 'WSController@deletePayslip')->name('admin.deletePayslip');
     Route::get('payslip-delete/{id}', 'WSController@deletePayslip')->name('admin.deletePayslip');
-
+    Route::get('payslipcheck/{id}', 'WSController@payslipcheck')->name('admin.payslipcheck');
+    Route::post('payslipcheck/{id}', 'WSController@payslipcheck')->name('admin.payslipcheck');
+    Route::get('payslipapprove/{id}', 'WSController@payslipapprove')->name('admin.payslipapprove');
+    Route::post('payslipapprove/{id}', 'WSController@payslipapprove')->name('admin.payslipapprove');
 
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');
     Route::post('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');
