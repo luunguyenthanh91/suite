@@ -67,7 +67,7 @@ class WSController extends Controller
             $data->shotokuzei = $pay_partern->shotokuzei;
             $data->juminzei = $pay_partern->juminzei;
             
-            $data->pay_total = $data->plus_total - $data->minus_total;
+            
             list($year, $month) = explode("-", $data->month);
             $date = date('Y-m-d', strtotime('+1 month', strtotime(
                 $year . "-" . $month . "-" . str_pad(10, 2, '0', STR_PAD_LEFT)
@@ -416,7 +416,8 @@ class WSController extends Controller
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
-
+        $data->pay_total = $data->plus_total - $data->minus_total;
+        
         $created_user = Admin::where('id' ,$data->created_by)->first();
         if ($created_user) {
             $data->created_by_name = $created_user->name;
