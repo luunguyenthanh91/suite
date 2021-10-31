@@ -106,7 +106,7 @@
                             </div>
                             <div class="tab-pane" id="detailtab3">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
                                             <tr>
                                                 <td>{{ trans('label.kihonkyu') }}</td>
@@ -151,6 +151,45 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="page-separator">
+                                            <div class="page-separator__text bgWhite">{{ trans("label.minus") }}</div>
+                                        </div>
+                                        <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
+                                            <tr>
+                                                <td>{{ trans('label.kenkouhoken') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="kenkouhoken" value="{{@$data->kenkouhoken}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koseinenkin') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="koseinenkin" value="{{@$data->koseinenkin}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koyohoken') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="koyohoken" value="{{@$data->koyohoken}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.shotokuzei') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="shotokuzei" value="{{@$data->shotokuzei}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.juminzei') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="juminzei" value="{{@$data->juminzei}}">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
