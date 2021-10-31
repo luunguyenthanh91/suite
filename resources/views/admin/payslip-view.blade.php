@@ -223,26 +223,99 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
-                                        <tr>
-                                            <td>{{ trans('label.work_day_count') }}</td>
-                                            <td>
-                                            (( daycount ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.work_time_count') }}</td>
-                                            <td>
-                                            (( worktimecount ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.work_overtime_count') }}</td>
-                                            <td>
-                                            (( overworktimecount ))
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.work_day_count') }}</td>
+                                                <td>
+                                                (( daycount ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.work_time_count') }}</td>
+                                                <td>
+                                                (( worktimecount ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.work_overtime_count') }}</td>
+                                                <td>
+                                                (( overworktimecount ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.plus") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.kihonkyu') }}</td>
+                                                <td>
+                                                (( kihonkyu ))
+                                                </td>
+                                                <td class="colHeader">{{ trans('label.plus_zei_total') }}</td>
+                                                <td>
+                                                (( plus_zei_total ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.tsukin_teate') }}</td>
+                                                <td>
+                                                (( tsukin_teate ))
+                                                </td>
+                                                <td class="colHeader">{{ trans('label.plus_nozei_total') }}</td>
+                                                <td>
+                                                (( plus_nozei_total ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.minus") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.kenkouhoken') }}</td>
+                                                <td>
+                                                (( kenkouhoken ))
+                                                </td>
+                                                <td class="colHeader">{{ trans('label.minus_total') }}</td>
+                                                <td>
+                                                (( minus_total ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koseinenkin') }}</td>
+                                                <td>
+                                                (( koseinenkin ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koyohoken') }}</td>
+                                                <td>
+                                                (( koyohoken ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.shotokuzei') }}</td>
+                                                <td>
+                                                (( shotokuzei ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.juminzei') }}</td>
+                                                <td>
+                                                (( juminzei ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\MailTemplate;
 use App\Models\Payslip;
+use App\Models\PayslipPartern;
 use App\Models\TransactionLog;
 use App\Jobs\SendEmail;
 use App\Jobs\SendEmailTemplate;
@@ -571,6 +572,16 @@ class PaySController extends Controller
         $data->employee_name = $employee->name;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
+        $payslip_partern = $employee->payslip_partern;
+
+        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $data->kihonkyu = $pay_partern->kihonkyu;
+        $data->tsukin_teate = $pay_partern->tsukin_teate;
+        $data->kenkouhoken = $pay_partern->kenkouhoken;
+        $data->koseinenkin = $pay_partern->koseinenkin;
+        $data->koyohoken = $pay_partern->koyohoken;
+        $data->shotokuzei = $pay_partern->shotokuzei;
+        $data->juminzei = $pay_partern->juminzei;
 
         $created_user = Admin::where('id' ,$data->created_by)->first();
         if ($created_user) {
