@@ -377,7 +377,7 @@ class WSController extends Controller
             $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
             list($work_h, $work_m) = explode(":", $worktimecount);
-            $data->kihonkyu = $work_h * $jikyu + ($work_m*$jikyuu/60);
+            $data->kihonkyu = $work_h * $jikyu + ($work_m * $jikyu/60);
         }
         $data->tsukin_teate = $pay_partern->tsukin_teate;
         $data->plus_zei_total = $data->kihonkyu;
