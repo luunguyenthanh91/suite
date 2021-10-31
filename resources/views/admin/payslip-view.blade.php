@@ -12,7 +12,7 @@
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
             @if (Auth::guard('admin')->user()->id == 1 )
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/worksheet-update/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/payslip-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
@@ -1173,14 +1173,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/worksheetsubmit/" + _i,
+                    url: "/admin/payslipsubmit/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "提出の処理が終わりました。"
                         });
-                        location.href = "/admin/worksheet-view/" + _i;
+                        location.href = "/admin/payslip-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
@@ -1210,14 +1210,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/worksheetcheck/" + _i,
+                    url: "/admin/payslipcheck/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "確認の処理が終わりました。"
                         });
-                        location.href = "/admin/worksheet-view/" + _i;
+                        location.href = "/admin/payslip-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
@@ -1247,14 +1247,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/worksheetapprove/" + _i,
+                    url: "/admin/payslipapprove/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "承認の処理が終わりました。"
                         });
-                        location.href = "/admin/worksheet-view/" + _i;
+                        location.href = "/admin/payslip-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
