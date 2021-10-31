@@ -56,8 +56,6 @@ class WSController extends Controller
                 $data->kihonkyu = $work_h * $jikyu + ($work_m * $jikyu/60);
             }
             $data->tsukin_teate = $pay_partern->tsukin_teate;
-            $data->plus_zei_total = $data->kihonkyu;
-            $data->plus_nozei_total = $data->tsukin_teate;
             
 
             $data->kenkouhoken = $pay_partern->kenkouhoken;
@@ -413,6 +411,9 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
 
+        
+        $data->plus_zei_total = $data->kihonkyu;
+        $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
 
