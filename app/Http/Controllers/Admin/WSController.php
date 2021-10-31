@@ -44,9 +44,6 @@ class WSController extends Controller
             $data->created_by = Auth::guard('admin')->user()->id;
 
             $employee = Admin::where('code' ,$data->user_id)->first();
-            $data->employee_name = $employee->name;
-            $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-            $data->employee_depname = $bophan->name;
             $payslip_partern = $employee->payslip_partern;
 
             $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
@@ -411,6 +408,11 @@ class WSController extends Controller
 
     function viewPayslip(Request $request,$id) {
         $data = Payslip::find($request->id);
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $data->employee_name = $employee->name;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $data->employee_depname = $bophan->name;
+
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
 
