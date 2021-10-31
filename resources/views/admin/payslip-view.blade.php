@@ -23,8 +23,8 @@
         <div class="container page__container page-section page_container_custom">
             <div class="gridControl3">
                 <div class="d-flex" style="width:100%;">
-                    <div style="width:100%;text-align:left !important;">
-                        <div class="col-lg-12">
+                    <div class="col-lg-auto" style="text-align:left !important;">
+                        <div class="col-lg-12" >
                             <label>
                                 {{ trans('label.payslip_id') }}{{@$data->id}} (
                                 <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
@@ -36,24 +36,39 @@
                             <br>
                             <label><u>(( parseMonth('{{@$data->month}}') ))</u></label>
                             <br>
-                            <label>{{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></label><br>
-                            <label>{{ trans('label.pay_day') }}: {{@$data->pay_day}}</label><span style="margin-left:20px"><span>{{ trans('label.pay_total') }}: (( parseMoney({{@$data->pay_total}}) ))
+                            <label>{{ trans('label.employee_depname') }}: {{@$data->employee_depname}}</label>
+                            <br>
+                            <label>{{ trans('label.user_name') }}: {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span>
                             </div>
                     </div>
+                    <div style="width:100%;text-align:left !important;">
+                        <center class="col-lg-12">
+                            <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables" style="width:200px;margin-top:30px;">   
+                                <tr>
+                                    <td>{{ trans('label.pay_day') }}</td>
+                                    <td>
+                                    {{@$data->pay_day}}
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td>{{ trans('label.pay_total') }}</td>
+                                    <td>
+                                    (( parseMoney({{@$data->pay_total}}) ))
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
                     <div class="col-lg-auto">
-                        <table class="signTable" style="width:270px;">
+                        <table class="signTable">
                             <tr>
                                 <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
-                                <td class="signTableThChecker">{{ trans('label.submited_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
                             </tr>    
                             <tr>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->created_on}}
-                                </td>
-                                <td class="signTableDate approveDateGroup">
-                                {{@$data->submited_on}}
                                 </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->checked_on}}
@@ -66,14 +81,6 @@
                                 <td class="signTableTd">
                                     <div class="plusRed">
                                         <div class="circle">{{@$data->created_by_sign}}</div>
-                                    </div>
-                                </td>
-                                <td class="signTableTd">
-                                    <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
-                                        {{ trans('label.submit') }}
-                                    </a> 
-                                    <div class="plusRed" v-if="'{{@$data->submited_on}}' != ''">
-                                        <div class="circle">{{@$data->submited_by_sign}}</div>
                                     </div>
                                 </td>
                                 <td class="signTableTd">
@@ -127,106 +134,115 @@
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="detailtab1">
                             <div class="row">     
-                                <div class="col-lg-12">
-                                    <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
-                                        <tr>
-                                            <td>{{ trans('label.payslip_id') }}</td>
-                                            <td>
-                                                {{@$data->id}}
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.status') }}</td>
-                                            <td>
-                                                @if ( @$data->status == 0 )
-                                                    <span>{{ trans('label.ws_status1') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 1 )
-                                                    <span>{{ trans('label.ws_status2') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 2 )
-                                                    <span>{{ trans('label.ws_status3') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 3 )
-                                                    <span>{{ trans('label.ws_status4') }}</span>
-                                                @endif
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.month') }}</td>
-                                            <td>
-                                            (( parseMonth('{{$data->month}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.employee_depname') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_depname}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_id') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->user_id}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_name') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_name}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.created_on') }}</td>
-                                            <td>
-                                            {{@$data->created_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.created_by') }}</td>
-                                            <td>
-                                            {{@$data->created_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.checked_on') }}</td>
-                                            <td>
-                                            {{@$data->checked_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.checked_by') }}</td>
-                                            <td>
-                                            {{@$data->checked_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.approved_on') }}</td>
-                                            <td>
-                                            {{@$data->approved_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.approved_by') }}</td>
-                                            <td>
-                                            {{@$data->approved_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.note') }}</td>
-                                            <td>
-                                                <div class="text-block" v-html="">
-                                                <p>{!! @$data->note !!}</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.payslip_id') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.status') }}</td>
+                                                <td>
+                                                    @if ( @$data->status == 0 )
+                                                        <span>{{ trans('label.ws_status1') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 1 )
+                                                        <span>{{ trans('label.ws_status2') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 2 )
+                                                        <span>{{ trans('label.ws_status3') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 3 )
+                                                        <span>{{ trans('label.ws_status4') }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.month') }}</td>
+                                                <td>
+                                                (( parseMonth('{{$data->month}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.employee_depname') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_depname}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_id') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->user_id}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_name') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_name}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.note') }}</td>
+                                                <td>
+                                                    <div class="text-block" v-html="">
+                                                    <p>{!! @$data->note !!}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>  
+                                <div class="col-lg-6">
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.approve_col") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.created_on') }}</td>
+                                                <td>
+                                                {{@$data->created_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.created_by') }}</td>
+                                                <td>
+                                                {{@$data->created_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.checked_on') }}</td>
+                                                <td>
+                                                {{@$data->checked_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.checked_by') }}</td>
+                                                <td>
+                                                {{@$data->checked_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.approved_on') }}</td>
+                                                <td>
+                                                {{@$data->approved_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.approved_by') }}</td>
+                                                <td>
+                                                {{@$data->approved_by_name}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="detailtab3">
-                            <div class="gridControl">
-                            </div>
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="page-separator">
@@ -415,7 +431,6 @@
                                                 <td>{{ trans('label.juminzei') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->juminzei}}) ))
-                                                {{@$data->juminzei}}
                                                 </td>
                                             </tr>
                                             
@@ -558,8 +573,6 @@
                                                 <th scope="col"  @click="sort('note')">
                                                     <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                 </th>
-                                                <th scope="col">
-                                                </th>
                                                 <th scope="col"  style="width: 100%; "></th>
                                             </tr>
                                         </thead>
@@ -596,11 +609,6 @@
                                                     <span class="text-block" v-html="item.note">
                                                     (( item.note ))
                                                     </span>
-                                                </td>
-                                                <td>
-                                                    <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
-                                                        <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
-                                                    </a>
                                                 </td>
                                                 <td style="width: 100%; "></td>
                                             </tr>
@@ -1276,14 +1284,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/worksheet-delete/" + _i,
+                    url: "/admin/payslip-delete/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "Đã xóa!"
                         });
-                        location.href = "/admin/worksheet";
+                        location.href = "/admin/payslip";
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({

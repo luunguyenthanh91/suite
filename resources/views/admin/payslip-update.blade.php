@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '勤務表更新')
+@section('contentTitle', '給与明細更新')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
@@ -33,6 +33,13 @@
                                         </span>
                                     </a>
                                 </div>
+                                <div class="col-auto border-left border-right">
+                                    <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab3">
+                                        <span class="flex d-flex flex-column">
+                                            <strong class="card-title">{{ trans('label.payslip') }}</strong>
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body tab-content">
@@ -40,53 +47,53 @@
                                 <div class="row">                                                
                                     <div class="col-lg-12">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
-                                        <tr>
-                                            <td>{{ trans('label.worksheet_id') }}</td>
-                                            <td>
-                                                {{@$data->id}}
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.status') }}</td>
-                                            <td>
-                                                @if ( @$data->status == 0 )
-                                                    <span>{{ trans('label.ws_status1') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 1 )
-                                                    <span>{{ trans('label.ws_status2') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 2 )
-                                                    <span>{{ trans('label.ws_status3') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 3 )
-                                                    <span>{{ trans('label.ws_status4') }}</span>
-                                                @endif
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.month') }}</td>
-                                            <td>
-                                            (( parseMonth('{{$data->month}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.employee_depname') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_depname}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_id') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->user_id}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_name') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_name}}') ))
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ trans('label.payslip_id') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.status') }}</td>
+                                                <td>
+                                                    @if ( @$data->status == 0 )
+                                                        <span>{{ trans('label.ws_status1') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 1 )
+                                                        <span>{{ trans('label.ws_status2') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 2 )
+                                                        <span>{{ trans('label.ws_status3') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 3 )
+                                                        <span>{{ trans('label.ws_status4') }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.month') }}</td>
+                                                <td>
+                                                (( parseMonth('{{$data->month}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.employee_depname') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_depname}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_id') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->user_id}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_name') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_name}}') ))
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
@@ -95,6 +102,56 @@
                                             </tr>
                                         </table>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="detailtab3">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">
+                                            <tr>
+                                                <td>{{ trans('label.kihonkyu') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="kihonkyu" value="{{@$data->kihonkyu}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.tsukin_teate') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="tsukin_teate" value="{{@$data->tsukin_teate}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.kenkouhoken') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="kenkouhoken" value="{{@$data->kenkouhoken}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koseinenkin') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="koseinenkin" value="{{@$data->koseinenkin}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.koyohoken') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="koyohoken" value="{{@$data->koyohoken}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.shotokuzei') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="shotokuzei" value="{{@$data->shotokuzei}}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.juminzei') }}</td>
+                                                <td>
+                                                <input type="text" class="form-control money_parse" name="juminzei" value="{{@$data->juminzei}}">
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

@@ -100,6 +100,13 @@ class WSController extends Controller
         if ($request->isMethod('post')) {
             $data = Payslip::find($request->id);
             if ($data) {
+                $data->kihonkyu = $request->kihonkyu;
+                $data->tsukin_teate = $request->tsukin_teate;
+                $data->kenkouhoken = $request->kenkouhoken;
+                $data->koseinenkin = $request->koseinenkin;
+                $data->koyohoken = $request->koyohoken;
+                $data->shotokuzei = $request->shotokuzei;
+                $data->juminzei = $request->juminzei;
                 $data->note = $request->note;
                 $data->save();
             }
@@ -417,7 +424,7 @@ class WSController extends Controller
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
-        
+
         $created_user = Admin::where('id' ,$data->created_by)->first();
         if ($created_user) {
             $data->created_by_name = $created_user->name;

@@ -61,6 +61,7 @@ return [
     'minus' => '控除',
     'check' => '確認',
     'approve' => '承認',
+    'approve_col' => '承認欄',
     'work_day_count' => '出勤日数',
     'work_time_count' => '勤務時間',
     'work_overtime_count' => '普通残業',
