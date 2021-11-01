@@ -209,7 +209,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-4>
+                                <div class="col-lg-4">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.approve_col") }}</div>
                                     </div>
