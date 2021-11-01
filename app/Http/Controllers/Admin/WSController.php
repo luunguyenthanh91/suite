@@ -1104,7 +1104,6 @@ class WSController extends Controller
             }
             
             $data[] = [
-                'id'=>$id,
                 'year'=>$year,
                 'month'=>$month,
                 'day'=>$i,
@@ -1156,7 +1155,7 @@ class WSController extends Controller
         $overworktimecount = $this->CalculateTime2($overworktimelist);
 
         $pdf = PDF::loadView('admin.worksheet-pdf',
-            compact('data', 'submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
+            compact('data', 'id','submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
 
         return $pdf->download($file_name.'.pdf');
     }
