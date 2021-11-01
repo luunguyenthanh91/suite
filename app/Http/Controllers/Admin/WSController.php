@@ -1104,6 +1104,7 @@ class WSController extends Controller
             }
             
             $data[] = [
+                'id'=>$id,
                 'year'=>$year,
                 'month'=>$month,
                 'day'=>$i,
