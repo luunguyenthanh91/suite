@@ -21,7 +21,7 @@
             <div style="font-size:24;"><b>{{ trans('label.worksheet2') }}</b></div>
         </div>
         <div style='text-align:right; width:100%;font-size:8pt;height:30px;margin-top:5px;'>
-        <u><span style="margin-right20px;">{{ trans('label.created_on') }}：</span>{{$year}} {{ trans('label.year') }} {{$month}} {{ trans('label.month') }} {{$day}} {{ trans('label.date') }}</u>
+        <!-- <u><span style="margin-right20px;">{{ trans('label.created_on') }}：</span>{{$year}} {{ trans('label.year') }} {{$month}} {{ trans('label.month') }} {{$day}} {{ trans('label.date') }}</u> -->
         </div>
         <table style="width:100%;margin-top:-25px;">
             <tr>
@@ -73,7 +73,7 @@
             <tr>
                 <td class="headerColor border-all title_form">{{ trans('label.datetime') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.day') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.ws_type') }}</td>
+                <td class="headerColor border-all title_form">{{ trans('label.ws') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.time_start') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.time_end') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.breaktime2') }}</td>

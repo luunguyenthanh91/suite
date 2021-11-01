@@ -64,7 +64,7 @@ return [
     'approve_col' => '承認欄',
     'work_day_count' => '出勤日数',
     'work_time_count' => '勤務時間',
-    'work_overtime_count' => '普通残業',
+    'work_overtime_count' => '普通残業時間',
     'time_start' => '始業時刻',
     'time_end' => '終業時刻',
     'breaktime' => '休憩時間',
