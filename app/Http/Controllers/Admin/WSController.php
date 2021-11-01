@@ -339,8 +339,8 @@ class WSController extends Controller
 
             $overtime_count_str = "";
             if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
-                $overtime_count_str = $overtime_count.":".$min_count;
-                $overworktimelist[] = $overtime_count_str;
+                $overtime_count_str = str_pad($overtime_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+                $overworktimelist[] = $overtime_count.":".$min_count;
             }
             
             $breaktime_str = "";
@@ -885,7 +885,7 @@ class WSController extends Controller
             }
             $time_count_str = "";
             if ($time_count) {
-                $time_count_str = $time_count.":".$min_count;
+                $time_count_str = str_pad($time_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
             }
 
             $overtime_count_str = "";
@@ -1089,13 +1089,13 @@ class WSController extends Controller
             }
             $time_count_str = "";
             if ($time_count) {
-                $time_count_str = $time_count.":".$min_count;
+                $time_count_str = str_pad($time_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
             }
 
             $overtime_count_str = "";
             if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
-                $overtime_count_str = $overtime_count.":".$min_count;
-                $overworktimelist[] = $overtime_count_str;
+                $overtime_count_str = str_pad($overtime_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+                $overworktimelist[] = $overtime_count.":".$min_count;
             }
             
             $breaktime_str = "";
