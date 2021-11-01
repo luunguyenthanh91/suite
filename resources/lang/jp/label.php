@@ -33,6 +33,7 @@ return [
     'payslip' => '給与明細',
     'worksheet2' => '出 勤 簿',
     'worksheet_pdf' => '出勤簿(PDF)',
+    'worksheet_pdf2' => '出勤簿',
     'payslip_pdf' => '給与明細書(PDF)',
     'dep' => '所属',
     'employee_code' => '社員番号',
