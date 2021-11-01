@@ -1148,7 +1148,7 @@ class WSController extends Controller
             $approved_by_sign = $approved_user->sign_name;
         }
 
-        $file_name = trans('label.worksheet_pdf2')."_".$ws->month."_".$employee->name."(".$employee->code.")";
+        $file_name = trans('label.worksheet_pdf2')."_".$ws->month."_".$employee->code."(".$employee->name.")";
         
 
         $worktimecount = $this->CalculateTime2($worktimelist);
