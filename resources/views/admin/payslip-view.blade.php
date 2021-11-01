@@ -23,7 +23,7 @@
         <div class="container page__container page-section page_container_custom">
             <div class="gridControl3">
                 <div class="d-flex" style="width:100%;">
-                    <div class="col-lg-auto" style="text-align:left !important;">
+                    <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12" >
                             <label>
                                 {{ trans('label.payslip_id') }}{{@$data->id}} (
@@ -40,24 +40,6 @@
                             <br>
                             <label>{{ trans('label.user_name') }}: {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span>
                             </div>
-                    </div>
-                    <div style="width:100%;text-align:left !important;">
-                        <center class="col-lg-12">
-                            <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables" style="width:200px;margin-top:30px;">   
-                                <tr>
-                                    <td>{{ trans('label.pay_day') }}</td>
-                                    <td>
-                                    {{@$data->pay_day}}
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <td>{{ trans('label.pay_total') }}</td>
-                                    <td>
-                                    (( parseMoney({{@$data->pay_total}}) ))
-                                    </td>
-                                </tr>
-                            </table>
-                        </center>
                     </div>
                     <div class="col-lg-auto">
                         <table class="signTable">

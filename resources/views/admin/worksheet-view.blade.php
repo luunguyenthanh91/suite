@@ -38,7 +38,6 @@
                             <br>
                             <label>{{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></label><br>
                             <label>{{ trans('label.work_day_count') }}: (( daycount ))</label><span style="margin-left:20px"><span>{{ trans('label.work_time_count') }}: (( worktimecount ))
-                            <span style="spaceLabel">(<span>{{ trans('label.work_overtime_count') }}: (( overworktimecount ))<span>)</span><br>
                             </div>
                     </div>
                     <div class="col-lg-auto">
@@ -121,130 +120,151 @@
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="detailtab1">
                             <div class="row">     
-                                <div class="col-lg-12">
-                                    <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.worksheet_id') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.status') }}</td>
+                                                <td>
+                                                    @if ( @$data->status == 0 )
+                                                        <span>{{ trans('label.ws_status1') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 1 )
+                                                        <span>{{ trans('label.ws_status2') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 2 )
+                                                        <span>{{ trans('label.ws_status3') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 3 )
+                                                        <span>{{ trans('label.ws_status4') }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td>{{ trans('label.month') }}</td>
+                                                <td>
+                                                (( parseMonth('{{$data->month}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.employee_depname') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_depname}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_name') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->employee_name}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.user_id') }}</td>
+                                                <td>
+                                                (( parseName('{{@$data->user_id}}') ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.note') }}</td>
+                                                <td>
+                                                    <div class="text-block" v-html="">
+                                                    <p>{!! @$data->note !!}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>    
+                                <div class="col-lg-4">
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            
                                         <tr>
-                                            <td>{{ trans('label.worksheet_id') }}</td>
-                                            <td>
-                                                {{@$data->id}}
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.status') }}</td>
-                                            <td>
-                                                @if ( @$data->status == 0 )
-                                                    <span>{{ trans('label.ws_status1') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 1 )
-                                                    <span>{{ trans('label.ws_status2') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 2 )
-                                                    <span>{{ trans('label.ws_status3') }}</span>
-                                                @endif
-                                                @if ( @$data->status == 3 )
-                                                    <span>{{ trans('label.ws_status4') }}</span>
-                                                @endif
-                                            </td>
-                                        </tr> 
-                                        <tr>
-                                            <td>{{ trans('label.month') }}</td>
-                                            <td>
-                                            (( parseMonth('{{$data->month}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.employee_depname') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_depname}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_name') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->employee_name}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.user_id') }}</td>
-                                            <td>
-                                            (( parseName('{{@$data->user_id}}') ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.work_day_count') }}</td>
-                                            <td>
-                                            (( daycount ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.work_time_count') }}</td>
-                                            <td>
-                                            (( worktimecount ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.work_overtime_count') }}</td>
-                                            <td>
-                                            (( overworktimecount ))
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.created_on') }}</td>
-                                            <td>
-                                            {{@$data->created_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.created_by') }}</td>
-                                            <td>
-                                            {{@$data->created_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.submited_on') }}</td>
-                                            <td>
-                                            {{@$data->submited_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.submited_by') }}</td>
-                                            <td>
-                                            {{@$data->submited_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.checked_on') }}</td>
-                                            <td>
-                                            {{@$data->checked_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.checked_by') }}</td>
-                                            <td>
-                                            {{@$data->checked_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.approved_on') }}</td>
-                                            <td>
-                                            {{@$data->approved_on}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.approved_by') }}</td>
-                                            <td>
-                                            {{@$data->approved_by_name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ trans('label.note') }}</td>
-                                            <td>
-                                                <div class="text-block" v-html="">
-                                                <p>{!! @$data->note !!}</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                <td>{{ trans('label.work_day_count') }}</td>
+                                                <td>
+                                                (( daycount ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.work_time_count') }}</td>
+                                                <td>
+                                                (( worktimecount ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.work_overtime_count') }}</td>
+                                                <td>
+                                                (( overworktimecount ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4>
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bgWhite">{{ trans("label.approve_col") }}</div>
+                                    </div>
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.created_on') }}</td>
+                                                <td>
+                                                {{@$data->created_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.created_by') }}</td>
+                                                <td>
+                                                {{@$data->created_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.submited_on') }}</td>
+                                                <td>
+                                                {{@$data->submited_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.submited_by') }}</td>
+                                                <td>
+                                                {{@$data->submited_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.checked_on') }}</td>
+                                                <td>
+                                                {{@$data->checked_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.checked_by') }}</td>
+                                                <td>
+                                                {{@$data->checked_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.approved_on') }}</td>
+                                                <td>
+                                                {{@$data->approved_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.approved_by') }}</td>
+                                                <td>
+                                                {{@$data->approved_by_name}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -305,7 +325,7 @@
                                                 <td :class="item.classStyle  + ' '">
                                                 (( item.date ))<span v-if="item.offdaytitle"><span class="spaceLabel">(</span>(( item.offdaytitle ))<span>)</span></span>
                                                 </td>
-                                                <td>
+                                                <td class="textAlignCenter">
                                                     <span v-if="item.ws_type==1">{{ trans('label.work_day') }}</span>
                                                 </td>
                                                 <td class="textAlignCenter">
