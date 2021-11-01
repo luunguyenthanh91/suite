@@ -21,7 +21,7 @@
             <div style="font-size:24;"><b>{{ trans('label.worksheet2') }}</b></div>
         </div>
         <div style='text-align:right; width:100%;font-size:8pt;height:30px;margin-top:5px;'>
-        <u><span style="margin-right20px;">{{ trans('label.worksheet_id') }}：</span>{{$id}}</u>
+        <u><span style="margin-right20px;">{{ trans('label.worksheet_id') }}</span>{{$id}}</u>
         </div>
         <table style="width:100%;margin-top:-25px;">
             <tr>

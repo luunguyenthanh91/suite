@@ -1228,7 +1228,7 @@ class WSController extends Controller
     }
 
     public function CalculateTime2($times) {
-        if (sizeof($times)==0) return "0:0";
+        if (sizeof($times)==0) return "00:00";
 
         $i = 0;
         foreach ($times as $time) {
