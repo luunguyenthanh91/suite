@@ -782,7 +782,7 @@ class WSController extends Controller
         $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $month)->where('month', '>=', $firstMonth)->get();
         foreach ( $datalist as $data) {
             $sum_pay += $data->kihonkyu;
-            $sum_shakaihoken += $data->kenkouhoken + $data->koseinenkin + $data->koyohoken;
+            $sum_shakaihoken += $data->kenkouhoken + $data->koseinenkin;
             $sum_tax = $data->shotokuzei;
         }
 
