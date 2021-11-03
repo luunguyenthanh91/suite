@@ -172,7 +172,7 @@ return [
     'status4' => '通訳報酬支払い',
     'status5' => '営業報酬支払い',
     'status6' => 'クローズ',
-    'close2' => 'クローズ',
+    'close2' => '受領済み',
     'status7' => 'キャンセル',
     'all_off' => '全てOFF',
     'all_on' => '全てON',
