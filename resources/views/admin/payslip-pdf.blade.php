@@ -50,8 +50,13 @@
             <div class="circle" style="margin-top:5px;margin-left:5px;">
             {{$data->received_by_sign}}
             </div>
+            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
+            @else
+            <div class="circle" style="margin-top:5px;margin-left:5px;color:white">
+            {{$data->received_by_sign}}
+            </div>
+            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
             @endif
-            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>  
         </div>
         <table style="width:100%;margin-top:15px;">
             <tr>
