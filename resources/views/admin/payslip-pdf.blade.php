@@ -52,7 +52,7 @@
             </div>
             <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
             @else
-            <div class="circle" style="margin-top:5px;margin-left:5px;color:white">
+            <div class="circle2" style="margin-top:5px;margin-left:5px;">
             {{$data->received_by_sign}}
             </div>
             <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
@@ -347,6 +347,18 @@ body {
 .headerColor {
     background-color: #DDD
 }
+
+.circle2 {
+    width: 30px;
+    height: 30px;
+    line-height: 22px;
+    border-radius: 130%;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    /* background: red */
+    border:1px solid red;
+  }
 
 .circle {
     width: 30px;
