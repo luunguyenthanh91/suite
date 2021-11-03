@@ -778,7 +778,6 @@ class WSController extends Controller
         $payslip = Payslip::find($id);
         $employee = Admin::where('code' ,$payslip->user_id)->first();
         $user_id = $employee->id;
-
         
         $listdata = $this->getListWorkDaysItem($request, $payslip->user_id, $payslip->month);
         $data->daycount = $listdata['daycount'];
