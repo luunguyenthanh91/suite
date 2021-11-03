@@ -46,9 +46,9 @@
             </tr>
         </table>
         <div style="width:42px;height:42px;border:1px solid black;float:right;top:10;right:10;position:fixed">
-            @if ($data->received_by_name != "") 
+            @if ($data->received_by_sign != "") 
             <div class="circle" style="margin-top:5px;margin-left:5px;">
-            {{$data->received_by_name}}
+            {{$data->received_by_sign}}
             </div>
             @endif
             <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>  
