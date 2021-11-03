@@ -775,7 +775,6 @@ class WSController extends Controller
     public function payslippdf(Request $request, $id) {
         $data = Payslip::find($request->id);
 
-
         $payslip = Payslip::find($id);
         $employee = Admin::where('code' ,$payslip->user_id)->first();
         $user_id = $employee->id;
@@ -811,7 +810,7 @@ class WSController extends Controller
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
 
-        $file_name = $month."_".trans('label.payslip')."_".$employee_code."(".$employee_name.")";
+        $file_name = $data->month."_".trans('label.payslip')."_".$employee_code."(".$employee_name.")";
 
         $pdf = PDF::loadView('admin.payslip-pdf',
             compact('data', 'id','employee_depname','employee_code','employee_name'
