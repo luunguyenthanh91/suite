@@ -195,216 +195,6 @@ class WSController extends Controller
         }
     }
 
-    public function Payslippdf(Request $request, $id) {
-        $data = [];
-        $daycount = 0;
-        $worktimelist = [];
-        $overworktimelist = [];
-
-        $ws = Payslip::find($id);
-        $employee = Admin::where('code' ,$ws->user_id)->first();
-        $user_id = $employee->id;
-        $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
-        $workpartern_timecount = $workpartern->timecount;
-        $workpartern_type = $workpartern->type;
-        $workpartern_starttime = $workpartern->starttime;
-        $workpartern_endtime = $workpartern->endtime;
-        $breaktime = $workpartern->breaktime_count;
-        $off_hol = $workpartern->off_holiday;
-        $off_sat = $workpartern->off_sat;
-        $off_sun = $workpartern->off_sun;
-
-        $selMonth = $ws->month;
-        list($year, $month) = explode('-', $selMonth);
-
-        $days = $this->days_in_month($month, $year);
-        $week = [
-            '日', //0
-            '月', //1
-            '火', //2
-            '水', //3
-            '木', //4
-            '金', //5
-            '土', //6
-          ];
-        
-        for($i = 1; $i <=  $days; $i++)
-		{
-            $timestamp = mktime(0, 0, 0, $month, $i, $year);
-            $date = date('w', $timestamp);
-
-            $ws_type = 0;
-
-            $starttime = "";
-            $hour1 = "";
-            $min1 = "";
-            $sec1 = "";
-            $hour2 = "";
-            $min2 = "";
-            $sec2 = "";
-            $time_count = "";
-            $overtime_count = "";
-            $min_count = "";
-            $offDay_title = "";
-            $note = "";
-
-            $startdate = "";
-            $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
-            $offDay = NationalHoliday::where('start', $selDate)->first();
-            if ($offDay) {
-                $offDay_title = $offDay->title;
-            }
-
-            $classStyle = "status6";
-            if ($offDay) {
-                $classStyle = "status6Minus";
-            }
-
-            if ($workpartern_type == 1) {
-                if ($offDay && $off_hol==1) { }
-                else if ($off_sat==1 && $date==6) {}
-                else if ($off_sun==1 && $date==0) {}
-                else {
-                    $starttime = $workpartern_starttime;
-                    $startdate = $selDate;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    $daycount++;
-                }
-            } else {
-                $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
-                if ($historyLog) {
-                    $starttime = $historyLog->time;
-                    $startdate = $historyLog->date;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    if ($offDay) {
-                        $classStyle = "status2Minus";
-                    }
-                    $daycount++;
-                    $note = $historyLog->note;
-                }
-            }
-
-            $endtime = "";
-            $enddate = "";
-
-            if ($workpartern_type == 1) {
-                if ($offDay && $off_hol==1) {}
-                else if ($off_sat==1 && $date==6) {}
-                else if ($off_sun==1 && $date==0) {}
-                else {
-                    $endtime = $workpartern_endtime;
-                    $enddate = $selDate;
-                }
-            } else {
-                $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
-                if ($historyLog2) {
-                    $endtime = $historyLog2->time;
-                    $enddate = $historyLog->date;
-                }
-            }
-
-            if ($ws_type == 1) {
-                list($year1, $month1, $day1) = explode('-', $startdate);
-                list($hour1, $min1, $sec1) = explode(':', $starttime);
-                list($year2, $month2, $day2) = explode('-', $enddate);
-                list($hour2, $min2, $sec2) = explode(':', $endtime);
-
-                $d1 = date_create($startdate." ".$starttime);
-                $d2 = date_create($enddate." ".$endtime);
-                $diff_date = date_diff($d1, $d2);
-                if ($breaktime != "") {
-                    $time_count = $diff_date->h - intval($breaktime);
-                } else {
-                    $time_count = $diff_date->h;
-                }
-                $min_count = $diff_date->i;
-                $overtime_count = $time_count - $workpartern_timecount;
-                $worktimelist[] = $time_count.":".$min_count;
-            }
-            
-            $starttime = "";
-            if ($hour1) {
-                $starttime = $hour1.":".$min1;
-            }
-            $endtime = "";
-            if ($hour2) {
-                $endtime = $hour2.":".$min2;
-            }
-            $time_count_str = "";
-            if ($time_count) {
-                $time_count_str = $time_count.":".$min_count;
-            }
-
-            $overtime_count_str = "";
-            if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
-                $overtime_count_str = str_pad($overtime_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
-                $overworktimelist[] = $overtime_count.":".$min_count;
-            }
-            
-            $breaktime_str = "";
-            if ($ws_type == 1) {
-                $breaktime_str = $breaktime;
-            }
-            
-            $data[] = [
-                'year'=>$year,
-                'month'=>$month,
-                'day'=>$i,
-                'date'=>$week[$date],
-                'datenumber'=>$date,
-                'ws_type'=>$ws_type,
-                'starttime'=>$starttime,
-                'endtime'=>$endtime,
-                'time_count'=> $time_count_str,
-                'overtime_count'=> $overtime_count_str,
-                'classStyle' => $classStyle,
-                'offdaytitle' => $offDay_title,
-                'breaktime' => $breaktime_str,
-                'note' => $note,
-            ];
-		}
-       
-        list($selyear, $selmonth) = explode("-",$ws->month);
-        list($year, $month, $day) = explode("-",$ws->created_on);
-        
-        $employee_name = $employee->name;
-        $employee_code = $employee->code;
-
-        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-        $employee_depname = $bophan->name;
-
-        $submited_by_sign = "";
-        $submited_user = Admin::where('id' ,$ws->submited_by)->first();
-        if ($submited_user) {
-            $submited_by_sign = $submited_user->sign_name;
-        }
-
-        $checked_by_sign = "";
-        $checked_user = Admin::where('id' ,$ws->checked_by)->first();
-        if ($checked_user) {
-            $checked_by_sign = $checked_user->sign_name;
-        }
-
-        $approved_by_sign = "";
-        $approved_user = Admin::where('id' ,$ws->approved_by)->first();
-        if ($approved_user) {
-            $approved_by_sign = $approved_user->sign_name;
-        }
-
-        $file_name = trans('label.payslip')."_".$ws->month."_".$employee->name."(".$employee->code.")";
-        
-
-        $worktimecount = $this->CalculateTime2($worktimelist);
-        $overworktimecount = $this->CalculateTime2($overworktimelist);
-
-        $pdf = PDF::loadView('admin.payslip-pdf',
-            compact('data', 'submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
-
-        return $pdf->download($file_name.'.pdf');
-    }
-
     function deletePayslip(Request $request,$id) {
         $data = Payslip::find($id);
         $data->delete();
@@ -950,6 +740,50 @@ class WSController extends Controller
         ]);
     }
 
+    public function payslippdf(Request $request, $id) {
+        $data = Payslip::find($request->id);
+
+
+        $payslip = Payslip::find($id);
+        $employee = Admin::where('code' ,$payslip->user_id)->first();
+        $user_id = $employee->id;
+
+        
+        $listdata = $this->getListWorkDaysItem($request, $payslip->user_id, $payslip->month);
+        $data->daycount = $listdata['daycount'];
+        $data->worktimecount = $listdata['worktimecount'];
+        $data->overworktimecount = $listdata['overworktimecount'];
+
+        $employee_name = $employee->name;
+        $employee_code = $employee->code;
+
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $employee_depname = $bophan->name;
+
+        list($year, $month) = explode ("-",$payslip->month);
+        list($selyear, $selmonth, $seldate) = explode ("-",$payslip->pay_day);
+
+        // $submited_by_sign = "";
+        // $submited_user = Admin::where('id' ,$payslip->submited_by)->first();
+        // if ($submited_user) {
+        //     $submited_by_sign = $submited_user->sign_name;
+        // }
+        
+        $data->plus_zei_total = $data->kihonkyu;
+        $data->plus_nozei_total = $data->tsukin_teate;
+        $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
+        $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
+        $data->pay_total = $data->plus_total - $data->minus_total;
+
+        $file_name = $month."_".trans('label.payslip')."_".$employee_code."(".$employee_name.")";
+
+        $pdf = PDF::loadView('admin.payslip-pdf',
+            compact('data', 'id','employee_depname','employee_code','employee_name'
+            ,'selyear','selmonth','seldate', 'month', 'year'));
+
+        return $pdf->download($file_name.'.pdf');
+    }
+
     public function worksheetpdf(Request $request, $id) {
         $data = [];
         $daycount = 0;
@@ -959,6 +793,7 @@ class WSController extends Controller
         $ws = WorkSheet::find($id);
         $employee = Admin::where('code' ,$ws->user_id)->first();
         $user_id = $employee->id;
+
         $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
         $workpartern_timecount = $workpartern->timecount;
         $workpartern_type = $workpartern->type;

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>{{ trans('label.worksheet') }}</title>
+    <title>{{ trans('label.payslip') }}</title>
 </head>
 <div style='float:right;'>
     <div style='position: fixed; right:0;'>
@@ -16,140 +16,228 @@
 </div>
 <body>
     <div style="margin-top:10px;margin-bottom:10px; margin-left:10px;margin-right:10px;">
-        
-        <div style='text-align:center; vertical-align:middle; height:45px;width:100%;border-bottom:2px solid black'>
-            <div style="font-size:24;"><b>{{ trans('label.worksheet2') }}</b></div>
-        </div>
-        <div style='text-align:right; width:100%;font-size:8pt;height:30px;margin-top:5px;'>
-        <u><span style="margin-right20px;">{{ trans('label.created_on') }}：</span>{{$year}} {{ trans('label.year') }} {{$month}} {{ trans('label.month') }} {{$day}} {{ trans('label.date') }}</u>
-        </div>
-        <table style="width:100%;margin-top:-25px;">
+        <table style="width:100%;">
             <tr>
                 <td style="text-align:left;">
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:0px;'>
-                    {{ trans('label.dep') }}: <b>{{$employee_depname}}</b>
-                    </div>
-
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:5px;'>
-                    {{ trans('label.employee_code') }}: <b>{{$employee_code}}</b>
-                    </div>
-
-                    <div class="fontweight" style='font-size:14px;text-align:left; height:19px; width:250px; border-bottom:1px solid black;margin-top:5px;'>
-                    {{ trans('label.user_name') }}: <b>{{$employee_name}}</b>
-                    </div>
-                    <div class="fontweight" style='text-align:left; height:19px; width:200px;margin-top:10px;'>
-                    <span style="background-color:#FF8F22;color:white;font-weight: bold;">{{$selyear}} {{ trans('label.year') }} {{$selmonth}} {{ trans('label.month2') }}</span>
+                    <div style="border:0.1px solid black;width:400px;">
+                        <div style="margin-left:20px;padding:10px;">
+                            <center>
+                                <label style="font-size:18px;">{{ $year }}{{ trans('label.year') }}{{ $month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><br>
+                                {{ trans('label.myname') }}
+                            </center>
+                            <table style="border:0px;font-size:12px;">
+                                <tr>
+                                    <td>{{ trans('label.dep') }}</td>
+                                    <td><div style="margin-left:10px;">{{ $employee_depname }}</div></td>
+                                </tr>
+                                <tr>
+                                    <td>{{ trans('label.user_name') }}</td>
+                                    <td><div style="margin-left:10px;">({{ $employee_code }}) {{ $employee_name }} {{ trans('label.sama') }}</div></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </td>
-                <td style="width:150px;">
-                    <table id="customers3" style="margin-top:20px !important;"> 
-                        <tr>
-                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.submit') }}</td>
-                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.check') }}</td>
-                            <td class="headerColor" style="border:1px solid #000;text-align:center;font-size:10.5">{{ trans('label.approve') }}</td>
-                        </tr>
-                        <tr>
-                            <td style="height:40px;border:1px solid #000">
-                            @if ($submited_by_sign != "") 
-                            <div class="circle">{{$submited_by_sign}}</div>
-                            @endif
-                            </td>
-                            <td style="height:40px;border:1px solid #000">
-                            @if ($checked_by_sign != "") 
-                            <div class="circle">{{$checked_by_sign}}</div>
-                            @endif
-                            </td>
-                            <td style="height:40px;border:1px solid #000">
-                            @if ($approved_by_sign != "") 
-                            <div class="circle">{{$approved_by_sign}}</div>
-                            @endif
-                            </td>
-                        </tr>
-                    </table>
+                <td style="vertical-align:bottom;width:250px;text-align:right"> 
+                    <div style='text-align:center;border-bottom:1px solid black'>
+                    {{ trans('label.pay_day') }}<label style="margin-left:20px;">{{ $selyear }}{{ trans('label.year') }}{{ $selmonth }}{{ trans('label.month') }}{{ $seldate }}{{ trans('label.date') }}</label>
+                    </div>
                 </td>
             </tr>
         </table>
-        <table style='width:100%;border-collapse:collapse;margin-top:5px;font-size:10.5'>
-            <tr>
-                <td class="headerColor border-all title_form">{{ trans('label.datetime') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.day') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.ws_type') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.time_start') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.time_end') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.breaktime2') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.time_count') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.overtime_count2') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.note') }}</td>
-            </tr>
-            @foreach($data as $item)
-            <tr>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['day'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                @if ($item['datenumber'] == 0 || $item['datenumber'] == 6) 
-                    <span style="color:gray">{{ $item['date'] }}</span>
-                @elseif ($item['offdaytitle'] != "")
-                    <span style="color:red">{{ $item['date'] }}(祝)</span>
-                @else
-                    {{ $item['date'] }}
-                @endif
-                
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                @if ($item['ws_type'] == 1)
-                {{ trans('label.work_day') }}
-                @endif 
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['starttime'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['endtime'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['breaktime'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['time_count'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['overtime_count'] }}
-                </td>
-                <td class="border-all data_form"  style="vertical-align:top">
-                {{ $item['note'] }}
-                </td>
-            </tr>
-            @endforeach    
-        </table>
-        <table style="width:100%;;margin-top:5px;">
+        <div style="width:42px;height:42px;border:1px solid black;float:right;top:10;right:10;position:fixed">
+            <div class="circle" style="margin-top:5px;margin-left:5px;">
+            </div>
+            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>  
+        </div>
+        <table style="width:100%;margin-top:15px;">
             <tr>
                 <td>
-                    <div class="fontweight" style='text-align:left; height:60px;padding:5px;margin-right:5px;border:1px solid black;vertical-align:top;'>
-                        <u>{{ trans('label.note') }}:</u>
-                    </div>
-                </td>
-                <td style="width:200px;">
-                    <table id="customers3" style="width:200px;"> 
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #9AFEFF;'>
                         <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_day_count') }}</td>
-                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
-                            {{ $daycount }}
+                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#CCFFFF;border-color:1px solid #9AFEFF;">{{ trans('label.ws') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="height:500px;vertical-align:top;">
+                                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    <tr>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF">{{ trans('label.work_day_count') }}</td>
+                                        <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->daycount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.work_time_count') }}</td>
+                                        <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->worktimecount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
+                                        <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->overworktimecount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count_night') }}</td>
+                                        <td class="border-all2"  style="vertical-align:middle;text-align:center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.holiday_time_count') }}</td>
+                                        <td class="border-all2"  style="vertical-align:middle;text-align:center"></td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                         <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_time_count') }}</td>
-                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
-                            {{ $worktimecount }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="headerColor" style="border:1px solid #000;font-size:10.5">{{ trans('label.work_overtime_count') }}</td>
-                            <td style="width:100%;border:1px solid #000;text-align:center;;font-size:10.5">
-                            {{ $overworktimecount }}
+                            <td style="height:30px;border-color:1px solid transparent;">
+                                
                             </td>
                         </tr>
                     </table>
+                </td>
+                <td>
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #FFFACD;'>
+                        <tr>
+                            <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#FFFFCC;">{{ trans('label.plus') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="border-all3" style="height:500px;vertical-align:top;">
+                                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA">{{ trans('label.time_money') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->jikyu) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.kihonkyu') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kihonkyu) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.zangyou_teate') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.holiday_teate') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.night_teate') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.tsukin_teate') }}</td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->tsukin_teate) }} 円</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-all3 title_form" style="height:28px;vertical-align:middle;text-align:center;">
+                                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    <tr>
+                                        <td class="headerColor border-all31 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FFFFCC;">
+                                        {{ trans('label.total_plus') }}
+                                        </td>
+                                        <td class="border-all31 title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
+                                        {{ number_format($data->plus_total) }} 円
+                                        </td>
+                                    </tr>
+                                </table> 
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #FFFACD;'>
+                        <tr>
+                            <td class="headerColor border-all4 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#F9B7FF;">{{ trans('label.minus') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="border-all4" style="height:500px;vertical-align:top;">
+                                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF">{{ trans('label.kenkouhoken') }}</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kenkouhoken) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.koseinenkin') }}</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->koseinenkin) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.koyohoken') }}</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->koyohoken) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.shotokuzei') }}</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->shotokuzei) }} 円</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.juminzei') }}</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->juminzei) }} 円</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-all4 title_form" style="height:28px;vertical-align:middle;text-align:center;">
+                                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    <tr>
+                                        <td class="headerColor border-all41 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#F9B7FF;">
+                                        {{ trans('label.total_minus') }}
+                                        </td>
+                                        <td class="border-all41 title_form" style="height:26px;vertical-align:middle;text-align:center;;padding-right:10px;">
+                                        {{ number_format($data->minus_total) }} 円
+                                        </td>
+                                    </tr>
+                                </table> 
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:100%;margin:2px;border-collapse:collapse;height:40px;border:1px solid #d38956">
+            <tr>
+                <td style="height:50px;width:453px;vertical-align:middle;text-align:center;background:#DBA077;">
+                    <span style="padding:5px;">{{ trans('label.pay_total') }}</span>
+                </td>
+                <td style="text-align:center">
+                {{ number_format($data->pay_total) }} 円
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:100%;margin-top:10px;">
+            <tr>
+                <td>
+                    <div class="fontweight" style='text-align:left; height:60px;padding:5px;border:0.1px solid black;vertical-align:top;'>
+                        <u>{{ trans('label.note') }}:</u><br>
+                        {!! nl2br( $data->note) !!}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;text-align:right;font-size:10.5px;">
+        {{ trans('label.payslip_msg') }}
+        </div>
+
+        <div style='text-align:center; vertical-align:middle; margin-top:20px;height:1px;width:100%;border-bottom:1px dotted black'>
+        </div>
+        <table style="width:100%;margin-top:30px;border-collapse:collapse;border:1px solid #CCC">
+            <tr>
+                <td style="text-align:center;background:#DDD;border:1px solid #CCC;;height:25px;">
+                {{ trans('label.pay_total1') }}
+                </td>
+                <td style="text-align:center;background:#DDD;border:1px solid #CCC;;height:25px;">
+                {{ trans('label.pay_total4') }}
+                </td>
+                <td style="text-align:center;background:#DDD;border:1px solid #CCC;height:25px;">
+                {{ trans('label.pay_total3') }}
+                </td>
+            </tr><tr>
+                <td style="border:1px solid #CCC;height:30px;">
+                
+                </td>
+                <td style="border:1px solid #CCC;height:30px;">
+                
+                </td>
+                <td style="border:1px solid #CCC;height:30px;">
+                
                 </td>
             </tr>
         </table>
@@ -219,10 +307,26 @@ body {
     text-align: center;
 }
 .border-all {
-    border: 1px solid #000 !important;
+    border: 1px solid #CCC !important;
+}
+.border-all2 {
+    border: 1px solid #7DFDFE !important;
+}
+
+.border-all3{
+    border: 1px solid #FFDF00 !important;
+}
+.border-all31{
+    border: 1px solid #FFF380 !important;
+}
+.border-all4{
+    border: 1px solid #E238EC !important;
+}
+.border-all41{
+    border: 1px solid #F2A2E8 !important;
 }
 .title_form{
-    text-align: center;
+    /* text-align: center; */
     /* background: #363cda;
     color: #fff; */
     font-weight: bold;
@@ -231,7 +335,7 @@ body {
     height : 80px;
 }
 .headerColor {
-    background-color: #FFFFF0
+    background-color: #DDD
 }
 
 .circle {
