@@ -357,7 +357,7 @@ body {
     color: white;
     text-align: center;
     /* background: red */
-    border:1px solid red;
+    border:1px solid white;
   }
 
 .circle {
