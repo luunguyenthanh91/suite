@@ -46,8 +46,10 @@
             </tr>
         </table>
         <div style="width:42px;height:42px;border:1px solid black;float:right;top:10;right:10;position:fixed">
+            @if ($data->received_by_name != "") 
             <div class="circle" style="margin-top:5px;margin-left:5px;">
             </div>
+            @endif
             <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>  
         </div>
         <table style="width:100%;margin-top:15px;">

@@ -42,11 +42,12 @@
                             </div>
                     </div>
                     <div class="col-lg-auto">
-                        <table class="signTable">
+                        <table class="signTable" style="width:270px;">
                             <tr>
                                 <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
+                                <td class="signTableThApprover">{{ trans('label.paid_sign') }}</td>
                             </tr>    
                             <tr>
                                 <td class="signTableDate approveDateGroup">
@@ -57,6 +58,9 @@
                                 </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->approved_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->received_on}}
                                 </td>
                             </tr> 
                             <tr>
@@ -79,6 +83,14 @@
                                     </a> 
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
                                         <div class="circle">{{@$data->approved_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteReceive('{{$id}}')" v-if="'{{@$data->received_on}}' == ''">
+                                    {{ trans('label.paid_sign') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->received_on}}' != ''">
+                                        <div class="circle">{{@$data->received_by_sign}}</div>
                                     </div>
                                 </td>
                             </tr>     
@@ -139,6 +151,9 @@
                                                     @endif
                                                     @if ( @$data->status == 3 )
                                                         <span>{{ trans('label.ws_status4') }}</span>
+                                                    @endif
+                                                    @if ( @$data->status == 4 )
+                                                        <span>{{ trans('label.close2') }}</span>
                                                     @endif
                                                 </td>
                                             </tr> 
@@ -1235,6 +1250,43 @@ new Vue({
                     success: function(res) {
                         Swal.fire({
                             title: "承認の処理が終わりました。"
+                        });
+                        location.href = "/admin/payslip-view/" + _i;
+                    },
+                    error: function(xhr, textStatus, error) {
+                        Swal.fire({
+                            title: "エラーが発生しました!",
+                            type: "warning",
+                        });
+                    }
+                });
+            })
+        },
+        promoteReceive(_i) {
+            const that = this;
+            Swal.fire({
+                title: "\受領済みでよろしいでしょうか？",
+                // text: "\案件入力のチェックが終わりましたか？",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "はい",
+                cancelButtonText: "いいえ",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then(function(t) {
+                if (t.dismiss == "cancel") {
+                    return;
+                }
+                that.loadingTable = 1;
+                $.ajax({
+                    url: "/admin/payslipreceive/" + _i,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        Swal.fire({
+                            title: "受領の処理が終わりました。"
                         });
                         location.href = "/admin/payslip-view/" + _i;
                     },

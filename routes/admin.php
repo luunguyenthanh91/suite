@@ -103,6 +103,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('payslipcheck/{id}', 'WSController@payslipcheck')->name('admin.payslipcheck');
     Route::get('payslipapprove/{id}', 'WSController@payslipapprove')->name('admin.payslipapprove');
     Route::post('payslipapprove/{id}', 'WSController@payslipapprove')->name('admin.payslipapprove');
+    Route::get('payslipreceive/{id}', 'WSController@payslipreceive')->name('admin.payslipreceive');
+    Route::post('payslipreceive/{id}', 'WSController@payslipreceive')->name('admin.payslipreceive');
     Route::get('payslip-pdf/{id}', 'WSController@payslippdf');
 
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');

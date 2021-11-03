@@ -96,7 +96,11 @@
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="checkbox" id="3" value="3" v-model="checkedNames">
-                                <label class="status6" for="3">{{ trans('label.ws_status4') }}</label>
+                                <label class="status5" for="3">{{ trans('label.ws_status4') }}</label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="checkbox" id="4" value="4" v-model="checkedNames">
+                                <label class="status6" for="4">{{ trans('label.close2') }}</label>
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
@@ -253,7 +257,10 @@
                                         <label class="labelFontSize10 status4" for="cancel">{{ trans('label.ws_status3') }}</label>
                                     
                                         <input class="checkboxHor" type="checkbox" id="approved" value="3" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status6" for="approved">{{ trans('label.ws_status4') }}</label>
+                                        <label class="labelFontSize10 status5" for="approved">{{ trans('label.ws_status4') }}</label>
+
+                                        <input class="checkboxHor" type="checkbox" id="received" value="4" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                        <label class="labelFontSize10 status6" for="received">{{ trans('label.close2') }}</label>
                                     </div>
                                     <div class="d-flex rightGridMenu">
                                         <div class="gridControl2">
@@ -564,7 +571,7 @@ new Vue({
         approved_on_to: '',
 		approved_on_month: '',
 
-        checkedNames: [0,1,2,3],
+        checkedNames: [0,1,2,3,4],
         month: '',
         month_from: '',
         month_to: '',
@@ -588,7 +595,7 @@ new Vue({
         ctv_pd: '',
         ctv_sale: '',
         codeJobs: '{{ Request::get("keyword") }}',
-		checkedTypes: [1,2,3],
+		checkedTypes: [1,2,3,4],
         checkedCTVSex: [1,2],
         sortName: '',
         sortType:"DESC",
@@ -838,7 +845,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,1,2,3];
+            this.checkedNames = [0,1,2,3,4];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -886,7 +893,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,1,2,3];
+            this.checkedNames = [0,1,2,3,4];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -933,7 +940,7 @@ new Vue({
 		},
 		setSearchStatus() {
 			this.page = 1;
-            this.checkedNames = [0,1,2,3];
+            this.checkedNames = [0,1,2,3,4];
 		},
 		clearSearchTypeJob() {
 			this.page = 1;

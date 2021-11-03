@@ -195,6 +195,32 @@ class WSController extends Controller
         }
     }
 
+    function payslipreceive(Request $request,$id) {
+        try {
+            $data = Payslip::find($request->id);
+            if ($data) {
+                $data->received_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->received_on = date('Y-m-d');
+                $data->status = 4;
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    }
+
     function deletePayslip(Request $request,$id) {
         $data = Payslip::find($id);
         $data->delete();
@@ -237,6 +263,12 @@ class WSController extends Controller
         if ($approved_user) {
             $data->approved_by_name = $approved_user->name;
             $data->approved_by_sign = $approved_user->sign_name;
+        }
+
+        $received_user = Admin::where('id' ,$data->received_by)->first();
+        if ($received_user) {
+            $data->received_by_name = $received_user->name;
+            $data->received_by_sign = $received_user->sign_name;
         }
 
         return view('admin.payslip-view', compact(['data' , 'id']));
@@ -760,15 +792,19 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $employee_depname = $bophan->name;
 
+        $payslip_partern = $employee->payslip_partern;
+        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $data->jikyu = $pay_partern->jikyu;
+
         list($year, $month) = explode ("-",$payslip->month);
         list($selyear, $selmonth, $seldate) = explode ("-",$payslip->pay_day);
 
-        // $submited_by_sign = "";
-        // $submited_user = Admin::where('id' ,$payslip->submited_by)->first();
-        // if ($submited_user) {
-        //     $submited_by_sign = $submited_user->sign_name;
-        // }
-        
+        $received_user = Admin::where('id' ,$data->received_by)->first();
+        if ($received_user) {
+            $data->received_by_name = $received_user->name;
+            $data->received_by_sign = $received_user->sign_name;
+        }
+
         $data->plus_zei_total = $data->kihonkyu;
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
