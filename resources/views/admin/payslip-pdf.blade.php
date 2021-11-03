@@ -101,10 +101,12 @@
                         <tr>
                             <td class="border-all3" style="height:500px;vertical-align:top;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
+                                    @if ($data->jikyu != "") 
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA">{{ trans('label.time_money') }}</td>
                                         <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->jikyu) }} 円</td>
                                     </tr>
+                                    @endif
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.kihonkyu') }}</td>
                                         <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kihonkyu) }} 円</td>
@@ -233,14 +235,14 @@
                 {{ trans('label.pay_total3') }}
                 </td>
             </tr><tr>
-                <td style="border:1px solid #CCC;height:30px;">
-                
+                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                {{ number_format($data->sum_pay) }} 円
                 </td>
-                <td style="border:1px solid #CCC;height:30px;">
-                
+                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                {{ number_format($data->sum_shakaihoken) }} 円
                 </td>
-                <td style="border:1px solid #CCC;height:30px;">
-                
+                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                {{ number_format($data->sum_tax) }} 円
                 </td>
             </tr>
         </table>

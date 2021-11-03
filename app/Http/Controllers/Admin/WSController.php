@@ -772,6 +772,27 @@ class WSController extends Controller
         ]);
     }
 
+    function getSumPayslip(Request $request, $user_code, $month) {
+        $sum_pay = 0;
+        $sum_shakaihoken = 0;
+        $sum_tax = 0;
+
+        list($selYear, $selMonth) = explode ("-", $month);
+        $firstMonth = $selYear."-01";
+        $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $month)->where('month', '>=', $firstMonth)->get();
+        foreach ( $datalist as $data) {
+            $sum_pay += $data->kihonkyu;
+            $sum_shakaihoken += $data->kenkouhoken + $data->koseinenkin + $data->koyohoken;
+            $sum_tax = $data->shotokuzei;
+        }
+
+        return [
+            'sum_pay' => $sum_pay,
+            'sum_shakaihoken' => $sum_shakaihoken,
+            'sum_tax' => $sum_tax,
+        ];
+    }
+
     public function payslippdf(Request $request, $id) {
         $data = Payslip::find($request->id);
 
@@ -808,6 +829,11 @@ class WSController extends Controller
         $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
+
+        $sumPayslip = $this->getSumPayslip($request, $payslip->user_id, $payslip->month);
+        $data->sum_pay  = $sumPayslip['sum_pay'];
+        $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
+        $data->sum_tax  = $sumPayslip['sum_tax'];
 
         $file_name = $data->month."_".trans('label.payslip')."_".$employee_code."(".$employee_name.")";
 
