@@ -242,6 +242,24 @@
                         <div class="tab-pane" id="detailtab3">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.pay_day') }}</td>
+                                                <td>
+                                                {{@$data->pay_day}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->pay_total}}) ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
                                     </div>
@@ -293,21 +311,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>{{ trans('label.plus_zei_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->plus_zei_total}}) ))
@@ -317,21 +320,6 @@
                                                 <td>{{ trans('label.plus_nozei_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->plus_nozei_total}}) ))
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
                                                 </td>
                                             </tr>
                                             <tr>                                                
@@ -379,101 +367,10 @@
                                                 (( parseMoney({{@$data->juminzei}}) ))
                                                 </td>
                                             </tr>
-                                            
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                </td>
-                                            </tr>
                                             <tr>
                                                 <td>{{ trans('label.minus_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->minus_total}}) ))
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
-                                            
-                                        <tr>
-                                                <td>{{ trans('label.pay_day') }}</td>
-                                                <td>
-                                                {{@$data->pay_day}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.pay_total') }}</td>
-                                                <td>
-                                                (( parseMoney({{@$data->pay_total}}) ))
                                                 </td>
                                             </tr>
                                         </table>

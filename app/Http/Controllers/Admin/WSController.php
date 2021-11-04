@@ -210,8 +210,8 @@ class WSController extends Controller
         return response()->json([]);
     }
 
-    function viewPayslip(Request $request,$id) {
-        $data = Payslip::find($request->id);
+    function getPayslip($id) {
+        $data = Payslip::find($id);
 
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
@@ -225,7 +225,7 @@ class WSController extends Controller
         $data->holiday_teate = 0;
         $data->night_teate = 0;
         if ($data->jikyu != "") {
-            $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+            $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
             list($work_h, $work_m) = explode(":", $worktimecount);
             $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
@@ -280,6 +280,24 @@ class WSController extends Controller
             $data->received_by_sign = $received_user->sign_name;
         }
 
+        $data->classStyle = "";
+        if ($data->status == 0) {
+            $data->classStyle = "status2";
+        } else if ($data->status == 1) {
+            $data->classStyle = "status3";
+        } else if ($data->status == 2) {
+            $data->classStyle = "status4";
+        } else if ($data->status == 3) {
+            $data->classStyle = "status5";
+        } else if ($data->status == 4) {
+            $data->classStyle = "status6";
+        }
+
+        return $data;
+    }
+
+    function viewPayslip(Request $request,$id) {
+        $data = $this->getPayslip($id);
         return view('admin.payslip-view', compact(['data' , 'id']));
     }
 
@@ -362,52 +380,60 @@ class WSController extends Controller
         $pageTotal = ceil($countPage/$showCount);
 
         foreach ($data as &$item) {
-            $user_code = $item->user_id;
-            $month = $item->month;
+            $item = $this->getPayslip($item->id);
+            // $item->classStyle = "";
+            // if ($item->status == 0) {
+            //     $item->classStyle = "status2";
+            // } else if ($item->status == 1) {
+            //     $item->classStyle = "status3";
+            // } else if ($item->status == 2) {
+            //     $item->classStyle = "status4";
+            // } else if ($item->status == 3) {
+            //     $item->classStyle = "status5";
+            // } else if ($item->status == 4) {
+            //     $item->classStyle = "status6";
+            // }
 
-            $item->classStyle = "";
-            if ($item->status == 0) {
-                $item->classStyle = "status2";
-            } else if ($item->status == 1) {
-                $item->classStyle = "status3";
-            } else if ($item->status == 2) {
-                $item->classStyle = "status4";
-            } else if ($item->status == 3) {
-                $item->classStyle = "status5";
-            } else if ($item->status == 4) {
-                $item->classStyle = "status6";
-            }
+            // $user_code = $item->user_id;
+            // $month = $item->month;
 
-            $employee = Admin::where('code' ,$user_code)->first();
-            $item->employee_name = $employee->name;
-            $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-            $item->employee_depname = $bophan->name;
+            
 
-            $listdata = $this->getListWorkDaysItem($request, $user_code, $month);
+            // $employee = Admin::where('code' ,$user_code)->first();
+            // $item->employee_name = $employee->name;
+            // $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+            // $item->employee_depname = $bophan->name;
 
-            $item->daycount = $listdata['daycount'];
-            $item->worktimecount = $listdata['worktimecount'];
-            $item->overworktimecount = $listdata['overworktimecount'];
+            // $listdata = $this->getListWorkDaysItem($user_code, $month);
 
-            $created_user = Admin::where('id' ,$item->created_by)->first();
-            if ($created_user) {
-                $item->created_by_name = $created_user->name;
-            }
+            // $item->daycount = $listdata['daycount'];
+            // $item->worktimecount = $listdata['worktimecount'];
+            // $item->overworktimecount = $listdata['overworktimecount'];
 
-            $submited_user = Admin::where('id' ,$item->submited_by)->first();
-            if ($submited_user) {
-                $item->submited_by_name = $submited_user->name;
-            }
+            // $created_user = Admin::where('id' ,$item->created_by)->first();
+            // if ($created_user) {
+            //     $item->created_by_name = $created_user->name;
+            // }
 
-            $checked_user = Admin::where('id' ,$item->checked_by)->first();
-            if ($checked_user) {
-                $item->checked_by_name = $checked_user->name;
-            }
+            // $submited_user = Admin::where('id' ,$item->submited_by)->first();
+            // if ($submited_user) {
+            //     $item->submited_by_name = $submited_user->name;
+            // }
 
-            $approved_user = Admin::where('id' ,$item->approved_by)->first();
-            if ($approved_user) {
-                $item->approved_by_name = $approved_user->name;
-            }
+            // $checked_user = Admin::where('id' ,$item->checked_by)->first();
+            // if ($checked_user) {
+            //     $item->checked_by_name = $checked_user->name;
+            // }
+
+            // $approved_user = Admin::where('id' ,$item->approved_by)->first();
+            // if ($approved_user) {
+            //     $item->approved_by_name = $approved_user->name;
+            // }
+
+            // $received_user = Admin::where('id' ,$item->received_by)->first();
+            // if ($received_user) {
+            //     $item->received_by_name = $received_user->name;
+            // }
         }
 
         return response()->json([
@@ -578,7 +604,7 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDaysItem(Request $request, $user_code, $selMonth) {
+    function getListWorkDaysItem($user_code, $selMonth) {
         $data = [];
         $daycount = 0;
         $worktimelist = [];
@@ -764,7 +790,7 @@ class WSController extends Controller
     }
 
     function getListWorkDays(Request $request) {
-        $listdata = $this->getListWorkDaysItem($request, $request->user_id, $request->month);
+        $listdata = $this->getListWorkDaysItem($request->user_id, $request->month);
 
         $data = $listdata['data'];
         $count = $listdata['count'];
@@ -797,7 +823,7 @@ class WSController extends Controller
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
             if ($data->jikyu != "") {
-                $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+                $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
                 $worktimecount = $listdata['worktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
                 $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
@@ -828,7 +854,7 @@ class WSController extends Controller
         $employee = Admin::where('code' ,$payslip->user_id)->first();
         $user_id = $employee->id;
         
-        $listdata = $this->getListWorkDaysItem($request, $payslip->user_id, $payslip->month);
+        $listdata = $this->getListWorkDaysItem($payslip->user_id, $payslip->month);
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
         $data->overworktimecount = $listdata['overworktimecount'];
@@ -846,7 +872,7 @@ class WSController extends Controller
         $data->holiday_teate = 0;
         $data->night_teate = 0;
         if ($data->jikyu != "") {
-            $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+            $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
             list($work_h, $work_m) = explode(":", $worktimecount);
             $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
@@ -1287,7 +1313,7 @@ class WSController extends Controller
             $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
             $item->employee_depname = $bophan->name;
 
-            $listdata = $this->getListWorkDaysItem($request, $user_code, $month);
+            $listdata = $this->getListWorkDaysItem($user_code, $month);
 
             $item->daycount = $listdata['daycount'];
             $item->worktimecount = $listdata['worktimecount'];

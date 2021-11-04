@@ -302,6 +302,12 @@
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('pay_day')">
+                                                        <div v-bind:class="[sortBy === 'pay_day' ? sortDirection : '']">{{ trans('label.pay_day') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('pay_total')">
+                                                        <div v-bind:class="[sortBy === 'pay_total' ? sortDirection : '']">{{ trans('label.pay_total') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('created_on')">
                                                         <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
                                                     </th>
@@ -350,6 +356,12 @@
                                                     <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
                                                     <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
+                                                    </td>
+                                                    <td>
+                                                    ((item.pay_day)) 
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.pay_total) ))
                                                     </td>
                                                     <td>
                                                     ((item.created_on)) 
