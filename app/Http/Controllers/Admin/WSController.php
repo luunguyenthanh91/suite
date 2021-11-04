@@ -45,7 +45,7 @@ class WSController extends Controller
 
             $employee = Admin::where('code' ,$data->user_id)->first();
             $data->payslip_partern = $employee->payslip_partern;
-            
+
             $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
             $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
@@ -218,8 +218,7 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
 
-        $payslip_partern = $employee->payslip_partern;
-        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
         $data->kihonkyu = $pay_partern->kihonkyu;
         $data->jikyu = $pay_partern->jikyu;
         $data->zangyou_teate = 0;
@@ -789,14 +788,11 @@ class WSController extends Controller
         $sum_shakaihoken = 0;
         $sum_tax = 0;
 
-        $employee = Admin::where('code' , $user_code)->first();
-        $payslip_partern = $employee->payslip_partern;
-        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
-
         list($selYear, $selMonth) = explode ("-", $month);
         $firstMonth = $selYear."-01";
         $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $month)->where('month', '>=', $firstMonth)->get();
         foreach ( $datalist as $data) {
+            $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
             $data->kihonkyu = $pay_partern->kihonkyu;
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
@@ -843,8 +839,7 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $employee_depname = $bophan->name;
 
-        $payslip_partern = $employee->payslip_partern;
-        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
         $data->kihonkyu = $pay_partern->kihonkyu;
         $data->jikyu = $pay_partern->jikyu;
         $data->zangyou_teate = 0;
