@@ -906,6 +906,7 @@ class WSController extends Controller
         $ws = WorkSheet::find($id);
         $employee = Admin::where('code' ,$ws->user_id)->first();
         $user_id = $employee->id;
+        $note = $ws->note;
 
         $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
         $workpartern_timecount = $workpartern->timecount;
@@ -1103,7 +1104,7 @@ class WSController extends Controller
         $overworktimecount = $this->CalculateTime2($overworktimelist);
 
         $pdf = PDF::loadView('admin.worksheet-pdf',
-            compact('data', 'id','submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
+            compact('data', 'note', 'id','submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
 
         return $pdf->download($file_name.'.pdf');
     }
