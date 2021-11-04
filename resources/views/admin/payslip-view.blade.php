@@ -287,18 +287,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>{{ trans('label.holiday_teate') }}</td>
-                                                <td>
-                                                (( parseMoney({{@$data->holiday_teate}}) ))
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.night_teate') }}</td>
-                                                <td>
-                                                (( parseMoney({{@$data->night_teate}}) ))
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>{{ trans('label.tsukin_teate') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->tsukin_teate}}) ))

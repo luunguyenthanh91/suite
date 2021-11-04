@@ -80,14 +80,6 @@
                                         <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->overworktimecount }}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count_night') }}</td>
-                                        <td class="border-all2"  style="vertical-align:middle;text-align:center"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #9AFEFF;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.holiday_time_count') }}</td>
-                                        <td class="border-all2"  style="vertical-align:middle;text-align:center"></td>
-                                    </tr>
                                 </table>
                             </td>
                         </tr>
@@ -118,15 +110,7 @@
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.zangyou_teate') }}</td>
-                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.holiday_teate') }}</td>
-                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.night_teate') }}</td>
-                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;"></td>
+                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->zangyou_teate) }} 円</td>
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFFFEA;">{{ trans('label.tsukin_teate') }}</td>
@@ -169,7 +153,13 @@
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.koyohoken') }}</td>
-                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->koyohoken) }} 円</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">
+                                        @if ($data->koyohoken != "") 
+                                        {{ number_format($data->koyohoken) }} 円
+                                        @else 
+                                        -
+                                        @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.shotokuzei') }}</td>
@@ -177,7 +167,13 @@
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.juminzei') }}</td>
-                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->juminzei) }} 円</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">
+                                        @if ($data->juminzei != "") 
+                                        {{ number_format($data->juminzei) }} 円
+                                        @else 
+                                        -
+                                        @endif
+                                        </td>
                                     </tr>
                                 </table>
                             </td>
