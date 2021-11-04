@@ -872,17 +872,22 @@ class WSController extends Controller
             $data->received_by_sign = $received_user->sign_name;
         }
 
+        $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
+        $data->plus_nozei_total = $data->tsukin_teate;
+        $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
+
+        
+
         $data->koyohoken = $pay_partern->koyohoken;
         if ($data->jikyu != "") {
             $koyouhoken_rate = $pay_partern->koyouhoken_rate;
             $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
         }
 
-        $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
-        $data->plus_nozei_total = $data->tsukin_teate;
-        $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
+
+        
 
         $sumPayslip = $this->getSumPayslip($request, $payslip->user_id, $payslip->month);
         $data->sum_pay  = $sumPayslip['sum_pay'];
