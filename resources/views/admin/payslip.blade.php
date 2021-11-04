@@ -302,6 +302,21 @@
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
+                                                    <th scope="col" @click="sort('work_day_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_day_count' ? sortDirection : '']">{{ trans('label.work_day_count') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('work_time_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_time_count' ? sortDirection : '']">{{ trans('label.work_time_count') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('work_overtime_count')" >
+                                                        <div v-bind:class="[sortBy === 'work_overtime_count' ? sortDirection : '']">{{ trans('label.work_overtime_count') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('minus_total')">
+                                                        <div v-bind:class="[sortBy === 'minus_total' ? sortDirection : '']">{{ trans('label.minus_total') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('plus_total')">
+                                                        <div v-bind:class="[sortBy === 'plus_total' ? sortDirection : '']">{{ trans('label.plus_total') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('pay_day')">
                                                         <div v-bind:class="[sortBy === 'pay_day' ? sortDirection : '']">{{ trans('label.pay_day') }}</div>
                                                     </th>
@@ -363,6 +378,21 @@
                                                     <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>    
                                                     <span v-if="item.status==4">{{ trans('label.ws_status5') }}</span>   
+                                                    </td>
+                                                    <td>
+                                                    ((item.daycount)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.worktimecount)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.overworktimecount)) 
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.plus_total) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.minus_total) ))
                                                     </td>
                                                     <td>
                                                     ((item.pay_day)) 
