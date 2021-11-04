@@ -249,7 +249,7 @@ class WSController extends Controller
         $data->koyohoken = $pay_partern->koyohoken;
         if ($data->jikyu != "") {
             $koyouhoken_rate = $pay_partern->koyouhoken_rate;
-            $data->koyohoken = round($data->kihonkyu*$koyouhoken_rate/100);
+            $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
         }
 
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
@@ -877,7 +877,7 @@ class WSController extends Controller
         $data->koyohoken = $pay_partern->koyohoken;
         if ($data->jikyu != "") {
             $koyouhoken_rate = $pay_partern->koyouhoken_rate;
-            $data->koyohoken = round($data->kihonkyu*$koyouhoken_rate/100);
+            $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
         }
 
         $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
