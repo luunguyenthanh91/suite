@@ -88,8 +88,6 @@ class WSController extends Controller
         if ($request->isMethod('post')) {
             $data = Payslip::find($request->id);
             if ($data) {
-                $data->kihonkyu = $request->kihonkyu;
-                $data->tsukin_teate = $request->tsukin_teate;
                 $data->kenkouhoken = $request->kenkouhoken;
                 $data->koseinenkin = $request->koseinenkin;
                 $data->shotokuzei = $request->shotokuzei;
