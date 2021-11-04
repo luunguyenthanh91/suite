@@ -46,7 +46,7 @@ class WSController extends Controller
             $employee = Admin::where('code' ,$data->user_id)->first();
             $payslip_partern = $employee->payslip_partern;
 
-            
+            $payslip_partern = $employee->payslip_partern;
             $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
