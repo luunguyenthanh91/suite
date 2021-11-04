@@ -210,9 +210,7 @@ class WSController extends Controller
         return response()->json([]);
     }
 
-    function getPayslip($id) {
-        $data = Payslip::find($id);
-
+    function getPayslip($data) {
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
@@ -292,12 +290,12 @@ class WSController extends Controller
         } else if ($data->status == 4) {
             $data->classStyle = "status6";
         }
-
-        return $data;
     }
 
     function viewPayslip(Request $request,$id) {
-        $data = $this->getPayslip($id);
+        $data = Payslip::find($id);
+        $this->getPayslip($data);
+
         return view('admin.payslip-view', compact(['data' , 'id']));
     }
 
@@ -380,7 +378,8 @@ class WSController extends Controller
         $pageTotal = ceil($countPage/$showCount);
 
         foreach ($data as &$item) {
-            $item = $this->getPayslip($item->id);
+            $this->getPayslip($item);
+            
             // $item->classStyle = "";
             // if ($item->status == 0) {
             //     $item->classStyle = "status2";
