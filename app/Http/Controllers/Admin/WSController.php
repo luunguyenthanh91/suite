@@ -790,11 +790,30 @@ class WSController extends Controller
         $sum_shakaihoken = 0;
         $sum_tax = 0;
 
+        $employee = Admin::where('code' , $user_code)->first();
+        $payslip_partern = $employee->payslip_partern;
+        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+
         list($selYear, $selMonth) = explode ("-", $month);
         $firstMonth = $selYear."-01";
         $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $month)->where('month', '>=', $firstMonth)->get();
         foreach ( $datalist as $data) {
-            $sum_pay += $data->kihonkyu;
+            $data->kihonkyu = $pay_partern->kihonkyu;
+            $data->jikyu = $pay_partern->jikyu;
+            $data->zangyou_teate = 0;
+            if ($data->jikyu != "") {
+                $listdata = $this->getListWorkDaysItem($request, $user_id, $month);
+                $worktimecount = $listdata['worktimecount'];
+                $overworktimecount = $listdata['overworktimecount'];
+                list($work_h, $work_m) = explode(":", $worktimecount);
+                $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+                if ($overworktimecount > 0) {
+                    $overtime_rate = $pay_partern->overtime_rate;
+                    $data->zangyou_teate = $overworktimecount * $data->jikyu * $overtime_rate;
+                }
+            }
+
+            $sum_pay += $data->kihonkyu + $data->zangyou_teate;
             $sum_shakaihoken += $data->kenkouhoken + $data->koseinenkin;
             $sum_tax = $data->shotokuzei;
         }
