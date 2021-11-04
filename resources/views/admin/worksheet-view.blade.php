@@ -11,10 +11,10 @@
             <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/worksheet-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.worksheet_pdf') }}</span></i>
             </a>  
-            @if (Auth::guard('admin')->user()->id == 1 )
             <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/worksheet-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
+            @if (Auth::guard('admin')->user()->id == 1 )
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
                 <i class="fas fa-trash-alt"><span class="labelButton">{{ trans('label.delete') }}</span></i>
             </a> 

@@ -303,6 +303,21 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.plus_zei_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->plus_zei_total}}) ))
@@ -312,6 +327,21 @@
                                                 <td>{{ trans('label.plus_nozei_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->plus_nozei_total}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
                                                 </td>
                                             </tr>
                                             <tr>                                                
@@ -896,9 +926,6 @@ new Vue({
             return (value == "0")? "" : value;
         },
         parseMoney (value) {
-            if (isNaN(value)) {
-                return "-";
-            }
             value = (isNaN(value)) ? 0 : value;
             const formatter = new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
