@@ -802,7 +802,7 @@ class WSController extends Controller
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
             if ($data->jikyu != "") {
-                $listdata = $this->getListWorkDaysItem($request, $user_id, $month);
+                $listdata = $this->getListWorkDaysItem($request, $user_code, $month);
                 $worktimecount = $listdata['worktimecount'];
                 $overworktimecount = $listdata['overworktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
