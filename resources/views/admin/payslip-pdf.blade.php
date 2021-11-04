@@ -333,23 +333,23 @@ body {
     text-align: center;
 }
 .border-all {
-    border: 1px solid #CCC !important;
+    border: 1px solid black !important;
 }
 .border-all2 {
-    border: 1px solid #7DFDFE !important;
+    border: 1px solid black !important;
 }
 
 .border-all3{
-    border: 1px solid #FFDF00 !important;
+    border: 1px solid black !important;
 }
 .border-all31{
-    border: 1px solid #FFF380 !important;
+    border: 1px solid black !important;
 }
 .border-all4{
-    border: 1px solid #E238EC !important;
+    border: 1px solid black !important;
 }
 .border-all41{
-    border: 1px solid #F2A2E8 !important;
+    border: 1px solid black !important;
 }
 .title_form{
     /* text-align: center; */
