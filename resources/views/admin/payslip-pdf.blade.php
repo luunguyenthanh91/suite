@@ -22,17 +22,17 @@
                     <div style="border:0.1px solid black;width:400px;">
                         <div style="margin-left:20px;padding:10px;">
                             <center>
-                                <label style="font-size:18px;">{{ $year }}{{ trans('label.year') }}{{ $month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><br>
+                                <label style="font-size:18px;">{{ $data->year }}{{ trans('label.year') }}{{ $data->month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><br>
                                 {{ trans('label.myname') }}
                             </center>
                             <table style="border:0px;font-size:12px;">
                                 <tr>
                                     <td>{{ trans('label.dep') }}</td>
-                                    <td><div style="margin-left:10px;">{{ $employee_depname }}</div></td>
+                                    <td><div style="margin-left:10px;">{{ $data->employee_depname }}</div></td>
                                 </tr>
                                 <tr>
                                     <td>{{ trans('label.user_name') }}</td>
-                                    <td><div style="margin-left:10px;">({{ $employee_code }}) {{ $employee_name }} {{ trans('label.sama') }}</div></td>
+                                    <td><div style="margin-left:10px;">({{ $data->employee_code }}) {{ $data->employee_name }} {{ trans('label.sama') }}</div></td>
                                 </tr>
                             </table>
                         </div>
@@ -40,7 +40,7 @@
                 </td>
                 <td style="vertical-align:bottom;width:250px;text-align:right"> 
                     <div style='text-align:center;border-bottom:1px solid black'>
-                    {{ trans('label.pay_day') }}<label style="margin-left:20px;">{{ $selyear }}{{ trans('label.year') }}{{ $selmonth }}{{ trans('label.month') }}{{ $seldate }}{{ trans('label.date') }}</label>
+                    {{ trans('label.pay_day') }}<label style="margin-left:20px;">{{ $data->selyear }}{{ trans('label.year') }}{{ $data->selmonth }}{{ trans('label.month') }}{{ $data->seldate }}{{ trans('label.date') }}</label>
                     </div>
                 </td>
             </tr>

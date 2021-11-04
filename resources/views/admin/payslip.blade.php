@@ -326,6 +326,12 @@
                                                     <th scope="col" @click="sort('approved_by')">
                                                         <div v-bind:class="[sortBy === 'approved_by' ? sortDirection : '']">{{ trans('label.approved_by') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('received_on')">
+                                                        <div v-bind:class="[sortBy === 'received_on' ? sortDirection : '']">{{ trans('label.received_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('received_by')">
+                                                        <div v-bind:class="[sortBy === 'received_by' ? sortDirection : '']">{{ trans('label.received_by') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                     </th>
@@ -355,7 +361,8 @@
                                                     <span v-if="item.status==0">{{ trans('label.ws_status1') }}</span>
                                                     <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
                                                     <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
-                                                    <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>   
+                                                    <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>    
+                                                    <span v-if="item.status==4">{{ trans('label.ws_status5') }}</span>   
                                                     </td>
                                                     <td>
                                                     ((item.pay_day)) 
@@ -380,6 +387,12 @@
                                                     </td>
                                                     <td>
                                                     ((item.approved_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.received_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.received_by_name)) 
                                                     </td>
                                                     <td >
                                                     <span class="text-block" v-html="item.note">

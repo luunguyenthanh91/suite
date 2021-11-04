@@ -121,6 +121,7 @@ return [
     'ws_status2' => '確認待ち',
     'ws_status3' => '承認待ち',
     'ws_status4' => '承認済み',
+    'ws_status5' => '受領済み',
     'work_day' => '出勤',
 
 
@@ -375,6 +376,8 @@ return [
     'order_date_to' => '依頼日まで',
     'order_month' => '依頼月',
     'not_add' => '未登録',
+    'received_on' => '受領日',
+    'received_by' => '受領者',
     'date_company_pay' => '受領日',
     'paid' => '受領印',
     'paid_sign' => '受領',
