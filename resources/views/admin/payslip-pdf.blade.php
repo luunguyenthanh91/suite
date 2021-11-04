@@ -229,7 +229,7 @@
         <table style="width:100%;margin-top:10px;">
             <tr>
                 <td>
-                    <div class="fontweight" style='text-align:left; height:60px;padding:5px;border:0.1px solid black;vertical-align:top;'>
+                    <div class="fontweight" style='text-align:left;font-size:12px; height:60px;padding:5px;border:0.1px solid black;vertical-align:top;'>
                         <u>{{ trans('label.note') }}:</u><br>
                         {!! nl2br( $data->note) !!}
                     </div>
