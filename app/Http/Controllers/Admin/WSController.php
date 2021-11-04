@@ -51,10 +51,7 @@ class WSController extends Controller
             $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
-            $data->koyohoken = $pay_partern->koyohoken;
-            if ($jikyu != "") {
-                $data->koyohoken = round($data->kihonkyu*0.3/100);
-            }
+            
             $data->shotokuzei = $pay_partern->shotokuzei;
             $data->juminzei = $pay_partern->juminzei;
             
@@ -95,7 +92,6 @@ class WSController extends Controller
                 $data->tsukin_teate = $request->tsukin_teate;
                 $data->kenkouhoken = $request->kenkouhoken;
                 $data->koseinenkin = $request->koseinenkin;
-                $data->koyohoken = $request->koyohoken;
                 $data->shotokuzei = $request->shotokuzei;
                 $data->juminzei = $request->juminzei;
                 $data->note = $request->note;
@@ -237,13 +233,20 @@ class WSController extends Controller
             list($work_h, $work_m) = explode(":", $worktimecount);
             $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
             if ($overworktimecount > 0) {
-                $data->zangyou_teate = $overworktimecount * $data->jikyu * 1.25;
+                $overtime_rate = $pay_partern->overtime_rate;
+                $data->zangyou_teate = $overworktimecount * $data->jikyu * $overtime_rate;
             }
         }
 
         $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
+
+        $data->koyohoken = $pay_partern->koyohoken;
+        if ($data->jikyu != "") {
+            $koyouhoken_rate = $pay_partern->koyouhoken_rate;
+            $data->koyohoken = round($data->kihonkyu*$koyouhoken_rate/100);
+        }
 
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
@@ -829,7 +832,8 @@ class WSController extends Controller
             list($work_h, $work_m) = explode(":", $worktimecount);
             $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
             if ($overworktimecount > 0) {
-                $data->zangyou_teate = $overworktimecount * $data->jikyu * 1.25;
+                $overtime_rate = $pay_partern->overtime_rate;
+                $data->zangyou_teate = $overworktimecount * $data->jikyu * $overtime_rate;
             }
         }
 
@@ -840,6 +844,12 @@ class WSController extends Controller
         if ($received_user) {
             $data->received_by_name = $received_user->name;
             $data->received_by_sign = $received_user->sign_name;
+        }
+
+        $data->koyohoken = $pay_partern->koyohoken;
+        if ($data->jikyu != "") {
+            $koyouhoken_rate = $pay_partern->koyouhoken_rate;
+            $data->koyohoken = round($data->kihonkyu*$koyouhoken_rate/100);
         }
 
         $data->plus_zei_total = $data->kihonkyu;
