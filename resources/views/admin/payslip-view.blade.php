@@ -241,7 +241,7 @@
                         </div>
                         <div class="tab-pane" id="detailtab3">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
                                     </div>
@@ -268,7 +268,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.plus") }}</div>
                                     </div>
@@ -343,7 +343,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.minus") }}</div>
                                     </div>
@@ -460,7 +460,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-12">
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             

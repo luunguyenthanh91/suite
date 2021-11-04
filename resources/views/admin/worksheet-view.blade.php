@@ -120,7 +120,7 @@
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="detailtab1">
                             <div class="row">     
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             <tr>
@@ -181,7 +181,7 @@
                                         </table>
                                     </div>
                                 </div>    
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
                                     </div>
@@ -209,7 +209,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.approve_col") }}</div>
                                     </div>
