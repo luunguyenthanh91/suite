@@ -880,9 +880,9 @@ class WSController extends Controller
             $data->koyohoken = round($data->kihonkyu*$koyouhoken_rate/100);
         }
 
-        $data->plus_zei_total = $data->kihonkyu;
+        $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
         $data->plus_nozei_total = $data->tsukin_teate;
-        $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
+        $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
 
