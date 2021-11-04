@@ -242,7 +242,7 @@
         {{ trans('label.payslip_msg') }}
         </div>
 
-        <div style='text-align:center; vertical-align:middle; margin-top:20px;margin-left:-10px;margin-right:-10px;;height:1px;width:100%;border-bottom:1px dotted black'></div>
+        <div style='text-align:center; vertical-align:middle; margin-top:20px;margin-left:-20px;margin-right:-20px;;height:1px;width:100%;border-bottom:1px dotted black'></div>
         <table style="width:100%;margin-top:30px;border-collapse:collapse;border:1px solid black">
             <tr>
                 <td style="text-align:center;background:#DDD;border:1px solid black;;height:25px;">
@@ -335,14 +335,14 @@ body {
     border: 1px solid black !important;
 }
 .border-all2 {
-    border: 1px solid black !important;
+    border-bottom: 1px solid black !important;
 }
 
 .border-all3{
     border: 1px solid black !important;
 }
 .border-all31{
-    border: 1px solid black !important;
+    border-bottom: 1px solid black !important;
 }
 .border-all4{
     border: 1px solid black !important;
