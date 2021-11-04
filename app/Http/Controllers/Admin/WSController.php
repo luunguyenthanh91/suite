@@ -44,14 +44,12 @@ class WSController extends Controller
             $data->created_by = Auth::guard('admin')->user()->id;
 
             $employee = Admin::where('code' ,$data->user_id)->first();
-            $payslip_partern = $employee->payslip_partern;
-
-            $payslip_partern = $employee->payslip_partern;
-            $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+            $data->payslip_partern = $employee->payslip_partern;
+            
+            $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
             $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
-            
             $data->shotokuzei = $pay_partern->shotokuzei;
             $data->juminzei = $pay_partern->juminzei;
             
