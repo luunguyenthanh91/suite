@@ -237,6 +237,11 @@ class WSController extends Controller
             $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
             if ($overworktimecount > 0) {
                 $overtime_rate = $pay_partern->overtime_rate;
+                echo "<pre>";
+            print_r($overworktimecount);
+            print_r($data->jikyu);
+            print_r($overtime_rate);
+            die;
                 $data->zangyou_teate = $overworktimecount * $data->jikyu * $overtime_rate;
             }
         }
