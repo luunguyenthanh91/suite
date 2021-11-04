@@ -61,23 +61,23 @@
         <table style="width:100%;margin-top:15px;">
             <tr>
                 <td>
-                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #7bcbcc;'>
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #7b8ecc;'>
                         <tr>
-                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#CCFFFF;border-color:1px solid #7bcbcc;">{{ trans('label.ws') }}</td>
+                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#CCFFFF;border-color:1px solid #7b8ecc;">{{ trans('label.ws') }}</td>
                         </tr>
                         <tr>
                             <td style="height:500px;vertical-align:top;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7bcbcc;vertical-align:middle;background-color:#F0FFFF">{{ trans('label.work_day_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF">{{ trans('label.work_day_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->daycount }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7bcbcc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.work_time_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.work_time_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->worktimecount }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7bcbcc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->overworktimecount }}</td>
                                     </tr>
                                 </table>
