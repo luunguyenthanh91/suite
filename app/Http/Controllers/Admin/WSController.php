@@ -227,6 +227,8 @@ class WSController extends Controller
         $data->kihonkyu = $pay_partern->kihonkyu;
         $data->jikyu = $pay_partern->jikyu;
         $data->zangyou_teate = 0;
+        $data->holiday_teate = 0;
+        $data->night_teate = 0;
         if ($data->jikyu != "") {
             $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
@@ -827,6 +829,8 @@ class WSController extends Controller
         $data->kihonkyu = $pay_partern->kihonkyu;
         $data->jikyu = $pay_partern->jikyu;
         $data->zangyou_teate = 0;
+        $data->holiday_teate = 0;
+        $data->night_teate = 0;
         if ($data->jikyu != "") {
             $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
