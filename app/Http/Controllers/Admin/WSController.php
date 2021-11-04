@@ -233,13 +233,13 @@ class WSController extends Controller
             $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
             list($work_h, $work_m) = explode(":", $worktimecount);
-            $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+            $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
             
             $overworktimecount = $listdata['overworktimecount'];
             list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
             $overtime_rate = $pay_partern->overtime_rate;
-            $data->zangyou_teate = $overtime_work_h * $data->jikyu * $overtime_rate
-             + ($overtime_work_m * $data->jikyu * $overtime_rate/60);
+            $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
+             + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
         }
 
         $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
@@ -806,13 +806,13 @@ class WSController extends Controller
                 $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
                 $worktimecount = $listdata['worktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
-                $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+                $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
                 
                 $overworktimecount = $listdata['overworktimecount'];
                 list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
                 $overtime_rate = $pay_partern->overtime_rate;
-                $data->zangyou_teate = $overtime_work_h * $data->jikyu * $overtime_rate
-                + ($overtime_work_m * $data->jikyu * $overtime_rate/60);
+                $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
+                + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
             }
 
             $sum_pay += $data->kihonkyu + $data->zangyou_teate;
@@ -856,13 +856,13 @@ class WSController extends Controller
             $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
             $worktimecount = $listdata['worktimecount'];
             list($work_h, $work_m) = explode(":", $worktimecount);
-            $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+            $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
             
             $overworktimecount = $listdata['overworktimecount'];
             list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
             $overtime_rate = $pay_partern->overtime_rate;
-            $data->zangyou_teate = $overtime_work_h * $data->jikyu * $overtime_rate
-             + ($overtime_work_m * $data->jikyu * $overtime_rate/60);
+            $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
+             + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
         }
 
         list($year, $month) = explode ("-",$payslip->month);
