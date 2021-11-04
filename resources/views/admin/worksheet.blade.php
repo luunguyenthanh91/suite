@@ -633,7 +633,7 @@ new Vue({
         classColLG12: (viewPC)? "col-lg-12" : "colLg12Mobile",
         classRightGrid: "col-lg-10",
         classLefttGrid: "col-lg-2",
-        sortBy: 'codejob',
+        sortBy: 'month',
         sortDirection: 'desc',
     },
     delimiters: ["((", "))"],

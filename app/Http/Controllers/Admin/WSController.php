@@ -213,6 +213,7 @@ class WSController extends Controller
     function getPayslip($data) {
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
+        $data->employee_code = $employee->code;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
 
@@ -298,6 +299,11 @@ class WSController extends Controller
         $data->sum_pay  = $sumPayslip['sum_pay'];
         $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
         $data->sum_tax  = $sumPayslip['sum_tax'];
+
+        $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
+        $data->daycount = $listdata['daycount'];
+        $data->worktimecount = $listdata['worktimecount'];
+        $data->overworktimecount = $listdata['overworktimecount'];
     }
 
     function viewPayslip(Request $request,$id) {
@@ -803,69 +809,7 @@ class WSController extends Controller
     public function payslippdf(Request $request, $id) {
         $data = Payslip::find($id);
         $this->getPayslip($data);
-
-        // $employee = Admin::where('code' ,$payslip->user_id)->first();
-        // $user_id = $employee->id;
         
-        // $listdata = $this->getListWorkDaysItem($payslip->user_id, $payslip->month);
-        // $data->daycount = $listdata['daycount'];
-        // $data->worktimecount = $listdata['worktimecount'];
-        // $data->overworktimecount = $listdata['overworktimecount'];
-
-        // $employee_name = $employee->name;
-        // $employee_code = $employee->code;
-
-        // $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-        // $employee_depname = $bophan->name;
-
-        // $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
-        // $data->kihonkyu = $pay_partern->kihonkyu;
-        // $data->jikyu = $pay_partern->jikyu;
-        // $data->zangyou_teate = 0;
-        // $data->holiday_teate = 0;
-        // $data->night_teate = 0;
-        // if ($data->jikyu != "") {
-        //     $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
-        //     $worktimecount = $listdata['worktimecount'];
-        //     list($work_h, $work_m) = explode(":", $worktimecount);
-        //     $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
-            
-        //     $overworktimecount = $listdata['overworktimecount'];
-        //     list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
-        //     $overtime_rate = $pay_partern->overtime_rate;
-        //     $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
-        //      + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
-        // }
-
-        // list($year, $month) = explode ("-",$payslip->month);
-        // list($selyear, $selmonth, $seldate) = explode ("-",$payslip->pay_day);
-
-        // $received_user = Admin::where('id' ,$data->received_by)->first();
-        // if ($received_user) {
-        //     $data->received_by_name = $received_user->name;
-        //     $data->received_by_sign = $received_user->sign_name;
-        // }
-
-        // $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
-        // $data->plus_nozei_total = $data->tsukin_teate;
-        // $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
-
-        
-
-        // $data->koyohoken = $pay_partern->koyohoken;
-        // if ($data->jikyu != "") {
-        //     $koyouhoken_rate = $pay_partern->koyouhoken_rate;
-        //     $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
-        // }
-
-        // $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
-        // $data->pay_total = $data->plus_total - $data->minus_total;
-
-        // $sumPayslip = $this->getSumPayslip($payslip->user_id, $payslip->month);
-        // $data->sum_pay  = $sumPayslip['sum_pay'];
-        // $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
-        // $data->sum_tax  = $sumPayslip['sum_tax'];
-
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
         return $pdf->download($data->month."_".trans('label.payslip')."_".$data->employee_code."(".$data->employee_name.")".'.pdf');
     }

@@ -268,19 +268,19 @@
                                             <tr>
                                                 <td>{{ trans('label.work_day_count') }}</td>
                                                 <td>
-                                                (( daycount ))
+                                                {{@$data->daycount}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.work_time_count') }}</td>
                                                 <td>
-                                                (( worktimecount ))
+                                                {{@$data->worktimecount}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.work_overtime_count') }}</td>
                                                 <td>
-                                                (( overworktimecount ))
+                                                {{@$data->overworktimecount}}
                                                 </td>
                                             </tr>
                                         </table>
