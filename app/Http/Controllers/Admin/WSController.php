@@ -46,18 +46,8 @@ class WSController extends Controller
             $employee = Admin::where('code' ,$data->user_id)->first();
             $payslip_partern = $employee->payslip_partern;
 
-            $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
-            $data->kihonkyu = $pay_partern->kihonkyu;
-            $jikyu = $pay_partern->jikyu;
-            if ($jikyu != "") {
-                $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
-                $worktimecount = $listdata['worktimecount'];
-                list($work_h, $work_m) = explode(":", $worktimecount);
-                $data->kihonkyu = $work_h * $jikyu + ($work_m * $jikyu/60);
-            }
-            $data->tsukin_teate = $pay_partern->tsukin_teate;
             
-
+            $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
             $data->koyohoken = $pay_partern->koyohoken;
@@ -229,15 +219,31 @@ class WSController extends Controller
 
     function viewPayslip(Request $request,$id) {
         $data = Payslip::find($request->id);
+
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
 
-        
-        $data->plus_zei_total = $data->kihonkyu;
+        $payslip_partern = $employee->payslip_partern;
+        $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $data->kihonkyu = $pay_partern->kihonkyu;
+        $data->jikyu = $pay_partern->jikyu;
+        if ($data->jikyu != "") {
+            $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+            $worktimecount = $listdata['worktimecount'];
+            $overworktimecount = $listdata['overworktimecount'];
+            list($work_h, $work_m) = explode(":", $worktimecount);
+            $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+            if ($overworktimecount > 0) {
+                $data->zangyou_teate = $overworktimecount * $data->jikyu * 1.25;
+            }
+        }
+
+        $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
         $data->plus_nozei_total = $data->tsukin_teate;
-        $data->plus_total = $data->kihonkyu + $data->tsukin_teate;
+        $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
+
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
 
@@ -813,7 +819,18 @@ class WSController extends Controller
 
         $payslip_partern = $employee->payslip_partern;
         $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
+        $data->kihonkyu = $pay_partern->kihonkyu;
         $data->jikyu = $pay_partern->jikyu;
+        if ($data->jikyu != "") {
+            $listdata = $this->getListWorkDaysItem($request, $data->user_id, $data->month);
+            $worktimecount = $listdata['worktimecount'];
+            $overworktimecount = $listdata['overworktimecount'];
+            list($work_h, $work_m) = explode(":", $worktimecount);
+            $data->kihonkyu = $work_h * $data->jikyu + ($work_m * $data->jikyu/60);
+            if ($overworktimecount > 0) {
+                $data->zangyou_teate = $overworktimecount * $data->jikyu * 1.25;
+            }
+        }
 
         list($year, $month) = explode ("-",$payslip->month);
         list($selyear, $selmonth, $seldate) = explode ("-",$payslip->pay_day);
