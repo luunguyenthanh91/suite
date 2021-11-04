@@ -145,11 +145,23 @@
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF">{{ trans('label.kenkouhoken') }}</td>
-                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kenkouhoken) }} 円</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">
+                                        @if ($data->kenkouhoken != "") 
+                                        {{ number_format($data->kenkouhoken) }} 円
+                                        @else 
+                                        -
+                                        @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.koseinenkin') }}</td>
-                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->koseinenkin) }} 円</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">
+                                        @if ($data->koseinenkin != "") 
+                                        {{ number_format($data->koseinenkin) }} 円
+                                        @else 
+                                        -
+                                        @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.koyohoken') }}</td>
@@ -163,7 +175,13 @@
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.shotokuzei') }}</td>
-                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->shotokuzei) }} 円</td>
+                                        <td class="border-all41"  style="vertical-align:middle;text-align:right;padding-right:10px;">
+                                        @if ($data->shotokuzei != "") 
+                                        {{ number_format($data->shotokuzei) }} 円
+                                        @else 
+                                        -
+                                        @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#FFE9FF;">{{ trans('label.juminzei') }}</td>
