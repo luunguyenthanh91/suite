@@ -47,6 +47,7 @@ class WSController extends Controller
             $payslip_partern = $employee->payslip_partern;
 
             $payslip_partern = $employee->payslip_partern;
+            $pay_partern = PayslipPartern::where('id' , $payslip_partern)->first();
             $data->tsukin_teate = $pay_partern->tsukin_teate;
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
