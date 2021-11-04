@@ -278,7 +278,7 @@ class WSController extends Controller
             $data->received_by_sign = $received_user->sign_name;
         }
 
-        list($data->year, $data->month) = explode ("-",$data->month);
+        list($data->month_year, $data->month_month) = explode ("-",$data->month);
         list($data->selyear, $data->selmonth, $data->seldate) = explode ("-",$data->pay_day);
 
         $data->classStyle = "";
