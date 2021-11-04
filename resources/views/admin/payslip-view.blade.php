@@ -926,6 +926,9 @@ new Vue({
             return (value == "0")? "" : value;
         },
         parseMoney (value) {
+            if (isNaN(value)) {
+                return "-";
+            }
             value = (isNaN(value)) ? 0 : value;
             const formatter = new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
