@@ -61,23 +61,23 @@
         <table style="width:100%;margin-top:15px;">
             <tr>
                 <td>
-                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #7b8ecc;'>
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
-                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#CCFFFF;border-color:1px solid #7b8ecc;">{{ trans('label.ws') }}</td>
+                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#CCFFFF;border-color:1px solid black;">{{ trans('label.ws') }}</td>
                         </tr>
                         <tr>
                             <td style="height:500px;vertical-align:top;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF">{{ trans('label.work_day_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid black;vertical-align:middle;background-color:#F0FFFF">{{ trans('label.work_day_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->daycount }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.work_time_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid black;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.work_time_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->worktimecount }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid #7b8ecc;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
+                                        <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;border-color:1px solid black;vertical-align:middle;background-color:#F0FFFF;">{{ trans('label.overtime_count') }}</td>
                                         <td class="border-all2"  style="vertical-align:middle;text-align:center">{{ $data->overworktimecount }}</td>
                                     </tr>
                                 </table>
@@ -91,7 +91,7 @@
                     </table>
                 </td>
                 <td>
-                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #FFFACD;'>
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#FFFFCC;">{{ trans('label.plus') }}</td>
                         </tr>
@@ -136,7 +136,7 @@
                     </table>
                 </td>
                 <td>
-                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid #FFFACD;'>
+                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all4 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#F9B7FF;">{{ trans('label.minus') }}</td>
                         </tr>
@@ -244,25 +244,25 @@
 
         <div style='text-align:center; vertical-align:middle; margin-top:20px;height:1px;width:100%;border-bottom:1px dotted black'>
         </div>
-        <table style="width:100%;margin-top:30px;border-collapse:collapse;border:1px solid #CCC">
+        <table style="width:100%;margin-top:30px;border-collapse:collapse;border:1px solid black">
             <tr>
-                <td style="text-align:center;background:#DDD;border:1px solid #CCC;;height:25px;">
+                <td style="text-align:center;background:#DDD;border:1px solid black;;height:25px;">
                 {{ trans('label.pay_total1') }}
                 </td>
-                <td style="text-align:center;background:#DDD;border:1px solid #CCC;;height:25px;">
+                <td style="text-align:center;background:#DDD;border:1px solid black;;height:25px;">
                 {{ trans('label.pay_total4') }}
                 </td>
-                <td style="text-align:center;background:#DDD;border:1px solid #CCC;height:25px;">
+                <td style="text-align:center;background:#DDD;border:1px solid black;height:25px;">
                 {{ trans('label.pay_total3') }}
                 </td>
             </tr><tr>
-                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                <td style="border:1px solid black;height:30px;text-align:center;">
                 {{ number_format($data->sum_pay) }} 円
                 </td>
-                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                <td style="border:1px solid black;height:30px;text-align:center;">
                 {{ number_format($data->sum_shakaihoken) }} 円
                 </td>
-                <td style="border:1px solid #CCC;height:30px;text-align:center;">
+                <td style="border:1px solid black;height:30px;text-align:center;">
                 {{ number_format($data->sum_tax) }} 円
                 </td>
             </tr>
