@@ -376,6 +376,8 @@ class WSController extends Controller
             } else if ($item->status == 2) {
                 $item->classStyle = "status4";
             } else if ($item->status == 3) {
+                $item->classStyle = "status5";
+            } else if ($item->status == 4) {
                 $item->classStyle = "status6";
             }
 
