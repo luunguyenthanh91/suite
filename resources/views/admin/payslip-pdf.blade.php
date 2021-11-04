@@ -215,7 +215,7 @@
             </tr>
         </table>
 
-        <table style="width:100%;margin:2px;border-collapse:collapse;height:40px;border:1px solid #d38956">
+        <table style="width:100%;margin:2px;border-collapse:collapse;height:40px;border:1px solid black">
             <tr>
                 <td style="height:50px;width:453px;vertical-align:middle;text-align:center;background:#DBA077;">
                     <span style="padding:5px;">{{ trans('label.pay_total') }}</span>
@@ -242,8 +242,7 @@
         {{ trans('label.payslip_msg') }}
         </div>
 
-        <div style='text-align:center; vertical-align:middle; margin-top:20px;height:1px;width:100%;border-bottom:1px dotted black'>
-        </div>
+        <div style='text-align:center; vertical-align:middle; margin-top:20px;margin-left:-10px;margin-right:-10px;;height:1px;width:100%;border-bottom:1px dotted black'></div>
         <table style="width:100%;margin-top:30px;border-collapse:collapse;border:1px solid black">
             <tr>
                 <td style="text-align:center;background:#DDD;border:1px solid black;;height:25px;">
@@ -349,7 +348,7 @@ body {
     border: 1px solid black !important;
 }
 .border-all41{
-    border: 1px solid black !important;
+    border-bottom: 1px solid black !important;
 }
 .title_form{
     /* text-align: center; */
