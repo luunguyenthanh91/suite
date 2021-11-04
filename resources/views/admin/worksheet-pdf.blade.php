@@ -125,9 +125,11 @@
         <table style="width:100%;;margin-top:5px;">
             <tr>
                 <td>
-                    <div class="fontweight" style='text-align:left;font-size:12px; height:60px;padding:5px;margin-right:5px;border:1px solid black;vertical-align:top;'>
+                    <div class="fontweight" style='text-align:left;height:60px;padding:5px;margin-right:5px;border:1px solid black;vertical-align:top;'>
                         <u>{{ trans('label.note') }}:</u><br>
+                        <span style="font-size:12px; ">
                         {!! nl2br( $ws_note) !!}
+                    </span>
                     </div>
                 </td>
                 <td style="width:200px;">
