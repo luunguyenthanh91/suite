@@ -1123,21 +1123,25 @@ class WSController extends Controller
         $created_user = Admin::where('id' ,$item->created_by)->first();
         if ($created_user) {
             $item->created_by_name = $created_user->name;
+            $item->created_by_sign = $created_user->sign_name;
         }
 
         $submited_user = Admin::where('id' ,$item->submited_by)->first();
         if ($submited_user) {
             $item->submited_by_name = $submited_user->name;
+            $item->submited_by_sign = $submited_user->sign_name;
         }
 
         $checked_user = Admin::where('id' ,$item->checked_by)->first();
         if ($checked_user) {
             $item->checked_by_name = $checked_user->name;
+            $item->checked_by_sign = $checked_user->sign_name;
         }
 
         $approved_user = Admin::where('id' ,$item->approved_by)->first();
         if ($approved_user) {
             $item->approved_by_name = $approved_user->name;
+            $item->approved_by_sign = $approved_user->sign_name;
         }
     }
 

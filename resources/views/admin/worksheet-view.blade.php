@@ -25,16 +25,16 @@
                 <div class="d-flex" style="width:100%;">
                     <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12">
-                            <u>
-                                <label>
+                            <label>
+                                <u>
                                     {{ trans('label.worksheet_id') }}{{@$data->id}} (
                                     <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
                                     <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
                                     <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
                                     <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
                                     )
-                                </label>
-                            </u>
+                                </u>
+                            </label>
                             <br>
                             <label>(( parseMonth('{{@$data->month}}') )) {{@$data->employee_depname}} {{@$data->employee_name}} ({{@$data->user_id}})</label>
                             <br>
