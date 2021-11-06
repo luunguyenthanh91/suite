@@ -448,6 +448,9 @@ class UserController extends Controller
 
     function getEmployee($data) {
         $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
+
+
+
         $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
 
@@ -470,6 +473,9 @@ class UserController extends Controller
         $data = $data->where('user', '1');
         if(@$request->item_id != '' ){
 			$data = $data->where('id', 'LIKE' , '%'.$request->item_id.'%' );
+        }
+        if(@$request->status_multi != '' ){
+            $data = $data->whereIn('employ_type', explode(',', $request->status_multi) );
         }
         if(@$request->created_on != '' ){
             $data = $data->where('created_on', $request->created_on);

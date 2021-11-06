@@ -80,27 +80,15 @@
                         <div class="page-separator-line"></div>
                         <div class="form-group">
                             <div class="form-group col-lg-12">
-                                <label class="form-label">{{ trans('label.status') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="0" value="0" v-model="checkedNames">
-                                <label class="status2" for="0">{{ trans('label.ws_status1') }}</label>
+                                <label class="form-label">{{ trans('label.employ_type') }}</label>
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="checkbox" id="1" value="1" v-model="checkedNames">
-                                <label class="status3" for="1">{{ trans('label.ws_status2') }}</label>
+                                <label class="status1" for="1">{{ trans('label.employ_type1') }}</label>
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="checkbox" id="2" value="2" v-model="checkedNames">
-                                <label class="status4" for="2">{{ trans('label.ws_status3') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="3" value="3" v-model="checkedNames">
-                                <label class="status5" for="3">{{ trans('label.ws_status4') }}</label>
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="checkbox" id="4" value="4" v-model="checkedNames">
-                                <label class="status6" for="4">{{ trans('label.close2') }}</label>
+                                <label class="status2" for="2">{{ trans('label.employ_type2') }}</label>
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
@@ -237,6 +225,12 @@
                             <div :class="'' + classBodayRightContentGrid">
                                 <div class="d-flex ">
                                     <div class="d-flex fullWidth">
+                                        <input class="checkboxHor" type="checkbox" id="employ_type1" value="1" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                        <label class="labelFontSize10 status1" for="employ_type1">{{ trans('label.employ_type1') }}</label>
+
+                                        <input class="checkboxHor" type="checkbox" id="employ_type2" value="2" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                        <label class="labelFontSize10 status2" for="employ_type2">{{ trans('label.employ_type2') }}</label>
+                                    
                                     </div>
                                     <div class="d-flex rightGridMenu">
                                         <div class="gridControl2">
@@ -546,7 +540,7 @@ new Vue({
         approved_on_to: '',
 		approved_on_month: '',
 
-        checkedNames: [0,1,2,3,4],
+        checkedNames: [1,2],
         month: '',
         month_from: '',
         month_to: '',
@@ -820,7 +814,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,1,2,3,4];
+            this.checkedNames = [1,2];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -868,7 +862,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,1,2,3,4];
+            this.checkedNames = [1,2];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -915,7 +909,7 @@ new Vue({
 		},
 		setSearchStatus() {
 			this.page = 1;
-            this.checkedNames = [0,1,2,3,4];
+            this.checkedNames = [1,2];
 		},
 		clearSearchTypeJob() {
 			this.page = 1;
