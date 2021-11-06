@@ -670,54 +670,6 @@ new Vue({
         onOpenLoctionAddress() {
             window.open("http://maps.google.com/maps?q="+this.address_pd, '_blank');
         },
-        onGetSales() {
-            this.pageSales = 1;
-            this.loadingTableSale = 1;
-            const that = this;
-            let conditionSearch = '';
-            if (this.conditionNameSale != '') {
-                conditionSearch += '&name=' + this.conditionNameSale;
-            }
-            $.ajax({
-                type: 'GET',
-                url: "{{route('admin.getCtvJobs')}}?page=" + this.pageSales  + conditionSearch ,
-                success: function(data) {
-                    if (data.count > 0) {
-                        data.data.map(item => {
-                            item.edit = 1;
-                        });
-                        that.countSales = data.pageTotal;
-                        that.listSales = data.data;
-                    } else {
-                        that.countSales = 0;
-                        that.listSales = [];
-                    }
-                    that.loadingTableSale = 0;
-                    let pageArr = [];
-                    if (that.pageSales - 2 > 0) {
-                        pageArr.push(that.pageSales - 2);
-                    }
-                    if (that.pageSales - 1 > 0) {
-                        pageArr.push(that.pageSales - 1);
-                    }
-                    pageArr.push(that.pageSales);
-                    if (that.pageSales + 1 <= that.count) {
-                        pageArr.push(that.pageSales + 1);
-                    }
-                    if (that.pageSales + 2 <= that.countSales) {
-                        pageArr.push(that.pageSales + 2);
-                    }
-                    that.listPageSales = pageArr;
-                },
-                error: function(xhr, textStatus, error) {
-                    Swal.fire({
-                        title: "Có lỗi dữ liệu nhập vào!",
-                        type: "warning",
-
-                    });
-                }
-            });
-        },
         onPageChange(_p) {
             this.page = _p;
             this.onLoadPagination();
@@ -931,11 +883,8 @@ new Vue({
                 url: "{{route('admin.getAcademic')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
-                        that.count = data.pageTotal;
                         that.listAcademic = data.data;
                     } else {
-                        that.count = 0;
-                        that.sumCount = data.count;
                         that.listAcademic = [];
                     }
                     that.loadingTable = 0;
