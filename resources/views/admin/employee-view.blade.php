@@ -90,7 +90,7 @@
                                             <tr>
                                                 <td>{{ trans('label.birthday') }}</td>
                                                 <td>
-                                                {{@$data->birthday}}
+                                                {{@$data->birthday}} ({{ trans('label.enough') }} {{@$data->age}}{{ trans('label.age') }})
                                                 </td>
                                             </tr>
                                             <tr>

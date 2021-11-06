@@ -422,9 +422,9 @@ class UserController extends Controller
     }
 
     function getEmployee($data) {
-        
         $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
         $data->employee_depname = $bophan->name;
+        $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
     }
 
     function listEmployee(Request $request) {

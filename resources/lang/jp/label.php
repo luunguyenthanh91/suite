@@ -370,6 +370,8 @@ return [
     'contract_money' => '契約金額',
     'include' => '込み',
     'exclude' => '実費',
+    'enough' => '満',
+    'age' => '歳',
     'po_new' => 'PO新規登録',
     'order_date' => '依頼日',
     'order_date_from' => '依頼日から',
