@@ -403,6 +403,7 @@ class UserController extends Controller
             $data = Admin::find($id);
             if ($data) {
                 $data->code = $request->code;
+                $data->male = $request->male;
                 $data->name = $request->name;
                 $data->nickname = $request->nickname;
                 $data->birthday = $request->birthday;

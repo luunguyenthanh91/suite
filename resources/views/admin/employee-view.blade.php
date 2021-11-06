@@ -22,11 +22,11 @@
                 <div class="d-flex" style="width:100%;">
                     <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12" >
+                            <label>{{ trans('label.employee_depname') }}: {{@$data->employee_depname}}</label> 
+                            <br>  
                             <label>{{ trans('label.user_id') }}: {{@$data->code}}</label>
                             <br>
                             <label>{{ trans('label.user_name') }}: {{@$data->name}}</label>
-                            <br>
-                            <label>{{ trans('label.employee_depname') }}: {{@$data->employee_depname}}</label>    
                         </div>
                     </div>
                     <div class="col-lg-auto">
@@ -70,6 +70,17 @@
                                                 (( parseName('{{@$data->nickname}}') ))
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>{{ trans('label.sex') }}</td>
+                                                <td>
+                                                @if ( @$data->male == 1 )
+                                                    <span>{{ trans('label.male') }}</span>
+                                                @endif
+                                                @if ( @$data->male == 2 )
+                                                    <span>{{ trans('label.female') }}</span>
+                                                @endif
+                                                </td>
+                                            </tr> 
                                             <tr>
                                                 <td>{{ trans('label.employee_depname') }}</td>
                                                 <td>

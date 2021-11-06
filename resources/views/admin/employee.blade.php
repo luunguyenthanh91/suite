@@ -272,6 +272,9 @@
                                                     <th scope="col"  @click="sort('nick_name')">
                                                         <div v-bind:class="[sortBy === 'nick_name' ? sortDirection : '']">{{ trans('label.furigana') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('male')">
+                                                        <div v-bind:class="[sortBy === 'male' ? sortDirection : '']">{{ trans('label.sex') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('birthday')">
                                                         <div v-bind:class="[sortBy === 'birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
                                                     </th>
@@ -283,6 +286,9 @@
                                                     </th>
                                                     <th scope="col"  @click="sort('address')">
                                                         <div v-bind:class="[sortBy === 'address' ? sortDirection : '']">{{ trans('label.address') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('employ_date')">
+                                                        <div v-bind:class="[sortBy === 'employ_date' ? sortDirection : '']">{{ trans('label.employ_date') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
@@ -305,6 +311,10 @@
                                                     </td>
                                                     <td>
                                                     (( item.furigana ))                                                  
+                                                    </td>
+                                                    <td>
+                                                        <span v-if='item.male == 1'>{{ trans('label.male') }}</span>
+                                                        <span v-if='item.male == 2'>{{ trans('label.female') }}</span>                                       
                                                     </td>
                                                     <td>
                                                     (( item.birthday ))                                                  

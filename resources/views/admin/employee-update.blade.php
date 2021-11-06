@@ -57,7 +57,23 @@
                                                 <td>
                                                 <input type="text" name="nickname" value="{{$data->nickname}}" class="form-control">
                                                 </td>
-                                            </tr>  
+                                            </tr> 
+                                            
+                                            <tr>
+                                                <td>{{ trans('label.sex') }}</td>
+                                                <td>
+                                                    <div class="custom-controls-stacked">
+                                                    <div class="custom-control custom-radio">
+                                                        <input id="radiomale1" name="male" type="radio" class="custom-control-input" @if(1==@$data->male) checked @endif value="1">
+                                                        <label for="radiomale1" class="custom-control-label">{{ trans('label.male') }}</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input id="radiomale2" name="male" type="radio" class="custom-control-input" @if(2==@$data->male) checked @endif value="2">
+                                                        <label for="radiomale2" class="custom-control-label">{{ trans('label.female') }}</label>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                            </tr> 
                                             <tr>
                                                 <td>{{ trans('label.birthday') }}</td>
                                                 <td>
