@@ -306,8 +306,8 @@
                                                 <th scope="col"  @click="sort('note')">
                                                     <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                 </th>
-                                                <th scope="col">
-                                                </th>
+                                                <!-- <th scope="col">
+                                                </th> -->
                                                 <th scope="col"  style="width: 100%; "></th>
                                             </tr>
                                         </thead>
@@ -345,11 +345,11 @@
                                                     (( item.note ))
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
                                                         <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                                 <td style="width: 100%; "></td>
                                             </tr>
                                         </tbody>

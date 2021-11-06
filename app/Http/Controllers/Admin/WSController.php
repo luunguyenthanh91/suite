@@ -477,6 +477,14 @@ class WSController extends Controller
             if ($data) {
                 $data->note = $request->note;
                 $data->save();
+                if ($request->childUpdate) {
+                    
+                    foreach ($request->childUpdate as $key => $value) {
+                        $updateModelDay = HistoryLog::find($key);
+                        $updateModelDay->note = $value['note'];
+                        $updateModelDay->save();
+                    }
+                }
             }
             return redirect('/admin/worksheet-view/'.$data->id);
         }
@@ -731,7 +739,8 @@ class WSController extends Controller
                 'classStyle' => $classStyle,
                 'offdaytitle' => $offDay_title,
                 'breaktime' => $breaktime_str,
-                'note' => $note
+                'note' => $note,
+                'edit' => 0
             ];
 		}
 
