@@ -44,6 +44,13 @@
                                     </span>
                                 </a>
                             </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab3">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.academic') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body tab-content">
@@ -124,7 +131,7 @@
                                                     <span>{{ trans('label.employ_type1') }}</span>
                                                 @endif
                                                 @if ( @$data->employ_type == 2 )
-                                                    <span>{{ trans('label.employ_typ2') }}</span>
+                                                    <span>{{ trans('label.employ_type2') }}</span>
                                                 @endif
                                                 </td>
                                             </tr>
@@ -139,6 +146,52 @@
                                         </table>
                                     </div>
                                 </div>  
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab3">
+                            <div class="gridControl">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col" @click="sort('year')" >
+                                                    <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
+                                                </th>
+                                                <th @click="sort('month')">
+                                                    <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('name')" class="textAlignCenter">
+                                                    <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.academic') }}</div>
+                                                </th>
+                                                <th scope="col"  @click="sort('note')">
+                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
+                                                </th>
+                                                <th scope="col"  style="width: 100%; "></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list" id="search">
+                                            <tr v-for="item in sortedProducts">
+                                                <td>
+                                                (( item.year ))
+                                                </td>
+                                                <td>
+                                                (( item.month ))
+                                                </td>
+                                                <td >
+                                                (( item.name ))
+                                                </td>
+                                                <td>
+                                                    <span class="text-block" v-html="item.note">
+                                                    (( item.note ))
+                                                    </span>
+                                                </td>
+                                                <td style="width: 100%; "></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -352,10 +405,7 @@ new Vue({
         sumBenefit: 0,
         sumDeposit: 0,
         sumTongKimDuocDuKien: 0,
-        listProject: [],
-        daycount: 0,
-        worktimecount: 0,
-        overworktimecount: 0,
+        listAcademic: [],
     },
     delimiters: ["((", "))"],
     mounted() {
@@ -363,8 +413,7 @@ new Vue({
     },
     computed: {
         sortedProducts: function(){
-            return this.listProject.sort((p1,p2) => {
-
+            return this.listAcademic.sort((p1,p2) => {
                 let modifier = 1;
                 if(this.sortDirection === 'desc') modifier = -1;
                 if (this.sortBy == 'ctv_sales_list' || this.sortBy == 'ctv_list') {
@@ -873,28 +922,21 @@ new Vue({
             //     conditionSearch += '&ctv_pd=' + this.ctv_pd;
             // }
             
-            conditionSearch += '&month=' + this.month;
             conditionSearch += '&user_id=' + this.user_id;
             conditionSearch += '&showcount=' + this.showCount; 
             this.conditionSearch = conditionSearch;          
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListWorkDays')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getAcademic')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;
-                        that.listProject = data.data;
-                        that.daycount = data.daycount;
-                        that.worktimecount = data.worktimecount;
-                        that.overworktimecount = data.overworktimecount;
+                        that.listAcademic = data.data;
                     } else {
                         that.count = 0;
                         that.sumCount = data.count;
-                        that.listProject = [];
-                        that.daycount = 0;
-                        that.worktimecount = 0;
-                        that.overworktimecount = 0;
+                        that.listAcademic = [];
                     }
                     that.loadingTable = 0;
                     let pageArr = [];

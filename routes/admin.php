@@ -91,6 +91,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('employee-update/{id}', 'UserController@updateEmployee')->name('admin.updateEmployee');
     Route::post('employee-delete/{id}', 'UserController@deleteEmployee')->name('admin.deleteEmployee');
     Route::get('employee-delete/{id}', 'UserController@deleteEmployee')->name('admin.deleteEmployee');
+    Route::get('getAcademic', 'UserController@getAcademic')->name('admin.getAcademic');
 
     Route::get('get-worksheet', 'WSController@getListWorkSheet')->name('admin.getListWorkSheet');
     Route::get('worksheet', 'WSController@listWorkSheet'); 

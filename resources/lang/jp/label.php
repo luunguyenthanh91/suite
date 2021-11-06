@@ -372,6 +372,7 @@ return [
     'exclude' => '実費',
     'enough' => '満',
     'employ_type' => '雇用形態',
+    'academic' => '学歴',
     'employ_type1' => '正社員',
     'employ_type2' => 'パート・アルバイト',
     'age' => '歳',

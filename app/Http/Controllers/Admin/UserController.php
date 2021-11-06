@@ -18,6 +18,7 @@ use App\Models\HistoryLog;
 use App\Jobs\SendEmailCheckOut;
 use App\Jobs\SendEmailCheckIn;
 use App\Models\BoPhan;
+use App\Models\Academic;
 
 class UserController extends Controller
 {
@@ -396,6 +397,29 @@ class UserController extends Controller
         $data = Admin::find($id);
         $data->delete();
         return response()->json([]);
+    }
+
+    function getAcademic(Request $request) {
+        $page = $request->page - 1;
+
+        $data = Academic::where('user_id', $request->user_id)->get();
+        $count = $data->count();
+        $showCount = $request->showcount;
+        if ($showCount == 0) {
+            $showCount = $count;
+        }
+        if ($showCount == 0) {
+            $showCount = 1;
+        }
+        $data = $data->offset($page * $showCount)->limit($showCount)->get();
+        $countPage = $count === 0 ? 1 : $count;
+        $pageTotal = ceil($countPage/$showCount);
+
+        return response()->json([
+            'data'=>$data,
+            'count'=>$count,
+            'pageTotal' => $pageTotal,
+        ]);
     }
 
     function updateEmployee(Request $request,$id) {
