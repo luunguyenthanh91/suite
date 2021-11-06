@@ -118,6 +118,17 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.employ_type') }}</td>
+                                                <td>
+                                                @if ( @$data->employ_type == 1 )
+                                                    <span>{{ trans('label.employ_type1') }}</span>
+                                                @endif
+                                                @if ( @$data->employ_type == 2 )
+                                                    <span>{{ trans('label.employ_typ2') }}</span>
+                                                @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
                                                     <div class="text-block" v-html="">

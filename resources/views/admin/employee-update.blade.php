@@ -104,6 +104,22 @@
                                                 <input type="date" name="employ_date" value="{{$data->employ_date}}" class="form-control">
                                                 </td>
                                             </tr> 
+                                            
+                                            <tr>
+                                                <td>{{ trans('label.employ_type') }}</td>
+                                                <td>
+                                                    <div class="custom-controls-stacked">
+                                                    <div class="custom-control custom-radio">
+                                                        <input id="employ_type1" name="male" type="radio" class="custom-control-input" @if(1==@$data->employ_type) checked @endif value="1">
+                                                        <label for="employ_type1" class="custom-control-label">{{ trans('label.employ_type1') }}</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input id="employ_type2" name="male" type="radio" class="custom-control-input" @if(2==@$data->employ_type) checked @endif value="2">
+                                                        <label for="employ_type2" class="custom-control-label">{{ trans('label.employ_type2') }}</label>
+                                                    </div>
+                                                </div>
+                                                </td>
+                                            </tr> 
                                             <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>

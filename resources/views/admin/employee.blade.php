@@ -293,6 +293,9 @@
                                                     <th scope="col"  @click="sort('employ_date')">
                                                         <div v-bind:class="[sortBy === 'employ_date' ? sortDirection : '']">{{ trans('label.employ_date') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('employ_type')">
+                                                        <div v-bind:class="[sortBy === 'employ_type' ? sortDirection : '']">{{ trans('label.employ_type') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                     </th>
@@ -336,6 +339,10 @@
                                                     </td>
                                                     <td>
                                                     (( item.employ_date ))                                                  
+                                                    </td>
+                                                    <td>
+                                                        <span v-if='item.employ_type == 1'>{{ trans('label.employ_type1') }}</span>
+                                                        <span v-if='item.employ_type == 2'>{{ trans('label.employ_type2') }}</span>                                       
                                                     </td>
                                                     <td >
                                                         <span class="text-block" v-html="item.note">
