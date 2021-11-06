@@ -489,7 +489,8 @@ class WSController extends Controller
             return redirect('/admin/worksheet-view/'.$data->id);
         }
 
-        $data = WorkSheet::find($request->id);
+        $data = WorkSheet::find($id);
+        getWorkSheet($data);
         return view('admin.worksheet-update', compact(['data' , 'id']));
     }
    
@@ -1042,36 +1043,8 @@ class WSController extends Controller
     }
 
     function viewWorkSheet(Request $request,$id) {
-        $data = WorkSheet::find($request->id);
-
-        $employee = Admin::where('code' ,$data->user_id)->first();
-        $data->employee_name = $employee->name;
-        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-        $data->employee_depname = $bophan->name;
-
-        $created_user = Admin::where('id' ,$data->created_by)->first();
-        if ($created_user) {
-            $data->created_by_name = $created_user->name;
-            $data->created_by_sign = $created_user->sign_name;
-        }
-
-        $submited_user = Admin::where('id' ,$data->submited_by)->first();
-        if ($submited_user) {
-            $data->submited_by_name = $submited_user->name;
-            $data->submited_by_sign = $submited_user->sign_name;
-        }
-
-        $checked_user = Admin::where('id' ,$data->checked_by)->first();
-        if ($checked_user) {
-            $data->checked_by_name = $checked_user->name;
-            $data->checked_by_sign = $checked_user->sign_name;
-        }
-
-        $approved_user = Admin::where('id' ,$data->approved_by)->first();
-        if ($approved_user) {
-            $data->approved_by_name = $approved_user->name;
-            $data->approved_by_sign = $approved_user->sign_name;
-        }
+        $data = WorkSheet::find($id);
+        getWorkSheet($data);
 
         return view('admin.worksheet-view', compact(['data' , 'id']));
     }
@@ -1116,6 +1089,53 @@ class WSController extends Controller
         }
 
         return sprintf('%02d:%02d', $h, $i);
+    }
+
+    function getWorkSheet($item) {
+        $user_code = $item->user_id;
+        $month = $item->month;
+
+        $item->classStyle = "";
+        if ($item->status == 0) {
+            $item->classStyle = "status2";
+        } else if ($item->status == 1) {
+            $item->classStyle = "status3";
+        } else if ($item->status == 2) {
+            $item->classStyle = "status4";
+        } else if ($item->status == 3) {
+            $item->classStyle = "status6";
+        }
+
+        $employee = Admin::where('code' ,$user_code)->first();
+        $item->employee_name = $employee->name;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $item->employee_depname = $bophan->name;
+
+        $listdata = $this->getListWorkDaysItem($user_code, $month);
+
+        $item->daycount = $listdata['daycount'];
+        $item->worktimecount = $listdata['worktimecount'];
+        $item->overworktimecount = $listdata['overworktimecount'];
+
+        $created_user = Admin::where('id' ,$item->created_by)->first();
+        if ($created_user) {
+            $item->created_by_name = $created_user->name;
+        }
+
+        $submited_user = Admin::where('id' ,$item->submited_by)->first();
+        if ($submited_user) {
+            $item->submited_by_name = $submited_user->name;
+        }
+
+        $checked_user = Admin::where('id' ,$item->checked_by)->first();
+        if ($checked_user) {
+            $item->checked_by_name = $checked_user->name;
+        }
+
+        $approved_user = Admin::where('id' ,$item->approved_by)->first();
+        if ($approved_user) {
+            $item->approved_by_name = $approved_user->name;
+        }
     }
 
 
@@ -1193,50 +1213,7 @@ class WSController extends Controller
         $pageTotal = ceil($countPage/$showCount);
 
         foreach ($data as &$item) {
-            $user_code = $item->user_id;
-            $month = $item->month;
-
-            $item->classStyle = "";
-            if ($item->status == 0) {
-                $item->classStyle = "status2";
-            } else if ($item->status == 1) {
-                $item->classStyle = "status3";
-            } else if ($item->status == 2) {
-                $item->classStyle = "status4";
-            } else if ($item->status == 3) {
-                $item->classStyle = "status6";
-            }
-
-            $employee = Admin::where('code' ,$user_code)->first();
-            $item->employee_name = $employee->name;
-            $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
-            $item->employee_depname = $bophan->name;
-
-            $listdata = $this->getListWorkDaysItem($user_code, $month);
-
-            $item->daycount = $listdata['daycount'];
-            $item->worktimecount = $listdata['worktimecount'];
-            $item->overworktimecount = $listdata['overworktimecount'];
-
-            $created_user = Admin::where('id' ,$item->created_by)->first();
-            if ($created_user) {
-                $item->created_by_name = $created_user->name;
-            }
-
-            $submited_user = Admin::where('id' ,$item->submited_by)->first();
-            if ($submited_user) {
-                $item->submited_by_name = $submited_user->name;
-            }
-
-            $checked_user = Admin::where('id' ,$item->checked_by)->first();
-            if ($checked_user) {
-                $item->checked_by_name = $checked_user->name;
-            }
-
-            $approved_user = Admin::where('id' ,$item->approved_by)->first();
-            if ($approved_user) {
-                $item->approved_by_name = $approved_user->name;
-            }
+            getWorkSheet($item);
         }
 
         return response()->json([
