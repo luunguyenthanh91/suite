@@ -270,7 +270,7 @@
                                                         <div v-bind:class="[sortBy === 'birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('age')">
-                                                        <div v-bind:class="[sortBy === 'age' ? sortDirection : '']">{{ trans('label.age') }}</div>
+                                                        <div v-bind:class="[sortBy === 'age' ? sortDirection : '']">{{ trans('label.age2') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('email')">
                                                         <div v-bind:class="[sortBy === 'email' ? sortDirection : '']">{{ trans('label.email') }}</div>
