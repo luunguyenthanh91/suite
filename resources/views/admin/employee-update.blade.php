@@ -83,7 +83,7 @@
                                             <tr>
                                                 <td>{{ trans('label.email') }}</td>
                                                 <td>
-                                                <input type="text" name="email" value="{{$data->phone}}" class="form-control">
+                                                <input type="text" name="email" value="{{$data->email}}" class="form-control">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -199,8 +199,43 @@ new Vue({
         
     },
     methods: {
-        
+        onSubmit(){
+            $('.btn-submit').prop('disabled', true);
+            setTimeout(function(){ $('.form-data').submit(); }, 1000);
+        },
+        isNull (value) {
+            return (value == null || value == undefined || value == "") ? true : false;
+        },
+        parseMoney (value) {
+            value = (isNaN(value)) ? 0 : value;
+            const formatter = new Intl.NumberFormat('ja-JP', {
+                style: 'currency',
+                currency: 'JPY',currencyDisplay: 'name'
+            });
+            return formatter.format(value);
+        },
+        parseName (value) {
+            return this.isNull(value)? S_HYPEN : value.toUpperCase();
+        },
+        parseMonth (value) {
+            return this.isNull(value)? S_HYPEN : 
+            value.replace("-", " 年 ")+" 月度";
+        },
+        parseAddr(value) {
+            return this.isNull(value)? S_HYPEN : value;
+        },
+        parsePhone(value) {
+            if (this.isNull(value)) return S_HYPEN;
 
+            value = (new String(value)).replaceAll(S_HYPEN, '').replaceAll(' ', ''); 
+            var vLength = value.length;
+            if (vLength == 11) {
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 4);
+            } else if (vLength == 10) {
+                value = value.substr(0, 3) + S_HYPEN + value.substr(3, 4) + S_HYPEN + value.substr(7, 3);
+            }
+            return value;
+        },
     },
 });
 </script>
