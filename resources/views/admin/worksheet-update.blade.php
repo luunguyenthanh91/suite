@@ -175,8 +175,7 @@
                                                             (( item.overtime_count ))
                                                         </td>
                                                         <td>
-                                                            
-                                                            <input  type="text" v-model="item.note" :name="'childUpdate['+item.dayid+'][note]'" />
+                                                            <input v-if="item.starttime" type="text" v-model="item.note" :name="'childUpdate['+item.dayid+'][note]'" />
                                                         </td>
                                                         
                                                         <td style="width: 100%; "></td>
