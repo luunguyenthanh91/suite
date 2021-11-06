@@ -302,6 +302,9 @@
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
+                                                    <th scope="col" @click="sort('worksheet_id')" >
+                                                        <div v-bind:class="[sortBy === 'worksheet_id' ? sortDirection : '']">{{ trans('label.worksheet_id') }}</div>
+                                                    </th>
                                                     <th scope="col" @click="sort('work_day_count')" >
                                                         <div v-bind:class="[sortBy === 'work_day_count' ? sortDirection : '']">{{ trans('label.work_day_count') }}</div>
                                                     </th>
@@ -378,6 +381,11 @@
                                                     <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
                                                     <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>    
                                                     <span v-if="item.status==4">{{ trans('label.ws_status5') }}</span>   
+                                                    </td>
+                                                    <td>
+                                                        <a target="_blank" :href="'/admin/worksheet-view/' + (( item.worksheet_id ))">
+                                                        (( item.worksheet_id ))
+                                                        </a>
                                                     </td>
                                                     <td>
                                                     ((item.daycount)) 
