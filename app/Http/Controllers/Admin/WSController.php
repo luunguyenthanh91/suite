@@ -490,7 +490,7 @@ class WSController extends Controller
         }
 
         $data = WorkSheet::find($id);
-        getWorkSheet($data);
+        $this->getWorkSheet($data);
         return view('admin.worksheet-update', compact(['data' , 'id']));
     }
    
@@ -1044,7 +1044,7 @@ class WSController extends Controller
 
     function viewWorkSheet(Request $request,$id) {
         $data = WorkSheet::find($id);
-        getWorkSheet($data);
+        $this->getWorkSheet($data);
 
         return view('admin.worksheet-view', compact(['data' , 'id']));
     }
@@ -1213,7 +1213,7 @@ class WSController extends Controller
         $pageTotal = ceil($countPage/$showCount);
 
         foreach ($data as &$item) {
-            getWorkSheet($item);
+            $this->getWorkSheet($item);
         }
 
         return response()->json([
