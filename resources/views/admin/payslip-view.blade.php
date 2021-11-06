@@ -34,11 +34,11 @@
                                 )
                             </label>
                             <br>
-                            <label><u>(( parseMonth('{{@$data->month}}') ))</u></label>
+                            <label><u>(( parseMonth('{{@$data->month}}') ))  {{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></u></label>
                             <br>
-                            <label>{{ trans('label.employee_depname') }}: {{@$data->employee_depname}}</label>
+                            <label>{{ trans('label.pay_day') }}: {{@$data->pay_day}}</label>
                             <br>
-                            <label>{{ trans('label.user_name') }}: {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span>
+                            <label>{{ trans('label.pay_total') }}: (( parseMoney({{@$data->pay_total}}) ))</label>
                             </div>
                     </div>
                     <div class="col-lg-auto">
@@ -116,19 +116,12 @@
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-auto border-left border-right">
-                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab2">
-                                    <span class="flex d-flex flex-column">
-                                        <strong class="card-title">{{ trans('label.worksheet') }}</strong>
-                                    </span>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="detailtab1">
                             <div class="row">     
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             <tr>
@@ -192,7 +185,7 @@
                                         </table>
                                     </div>
                                 </div>  
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="page-separator">
                                         <div class="page-separator__text bgWhite">{{ trans("label.approve_col") }}</div>
                                     </div>
@@ -375,88 +368,6 @@
                                             </tr>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="detailtab2">
-                            <div class="gridControl">
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col" @click="sort('year')" >
-                                                    <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
-                                                </th>
-                                                <th @click="sort('month')">
-                                                    <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('date')">
-                                                    <div v-bind:class="[sortBy === 'date' ? sortDirection : '']">{{ trans('label.date') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('day')">
-                                                    <div v-bind:class="[sortBy === 'day' ? sortDirection : '']">{{ trans('label.day') }}</div>
-                                                </th>
-                                                <th scope="col" @click="sort('ws_type')">
-                                                    <div v-bind:class="[sortBy === 'ws_type' ? sortDirection : '']">{{ trans('label.ws_type') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_start')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_start' ? sortDirection : '']">{{ trans('label.time_start') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('overtime_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'overtime_count' ? sortDirection : '']">{{ trans('label.overtime_count') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('note')">
-                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
-                                                </th>
-                                                <th scope="col"  style="width: 100%; "></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list" id="search">
-                                            <tr v-for="item in sortedProducts">
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.year ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.month ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.day ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.date ))<span v-if="item.offdaytitle"><span class="spaceLabel">(</span>(( item.offdaytitle ))<span>)</span></span>
-                                                </td>
-                                                <td>
-                                                    <span v-if="item.ws_type==1">{{ trans('label.work_day') }}</span>
-                                                </td>
-                                                <td class="textAlignCenter">
-                                                    (( item.starttime ))
-                                                </td>
-                                                <td class="textAlignCenter">
-                                                   (( item.endtime ))
-                                                </td>
-                                                <td  class="textAlignCenter">
-                                                (( item.time_count ))
-                                                </td>
-                                                <td  class="textAlignCenter">
-                                                (( item.overtime_count ))
-                                                </td>
-                                                <td>
-                                                    <span class="text-block" v-html="item.note">
-                                                    (( item.note ))
-                                                    </span>
-                                                </td>
-                                                <td style="width: 100%; "></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
