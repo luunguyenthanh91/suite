@@ -84,11 +84,11 @@
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="checkbox" id="1" value="1" v-model="checkedNames">
-                                <label class="status1" for="1">{{ trans('label.employ_type1') }}</label>
+                                <label class="status2" for="1">{{ trans('label.employ_type1') }}</label>
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="checkbox" id="2" value="2" v-model="checkedNames">
-                                <label class="status2" for="2">{{ trans('label.employ_type2') }}</label>
+                                <label class="status3" for="2">{{ trans('label.employ_type2') }}</label>
                             </div>
                         </div>
                         <div class="page-separator-line"></div>
@@ -214,10 +214,7 @@
                     </a> 
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                         <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
-                    </a>     
-                    <!-- <a type="button" class="btn btn-outline-secondary3" style="background:#1E90FF" target="_blank" @click="refresh()">
-                        <i class="fas fa-sync-alt"><span class="labelButton">リフレッシュ</span></i>
-                    </a> -->
+                    </a>   
                 </div>
                 <div class="container page__container page-section page_container_custom">
                     <div class="row page_container_custom_marginright">
@@ -226,10 +223,10 @@
                                 <div class="d-flex ">
                                     <div class="d-flex fullWidth">
                                         <input class="checkboxHor" type="checkbox" id="employ_type1" value="1" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status1" for="employ_type1">{{ trans('label.employ_type1') }}</label>
+                                        <label class="labelFontSize10 status2" for="employ_type1">{{ trans('label.employ_type1') }}</label>
 
                                         <input class="checkboxHor" type="checkbox" id="employ_type2" value="2" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status2" for="employ_type2">{{ trans('label.employ_type2') }}</label>
+                                        <label class="labelFontSize10 status3" for="employ_type2">{{ trans('label.employ_type2') }}</label>
                                     
                                     </div>
                                     <div class="d-flex rightGridMenu">
