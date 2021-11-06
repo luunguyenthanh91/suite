@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td>{{ trans('label.furigana') }}</td>
                                                 <td>
-                                                <input type="text" name="nickname" value="{{$data->nickname}}" class="form-control">
+                                                <input type="text" name="nick_name" value="{{$data->nick_name}}" class="form-control">
                                                 </td>
                                             </tr> 
                                             

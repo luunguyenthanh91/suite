@@ -67,7 +67,7 @@
                                             <tr>
                                                 <td>{{ trans('label.furigana') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->nickname}}') ))
+                                                (( parseName('{{@$data->nick_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>

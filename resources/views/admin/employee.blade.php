@@ -310,7 +310,7 @@
                                                     (( item.name ))                                                  
                                                     </td>
                                                     <td>
-                                                    (( item.furigana ))                                                  
+                                                    (( item.nick_name ))                                                  
                                                     </td>
                                                     <td>
                                                         <span v-if='item.male == 1'>{{ trans('label.male') }}</span>

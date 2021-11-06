@@ -405,7 +405,7 @@ class UserController extends Controller
                 $data->code = $request->code;
                 $data->male = $request->male;
                 $data->name = $request->name;
-                $data->nickname = $request->nickname;
+                $data->nick_name = $request->nick_name;
                 $data->birthday = $request->birthday;
                 $data->email = $request->email;
                 $data->phone = $request->phone;
