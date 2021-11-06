@@ -84,6 +84,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('get-dashboard', 'ProjectController@dashboard')->name('admin.dashboard');
     // Route::get('/', 'ProjectController@getViewProject');
 
+    Route::get('employee', 'UserController@listEmployee'); 
+    Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');
+    Route::get('employee-view/{id}', 'UserController@viewEmployee')->name('admin.viewEmployee');
+    Route::post('employee-update/{id}', 'UserController@updateEmployee')->name('admin.updateEmployee');
+    Route::get('employee-update/{id}', 'UserController@updateEmployee')->name('admin.updateEmployee');
+    Route::post('employee-delete/{id}', 'UserController@deleteEmployee')->name('admin.deleteEmployee');
+    Route::get('employee-delete/{id}', 'UserController@deleteEmployee')->name('admin.deleteEmployee');
+
     Route::get('get-worksheet', 'WSController@getListWorkSheet')->name('admin.getListWorkSheet');
     Route::get('worksheet', 'WSController@listWorkSheet'); 
     Route::get('worksheet-view/{id}', 'WSController@viewWorkSheet')->name('admin.viewWorkSheet');

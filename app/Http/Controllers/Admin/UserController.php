@@ -22,6 +22,8 @@ use App\Models\BoPhan;
 class UserController extends Controller
 {
     private $limit = 20;
+    private $defSortName = "id";
+    private $defSortType = "DESC";
 
     function checkOut(Request $request , $slug) {
         $users = Admin::where('code' ,$slug )->first();
@@ -383,6 +385,108 @@ class UserController extends Controller
         return response()->json(['message'=>"Deactive Thành Viên Thành Công."]);
     }
 
-    
+    function viewEmployee(Request $request,$id) {
+        $data = Admin::find($id);
+        $this->getEmployee($data);
+
+        return view('admin.employee-view', compact(['data' , 'id']));
+    }
+
+    function deleteEmployee(Request $request,$id) {
+        $data = Admin::find($id);
+        $data->delete();
+        return response()->json([]);
+    }
+
+    function updateEmployee(Request $request,$id) {
+        if ($request->isMethod('post')) {
+            $data = Admin::find($id);
+            if ($data) {
+                $data->code = $request->code;
+                $data->name = $request->name;
+                $data->nickname = $request->nickname;
+                $data->birthday = $request->birthday;
+                $data->email = $request->email;
+                $data->phone = $request->phone;
+                $data->address = $request->address;
+                $data->employ_date = $request->employ_date;
+                $data->note = $request->note;
+                $data->save();
+            }
+            return redirect('/admin/employee-view/'.$data->id);
+        }
+
+        $data = Admin::find($id);
+        return view('admin.employee-update', compact(['data' , 'id']));
+    }
+
+    function getEmployee($data) {
+        
+        $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
+        $data->employee_depname = $bophan->name;
+    }
+
+    function listEmployee(Request $request) {
+        return view('admin.employee', compact([]));
+    }
+
+    function getListEmployee(Request $request) {
+        $page = $request->page - 1;
+        
+        $data = Admin::orderBy($this->defSortName, $this->defSortType);
+        $data = $data->where('user', '1');
+        if(@$request->item_id != '' ){
+			$data = $data->where('id', 'LIKE' , '%'.$request->item_id.'%' );
+        }
+        if(@$request->created_on != '' ){
+            $data = $data->where('created_on', $request->created_on);
+        }
+        if(@$request->created_on_from != '' ){
+            $data = $data->where('created_on', '>=' , $request->created_on_from );
+        }
+        if(@$request->created_on_to != '' ){
+            $data = $data->where('created_on', '<=' , $request->created_on_to );
+        }
+        if(@$request->checked_on != '' ){
+            $data = $data->where('checked_on', $request->created_on);
+        }
+        if(@$request->checked_on_from != '' ){
+            $data = $data->where('checked_on', '>=' , $request->checked_on_from );
+        }
+        if(@$request->checked_on_to != '' ){
+            $data = $data->where('created_on', '<=' , $request->checked_on_to );
+        }
+        if(@$request->approved_on != '' ){
+            $data = $data->where('approved_on', $request->approved_on);
+        }
+        if(@$request->approved_on_from != '' ){
+            $data = $data->where('approved_on', '>=' , $request->approved_on_from );
+        }
+        if(@$request->approved_on_to != '' ){
+            $data = $data->where('approved_on', '<=' , $request->approved_on_to );
+        }
+
+        $count = $data->count();
+        $showCount = $request->showcount;
+        if ($showCount == 0) {
+            $showCount = $count;
+        }
+        if ($showCount == 0) {
+            $showCount = 1;
+        }
+        $data = $data->offset($page * $showCount)->limit($showCount)->get();
+        $countPage = $count === 0 ? 1 : $count;
+        $pageTotal = ceil($countPage/$showCount);
+
+        foreach ($data as &$item) {
+            $this->getEmployee($item);
+        }
+
+        return response()->json([
+            'data'=>$data,
+            'count'=>$count,
+            'pageTotal' => $pageTotal
+        ]);
+    }
 
 }

@@ -1,28 +1,28 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '給与明細')
+@section('contentTitle', '社員情報')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')
 
     <div id="list-data">
-        <div class="modal fade" id="createPayslip">
-            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-payslip">
+        <div class="modal fade" id="createEmployee">
+            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-employee">
                 @csrf
                 <div class="modal-content" >
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.new_payslip') }}</h4>
+                        <h4 class="modal-title">{{ trans('label.new_employee') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.month') }}</label>
-                            <input type="month" name="month" class="form-control" required>
+                            <label class="form-label">{{ trans('label.employee_code') }}</label>
+                            <input type="text" name="code" class="form-control"  required>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.user_id') }}</label>
-                            <input type="text" name="user_id" class="form-control"  required>
+                            <label class="form-label">{{ trans('label.employee_name') }}</label>
+                            <input type="text" name="name" class="form-control"  required>
                         </div>
                         <div class="form-group col-lg-12">
                             <label class="form-label">{{ trans('label.note') }}</label>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.payslip_id') }}</label>
+                            <label class="form-label">{{ trans('label.employee_id') }}</label>
                             <input type="text" class="form-control search" v-model="item_id">
                         </div>
                         <div class="page-separator-line"></div>
@@ -203,21 +203,11 @@
                         <div class="col-lg-12">
                             <div class="row" style="margin-top:15px;">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.payslip_id') }}</label>
+                                    <label class="form-label">{{ trans('label.employee_id') }}</label>
                                     <input type="text" class="form-control search" v-model="item_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.month') }}</label>
-                                    <input type="month" class="form-control search" v-model="month" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.user_id') }}</label>
-                                    <input type="text" class="form-control search" v-model="user_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                </div>
                                 <div class="form-group col-lg-12">
                                     <label class="form-label">{{ trans('label.user_name') }}</label>
                                     <input type="text" class="form-control search" v-model="user_name" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
@@ -231,7 +221,7 @@
             <div id="second" class="rightPanel">
 
             <div class="bodyButtonTop">
-                    <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createPayslip">
+                    <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createEmployee">
                         <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
                     </a> 
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
@@ -247,20 +237,6 @@
                             <div :class="'' + classBodayRightContentGrid">
                                 <div class="d-flex ">
                                     <div class="d-flex fullWidth">
-                                        <input class="checkboxHor2" type="checkbox" id="po_status1" value="0" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status2" for="po_status1">{{ trans('label.ws_status1') }}</label>
-
-                                        <input class="checkboxHor" type="checkbox" id="po_status2" value="1" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status3" for="po_status2">{{ trans('label.ws_status2') }}</label>
-
-                                        <input class="checkboxHor" type="checkbox" id="cancel" value="2" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status4" for="cancel">{{ trans('label.ws_status3') }}</label>
-                                    
-                                        <input class="checkboxHor" type="checkbox" id="approved" value="3" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status5" for="approved">{{ trans('label.ws_status4') }}</label>
-
-                                        <input class="checkboxHor" type="checkbox" id="received" value="4" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status6" for="received">{{ trans('label.close2') }}</label>
                                     </div>
                                     <div class="d-flex rightGridMenu">
                                         <div class="gridControl2">
@@ -284,68 +260,29 @@
                                         <table class="table thead-border-top-0 table-nowrap mb-0">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th class="sticky-col fix-col1" scope="col" @click="sort('id')">
-                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.payslip_id') }}</div>
+                                                    <th class="sticky-col fix-col1" @click="sort('id')">
+                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.employee_code') }}</div>
                                                     </th>
-                                                    <th class="sticky-col fix-col2" scope="col" @click="sort('month')">
-                                                        <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
-                                                    </th>
-                                                    <th class="sticky-col fix-col3" scope="col" @click="sort('user_name')">
-                                                        <div v-bind:class="[sortBy === 'user_name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('user_id')">
-                                                        <div v-bind:class="[sortBy === 'user_id' ? sortDirection : '']">{{ trans('label.user_id') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('employee_depname')">
+                                                    <th class="sticky-col fix-col2" @click="sort('employee_depname')">
                                                         <div v-bind:class="[sortBy === 'employee_depname' ? sortDirection : '']">{{ trans('label.employee_depname') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('status')" >
-                                                        <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
+                                                    <th class="sticky-col fix-col3" @click="sort('name')">
+                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('work_day_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_day_count' ? sortDirection : '']">{{ trans('label.work_day_count') }}</div>
+                                                    <th scope="col"  @click="sort('nick_name')">
+                                                        <div v-bind:class="[sortBy === 'nick_name' ? sortDirection : '']">{{ trans('label.furigana') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('work_time_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_time_count' ? sortDirection : '']">{{ trans('label.work_time_count') }}</div>
+                                                    <th scope="col"  @click="sort('birthday')">
+                                                        <div v-bind:class="[sortBy === 'birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('work_overtime_count')" >
-                                                        <div v-bind:class="[sortBy === 'work_overtime_count' ? sortDirection : '']">{{ trans('label.work_overtime_count') }}</div>
+                                                    <th scope="col"  @click="sort('email')">
+                                                        <div v-bind:class="[sortBy === 'email' ? sortDirection : '']">{{ trans('label.email') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('plus_total')">
-                                                        <div v-bind:class="[sortBy === 'plus_total' ? sortDirection : '']">{{ trans('label.plus_total') }}</div>
+                                                    <th scope="col"  @click="sort('phone')">
+                                                        <div v-bind:class="[sortBy === 'phone' ? sortDirection : '']">{{ trans('label.tel') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('minus_total')">
-                                                        <div v-bind:class="[sortBy === 'minus_total' ? sortDirection : '']">{{ trans('label.minus_total') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('pay_day')">
-                                                        <div v-bind:class="[sortBy === 'pay_day' ? sortDirection : '']">{{ trans('label.pay_day') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('pay_total')">
-                                                        <div v-bind:class="[sortBy === 'pay_total' ? sortDirection : '']">{{ trans('label.pay_total') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('created_on')">
-                                                        <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('created_by')">
-                                                        <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('checked_on')">
-                                                        <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('checked_by')">
-                                                        <div v-bind:class="[sortBy === 'checked_by' ? sortDirection : '']">{{ trans('label.checked_by') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('approved_on')">
-                                                        <div v-bind:class="[sortBy === 'approved_on' ? sortDirection : '']">{{ trans('label.approved_on') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('approved_by')">
-                                                        <div v-bind:class="[sortBy === 'approved_by' ? sortDirection : '']">{{ trans('label.approved_by') }}</div>
-                                                    </th>
-                                                    <th scope="col"  @click="sort('received_on')">
-                                                        <div v-bind:class="[sortBy === 'received_on' ? sortDirection : '']">{{ trans('label.received_on') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('received_by')">
-                                                        <div v-bind:class="[sortBy === 'received_by' ? sortDirection : '']">{{ trans('label.received_by') }}</div>
+                                                    <th scope="col"  @click="sort('address')">
+                                                        <div v-bind:class="[sortBy === 'address' ? sortDirection : '']">{{ trans('label.address') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
@@ -356,78 +293,38 @@
                                             <tbody class="list" id="search">
                                                 <tr v-for="item in sortedProducts">
                                                     <td :class="item.classStyle  + ' sticky-col fix-col1-detail'" style="left:0px">
-                                                    <a target="_blank" :href="'/admin/payslip-view/' + item.id">
-                                                    ((item.id))
-                                                    </a>
+                                                        <a target="_blank" :href="'/admin/employee-view/' + item.id">
+                                                        ((item.id))
+                                                        </a>
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col2-detail'">
-                                                    (( removeTime(item.month) ))
-                                                    </td>
-                                                    <td :class="item.classStyle  + ' sticky-col fix-col3-detail'">
-                                                    (( item.employee_name ))                                                  
-                                                    </td>
-                                                    <td>
-                                                    (( item.user_id ))                                                  
-                                                    </td>
-                                                    <td>
                                                     (( item.employee_depname ))                                                    
                                                     </td>
-                                                    <td>
-                                                    <span v-if="item.status==0">{{ trans('label.ws_status1') }}</span>
-                                                    <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
-                                                    <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>    
-                                                    <span v-if="item.status==3">{{ trans('label.ws_status4') }}</span>    
-                                                    <span v-if="item.status==4">{{ trans('label.ws_status5') }}</span>   
+                                                    <td :class="item.classStyle  + ' sticky-col fix-col3-detail'">
+                                                    (( item.name ))                                                  
                                                     </td>
                                                     <td>
-                                                    ((item.daycount)) 
+                                                    (( item.furigana ))                                                  
                                                     </td>
                                                     <td>
-                                                    ((item.worktimecount)) 
+                                                    (( item.birthday ))                                                  
                                                     </td>
                                                     <td>
-                                                    ((item.overworktimecount)) 
-                                                    </td>
-                                                    <td class="moneyCol" >
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.plus_total) ))
-                                                    </td>
-                                                    <td class="moneyCol" >
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.minus_total) ))
+                                                    (( item.email ))                                                  
                                                     </td>
                                                     <td>
-                                                    ((item.pay_day)) 
-                                                    </td>
-                                                    <td class="moneyCol" >
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.pay_total) ))
+                                                    (( parsePhone(item.phone) ))                                                
                                                     </td>
                                                     <td>
-                                                    ((item.created_on)) 
+                                                    (( item.address ))                                                  
                                                     </td>
                                                     <td>
-                                                    ((item.created_by_name)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.checked_on)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.checked_by_name)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.approved_on)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.approved_by_name)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.received_on)) 
-                                                    </td>
-                                                    <td>
-                                                    ((item.received_by_name)) 
+                                                    (( item.employ_date ))                                                  
                                                     </td>
                                                     <td >
-                                                    <span class="text-block" v-html="item.note">
-                                                    (( item.note ))
-                                                    </span>
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.note ))
+                                                        </span>
                                                     </td>
                                                     <td></td>
                                                 </tr>
@@ -1112,7 +1009,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListPayslip')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListEmployee')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;
@@ -1143,13 +1040,13 @@ new Vue({
                     // fixed 1
                     setTimeout(function() { 
                         $('.fix-col1').attr("style","z-index:10;left:0px;background:#CCCCCC");
-                        $('.fix-col2').attr("style","z-index:10;left:90px;background:#CCCCCC");
-                        $('.fix-col3').attr("style","z-index:10;left:"+(70 + 90)+"px;background:#CCCCCC");
+                        $('.fix-col2').attr("style","z-index:10;left:80px;background:#CCCCCC");
+                        $('.fix-col3').attr("style","z-index:10;left:"+(50 + 80)+"px;background:#CCCCCC");
 
 
                         $('.fix-col1-detail').attr("style","z-index:9;left:0px;");
-                        $('.fix-col2-detail').attr("style","z-index:9;left:90px;");
-                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(70 + 90)+"px;");
+                        $('.fix-col2-detail').attr("style","z-index:9;left:80px;");
+                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(50 + 80)+"px;");
                     }, 100);
                 },
                 error: function(xhr, textStatus, error) {

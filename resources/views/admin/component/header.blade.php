@@ -89,14 +89,14 @@
                     <span class="sidebar-menu-text">{{ trans('label.person_management2_3') }}</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item {{ (request()->is('*project*')) ? 'active open' : '' }} {{ (request()->is('calendar')) ? 'active open' : '' }} ">
-                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-project" aria-expanded="false">
+                <li class="sidebar-menu-item {{ (request()->is('*employee*')) ? 'active open' : '' }} ">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-employee" aria-expanded="false">
                     {{ trans('label.person_management1') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
-                    <ul class="sidebar-submenu sm-indent collapse" id="col-project" style="">
-                        <li class="sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/project">
+                    <ul class="sidebar-submenu sm-indent collapse" id="col-employee" style="">
+                        <li class="sidebar-menu-item {{ (request()->is('*employee')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button" href="/admin/employee">
                                 <span class="sidebar-menu-text">{{ trans('label.person_management1_1') }}</span>
                             </a>
                         </li>
