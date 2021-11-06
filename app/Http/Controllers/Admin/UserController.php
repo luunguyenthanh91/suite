@@ -411,6 +411,7 @@ class UserController extends Controller
                 $data->phone = $request->phone;
                 $data->address = $request->address;
                 $data->employ_date = $request->employ_date;
+                $data->employ_type = $request->employ_type;
                 $data->note = $request->note;
                 $data->save();
             }
@@ -425,6 +426,13 @@ class UserController extends Controller
         $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
         $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
+
+        $data->classStyle = "";
+        if ($data->employ_type == 1) {
+            $data->classStyle = "status2";
+        } else if ($data->employ_type == 2) {
+            $data->classStyle = "status3";
+        }
     }
 
     function listEmployee(Request $request) {
