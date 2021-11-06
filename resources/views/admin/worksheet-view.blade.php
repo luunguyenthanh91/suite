@@ -25,19 +25,21 @@
                 <div class="d-flex" style="width:100%;">
                     <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12">
-                            <label>
-                                {{ trans('label.worksheet_id') }}{{@$data->id}} (
-                                <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
-                                <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
-                                <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
-                                <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
-                                )
-                            </label>
+                            <u>
+                                <label>
+                                    {{ trans('label.worksheet_id') }}{{@$data->id}} (
+                                    <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
+                                    <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
+                                    <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
+                                    <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
+                                    )
+                                </label>
+                            </u>
                             <br>
-                            <label><u>(( parseMonth('{{@$data->month}}') ))</u></label>
+                            <label>(( parseMonth('{{@$data->month}}') )) {{@$data->employee_depname}} {{@$data->employee_name}} ({{@$data->user_id}})</label>
                             <br>
-                            <label>{{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></label><br>
-                            <label>{{ trans('label.work_day_count') }}: (( daycount ))</label><span style="margin-left:20px"><span>{{ trans('label.work_time_count') }}: (( worktimecount ))
+                            <label>{{ trans('label.work_day_count') }}: (( daycount ))</label><br>
+                            <label>{{ trans('label.work_time_count') }}: (( worktimecount ))</label>
                             </div>
                     </div>
                     <div class="col-lg-auto">

@@ -36,7 +36,7 @@
                                 </label>
                             </u>
                             <br>
-                            <label>(( parseMonth('{{@$data->month}}') ))  {{@$data->employee_depname}} {{@$data->employee_name}}<span class="spaceLabel">(</span>{{@$data->user_id}}<span>)</span></label>
+                            <label>(( parseMonth('{{@$data->month}}') )) {{@$data->employee_depname}} {{@$data->employee_name}} ({{@$data->user_id}})</label>
                             <br>
                             <label>{{ trans('label.pay_day') }}: {{@$data->pay_day}}</label>
                             <br>
