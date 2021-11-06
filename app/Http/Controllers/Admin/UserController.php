@@ -402,7 +402,9 @@ class UserController extends Controller
     function getAcademic(Request $request) {
         $page = $request->page - 1;
 
-        $data = Academic::where('user_id', $request->user_id)->get();
+        $employee = Admin::where('code' ,$request->user_id)->first();
+        $user_id = $employee->id;
+        $data = Academic::where('user_id', $user_id)->get();
         $count = $data->count();
         $showCount = $request->showcount;
         if ($showCount == 0) {
