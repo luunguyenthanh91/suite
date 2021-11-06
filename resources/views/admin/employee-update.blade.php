@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
-                                                <input type="text" name="code" value="{{$data->id}}" class="form-control">
+                                                <input type="text" name="code" value="{{$data->code}}" class="form-control">
                                                 </td>
                                             </tr> 
                                             <tr>
