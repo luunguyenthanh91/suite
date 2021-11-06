@@ -251,8 +251,8 @@
                                         <table class="table thead-border-top-0 table-nowrap mb-0">
                                             <thead class="thead-light">
                                                 <tr>
-                                                    <th class="sticky-col fix-col1" @click="sort('id')">
-                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.employee_code') }}</div>
+                                                    <th class="sticky-col fix-col1" @click="sort('code')">
+                                                        <div v-bind:class="[sortBy === 'code' ? sortDirection : '']">{{ trans('label.employee_code') }}</div>
                                                     </th>
                                                     <th class="sticky-col fix-col2" @click="sort('employee_depname')">
                                                         <div v-bind:class="[sortBy === 'employee_depname' ? sortDirection : '']">{{ trans('label.employee_depname') }}</div>
@@ -297,7 +297,7 @@
                                                 <tr v-for="item in sortedProducts">
                                                     <td :class="item.classStyle  + ' sticky-col fix-col1-detail'" style="left:0px">
                                                         <a target="_blank" :href="'/admin/employee-view/' + item.id">
-                                                        ((item.id))
+                                                        ((item.code))
                                                         </a>
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col2-detail'">
@@ -576,8 +576,8 @@ new Vue({
         classColLG12: (viewPC)? "col-lg-12" : "colLg12Mobile",
         classRightGrid: "col-lg-10",
         classLefttGrid: "col-lg-2",
-        sortBy: 'month',
-        sortDirection: 'desc',
+        sortBy: 'code',
+        sortDirection: 'asc',
     },
     delimiters: ["((", "))"],
     mounted() {
