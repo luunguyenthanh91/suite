@@ -140,6 +140,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.my_number') }}</td>
+                                                <td>
+                                                (( parseMyNumber('{{@$data->my_number}}') )) 
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.employ_date') }}</td>
                                                 <td>
                                                 {{@$data->employ_date}}
@@ -729,6 +735,10 @@ new Vue({
         },
         parseAddr(value) {
             return this.isNull(value)? S_HYPEN : value.toUpperCase();
+        },
+        parseMyNumber(value) {
+            if (this.isNull(value)) return "";
+            return value.substring(0, 3) + " " + value.substring(4, 7) + " " + value.substring(8, 11);
         },
         parsePhone(value) {
             if (this.isNull(value)) return S_HYPEN;

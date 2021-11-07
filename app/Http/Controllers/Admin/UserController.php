@@ -442,6 +442,7 @@ class UserController extends Controller
                 $data->employ_date = $request->employ_date;
                 $data->employ_type = $request->employ_type;
                 $data->note = $request->note;
+                $data->my_number = $request->my_number;
                 $data->avatar = $request->avatar;
                 $data->save();
             }

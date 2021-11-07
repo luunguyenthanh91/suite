@@ -281,6 +281,9 @@
                                                     <th scope="col"  @click="sort('address')">
                                                         <div v-bind:class="[sortBy === 'address' ? sortDirection : '']">{{ trans('label.address') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('my_number')">
+                                                        <div v-bind:class="[sortBy === 'my_number' ? sortDirection : '']">{{ trans('label.my_number') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('employ_date')">
                                                         <div v-bind:class="[sortBy === 'employ_date' ? sortDirection : '']">{{ trans('label.employ_date') }}</div>
                                                     </th>
@@ -327,6 +330,9 @@
                                                     </td>
                                                     <td>
                                                     (( item.address ))                                                  
+                                                    </td>
+                                                    <td>
+                                                    (( parseMyNumber(item.my_number) ))                                   
                                                     </td>
                                                     <td>
                                                     (( item.employ_date ))                                                  
@@ -929,6 +935,10 @@ new Vue({
         },
         parseAddr(value) {
             return this.isNull(value)? S_HYPEN : value.toUpperCase();
+        },
+        parseMyNumber(value) {
+            if (this.isNull(value)) return "";
+            return value.substring(0, 3) + " " + value.substring(4, 7) + " " + value.substring(8, 11);
         },
         parsePhone(value) {
             if (this.isNull(value)) return S_HYPEN;

@@ -111,6 +111,12 @@
                                                 </td>
                                             </tr> 
                                             <tr>
+                                                <td>{{ trans('label.my_number') }}</td>
+                                                <td>
+                                                <input type="text" name="my_number" value="{{$data->my_number}}" class="form-control">
+                                                </td>
+                                            </tr> 
+                                            <tr>
                                                 <td>{{ trans('label.employ_date') }}</td>
                                                 <td>
                                                 <input type="date" name="employ_date" value="{{$data->employ_date}}" class="form-control">
