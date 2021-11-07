@@ -277,6 +277,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div class="card">
                                     <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
                                         <thead class="thead-light">
                                             <tr>
@@ -318,10 +319,10 @@
                                         <tbody class="list" id="search">
                                             <tr v-for="item in sortedProducts">
                                                 <td :class="item.classStyle  + ' '">
-                                                (( item.year ))
+                                                (( item.sel_year ))
                                                 </td>
                                                 <td :class="item.classStyle  + ' '">
-                                                (( item.month ))
+                                                (( item.sel_month ))
                                                 </td>
                                                 <td :class="item.classStyle  + ' '">
                                                 (( item.day ))
@@ -358,6 +359,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
