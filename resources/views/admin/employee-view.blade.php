@@ -738,7 +738,7 @@ new Vue({
         },
         parseMyNumber(value) {
             if (this.isNull(value)) return "";
-            return value.substring(0, 4) + " " + value.substring(4, 4) + " " + value.substring(8, 4);
+            return value.substring(0, 4) + " " + value.substring(4, 8) + " " + value.substring(8, 12);
         },
         parsePhone(value) {
             if (this.isNull(value)) return S_HYPEN;
