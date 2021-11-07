@@ -415,9 +415,15 @@ class UserController extends Controller
             list($item->sel_year, $item->sel_month) = explode ("-", $item->month);
         }
 
+        $data3 = Academic::where('user_id', $user_id)->where('type', "3")->get();
+        foreach($data3 as $item) {
+            list($item->sel_year, $item->sel_month) = explode ("-", $item->month);
+        }
+
         return response()->json([
             'data'=>$data,
             'data2'=>$data2,
+            'data3'=>$data3,
         ]);
     }
 
