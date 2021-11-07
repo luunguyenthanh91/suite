@@ -449,7 +449,7 @@ new Vue({
         conditionSearch: '',
         sumCount: 0,
         sortBy: 'month',
-        sortDirection: 'asc',
+        sortDirection: 'desc',
         sumTienPhienDich: 0,
         sumTongThuDuKien: 0,
         sumCost:0 ,
