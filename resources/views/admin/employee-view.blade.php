@@ -146,6 +146,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.fuyo_number') }}</td>
+                                                <td>
+                                                {{@$data->fuyo_number}}
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.employ_date') }}</td>
                                                 <td>
                                                 {{@$data->employ_date}}

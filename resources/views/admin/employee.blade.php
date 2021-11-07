@@ -284,11 +284,17 @@
                                                     <th scope="col"  @click="sort('my_number')">
                                                         <div v-bind:class="[sortBy === 'my_number' ? sortDirection : '']">{{ trans('label.my_number') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('fuyo_number')">
+                                                        <div v-bind:class="[sortBy === 'fuyo_number' ? sortDirection : '']">{{ trans('label.fuyo_number') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('employ_date')">
                                                         <div v-bind:class="[sortBy === 'employ_date' ? sortDirection : '']">{{ trans('label.employ_date') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('employ_type')">
                                                         <div v-bind:class="[sortBy === 'employ_type' ? sortDirection : '']">{{ trans('label.employ_type') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('salary_bank')">
+                                                        <div v-bind:class="[sortBy === 'bank' ? sortDirection : '']">{{ trans('label.bank') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
@@ -333,6 +339,9 @@
                                                     </td>
                                                     <td>
                                                     (( parseMyNumber(item.my_number) ))                                   
+                                                    </td>
+                                                    <td>
+                                                    (( item.fuyo_number ))                                                  
                                                     </td>
                                                     <td>
                                                     (( item.employ_date ))                                                  
