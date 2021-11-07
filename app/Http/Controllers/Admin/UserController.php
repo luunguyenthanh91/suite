@@ -408,6 +408,9 @@ class UserController extends Controller
         $data = Academic::where('user_id', $user_id)->get();
         $count = $data->count();
 
+            echo "<pre>";
+            print_r($data);die;
+
         return response()->json([
             'data'=>$data,
             'count'=>$count,
