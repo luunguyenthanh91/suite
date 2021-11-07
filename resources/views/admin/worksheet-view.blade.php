@@ -277,87 +277,89 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col" @click="sort('year')" >
-                                                    <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
-                                                </th>
-                                                <th @click="sort('month')">
-                                                    <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('date')">
-                                                    <div v-bind:class="[sortBy === 'date' ? sortDirection : '']">{{ trans('label.date') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('day')">
-                                                    <div v-bind:class="[sortBy === 'day' ? sortDirection : '']">{{ trans('label.day') }}</div>
-                                                </th>
-                                                <th scope="col" @click="sort('ws_type')">
-                                                    <div v-bind:class="[sortBy === 'ws_type' ? sortDirection : '']">{{ trans('label.ws_type') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_start')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_start' ? sortDirection : '']">{{ trans('label.time_start') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('overtime_count')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'overtime_count' ? sortDirection : '']">{{ trans('label.overtime_count') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('note')">
-                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
-                                                </th>
-                                                <!-- <th scope="col">
-                                                </th> -->
-                                                <th scope="col"  style="width: 100%; "></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list" id="search">
-                                            <tr v-for="item in sortedProducts">
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.year ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.month ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.day ))
-                                                </td>
-                                                <td :class="item.classStyle  + ' '">
-                                                (( item.date ))<span v-if="item.offdaytitle"><span class="spaceLabel">(</span>(( item.offdaytitle ))<span>)</span></span>
-                                                </td>
-                                                <td class="textAlignCenter">
-                                                    <span v-if="item.ws_type==1">{{ trans('label.work_day') }}</span>
-                                                </td>
-                                                <td class="textAlignCenter">
-                                                    (( item.starttime ))
-                                                </td>
-                                                <td class="textAlignCenter">
-                                                   (( item.endtime ))
-                                                </td>
-                                                <td  class="textAlignCenter">
-                                                (( item.time_count ))
-                                                </td>
-                                                <td  class="textAlignCenter">
-                                                (( item.overtime_count ))
-                                                </td>
-                                                <td>
-                                                    <span class="text-block" v-html="item.note">
-                                                    (( item.note ))
-                                                    </span>
-                                                </td>
-                                                <!-- <td>
-                                                    <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
-                                                        <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
-                                                    </a>
-                                                </td> -->
-                                                <td style="width: 100%; "></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="card">
+                                        <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" @click="sort('year')" >
+                                                        <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
+                                                    </th>
+                                                    <th @click="sort('month')">
+                                                        <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('date')">
+                                                        <div v-bind:class="[sortBy === 'date' ? sortDirection : '']">{{ trans('label.date') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('day')">
+                                                        <div v-bind:class="[sortBy === 'day' ? sortDirection : '']">{{ trans('label.day') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('ws_type')">
+                                                        <div v-bind:class="[sortBy === 'ws_type' ? sortDirection : '']">{{ trans('label.ws_type') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('time_start')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'time_start' ? sortDirection : '']">{{ trans('label.time_start') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('overtime_count')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'overtime_count' ? sortDirection : '']">{{ trans('label.overtime_count') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('note')">
+                                                        <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
+                                                    </th>
+                                                    <!-- <th scope="col">
+                                                    </th> -->
+                                                    <th scope="col"  style="width: 100%; "></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list" id="search">
+                                                <tr v-for="item in sortedProducts">
+                                                    <td :class="item.classStyle  + ' '">
+                                                    (( item.year ))
+                                                    </td>
+                                                    <td :class="item.classStyle  + ' '">
+                                                    (( item.month ))
+                                                    </td>
+                                                    <td :class="item.classStyle  + ' '">
+                                                    (( item.day ))
+                                                    </td>
+                                                    <td :class="item.classStyle  + ' '">
+                                                    (( item.date ))<span v-if="item.offdaytitle"><span class="spaceLabel">(</span>(( item.offdaytitle ))<span>)</span></span>
+                                                    </td>
+                                                    <td class="textAlignCenter">
+                                                        <span v-if="item.ws_type==1">{{ trans('label.work_day') }}</span>
+                                                    </td>
+                                                    <td class="textAlignCenter">
+                                                        (( item.starttime ))
+                                                    </td>
+                                                    <td class="textAlignCenter">
+                                                    (( item.endtime ))
+                                                    </td>
+                                                    <td  class="textAlignCenter">
+                                                    (( item.time_count ))
+                                                    </td>
+                                                    <td  class="textAlignCenter">
+                                                    (( item.overtime_count ))
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.note ))
+                                                        </span>
+                                                    </td>
+                                                    <!-- <td>
+                                                        <a target="_blank" v-if="item.dayid" type="button" class="btn btn-outline-secondary3" style="background:orange" :href="'/admin/worksheetday-update/'+item.dayid">
+                                                            <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
+                                                        </a>
+                                                    </td> -->
+                                                    <td style="width: 100%; "></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
