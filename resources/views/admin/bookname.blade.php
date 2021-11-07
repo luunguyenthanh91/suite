@@ -244,23 +244,23 @@
                                                     <th class="sticky-col fix-col1" @click="sort('id')">
                                                         <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.namebook_id') }}</div>
                                                     </th>
-                                                    <th class="sticky-col fix-col2" @click="sort('code')">
-                                                        <div v-bind:class="[sortBy === 'code' ? sortDirection : '']">{{ trans('label.employee_code') }}</div>
+                                                    <th class="sticky-col fix-col2" @click="sort('employee_code')">
+                                                        <div v-bind:class="[sortBy === 'employee_code' ? sortDirection : '']">{{ trans('label.employee_code') }}</div>
                                                     </th>
-                                                    <th class="sticky-col fix-col3" @click="sort('name')">
-                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
+                                                    <th class="sticky-col fix-col3" @click="sort('employee_name')">
+                                                        <div v-bind:class="[sortBy === 'employee_name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('status')" >
                                                         <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('nick_name')">
-                                                        <div v-bind:class="[sortBy === 'nick_name' ? sortDirection : '']">{{ trans('label.furigana') }}</div>
+                                                    <th scope="col" @click="sort('employee_nick_name')">
+                                                        <div v-bind:class="[sortBy === 'employee_nick_name' ? sortDirection : '']">{{ trans('label.furigana') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('male')">
                                                         <div v-bind:class="[sortBy === 'male' ? sortDirection : '']">{{ trans('label.sex') }}</div>
                                                     </th>
-                                                    <th scope="col" @click="sort('birthday')">
-                                                        <div v-bind:class="[sortBy === 'birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
+                                                    <th scope="col" @click="sort('employee_birthday')">
+                                                        <div v-bind:class="[sortBy === 'employee_birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('address')">
                                                         <div v-bind:class="[sortBy === 'address' ? sortDirection : '']">{{ trans('label.address') }}</div>
@@ -310,12 +310,12 @@
                                                     (( item.id ))                                                    
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col2-detail'">
-                                                        <a target="_blank" :href="'/admin/employee-view/' + item.id">
-                                                        ((item.code))
+                                                        <a target="_blank" :href="'/admin/employee-view/' + item.employee_id">
+                                                        ((item.employee_code))
                                                         </a>
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col3-detail'">
-                                                    (( item.name ))                                              
+                                                    (( item.employee_name ))                                              
                                                     </td>
                                                     <td>
                                                     <span v-if="item.status==0">{{ trans('label.bn_status1') }}</span>
@@ -323,14 +323,14 @@
                                                     <span v-if="item.status==2">{{ trans('label.bn_status3') }}</span>   
                                                     </td>
                                                     <td>
-                                                    (( item.nick_name ))                                                  
+                                                    (( item.employee_nick_name ))                                                  
                                                     </td>
                                                     <td>
                                                         <span v-if='item.male == 1'>{{ trans('label.male') }}</span>
                                                         <span v-if='item.male == 2'>{{ trans('label.female') }}</span>                                       
                                                     </td>
                                                     <td>
-                                                    (( item.birthday ))                                             
+                                                    (( item.employee_birthday ))                                             
                                                     </td>
                                                     <td>
                                                     (( item.address ))                                                  

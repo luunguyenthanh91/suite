@@ -95,16 +95,26 @@ class BooknameController extends Controller
     }
 
     function getBookname($data) {
-        $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
-
-        $data->Bookname_depname = $bophan->name;
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $data->employee_id = $employee->id;
+        $data->employee_name = $employee->name;
+        $data->employee_code = $employee->code;
+        $data->employee_nick_name = $employee->nick_name;
+        $data->employee_birthday = $employee->birthday;
+        $data->male = $employee->male;
+        $data->employ_date = $employee->employ_date;
+        $data->address = $employee->address;
+        $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
+        $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
 
         $data->classStyle = "";
-        if ($data->employ_type == 1) {
+        if ($data->status == 0) {
             $data->classStyle = "status2";
-        } else if ($data->employ_type == 2) {
+        } else if ($data->status == 1) {
             $data->classStyle = "status3";
+        } else if ($data->status == 2) {
+            $data->classStyle = "status4";
         }
     }
 
