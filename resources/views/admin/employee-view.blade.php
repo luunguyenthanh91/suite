@@ -203,7 +203,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="detailtab4">
+                        <div class="tab-pane" id="detailtab2">
                             <div class="gridControl">
                             </div>
                             <div class="row">
@@ -962,7 +962,7 @@ new Vue({
                 success: function(data) {
                     that.listAcademic = data.data;
                     that.listAcademic2 = data.data2;
-                    
+
                     that.loadingTable = 0;
                     let pageArr = [];
                     if (that.page - 2 > 0) {
