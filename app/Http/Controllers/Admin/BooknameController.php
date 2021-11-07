@@ -95,7 +95,7 @@ class BooknameController extends Controller
     }
 
     function getBookname($data) {
-        $employee = Admin::where('code' ,$data->user_id)->first();
+        $employee = Admin::where('id' ,$data->user_id)->first();
         $data->employee_id = $employee->id;
         $data->employee_name = $employee->name;
         $data->employee_code = $employee->code;
