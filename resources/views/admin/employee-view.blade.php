@@ -153,44 +153,46 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col" @click="sort('year')" >
-                                                    <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
-                                                </th>
-                                                <th @click="sort('month')">
-                                                    <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('name')" class="textAlignCenter">
-                                                    <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.academic') }}</div>
-                                                </th>
-                                                <th scope="col"  @click="sort('note')">
-                                                    <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
-                                                </th>
-                                                <th scope="col"  style="width: 100%; "></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list" id="search">
-                                            <tr v-for="item in sortedProducts">
-                                                <td>
-                                                (( item.year ))
-                                                </td>
-                                                <td>
-                                                (( item.month ))
-                                                </td>
-                                                <td >
-                                                (( item.name ))
-                                                </td>
-                                                <td>
-                                                    <span class="text-block" v-html="item.note">
-                                                    (( item.note ))
-                                                    </span>
-                                                </td>
-                                                <td style="width: 100%; "></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="card">
+                                        <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" @click="sort('year')" >
+                                                        <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
+                                                    </th>
+                                                    <th @click="sort('month')">
+                                                        <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('name')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.academic') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('note')">
+                                                        <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
+                                                    </th>
+                                                    <th scope="col"  style="width: 100%; "></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list" id="search">
+                                                <tr v-for="item in sortedProducts">
+                                                    <td>
+                                                    (( item.sel_year ))
+                                                    </td>
+                                                    <td>
+                                                    (( item.sel_month ))
+                                                    </td>
+                                                    <td >
+                                                    (( item.name ))
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.note ))
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 100%; "></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
