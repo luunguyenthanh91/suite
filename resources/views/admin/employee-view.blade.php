@@ -73,7 +73,7 @@
                                                 </td>
                                             </tr>  
                                             <tr>
-                                                <td>{{ trans('label.user_id') }}</td>
+                                                <td>{{ trans('label.employee_img') }}</td>
                                                 <td>
                                                 <img  src="{{@$data->avatar  != '' ? @$data->avatar : '' }}"
                                                 style="max-width: 150px; max-height:150px; border:dashed thin;" />
