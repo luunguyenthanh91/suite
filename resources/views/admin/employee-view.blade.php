@@ -355,7 +355,7 @@ new Vue({
         groupAddData: '',
         instan: 25,
         month: '{{@$data->month}}',
-        user_id: '{{@$data->user_id}}',
+        user_id: '{{@$data->code}}',
         groups: [],
         listAcountSale: [],
         loadingTableSale: 0,
