@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td>{{ trans('label.receipt') }}</td>
                                                 <td>
-                                                    <input class="form-control"  type="text" name="avatar" value="{{$data->avatar}}">
+                                                    <input class="form-control"  type="text" name="avatar" value="{{$data->avatar}}" id="chooseImage_inputavatar">
                                                     <a type="button" class="btn btn-outline-secondary3" style="background:MediumOrchid" onclick="chooseFile(this)" rel="avatar">
                                                         <i class="fas fa-upload"><span class="labelButton">{{ trans('label.upload') }}</span></i>
                                                     </a>
