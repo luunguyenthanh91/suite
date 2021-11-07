@@ -20,12 +20,38 @@ use App\Jobs\SendEmailCheckIn;
 use App\Models\BoPhan;
 use App\Models\Bookname;
 use App\Models\Academic;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class BooknameController extends Controller
 {
     private $limit = 20;
     private $defSortName = "id";
     private $defSortType = "DESC";
+
+    
+
+    function addBookname(Request $request) {
+        $employee = Admin::where('code' ,$request->code)->first();
+
+        try {
+            $data = new Bookname();
+
+            $data->status = 0;
+            $data->user_id = $employee->id;
+            $data->note = $request->note;
+            $data->created_on = date('Y-m-d');
+            $data->created_by = Auth::guard('admin')->user()->id;
+
+            $data->save();
+            
+            return redirect('/admin/bookname-view/'.$data->id);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());
+            die;
+        }
+    }
 
     function viewBookname(Request $request,$id) {
         $data = Admin::find($id);

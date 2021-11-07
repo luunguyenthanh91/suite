@@ -8,7 +8,7 @@
 
     <div id="list-data">
         <div class="modal fade" id="createBookname">
-            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-employee">
+            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-bookname">
                 @csrf
                 <div class="modal-content" >
                     <div class="modal-header">
@@ -21,17 +21,12 @@
                             <input type="text" name="code" class="form-control"  required>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.employee_name') }}</label>
-                            <input type="text" name="name" class="form-control"  required>
-                        </div>
-                        <div class="form-group col-lg-12">
                             <label class="form-label">{{ trans('label.note') }}</label>
                             <textarea type="text" class="form-control" name="note" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        
-                    <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success">
                             <span class="labelButton">{{ trans('label.ok') }}</span>
                         </button>
                         <button type="button" data-dismiss="modal" class="btn btn-danger">
@@ -222,12 +217,7 @@
                             <div :class="'' + classBodayRightContentGrid">
                                 <div class="d-flex ">
                                     <div class="d-flex fullWidth">
-                                        <input class="checkboxHor" type="checkbox" id="employ_type1" value="1" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status2" for="employ_type1">{{ trans('label.employ_type1') }}</label>
-
-                                        <input class="checkboxHor" type="checkbox" id="employ_type2" value="2" v-model="checkedNames" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
-                                        <label class="labelFontSize10 status3" for="employ_type2">{{ trans('label.employ_type2') }}</label>
-                                    
+                                            
                                     </div>
                                     <div class="d-flex rightGridMenu">
                                         <div class="gridControl2">
@@ -260,8 +250,14 @@
                                                     <th class="sticky-col fix-col3" @click="sort('name')">
                                                         <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.user_name') }}</div>
                                                     </th>
+                                                    <th scope="col" @click="sort('status')" >
+                                                        <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
+                                                    </th>
                                                     <th scope="col" @click="sort('nick_name')">
                                                         <div v-bind:class="[sortBy === 'nick_name' ? sortDirection : '']">{{ trans('label.furigana') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('male')">
+                                                        <div v-bind:class="[sortBy === 'male' ? sortDirection : '']">{{ trans('label.sex') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('birthday')">
                                                         <div v-bind:class="[sortBy === 'birthday' ? sortDirection : '']">{{ trans('label.birthday') }}</div>
@@ -284,6 +280,24 @@
                                                     <th scope="col"  @click="sort('retire_note')">
                                                         <div v-bind:class="[sortBy === 'retire_note' ? sortDirection : '']">{{ trans('label.retire_note') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('created_on')">
+                                                        <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('created_by')">
+                                                        <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('checked_on')">
+                                                        <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('checked_by')">
+                                                        <div v-bind:class="[sortBy === 'checked_by' ? sortDirection : '']">{{ trans('label.checked_by') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('approved_on')">
+                                                        <div v-bind:class="[sortBy === 'approved_on' ? sortDirection : '']">{{ trans('label.approved_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('approved_by')">
+                                                        <div v-bind:class="[sortBy === 'approved_by' ? sortDirection : '']">{{ trans('label.approved_by') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                     </th>
@@ -304,7 +318,9 @@
                                                     (( item.name ))                                              
                                                     </td>
                                                     <td>
-                                                    (( item.employee_depname ))                                                   
+                                                    <span v-if="item.status==0">{{ trans('label.bn_status1') }}</span>
+                                                    <span v-if="item.status==1">{{ trans('label.bn_status2') }}</span>   
+                                                    <span v-if="item.status==2">{{ trans('label.bn_status3') }}</span>   
                                                     </td>
                                                     <td>
                                                     (( item.nick_name ))                                                  
@@ -317,32 +333,44 @@
                                                     (( item.birthday ))                                             
                                                     </td>
                                                     <td>
-                                                    (( item.age ))                                              
-                                                    </td>
-                                                    <td>
-                                                    (( item.email ))                                                  
-                                                    </td>
-                                                    <td>
-                                                    (( parsePhone(item.phone) ))                                                
-                                                    </td>
-                                                    <td>
                                                     (( item.address ))                                                  
-                                                    </td>
-                                                    <td>
-                                                    (( parseMyNumber(item.my_number) ))                                   
-                                                    </td>
-                                                    <td>
-                                                    (( item.fuyo_number ))                                                  
                                                     </td>
                                                     <td>
                                                     (( item.employ_date ))                                                  
                                                     </td>
                                                     <td>
-                                                        <span v-if='item.employ_type == 1'>{{ trans('label.employ_type1') }}</span>
-                                                        <span v-if='item.employ_type == 2'>{{ trans('label.employ_type2') }}</span>                                       
+                                                    (( item.employee_depname ))                                                   
+                                                    </td>
+                                                    <td >
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.inside_history ))
+                                                        </span>
                                                     </td>
                                                     <td>
-                                                    (( item.bank ))                                                  
+                                                    (( item.retire_date ))                                                   
+                                                    </td>
+                                                    <td >
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.retire_note ))
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                    ((item.created_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.created_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.checked_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.checked_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.approved_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.approved_by_name)) 
                                                     </td>
                                                     <td >
                                                         <span class="text-block" v-html="item.note">
