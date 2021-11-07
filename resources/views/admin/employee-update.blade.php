@@ -47,6 +47,18 @@
                                                 </td>
                                             </tr> 
                                             <tr>
+                                                <td>{{ trans('label.receipt') }}</td>
+                                                <td>
+                                                    <input class="form-control"  type="text" name="avatar" value="{{$data->avatar}}">
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:MediumOrchid" onclick="chooseFile(this)" >
+                                                        <i class="fas fa-upload"><span class="labelButton">{{ trans('label.upload') }}</span></i>
+                                                    </a>
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:Crimson" onclick="clearFile(this)" >
+                                                        <i class="fas fa-trash"><span class="labelButton">{{ trans('label.clear') }}</span></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.name') }}</td>
                                                 <td>
                                                 <input type="text" name="name" value="{{$data->name}}" class="form-control">
@@ -166,6 +178,67 @@
 <script src="{{ asset('js/pages/sweet-alerts.init.js') }}"></script>
 
 
+<script type="text/javascript">
+    //<![CDATA[
+    var imgId;
+
+    function chooseImage(id) {
+        imgId = id;
+        // You can use the "CKFinder" class to render CKFinder in a page:
+        var finder = new CKFinder();
+        finder.basePath = '/lib_upload/ckfinder/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+        finder.selectActionFunction = setFileField;
+        finder.popup();
+    }
+    // This is a sample function which is called when a file is selected in CKFinder.
+    function setFileField(fileUrl) {
+        document.getElementById('chooseImage_img' + imgId).src = fileUrl;
+        document.getElementById('chooseImage_input' + imgId).value = fileUrl;
+        document.getElementById('chooseImage_div' + imgId).style.display = '';
+        document.getElementById('chooseImage_noImage_div' + imgId).style.display = 'none';
+    }
+
+    function clearImage(imgId) {
+        document.getElementById('chooseImage_img' + imgId).src = '';
+        document.getElementById('chooseImage_input' + imgId).value = '';
+        document.getElementById('chooseImage_div' + imgId).style.display = 'none';
+        document.getElementById('chooseImage_noImage_div' + imgId).style.display = '';
+    }
+
+
+    function chooseFile(event)
+    {   
+        id= event.rel;
+        imgId = id;
+        console.log('chooseImage_input' + imgId);
+        // You can use the "CKFinder" class to render CKFinder in a page:
+        var finder = new CKFinder();
+        finder.basePath = '/lib_upload/ckfinder/'; // The path for the installation of CKFinder (default = "/ckfinder/").
+        finder.selectActionFunction = setFileFieldFile;
+        finder.popup();
+    } 
+    // This is a sample function which is called when a file is selected in CKFinder.
+    function setFileFieldFile( fileUrl )
+    {
+        document.getElementById( 'chooseImage_input' + imgId).value = fileUrl;
+        $("#chooseImage_input"+ imgId).val(fileUrl)[0].dispatchEvent(new Event('input'));
+
+    }
+    function clearFile(event)
+    {
+        imgId= event.rel;
+        document.getElementById( 'chooseImage_input' + imgId ).value = '';
+        $("#chooseImage_input"+ imgId).val('')[0].dispatchEvent(new Event('input'));
+    }
+
+
+    function addMoreImg()
+    {
+        jQuery("ul#images > li.hidden").filter(":first").removeClass('hidden');
+    }
+
+//]]>
+</script>
 
 <script type="text/javascript">
     //<![CDATA[
