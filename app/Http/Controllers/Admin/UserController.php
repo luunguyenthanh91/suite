@@ -444,6 +444,7 @@ class UserController extends Controller
                 $data->note = $request->note;
                 $data->my_number = $request->my_number;
                 $data->bank = $request->bank;
+                $data->fuyo_number = $request->fuyo_number;
                 $data->avatar = $request->avatar;
                 $data->save();
             }

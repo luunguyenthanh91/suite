@@ -377,6 +377,7 @@ return [
     'employ_type2' => 'パート・アルバイト',
     'age' => '歳',
     'age2' => '年齢',
+    'namebook' => '労働者名簿',
     'work_his' => '職歴',
     'salary_bank' => '給与振込口座',
     'fuyo_number' => '扶養家族',
