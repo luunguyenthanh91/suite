@@ -407,7 +407,7 @@ class UserController extends Controller
 
         $data = Academic::where('user_id', $user_id)->get();
         foreach($data as $item) {
-            list($item->sel_year, $data->sel_month) = explode ("-", $item->month);
+            list($item->sel_year, $item->sel_month) = explode ("-", $item->month);
         }
 
         $count = $data->count();
