@@ -960,13 +960,9 @@ new Vue({
                 type: 'GET',
                 url: "{{route('admin.getAcademic')}}?page=" + this.page  + conditionSearch ,
                 success: function(data) {
-                    if (data.count > 0) {
-                        that.listAcademic = data.data;
-                        that.listAcademic2 = data.data2;
-                    } else {
-                        that.listAcademic = [];
-                        that.listAcademic2 = [];
-                    }
+                    that.listAcademic = data.data;
+                    that.listAcademic2 = data.data2;
+                    
                     that.loadingTable = 0;
                     let pageArr = [];
                     if (that.page - 2 > 0) {
