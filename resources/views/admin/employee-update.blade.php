@@ -50,10 +50,10 @@
                                                 <td>{{ trans('label.receipt') }}</td>
                                                 <td>
                                                     <input class="form-control"  type="text" name="avatar" value="{{$data->avatar}}">
-                                                    <a type="button" class="btn btn-outline-secondary3" style="background:MediumOrchid" onclick="chooseFile(this)" >
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:MediumOrchid" onclick="chooseFile(this)" rel="avatar">
                                                         <i class="fas fa-upload"><span class="labelButton">{{ trans('label.upload') }}</span></i>
                                                     </a>
-                                                    <a type="button" class="btn btn-outline-secondary3" style="background:Crimson" onclick="clearFile(this)" >
+                                                    <a type="button" class="btn btn-outline-secondary3" style="background:Crimson" onclick="clearFile(this)"  rel="avatar">
                                                         <i class="fas fa-trash"><span class="labelButton">{{ trans('label.clear') }}</span></i>
                                                     </a>
                                                 </td>
