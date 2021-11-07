@@ -84,6 +84,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('get-dashboard', 'ProjectController@dashboard')->name('admin.dashboard');
     // Route::get('/', 'ProjectController@getViewProject');
 
+    Route::get('bookname', 'BooknameController@listBookname'); 
+    Route::get('get-bookname', 'BooknameController@getListBookname')->name('admin.getListBookname');
+
     Route::get('employee', 'UserController@listEmployee'); 
     Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');
     Route::get('employee-view/{id}', 'UserController@viewEmployee')->name('admin.viewEmployee');

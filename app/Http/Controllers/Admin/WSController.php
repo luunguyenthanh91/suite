@@ -21,6 +21,7 @@ use App\Models\NationalHoliday;
 use App\Models\Payslip;
 use App\Models\PayslipPartern;
 use App\Models\BoPhan;
+use App\Models\Bookname;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use PDF;
