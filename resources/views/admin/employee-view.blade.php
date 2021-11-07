@@ -51,6 +51,13 @@
                                     </span>
                                 </a>
                             </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab2">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.work_his') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body tab-content">
@@ -174,6 +181,54 @@
                                             </thead>
                                             <tbody class="list" id="search">
                                                 <tr v-for="item in sortedProducts">
+                                                    <td>
+                                                    (( item.sel_year ))
+                                                    </td>
+                                                    <td>
+                                                    (( item.sel_month ))
+                                                    </td>
+                                                    <td >
+                                                    (( item.name ))
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-block" v-html="item.note">
+                                                        (( item.note ))
+                                                        </span>
+                                                    </td>
+                                                    <td style="width: 100%; "></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab4">
+                            <div class="gridControl">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <table id="gridTable" class="table thead-border-top-0 table-nowrap mb-0">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th scope="col" @click="sort('year')" >
+                                                        <div v-bind:class="[sortBy === 'year' ? sortDirection : '']">{{ trans('label.year') }}</div>
+                                                    </th>
+                                                    <th @click="sort('month')">
+                                                        <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('name')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.work_his') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('note')">
+                                                        <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
+                                                    </th>
+                                                    <th scope="col"  style="width: 100%; "></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list" id="search">
+                                                <tr v-for="item in sortedProducts2">
                                                     <td>
                                                     (( item.sel_year ))
                                                     </td>
@@ -408,6 +463,7 @@ new Vue({
         sumDeposit: 0,
         sumTongKimDuocDuKien: 0,
         listAcademic: [],
+        listAcademic2: [],
     },
     delimiters: ["((", "))"],
     mounted() {
@@ -417,6 +473,25 @@ new Vue({
     computed: {
         sortedProducts: function(){
             return this.listAcademic.sort((p1,p2) => {
+                let modifier = 1;
+                if(this.sortDirection === 'desc') modifier = -1;
+                if (this.sortBy == 'ctv_sales_list' || this.sortBy == 'ctv_list') {
+                    if(p1[this.sortBy].length == 0 && p2[this.sortBy].length > 0) return -1 * modifier; 
+                    if(p1[this.sortBy].length > 0 && p2[this.sortBy].length == 0) return 1 * modifier;
+                    if(p1[this.sortBy].length == 0 && p2[this.sortBy].length == 0) return 0;
+
+                    if(p1[this.sortBy][0]['name'] < p2[this.sortBy][0]['name']) return -1 * modifier; 
+                    if(p1[this.sortBy][0]['name'] > p2[this.sortBy][0]['name']) return 1 * modifier;
+                    return 0;
+                } else {
+                    if(p1[this.sortBy] < p2[this.sortBy]) return -1 * modifier; 
+                    if(p1[this.sortBy] > p2[this.sortBy]) return 1 * modifier;
+                    return 0;
+                }
+            });
+        },
+        sortedProducts2: function(){
+            return this.listAcademic2.sort((p1,p2) => {
                 let modifier = 1;
                 if(this.sortDirection === 'desc') modifier = -1;
                 if (this.sortBy == 'ctv_sales_list' || this.sortBy == 'ctv_list') {
@@ -887,8 +962,10 @@ new Vue({
                 success: function(data) {
                     if (data.count > 0) {
                         that.listAcademic = data.data;
+                        that.listAcademic2 = data.data2;
                     } else {
                         that.listAcademic = [];
+                        that.listAcademic2 = [];
                     }
                     that.loadingTable = 0;
                     let pageArr = [];

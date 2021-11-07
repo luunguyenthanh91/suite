@@ -405,16 +405,19 @@ class UserController extends Controller
         $employee = Admin::where('code' ,$request->user_id)->first();
         $user_id = $employee->id;
 
-        $data = Academic::where('user_id', $user_id)->get();
+        $data = Academic::where('user_id', $user_id)->where('type', "1")->get();
         foreach($data as $item) {
             list($item->sel_year, $item->sel_month) = explode ("-", $item->month);
         }
 
-        $count = $data->count();
+        $data2 = Academic::where('user_id', $user_id)->where('type', "2")->get();
+        foreach($data2 as $item) {
+            list($item->sel_year, $item->sel_month) = explode ("-", $item->month);
+        }
 
         return response()->json([
             'data'=>$data,
-            'count'=>$count,
+            'data2'=>$data2,
         ]);
     }
 
