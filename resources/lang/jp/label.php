@@ -378,6 +378,7 @@ return [
     'age' => '歳',
     'age2' => '年齢',
     'work_his' => '職歴',
+    'employee_img' => '証明写真',
     'po_new' => 'PO新規登録',
     'order_date' => '依頼日',
     'order_date_from' => '依頼日から',
