@@ -139,6 +139,12 @@
                                                 </td>
                                             </tr> 
                                             <tr>
+                                                <td>{{ trans('label.salary_bank') }}</td>
+                                                <td>
+                                                <input type="text" name="bank" value="{{$data->bank}}" class="form-control">
+                                                </td>
+                                            </tr> 
+                                            <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
                                                 <textarea type="text" name="note" class="form-control" rows="10">{{@$data->note}}</textarea>

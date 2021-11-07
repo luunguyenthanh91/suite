@@ -443,6 +443,7 @@ class UserController extends Controller
                 $data->employ_type = $request->employ_type;
                 $data->note = $request->note;
                 $data->my_number = $request->my_number;
+                $data->bank = $request->bank;
                 $data->avatar = $request->avatar;
                 $data->save();
             }

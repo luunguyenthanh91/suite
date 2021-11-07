@@ -341,6 +341,9 @@
                                                         <span v-if='item.employ_type == 1'>{{ trans('label.employ_type1') }}</span>
                                                         <span v-if='item.employ_type == 2'>{{ trans('label.employ_type2') }}</span>                                       
                                                     </td>
+                                                    <td>
+                                                    (( item.bank ))                                                  
+                                                    </td>
                                                     <td >
                                                         <span class="text-block" v-html="item.note">
                                                         (( item.note ))

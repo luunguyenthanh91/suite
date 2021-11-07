@@ -378,6 +378,7 @@ return [
     'age' => '歳',
     'age2' => '年齢',
     'work_his' => '職歴',
+    'salary_bank' => '給与振込口座',
     'employee_img' => '証明写真',
     'certificate' => '資格・技能',
     'my_number' => '個人番号',

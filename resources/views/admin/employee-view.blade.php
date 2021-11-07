@@ -163,6 +163,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.salary_bank') }}</td>
+                                                <td>
+                                                {{@$data->bank}}
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
                                                     <div class="text-block" v-html="">
