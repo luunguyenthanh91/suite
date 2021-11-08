@@ -839,14 +839,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/employee-delete/" + _i,
+                    url: "/admin/bookname-delete/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "Đã xóa!"
                         });
-                        location.href = "/admin/employee";
+                        location.href = "/admin/bookname";
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({

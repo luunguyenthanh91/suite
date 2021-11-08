@@ -54,43 +54,32 @@ class BooknameController extends Controller
     }
 
     function viewBookname(Request $request,$id) {
-        $data = Admin::find($id);
+        $data = Bookname::find($id);
         $this->getBookname($data);
 
         return view('admin.bookname-view', compact(['data' , 'id']));
     }
 
     function deleteBookname(Request $request,$id) {
-        $data = Admin::find($id);
+        $data = Bookname::find($id);
         $data->delete();
         return response()->json([]);
     }
 
     function updateBookname(Request $request,$id) {
         if ($request->isMethod('post')) {
-            $data = Admin::find($id);
+            $data = Bookname::find($id);
             if ($data) {
-                $data->code = $request->code;
-                $data->male = $request->male;
-                $data->name = $request->name;
-                $data->nick_name = $request->nick_name;
-                $data->birthday = $request->birthday;
-                $data->email = $request->email;
-                $data->phone = $request->phone;
-                $data->address = $request->address;
-                $data->employ_date = $request->employ_date;
-                $data->employ_type = $request->employ_type;
+                $data->inside_history = $request->inside_history;
+                $data->retire_date = $request->retire_date;
+                $data->retire_note = $request->retire_note;
                 $data->note = $request->note;
-                $data->my_number = $request->my_number;
-                $data->bank = $request->bank;
-                $data->fuyo_number = $request->fuyo_number;
-                $data->avatar = $request->avatar;
                 $data->save();
             }
             return redirect('/admin/bookname-view/'.$data->id);
         }
 
-        $data = Admin::find($id);
+        $data = Bookname::find($id);
         return view('admin.bookname-update', compact(['data' , 'id']));
     }
 
@@ -133,6 +122,60 @@ class BooknameController extends Controller
         if ($approved_user) {
             $data->approved_by_name = $approved_user->name;
             $data->approved_by_sign = $approved_user->sign_name;
+        }
+    }
+
+     
+
+    function booknamecheck(Request $request,$id) {
+        try {
+            $data = Bookname::find($request->id);
+            if ($data) {
+                $data->checked_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->checked_on = date('Y-m-d');
+                $data->status = 2;
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    }
+
+    function booknameapprove(Request $request,$id) {
+        try {
+            $data = Bookname::find($request->id);
+            if ($data) {
+                $data->approved_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->approved_on = date('Y-m-d');
+                $data->status = 3;
+                $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
         }
     }
 

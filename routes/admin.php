@@ -88,6 +88,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('get-bookname', 'BooknameController@getListBookname')->name('admin.getListBookname');
     Route::post('new-bookname', 'BooknameController@addBookname')->name('admin.addBookname');
     Route::get('bookname-view/{id}', 'BooknameController@viewBookname')->name('admin.viewBookname');
+    Route::post('bookname-update/{id}', 'BooknameController@updateBookname')->name('admin.updateBookname');
+    Route::get('bookname-update/{id}', 'BooknameController@updateBookname')->name('admin.updateBookname');
+    Route::get('booknamecheck/{id}', 'BooknameController@booknamecheck')->name('admin.booknamecheck');
+    Route::post('booknamecheck/{id}', 'BooknameController@booknamecheck')->name('admin.booknamecheck');
+    Route::get('booknameapprove/{id}', 'BooknameController@booknameapprove')->name('admin.booknameapprove');
+    Route::post('booknameapprove/{id}', 'BooknameController@booknameapprove')->name('admin.booknameapprove');
 
     Route::get('employee', 'UserController@listEmployee'); 
     Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');
