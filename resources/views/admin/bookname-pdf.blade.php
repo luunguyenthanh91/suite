@@ -39,7 +39,7 @@
                 <td class="border-all title_form" style="text-align:left;width:100%;">
                 
                 </td>
-                <td class="border-all title_form" style="width:150px;">
+                <td class="border-all title_form" style="width:50px;">
                 
                 </td>
             </tr>
@@ -88,7 +88,7 @@
                 解雇･退職<br>または死亡
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                    <table style="width:100%;height:150px;">
+                    <table style="width:100%;height:150px;border-collapse:collapse;">
                         <tr>
                             <td class="border-all title_form">年月日</td>
                             <td class="border-all title_form" style="width:100%;">年 月 日</td>
