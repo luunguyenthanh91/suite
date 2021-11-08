@@ -94,7 +94,7 @@
                             <td style="width:100%;text-align:left;border-bottom: 1px solid #000 !important;">年 月 日</td>
                         </tr>
                         <tr>
-                            <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;">
+                            <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;height:100px;">
                             事由
                             </td>
                             <td>
