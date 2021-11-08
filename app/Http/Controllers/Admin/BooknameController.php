@@ -118,7 +118,7 @@ class BooknameController extends Controller
         } else if ($data->status == 1) {
             $data->classStyle = "status3";
         } else if ($data->status == 2) {
-            $data->classStyle = "status4";
+            $data->classStyle = "status6";
         }
 
         $created_user = Admin::where('id' ,$data->created_by)->first();
