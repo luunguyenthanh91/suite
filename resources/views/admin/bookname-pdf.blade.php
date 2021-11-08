@@ -90,14 +90,14 @@
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
                     <table style="width:100%;height:150px;border-collapse:collapse;">
                         <tr>
-                            <td class="border-all title_form">年月日</td>
-                            <td class="border-all title_form" style="width:100%;">年 月 日</td>
+                            <td style="border-bottom: 1px solid #000 !important;border-right: 1px solid #000 !important;">年月日</td>
+                            <td style="width:100%;text-align:left;border-bottom: 1px solid #000 !important;">年 月 日</td>
                         </tr>
                         <tr>
-                            <td class="border-all title_form" style="text-align:center;vertical-align:middle;height:120px;">
+                            <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;">
                             事由
                             </td>
-                            <td class="border-all title_form" >
+                            <td>
                             </td>
                         </tr>
                     </table>
@@ -179,6 +179,9 @@ body {
 }
 .border-all {
     border: 1px solid #000 !important;
+}
+.border-all2 {
+    border-bottom: 1px solid #000 !important;
 }
 .title_form{
     text-align: center;
