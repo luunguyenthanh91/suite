@@ -385,6 +385,7 @@ return [
     'new_employee' => '社員の新規登録',
     'new_bookname' => '労働者名簿の新規登録',
     'namebook' => '労働者名簿',
+    'namebook2' => '労働者名簿(PDF)',
     'namebook2' => '労 働 者 名 簿',
     'namebook_id' => '労働者名簿No.',
     'dep2' => '従事する業務の種類',
