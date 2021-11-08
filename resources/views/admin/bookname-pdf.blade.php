@@ -22,18 +22,18 @@
         </div>
         <table style='width:100%;border-collapse:collapse;margin-top:40px;'>
             <tr>
-                <td class="border-all title_form" style="text-align:center;width:80px;">
+                <td class="border-all title_form" style="text-align:center;width:100px;">
                 フリガナ
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:520px;">
+                <td class="border-all title_form" style="text-align:left;width:320px;">
                 
                 </td>
-                <td class="border-all title_form" style="width:150px;;width:50px;">
+                <td class="border-all title_form" style="width:50px;">
                 性別
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;width:100px;">
                 氏名
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;">
@@ -44,7 +44,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
                 生年月日
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -52,7 +52,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
                 現住所
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -60,7 +60,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
                 雇入年月日
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -68,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:70px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:70px;;width:100px;">
                 従事する<br>業務の種類
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -76,7 +76,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:200px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:200px;;width:100px;">
                 履歴
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -84,32 +84,27 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:150px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:150px;;width:100px;">
                 解雇･退職<br>または死亡
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                <table style='width:100%;border-collapse:collapse;'>
-                    <tr>
-                        <td class="border-all title_form" style="text-align:center;width:80px;">
-                        年月日
-                        </td>
-                        <td class="border-all title_form" style="text-align:left;width:520px;">
-                        年 月 日
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="border-all title_form" style="text-align:center;width:80px;vertical-align:middle">
-                        事由
-                        </td>
-                        <td class="border-all title_form" style="text-align:left;width:520px;">
-                        
-                        </td>
-                    </tr>
-                </table>
+                    <table>
+                        <tr>
+                            <td class="border-all title_form">年月日</td>
+                            <td class="border-all title_form">年 月 日</td>
+                        </tr>
+                        <tr>
+                            <td class="border-all title_form" style="text-align:center;vertical-align:middle">
+                            事由
+                            </td>
+                            <td class="border-all title_form" >
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:200px;;width:80px;">
+                <td class="border-all title_form" style="text-align:center;height:200px;;width:100px;">
                 備考
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
