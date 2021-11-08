@@ -80,6 +80,7 @@ class BooknameController extends Controller
         }
 
         $data = Bookname::find($id);
+        $this->getBookname($data);
         return view('admin.bookname-update', compact(['data' , 'id']));
     }
 

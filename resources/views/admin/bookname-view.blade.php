@@ -8,11 +8,11 @@
 	
     <div id="list-data">
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/employee-namebook-pdf/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/namebook-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.namebook') }}</span></i>
             </a>  
             @if (Auth::guard('admin')->user()->id == 1 )
-            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/employee-update/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/bookname-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
@@ -55,6 +55,12 @@
                                 <div class="col-lg-12">
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.namebook_id') }}</td>
+                                                <td>
+                                                    {{@$data->id}}
+                                                </td>
+                                            </tr>      
                                             <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
