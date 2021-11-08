@@ -25,7 +25,7 @@
                 <td class="border-all title_form" style="text-align:center;width:100px;">
                 フリガナ
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:320px;">
+                <td class="border-all title_form" style="text-align:left;width:370px;">
                 
                 </td>
                 <td class="border-all title_form" style="width:50px;">
@@ -88,13 +88,13 @@
                 解雇･退職<br>または死亡
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                    <table>
+                    <table style="width:100%;height:100%;">
                         <tr>
                             <td class="border-all title_form">年月日</td>
-                            <td class="border-all title_form">年 月 日</td>
+                            <td class="border-all title_form" style="width:100%;">年 月 日</td>
                         </tr>
                         <tr>
-                            <td class="border-all title_form" style="text-align:center;vertical-align:middle">
+                            <td class="border-all title_form" style="text-align:center;vertical-align:middle;height:100%;">
                             事由
                             </td>
                             <td class="border-all title_form" >
