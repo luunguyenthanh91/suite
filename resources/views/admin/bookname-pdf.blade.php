@@ -28,7 +28,7 @@
                 <td class="border-all title_form" style="text-align:left;width:450px;">
                 
                 </td>
-                <td class="border-all title_form" style="width:50px;">
+                <td class="border-all title_form">
                 性別
                 </td>
             </tr>
@@ -94,7 +94,7 @@
                             <td class="border-all title_form" style="width:100%;">年 月 日</td>
                         </tr>
                         <tr>
-                            <td class="border-all title_form" style="text-align:center;vertical-align:middle;height:100%;">
+                            <td class="border-all title_form" style="text-align:center;vertical-align:middle;height:120px;">
                             事由
                             </td>
                             <td class="border-all title_form" >
