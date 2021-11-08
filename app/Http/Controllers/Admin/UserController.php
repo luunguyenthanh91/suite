@@ -19,6 +19,7 @@ use App\Jobs\SendEmailCheckOut;
 use App\Jobs\SendEmailCheckIn;
 use App\Models\BoPhan;
 use App\Models\Academic;
+use App\Models\Bookname;
 
 class UserController extends Controller
 {
@@ -458,8 +459,6 @@ class UserController extends Controller
     function getEmployee($data) {
         $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
 
-
-
         $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
 
@@ -469,6 +468,9 @@ class UserController extends Controller
         } else if ($data->employ_type == 2) {
             $data->classStyle = "status3";
         }
+
+        $bookname = Bookname::where('user_id' ,$data->id)->first();
+        $data->bookname_id = $bookname->id;
     }
 
     function listEmployee(Request $request) {

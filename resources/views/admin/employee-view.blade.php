@@ -8,7 +8,7 @@
 	
     <div id="list-data">
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/employee-namebook-pdf/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/bookname-view/{{@$data->bookname_id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.namebook') }}</span></i>
             </a>  
             @if (Auth::guard('admin')->user()->id == 1 )
