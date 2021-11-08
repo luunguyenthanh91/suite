@@ -25,11 +25,11 @@
                 <div class="d-flex" style="width:100%;">
                     <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12" >
+                            <label>{{ trans('label.namebook_id') }}{{@$data->id}}</label> 
+                            <br>  
                             <label>{{ trans('label.employee_depname') }}: {{@$data->employee_depname}}</label> 
                             <br>  
-                            <label>{{ trans('label.user_id') }}: {{@$data->code}}</label>
-                            <br>
-                            <label>{{ trans('label.user_name') }}: {{@$data->name}}</label>
+                            <label>{{ trans('label.user_name') }}: {{@$data->employee_name}} ({{@$data->employee_code}}) </label>
                         </div>
                     </div>
                     <div class="col-lg-auto">
@@ -58,19 +58,19 @@
                                             <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
-                                                    {{@$data->code}}
+                                                    {{@$data->employee_code}}
                                                 </td>
                                             </tr>  
                                             <tr>
                                                 <td>{{ trans('label.name') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->name}}') ))
+                                                (( parseName('{{@$data->employee_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.furigana') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->nick_name}}') ))
+                                                (( parseName('{{@$data->employee_nick_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
@@ -87,7 +87,7 @@
                                             <tr>
                                                 <td>{{ trans('label.birthday') }}</td>
                                                 <td>
-                                                {{@$data->birthday}} ({{ trans('label.enough') }} {{@$data->age}}{{ trans('label.age') }})
+                                                {{@$data->employee_birthday}}
                                                 </td>
                                             </tr>
                                             <tr>

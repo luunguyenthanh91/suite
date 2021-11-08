@@ -43,19 +43,19 @@
                                         <tr>
                                                 <td>{{ trans('label.user_id') }}</td>
                                                 <td>
-                                                    {{@$data->code}}
+                                                    {{@$data->employee_code}}
                                                 </td>
                                             </tr>  
                                             <tr>
                                                 <td>{{ trans('label.name') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->name}}') ))
+                                                (( parseName('{{@$data->employee_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ trans('label.furigana') }}</td>
                                                 <td>
-                                                (( parseName('{{@$data->nick_name}}') ))
+                                                (( parseName('{{@$data->employee_nick_name}}') ))
                                                 </td>
                                             </tr>
                                             <tr>
@@ -72,7 +72,7 @@
                                             <tr>
                                                 <td>{{ trans('label.birthday') }}</td>
                                                 <td>
-                                                {{@$data->birthday}} ({{ trans('label.enough') }} {{@$data->age}}{{ trans('label.age') }})
+                                                {{@$data->employee_birthday}}
                                                 </td>
                                             </tr>
                                             <tr>

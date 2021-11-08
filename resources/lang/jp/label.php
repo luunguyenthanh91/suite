@@ -386,6 +386,7 @@ return [
     'new_bookname' => '労働者名簿の新規登録',
     'namebook' => '労働者名簿',
     'namebook_id' => '労働者名簿No.',
+    'namebook_id2' => '労働者名簿ID',
     'dep2' => '従事する業務の種類',
     'inside_history' => '履歴',
     'retire_date' => '解雇日付',
