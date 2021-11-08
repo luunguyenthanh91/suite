@@ -91,7 +91,7 @@
                     <table style="width:100%;height:150px;border-collapse:collapse;">
                         <tr>
                             <td style="text-align:center;border-bottom: 1px solid #000 !important;border-right: 1px solid #000 !important;width:80px;">年月日</td>
-                            <td style="width:100%;text-align:left;border-bottom: 1px solid #000 !important;width:100%">年 月 日</td>
+                            <td style="width:100%;text-align:left;border-bottom: 1px solid #000 !important;width:100%" colspan=2>年 月 日</td>
                         </tr>
                         <tr>
                             <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;height:130px;">
