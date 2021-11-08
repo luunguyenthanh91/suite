@@ -17,12 +17,12 @@
 <body>
     <div style="margin-top:10px;margin-bottom:10px; margin-left:10px;margin-right:10px;">
         
-        <div style='text-align:center; vertical-align:middle; height:45px;width:100%;'>
+        <div style='text-align:center; vertical-align:middle; height:35px;width:100%;'>
             <div style="font-size:24;"><b>{{ trans('label.namebook2') }}</b></div>
         </div>
-        <table style='width:100%;border-collapse:collapse;'>
+        <table style='width:100%;border-collapse:collapse;margin-top:20px;'>
             <tr>
-                <td class="border-all title_form" style="text-align:center;">
+                <td class="border-all title_form" style="text-align:center;width:50px;">
                 フリガナ
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;">
@@ -33,7 +33,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;width:50px;">
                 氏名
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;">
@@ -44,7 +44,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:50px;">
                 生年月日
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -52,7 +52,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:50px;">
                 現住所
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -60,7 +60,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:50px;">
                 雇入年月日
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -68,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:70px;;width:50px;">
                 従事する<br>業務の種類
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -76,7 +76,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:150px;;width:50px;">
                 履歴
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -84,7 +84,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:150px;;width:50px;">
                 解雇･退職<br>または死亡
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
@@ -92,7 +92,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;">
+                <td class="border-all title_form" style="text-align:center;height:150px;;width:50px;">
                 備考
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
