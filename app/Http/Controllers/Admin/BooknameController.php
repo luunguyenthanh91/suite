@@ -148,7 +148,7 @@ class BooknameController extends Controller
             if ($data) {
                 $data->checked_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->checked_on = date('Y-m-d');
-                $data->status = 2;
+                $data->status = 1;
                 $data->save();
             }
 
@@ -174,7 +174,7 @@ class BooknameController extends Controller
             if ($data) {
                 $data->approved_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->approved_on = date('Y-m-d');
-                $data->status = 3;
+                $data->status = 2;
                 $data->save();
             }
 
