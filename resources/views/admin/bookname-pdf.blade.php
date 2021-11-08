@@ -85,7 +85,7 @@
                 履歴
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
-                <span style="font-size:12px; ">
+                <span >
                     {!! nl2br( @$data->inside_history) !!}
                 </span>
                 </td>
@@ -107,7 +107,7 @@
                             事由
                             </td>
                             <td style="padding-left:10px">
-                            <span style="font-size:12px; ">
+                            <span >
                                 {!! nl2br( @$data->retire_note) !!}
                             </span>
                             </td>
@@ -120,7 +120,7 @@
                 備考
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
-                <span style="font-size:12px; ">
+                <span >
                     {!! nl2br( @$data->note) !!}
                 </span>
                 </td>
