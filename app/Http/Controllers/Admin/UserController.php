@@ -470,7 +470,9 @@ class UserController extends Controller
         }
 
         $bookname = Bookname::where('user_id' ,$data->id)->first();
-        $data->bookname_id = $bookname->id;
+        if ($bookname) {
+            $data->bookname_id = $bookname->id;
+        }
     }
 
     function listEmployee(Request $request) {
