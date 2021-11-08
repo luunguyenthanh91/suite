@@ -57,10 +57,10 @@
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;;padding-left:10px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;;">
                 現住所
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
+                <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
                 {{@$data->address}}
                 </td>
             </tr>
@@ -68,7 +68,7 @@
                 <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
                 雇入年月日
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
+                <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
                 {{@$data->employ_date_year}} 年 {{@$data->employ_date_month}} 月 {{@$data->employ_date_date}}日
                 </td>
             </tr>
@@ -76,7 +76,7 @@
                 <td class="border-all title_form" style="text-align:center;height:70px;;width:100px;">
                 従事する<br>業務の種類
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
+                <td class="border-all title_form" style="text-align:left;width:100%;padding-left:10px;" colspan=2>
                 {{@$data->employee_depname}}
                 </td>
             </tr>
@@ -84,7 +84,7 @@
                 <td class="border-all title_form" style="text-align:center;height:200px;;width:100px;">
                 履歴
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
+                <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
                 <span style="font-size:12px; ">
                     {!! nl2br( @$data->inside_history) !!}
                 </span>
@@ -98,7 +98,7 @@
                     <table style="width:100%;height:150px;border-collapse:collapse;">
                         <tr>
                             <td style="text-align:center;border-bottom: 1px solid #000 !important;border-right: 1px solid #000 !important;width:80px;">年月日</td>
-                            <td style="width:400px;text-align:left;border-bottom: 1px solid #000 !important;">
+                            <td style="width:400px;text-align:left;border-bottom: 1px solid #000 !important;;padding-left:10px">
                             {{@$data->retire_date_year}} 年 {{@$data->retire_date_month}} 月 {{@$data->retire_date_date}}日
                 </td>
                         </tr>
@@ -106,7 +106,7 @@
                             <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;height:130px;">
                             事由
                             </td>
-                            <td>
+                            <td style="padding-left:10px">
                             <span style="font-size:12px; ">
                                 {!! nl2br( @$data->retire_note) !!}
                             </span>
@@ -119,7 +119,7 @@
                 <td class="border-all title_form" style="text-align:center;height:200px;;width:100px;">
                 備考
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
+                <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px" colspan=2>
                 <span style="font-size:12px; ">
                     {!! nl2br( @$data->note) !!}
                 </span>
