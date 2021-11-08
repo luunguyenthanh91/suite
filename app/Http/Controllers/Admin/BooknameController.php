@@ -108,7 +108,9 @@ class BooknameController extends Controller
         $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
 
-list($data->retire_date_year, $data->retire_date_month, $data->retire_date_date) = explode("-", $data->retire_date);
+        if ($data->retire_date != "") {
+            list($data->retire_date_year, $data->retire_date_month, $data->retire_date_date) = explode("-", $data->retire_date);
+        }
 
         $data->classStyle = "";
         if ($data->status == 0) {
