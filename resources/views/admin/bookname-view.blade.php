@@ -361,7 +361,6 @@ new Vue({
     delimiters: ["((", "))"],
     mounted() {
         const that = this;
-        this.onLoadPagination();
     },
     computed: {
         sortedProducts: function(){
