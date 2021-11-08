@@ -99,12 +99,16 @@ class BooknameController extends Controller
         $data->employee_code = $employee->code;
         $data->employee_nick_name = $employee->nick_name;
         $data->employee_birthday = $employee->birthday;
+        list($data->employee_birthday_year, $data->employee_birthday_month, $data->employee_birthday_date) = explode("-", $employee->birthday);
         $data->male = $employee->male;
         $data->employ_date = $employee->employ_date;
+        list($data->employ_date_year, $data->employ_date_month, $data->employ_date_date) = explode("-", $employee->employ_date);
         $data->address = $employee->address;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
         $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
+
+list($data->retire_date_year, $data->retire_date_month, $data->retire_date_date) = explode("-", $data->retire_date);
 
         $data->classStyle = "";
         if ($data->status == 0) {

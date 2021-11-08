@@ -25,8 +25,8 @@
                 <td class="border-all title_form" style="text-align:center;width:100px;">
                 フリガナ
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:450px;">
-                
+                <td class="border-all title_form" style="text-align:left;width:450px;padding-left:10px;">
+                {{@$data->employee_nick_name}}
                 </td>
                 <td class="border-all title_form">
                 性別
@@ -36,27 +36,32 @@
                 <td class="border-all title_form" style="text-align:center;height:50px;width:100px;">
                 氏名
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;">
-                
+                <td class="border-all title_form" style="text-align:left;width:100%;;vertical-align:middle;padding-left:10px;">
+                {{@$data->employee_name}}
                 </td>
-                <td class="border-all title_form" style="width:50px;">
-                
+                <td class="border-all title_form" style="width:50px;text-align:center;vertical-align:middle">
+                @if ( @$data->male == 1 )
+                    <span>{{ trans('label.male') }}</span>
+                @endif
+                @if ( @$data->male == 2 )
+                    <span>{{ trans('label.female') }}</span>
+                @endif
                 </td>
             </tr>
             <tr>
                 <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
                 生年月日
                 </td>
-                <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                年 月 日
+                <td class="border-all title_form" style="text-align:left;width:100%;;padding-left:10px;" colspan=2>
+                {{@$data->employee_birthday_year}} 年 {{@$data->employee_birthday_month}} 月 {{@$data->employee_birthday_date}}日
                 </td>
             </tr>
             <tr>
-                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;">
+                <td class="border-all title_form" style="text-align:center;height:50px;;width:100px;;padding-left:10px;">
                 現住所
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                
+                {{@$data->address}}
                 </td>
             </tr>
             <tr>
@@ -64,7 +69,7 @@
                 雇入年月日
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                年 月 日
+                {{@$data->employ_date_year}} 年 {{@$data->employ_date_month}} 月 {{@$data->employ_date_date}}日
                 </td>
             </tr>
             <tr>
@@ -72,7 +77,7 @@
                 従事する<br>業務の種類
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                
+                {{@$data->employee_depname}}
                 </td>
             </tr>
             <tr>
@@ -80,7 +85,9 @@
                 履歴
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                
+                <span style="font-size:12px; ">
+                    {!! nl2br( @$data->inside_history) !!}
+                </span>
                 </td>
             </tr>
             <tr>
@@ -91,13 +98,18 @@
                     <table style="width:100%;height:150px;border-collapse:collapse;">
                         <tr>
                             <td style="text-align:center;border-bottom: 1px solid #000 !important;border-right: 1px solid #000 !important;width:80px;">年月日</td>
-                            <td style="width:400px;text-align:left;border-bottom: 1px solid #000 !important;">年 月 日</td>
+                            <td style="width:400px;text-align:left;border-bottom: 1px solid #000 !important;">
+                            {{@$data->retire_date_year}} 年 {{@$data->retire_date_month}} 月 {{@$data->retire_date_date}}日
+                </td>
                         </tr>
                         <tr>
                             <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;height:130px;">
                             事由
                             </td>
                             <td>
+                            <span style="font-size:12px; ">
+                                {!! nl2br( @$data->retire_note) !!}
+                            </span>
                             </td>
                         </tr>
                     </table>
@@ -108,7 +120,9 @@
                 備考
                 </td>
                 <td class="border-all title_form" style="text-align:left;width:100%;" colspan=2>
-                
+                <span style="font-size:12px; ">
+                    {!! nl2br( @$data->note) !!}
+                </span>
                 </td>
             </tr>
         </table>
