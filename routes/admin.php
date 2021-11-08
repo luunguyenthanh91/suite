@@ -94,6 +94,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('booknamecheck/{id}', 'BooknameController@booknamecheck')->name('admin.booknamecheck');
     Route::get('booknameapprove/{id}', 'BooknameController@booknameapprove')->name('admin.booknameapprove');
     Route::post('booknameapprove/{id}', 'BooknameController@booknameapprove')->name('admin.booknameapprove');
+    Route::post('bookname-delete/{id}', 'BooknameController@deleteBookname')->name('admin.deleteBookname');
+    Route::get('bookname-delete/{id}', 'BooknameController@deleteBookname')->name('admin.deleteBookname');
+    Route::get('bookname-pdf/{id}', 'BooknameController@booknamepdf');
 
     Route::get('employee', 'UserController@listEmployee'); 
     Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');

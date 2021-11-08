@@ -31,6 +31,14 @@ class BooknameController extends Controller
 
     
 
+    public function booknamepdf(Request $request, $id) {
+        $data = Bookname::find($id);
+        $this->getBookname($data);
+        
+        $pdf = PDF::loadView('admin.bookname-pdf', compact('data'));
+        return $pdf->download(trans('label.namebook')."_".$data->employee_code."(".$data->employee_name.")".'.pdf');
+    }
+
     function addBookname(Request $request) {
         $employee = Admin::where('code' ,$request->code)->first();
 

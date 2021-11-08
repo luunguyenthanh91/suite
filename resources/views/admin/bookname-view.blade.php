@@ -33,6 +33,47 @@
                         </div>
                     </div>
                     <div class="col-lg-auto">
+                        <table class="signTable">
+                            <tr>
+                                <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
+                                <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
+                                <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
+                            </tr>    
+                            <tr>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->created_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->checked_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->approved_on}}
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td class="signTableTd">
+                                    <div class="plusRed">
+                                        <div class="circle">{{@$data->created_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButtonCheck" @click="promoteCheck('{{$id}}')" v-if="'{{@$data->checked_on}}' == ''">
+                                        {{ trans('label.check') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->checked_on}}' != ''">
+                                        <div class="circle">{{@$data->checked_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteApprove('{{$id}}')" v-if="'{{@$data->approved_on}}' == ''">
+                                    {{ trans('label.approve') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
+                                        <div class="circle">{{@$data->approved_by_sign}}</div>
+                                    </div>
+                                </td>
+                            </tr>     
+                        </table>
                     </div>
                 </div>
             </div>    
@@ -677,43 +718,6 @@ new Vue({
             this.page = 1;
             this.onLoadPagination();
         },
-        promoteSubmit(_i) {
-            const that = this;
-            Swal.fire({
-                title: "提出でよろしいでしょうか？",
-                // text: "\案件入力のチェックが終わりましたか？",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "はい",
-                cancelButtonText: "いいえ",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then(function(t) {
-                if (t.dismiss == "cancel") {
-                    return;
-                }
-                that.loadingTable = 1;
-                $.ajax({
-                    url: "/admin/employeesubmit/" + _i,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        Swal.fire({
-                            title: "提出の処理が終わりました。"
-                        });
-                        location.href = "/admin/employee-view/" + _i;
-                    },
-                    error: function(xhr, textStatus, error) {
-                        Swal.fire({
-                            title: "エラーが発生しました!",
-                            type: "warning",
-                        });
-                    }
-                });
-            })
-        },
         promoteCheck(_i) {
             const that = this;
             Swal.fire({
@@ -733,14 +737,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/employeecheck/" + _i,
+                    url: "/admin/booknamecheck/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "確認の処理が終わりました。"
                         });
-                        location.href = "/admin/employee-view/" + _i;
+                        location.href = "/admin/bookname-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
@@ -770,51 +774,14 @@ new Vue({
                 }
                 that.loadingTable = 1;
                 $.ajax({
-                    url: "/admin/employeeapprove/" + _i,
+                    url: "/admin/booknameapprove/" + _i,
                     type: 'GET',
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
                             title: "承認の処理が終わりました。"
                         });
-                        location.href = "/admin/employee-view/" + _i;
-                    },
-                    error: function(xhr, textStatus, error) {
-                        Swal.fire({
-                            title: "エラーが発生しました!",
-                            type: "warning",
-                        });
-                    }
-                });
-            })
-        },
-        promoteReceive(_i) {
-            const that = this;
-            Swal.fire({
-                title: "\受領済みでよろしいでしょうか？",
-                // text: "\案件入力のチェックが終わりましたか？",
-                type: "warning",
-                showCancelButton: !0,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "はい",
-                cancelButtonText: "いいえ",
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then(function(t) {
-                if (t.dismiss == "cancel") {
-                    return;
-                }
-                that.loadingTable = 1;
-                $.ajax({
-                    url: "/admin/employeereceive/" + _i,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(res) {
-                        Swal.fire({
-                            title: "受領の処理が終わりました。"
-                        });
-                        location.href = "/admin/employee-view/" + _i;
+                        location.href = "/admin/bookname-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({
