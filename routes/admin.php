@@ -87,6 +87,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('bookname', 'BooknameController@listBookname'); 
     Route::get('get-bookname', 'BooknameController@getListBookname')->name('admin.getListBookname');
     Route::post('new-bookname', 'BooknameController@addBookname')->name('admin.addBookname');
+    Route::get('bookname-view/{id}', 'BooknameController@viewBookname')->name('admin.viewBookname');
 
     Route::get('employee', 'UserController@listEmployee'); 
     Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');

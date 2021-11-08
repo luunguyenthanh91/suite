@@ -307,7 +307,9 @@
                                             <tbody class="list" id="search">
                                                 <tr v-for="item in sortedProducts">
                                                     <td :class="item.classStyle  + ' sticky-col fix-col1-detail'" style="left:0px">
-                                                    (( item.id ))                                                    
+                                                        <a target="_blank" :href="'/admin/bookname-view/' + item.id">
+                                                        (( item.id ))   
+                                                        </a>                                       
                                                     </td>
                                                     <td :class="item.classStyle  + ' sticky-col fix-col2-detail'">
                                                         <a target="_blank" :href="'/admin/employee-view/' + item.employee_id">
@@ -342,7 +344,7 @@
                                                     (( item.employee_depname ))                                                   
                                                     </td>
                                                     <td >
-                                                        <span class="text-block" v-html="item.note">
+                                                        <span class="text-block" v-html="item.inside_history">
                                                         (( item.inside_history ))
                                                         </span>
                                                     </td>
@@ -350,7 +352,7 @@
                                                     (( item.retire_date ))                                                   
                                                     </td>
                                                     <td >
-                                                        <span class="text-block" v-html="item.note">
+                                                        <span class="text-block" v-html="item.retire_note">
                                                         (( item.retire_note ))
                                                         </span>
                                                     </td>
