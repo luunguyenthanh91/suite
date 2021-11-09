@@ -128,7 +128,6 @@
                                                 <input type="date" name="employ_date" value="{{$data->employ_date}}" class="form-control">
                                                 </td>
                                             </tr> 
-                                            
                                             <tr>
                                                 <td>{{ trans('label.employ_type') }}</td>
                                                 <td>
@@ -145,9 +144,15 @@
                                                 </td>
                                             </tr> 
                                             <tr>
+                                                <td>{{ trans('label.employee_depname_no') }}</td>
+                                                <td>
+                                                    <input type="text" name="bophan_id" value="{{$data->bophan_id}}" class="form-control">
+                                                </td>
+                                            </tr> 
+                                            <tr>
                                                 <td>{{ trans('label.salary_bank') }}</td>
                                                 <td>
-                                                <input type="text" name="bank" value="{{$data->bank}}" class="form-control">
+                                                    <input type="text" name="bank" value="{{$data->bank}}" class="form-control">
                                                 </td>
                                             </tr> 
                                             <tr>

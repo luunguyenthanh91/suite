@@ -94,6 +94,7 @@ return [
     'month_to' => '月まで',
     'user_name' => '氏名',
     'employee_depname' => '所属',
+    'employee_depname_no' => '所属コード',
     'status' => 'ステータス',
     'created_by' => '作成者',
     'created_on' => '作成日',

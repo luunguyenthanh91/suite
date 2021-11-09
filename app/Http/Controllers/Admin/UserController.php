@@ -457,6 +457,7 @@ class UserController extends Controller
                 $data->address = $request->address;
                 $data->employ_date = $request->employ_date;
                 $data->employ_type = $request->employ_type;
+                $data->bophan_id = $request->bophan_id;
                 $data->note = $request->note;
                 $data->my_number = $request->my_number;
                 $data->bank = $request->bank;
