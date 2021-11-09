@@ -34,6 +34,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->app_version = 1;
+        $user->user = 1;
         $user->updated_at = date("Y-m-d");
         $user->created_at = date("Y-m-d");
         $user->save();
