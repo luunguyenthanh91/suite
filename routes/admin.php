@@ -99,6 +99,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('bookname-pdf/{id}', 'BooknameController@booknamepdf');
 
     Route::get('employee', 'UserController@listEmployee'); 
+    Route::post('new-employee', 'UserController@addEmployee')->name('admin.addEmployee');
     Route::get('get-employee', 'UserController@getListEmployee')->name('admin.getListEmployee');
     Route::get('employee-view/{id}', 'UserController@viewEmployee')->name('admin.viewEmployee');
     Route::post('employee-update/{id}', 'UserController@updateEmployee')->name('admin.updateEmployee');

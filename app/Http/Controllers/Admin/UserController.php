@@ -27,6 +27,19 @@ class UserController extends Controller
     private $defSortName = "id";
     private $defSortType = "DESC";
 
+    function addEmployee(Request $request) {
+        $user = new Admin();
+        $user->code = $request->code;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->app_version = 1;
+        $user->updated_at = date("Y-m-d");
+        $user->created_at = date("Y-m-d");
+        $user->save();
+        return redirect('/admin/employee-view'.$user->id);
+    }
+
     function checkOut(Request $request , $slug) {
         $users = Admin::where('code' ,$slug )->first();
         if ($users) {

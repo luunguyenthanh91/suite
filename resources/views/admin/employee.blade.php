@@ -21,8 +21,16 @@
                             <input type="text" name="code" class="form-control"  required>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.employee_name') }}</label>
+                            <label class="form-label">{{ trans('label.user_name') }}</label>
                             <input type="text" name="name" class="form-control"  required>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="form-label" >{{ trans('label.email') }}</label>
+                            <input type="text" name="email"  class="form-control" required>
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label class="form-label" >{{ trans('label.pass') }}</label>
+                            <input type="password" name="password" class="form-control" required>
                         </div>
                         <div class="form-group col-lg-12">
                             <label class="form-label">{{ trans('label.note') }}</label>
