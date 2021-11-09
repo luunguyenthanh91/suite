@@ -99,8 +99,10 @@
                         <tr>
                             <td style="text-align:center;border-bottom: 1px solid #000 !important;border-right: 1px solid #000 !important;width:80px;">年月日</td>
                             <td style="width:400px;text-align:left;border-bottom: 1px solid #000 !important;;padding-left:10px">
-                            {{@$data->retire_date_year}} 年 {{@$data->retire_date_month}} 月 {{@$data->retire_date_date}}日
-                </td>
+                            @if ( @$data->retire_date_year != "" )
+                                {{@$data->retire_date_year}} 年 {{@$data->retire_date_month}} 月 {{@$data->retire_date_date}}日
+                            @endif
+                            </td>
                         </tr>
                         <tr>
                             <td style="text-align:center;vertical-align:middle;border-right: 1px solid #000 !important;height:130px;">
