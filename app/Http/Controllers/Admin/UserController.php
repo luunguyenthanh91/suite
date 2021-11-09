@@ -38,7 +38,7 @@ class UserController extends Controller
         $user->updated_at = date("Y-m-d");
         $user->created_at = date("Y-m-d");
         $user->save();
-        return redirect('/admin/employee-view'.$user->id);
+        return redirect('/admin/employee-view/'.$user->id);
     }
 
     function checkOut(Request $request , $slug) {
@@ -471,21 +471,25 @@ class UserController extends Controller
     }
 
     function getEmployee($data) {
-        $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
+        if ($data->bophan_id != "") {
+            $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
+            $data->employee_depname = $bophan->name;
+        }
+        
+        if ($data->birthday != "") {
+            $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
+        }
 
-        $data->employee_depname = $bophan->name;
-        $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
+        $bookname = Bookname::where('user_id' ,$data->id)->first();
+        if ($bookname) {
+            $data->bookname_id = $bookname->id;
+        }
 
         $data->classStyle = "";
         if ($data->employ_type == 1) {
             $data->classStyle = "status2";
         } else if ($data->employ_type == 2) {
             $data->classStyle = "status3";
-        }
-
-        $bookname = Bookname::where('user_id' ,$data->id)->first();
-        if ($bookname) {
-            $data->bookname_id = $bookname->id;
         }
     }
 
