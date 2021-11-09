@@ -317,15 +317,14 @@
                                                     <th scope="col"  @click="sort('salary_bank')">
                                                         <div v-bind:class="[sortBy === 'bank' ? sortDirection : '']">{{ trans('label.salary_bank') }}</div>
                                                     </th>
-                                                    
+                                                    <th scope="col" @click="sort('status')" >
+                                                        <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('created_on')">
                                                         <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
                                                     </th>
                                                     <th scope="col" @click="sort('created_by')">
                                                         <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
-                                                    </th>
-                                                    <th scope="col" @click="sort('status')" >
-                                                        <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('checked_on')">
                                                         <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
