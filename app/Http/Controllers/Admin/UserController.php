@@ -20,6 +20,7 @@ use App\Jobs\SendEmailCheckIn;
 use App\Models\BoPhan;
 use App\Models\Academic;
 use App\Models\Bookname;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -38,6 +39,11 @@ class UserController extends Controller
         $user->user = 1;
         $user->updated_at = date("Y-m-d");
         $user->created_at = date("Y-m-d");
+
+        $user->status = 0;
+        $user->created_on = date('Y-m-d');
+        $user->created_by = Auth::guard('admin')->user()->id;
+        
         $user->save();
         return redirect('/admin/employee-view/'.$user->id);
     }
@@ -470,6 +476,38 @@ class UserController extends Controller
 
         $data = Admin::find($id);
         return view('admin.employee-update', compact(['data' , 'id']));
+    }
+
+    function employeecheck(Request $request,$id) {
+        try {
+            $data = Admin::find($request->id);
+            if ($data) {
+                $data->checked_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->checked_on = date('Y-m-d');
+                $data->status = 1;
+                $data->save();
+            }
+            return response()->json([]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+        }
+    }
+
+    function employeeapprove(Request $request,$id) {
+        try {
+            $data = Admin::find($request->id);
+            if ($data) {
+                $data->approved_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->approved_on = date('Y-m-d');
+                $data->status = 2;
+                $data->save();
+            }
+            return response()->json([]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+        }
     }
 
     function getEmployee($data) {

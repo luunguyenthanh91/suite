@@ -33,6 +33,47 @@
                         </div>
                     </div>
                     <div class="col-lg-auto">
+                        <table class="signTable">
+                            <tr>
+                                <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
+                                <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
+                                <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
+                            </tr>    
+                            <tr>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->created_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->checked_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->approved_on}}
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td class="signTableTd">
+                                    <div class="plusRed">
+                                        <div class="circle">{{@$data->created_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButtonCheck" @click="promoteCheck('{{$id}}')" v-if="'{{@$data->checked_on}}' == ''">
+                                        {{ trans('label.check') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->checked_on}}' != ''">
+                                        <div class="circle">{{@$data->checked_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteApprove('{{$id}}')" v-if="'{{@$data->approved_on}}' == ''">
+                                    {{ trans('label.approve') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
+                                        <div class="circle">{{@$data->approved_by_sign}}</div>
+                                    </div>
+                                </td>
+                            </tr>     
+                        </table>
                     </div>
                 </div>
             </div>    
