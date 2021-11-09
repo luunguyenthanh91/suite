@@ -525,6 +525,24 @@ class UserController extends Controller
             $data->bookname_id = $bookname->id;
         }
 
+        $created_user = Admin::where('id' ,$data->created_by)->first();
+        if ($created_user) {
+            $data->created_by_name = $created_user->name;
+            $data->created_by_sign = $created_user->sign_name;
+        }
+
+        $checked_user = Admin::where('id' ,$data->checked_by)->first();
+        if ($checked_user) {
+            $data->checked_by_name = $checked_user->name;
+            $data->checked_by_sign = $checked_user->sign_name;
+        }
+
+        $approved_user = Admin::where('id' ,$data->approved_by)->first();
+        if ($approved_user) {
+            $data->approved_by_name = $approved_user->name;
+            $data->approved_by_sign = $approved_user->sign_name;
+        }
+
         $data->classStyle = "";
         if ($data->employ_type == 1) {
             $data->classStyle = "status2";
