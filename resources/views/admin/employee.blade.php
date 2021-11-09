@@ -315,7 +315,29 @@
                                                         <div v-bind:class="[sortBy === 'employ_type' ? sortDirection : '']">{{ trans('label.employ_type') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('salary_bank')">
-                                                        <div v-bind:class="[sortBy === 'bank' ? sortDirection : '']">{{ trans('label.bank') }}</div>
+                                                        <div v-bind:class="[sortBy === 'bank' ? sortDirection : '']">{{ trans('label.salary_bank') }}</div>
+                                                    </th>
+                                                    
+                                                    <th scope="col"  @click="sort('created_on')">
+                                                        <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('created_by')">
+                                                        <div v-bind:class="[sortBy === 'created_by' ? sortDirection : '']">{{ trans('label.created_by') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('status')" >
+                                                        <div v-bind:class="[sortBy === 'status' ? sortDirection : '']">{{ trans('label.status') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('checked_on')">
+                                                        <div v-bind:class="[sortBy === 'checked_on' ? sortDirection : '']">{{ trans('label.checked_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('checked_by')">
+                                                        <div v-bind:class="[sortBy === 'checked_by' ? sortDirection : '']">{{ trans('label.checked_by') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('approved_on')">
+                                                        <div v-bind:class="[sortBy === 'approved_on' ? sortDirection : '']">{{ trans('label.approved_on') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('approved_by')">
+                                                        <div v-bind:class="[sortBy === 'approved_by' ? sortDirection : '']">{{ trans('label.approved_by') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
@@ -373,6 +395,29 @@
                                                     </td>
                                                     <td>
                                                     (( item.bank ))                                                  
+                                                    </td>
+                                                    <td>
+                                                    <span v-if="item.status==0">{{ trans('label.ws_status1') }}</span>
+                                                    <span v-if="item.status==1">{{ trans('label.ws_status2') }}</span>   
+                                                    <span v-if="item.status==2">{{ trans('label.ws_status3') }}</span>   
+                                                    </td>
+                                                    <td>
+                                                    ((item.created_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.created_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.checked_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.checked_by_name)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.approved_on)) 
+                                                    </td>
+                                                    <td>
+                                                    ((item.approved_by_name)) 
                                                     </td>
                                                     <td >
                                                         <span class="text-block" v-html="item.note">
