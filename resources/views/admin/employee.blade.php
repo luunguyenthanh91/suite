@@ -33,6 +33,19 @@
                             <input type="password" name="password" class="form-control" required>
                         </div>
                         <div class="form-group col-lg-12">
+                            <label class="form-label" >{{ trans('label.employ_type') }}</label>
+                            <div class="custom-controls-stacked">
+                                <div class="custom-control custom-radio">
+                                    <input id="employ_type1" name="employ_type" type="radio" class="custom-control-input" value="1">
+                                    <label for="employ_type1" class="custom-control-label">{{ trans('label.employ_type1') }}</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="employ_type2" name="employ_type" type="radio" class="custom-control-input" value="2">
+                                    <label for="employ_type2" class="custom-control-label">{{ trans('label.employ_type2') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
                             <label class="form-label">{{ trans('label.note') }}</label>
                             <textarea type="text" class="form-control" name="note" rows="10"></textarea>
                         </div>

@@ -33,6 +33,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->employ_type = $request->employ_type;
         $user->app_version = 1;
         $user->user = 1;
         $user->updated_at = date("Y-m-d");
@@ -475,7 +476,7 @@ class UserController extends Controller
             $bophan = BoPhan::where('id' ,$data->bophan_id)->first();
             $data->employee_depname = $bophan->name;
         }
-        
+
         if ($data->birthday != "") {
             $data->age = date_diff(date_create($data->birthday), date_create('now'))->y;
         }
