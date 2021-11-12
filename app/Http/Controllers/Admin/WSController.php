@@ -824,7 +824,7 @@ class WSController extends Controller
         $data = Payslip::find($id);
         $this->getPayslip($data);
         $messageData = [];
-        $messageData["email"] = "luunguyenthanh91@mail.com";
+        $messageData["email"] = "luunguyenthanh91@gmail.com";
         $messageData["title"] = "Test Aptach File";
         $messageData["body"] = "File ok";
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
