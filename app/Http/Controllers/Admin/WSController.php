@@ -823,8 +823,31 @@ class WSController extends Controller
     public function payslippdf(Request $request, $id) {
         $data = Payslip::find($id);
         $this->getPayslip($data);
-        
+        $data["email"] = "luunguyenthanh91@mail.com";
+        $data["title"] = "Test Aptach File";
+        $data["body"] = "File ok";
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
+        try{
+            Mail::send('mails.mail-paypal', $data, function($message)use($data,$pdf) {
+            $message->to($data["email"])
+            ->subject($data["subject"])
+            ->attachData($pdf->output(), "invoice.pdf");
+            });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (Mail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+
+        }else{
+
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+        
+
         return $pdf->download($data->month."_".trans('label.payslip')."_".$data->employee_code."(".$data->employee_name.")".'.pdf');
     }
 

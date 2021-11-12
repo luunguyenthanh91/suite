@@ -264,7 +264,7 @@ return [
     'id_customer' => '顧客No.',
     'name_customer' => '会社名',
     'website' => 'ホームページ',
-    'home' => 'ホーム',
+    'home' => 'ダッシュボード',
     'interpreter_add' => '通訳者登録',
     'ok' => 'OK',
     'matching' => 'マッチング (※Google有料サービス利用)',
