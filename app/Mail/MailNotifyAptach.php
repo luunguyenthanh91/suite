@@ -33,7 +33,7 @@ class MailNotifyAptach extends Mailable
        return $this->from('support@alphacep.co.jp' , 'AlphaCep事務局')
             ->cc(['support@alphacep.co.jp'])
            ->view('mails.mail-paypal')
-           ->attachData($this->data['pdf']->output(), "abc.pdf")
-           ->subject('[フリーランス通訳案件] ' . $this->data['address_pd']. ' (' . $this->data['ngay_pd'] . ')');
+           ->attach($this->data['path'])
+           ->subject('ok');
    }
 }

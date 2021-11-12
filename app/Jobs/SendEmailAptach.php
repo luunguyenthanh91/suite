@@ -33,6 +33,6 @@ class SendEmailAptach implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->data['to'])->send(new MailNotifyAptach($this->data));
+        Mail::to($this->data['email'])->send(new MailNotifyAptach($this->data));
     }
 }
