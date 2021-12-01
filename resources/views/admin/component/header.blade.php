@@ -11,7 +11,7 @@
         </div>
     </div>  
     <center style="width:100%"> 
-    <form method="get" class="search-form searchHeader" :action="'/admin/' + parseFormUrl(fielSearch)" style="margin-top:-2px;">
+        <form method="get" class="search-form searchHeader" :action="'/admin/' + parseFormUrl(fielSearch)" style="margin-top:-2px;">
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-secondary3 dropdown-toggle dropdown-toggle-split btn-style-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
@@ -78,12 +78,12 @@
         </button>
         <div class="box-menu hidden">
             <span class="arrow-up"></span>
+            <div style="border-bottom:1px solid #CCC;margin-left:0px;">
+                <a class="sidebar-menu-button" href="/admin">
+                    <i class="fas fa-home"></i><span class="sidebar-menu-text spaceLabel">{{ trans('label.home') }}</span>
+                </a>
+            </div>
             <ul class="sidebar-menu ">
-                <li class="sidebar-menu-item {{ (request()->is('*dashboard')) ? 'active open' : '' }} ">
-                    <a class="sidebar-menu-button" href="/">
-                    <i class="fas fa-home"></i><span class="labelButton">{{ trans('label.home') }}</span>
-                    </a>
-                </li>
                 <li class="sidebar-menu-item {{ (request()->is('*/cost')) ? 'active open' : '' }}">
                     <a class="sidebar-menu-button" href="/admin/cost">
                     <span class="sidebar-menu-text">{{ trans('label.person_management2_3') }}</span>

@@ -227,9 +227,11 @@
             <div id="second" class="rightPanel">
 
             <div class="bodyButtonTop">
+                    @if (Auth::guard('admin')->user()->id == 1)
                     <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createWorkSheet">
                         <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
                     </a> 
+                    @endif
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                         <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
                     </a>     

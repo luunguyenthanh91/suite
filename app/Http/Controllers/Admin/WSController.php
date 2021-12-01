@@ -828,11 +828,11 @@ class WSController extends Controller
         $messageData["title"] = "Test Aptach File";
         $messageData["body"] = "File ok";
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
-        Mail::send('mails.mail-paypal', $messageData, function($message)use($messageData, $pdf) {
-            $message->to($messageData["email"], $messageData["email"])
-                    ->subject($messageData["title"])
-                    ->attachData($pdf->output(), "abc".time().".pdf");
-        });
+        // Mail::send('mails.mail-paypal', $messageData, function($message)use($messageData, $pdf) {
+        //     $message->to($messageData["email"], $messageData["email"])
+        //             ->subject($messageData["title"])
+        //             ->attachData($pdf->output(), "hoadon".time().".pdf");
+        // });
         return $pdf->download($data->month."_".trans('label.payslip')."_".$data->employee_code."(".$data->employee_name.")".'.pdf');
     }
 
