@@ -412,7 +412,7 @@ class WSController extends Controller
 
             $data->status = 0;
             $data->month = $request->month;
-            $data->user_id = $request->user_id;
+            $data->user_id = Auth::guard('admin')->user()->code;
             $data->note = $request->note;
             $data->created_on = date('Y-m-d');
             $data->created_by = Auth::guard('admin')->user()->id;
@@ -693,15 +693,17 @@ class WSController extends Controller
                 list($year2, $month2, $day2) = explode('-', $enddate);
                 list($hour2, $min2, $sec2) = explode(':', $endtime);
 
-                $d1 = date_create($startdate." ".$starttime);
-                $d2 = date_create($enddate." ".$endtime);
+                $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
+                $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
                 if ($breaktime != "") {
-                    $time_count = $diff_date->h - intval($breaktime);
+                    $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
+                    list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
                     $time_count = $diff_date->h;
+                    $min_count = $diff_date->i;
                 }
-                $min_count = $diff_date->i;
+               
                 $overtime_count = $time_count - $workpartern_timecount;
                 $worktimelist[] = $time_count.":".$min_count;
             }
@@ -954,15 +956,17 @@ class WSController extends Controller
                 list($year2, $month2, $day2) = explode('-', $enddate);
                 list($hour2, $min2, $sec2) = explode(':', $endtime);
 
-                $d1 = date_create($startdate." ".$starttime);
-                $d2 = date_create($enddate." ".$endtime);
+                $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
+                $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
                 if ($breaktime != "") {
-                    $time_count = $diff_date->h - intval($breaktime);
+                    $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
+                    list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
                     $time_count = $diff_date->h;
+                    $min_count = $diff_date->i;
                 }
-                $min_count = $diff_date->i;
+                
                 $overtime_count = $time_count - $workpartern_timecount;
                 $worktimelist[] = $time_count.":".$min_count;
             }
@@ -1085,6 +1089,21 @@ class WSController extends Controller
         }
 
         return sprintf('%02d:%02d', $h, $i);
+    }
+
+    public function DiffBreaktime($hour, $min, $breaktime) {
+        $time_val = $hour * 60 + $min;
+
+        list($hour_breaktime, $min_breaktime) = explode(":", $breaktime);
+        $breaktime_val = $hour_breaktime * 60 + $min_breaktime;
+
+        $time_val = $time_val - $breaktime_val;
+
+        if($h = floor($time_val / 60)) {
+            $time_val %= 60;
+        }
+
+        return sprintf('%02d:%02d', $h, $time_val);
     }
 
     public function CalculateTime2($times) {
