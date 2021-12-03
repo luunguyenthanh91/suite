@@ -20,8 +20,9 @@
         <div style='text-align:center; vertical-align:middle; height:45px;width:100%;border-bottom:2px solid black'>
             <div style="font-size:24;"><b>{{ trans('label.worksheet2') }}</b></div>
         </div>
-        <div style='text-align:right; width:100%;font-size:8pt;height:30px;margin-top:5px;'>
-        <u><span style="margin-right20px;">{{ trans('label.worksheet_id') }}</span>{{$id}}</u>
+        <div style='text-align:right; width:100%;font-size:8pt;height:40px;margin-top:5px;'>
+        {{ trans('label.worksheet_id') }}{{$id}}<br>
+        {{ trans('label.created_on') }}： {{$year}}{{ trans('label.year') }}{{$month}}{{ trans('label.month') }}{{$day}}{{ trans('label.date') }}
         </div>
         <table style="width:100%;margin-top:-25px;">
             <tr>
@@ -234,7 +235,7 @@ body {
     height : 80px;
 }
 .headerColor {
-    background-color: #FFFFF0
+    background-color: #EEEEEE
 }
 
 .circle {
