@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', 'ホーム')
+@section('contentTitle', 'ダッシュボード')
 
 <div class="mdk-drawer-layout__content page-content">
     @include('admin.component.header')
