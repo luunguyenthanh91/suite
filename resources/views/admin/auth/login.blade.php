@@ -9,7 +9,8 @@
                 <img class="loginIcon" src="{{ asset('assets/images/fvc.png') }}" />
             </div>
             <div class="styleHeaderTitleText2 mb-40pt textAlignCenter">
-                {{ trans('label.login_header') }}
+                {{ trans('label.login_header') }}<br>
+                事務管理システム(<span style="color:red"><u>秘密</u></span>)
             </div>
             <form id="login-form" action="{{route('post-login')}}" method="POST" class="col-md-3 p-0 mx-auto">
                 @csrf
