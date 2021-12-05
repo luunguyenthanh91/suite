@@ -150,25 +150,78 @@
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
-                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/system_log">
                             <span class="sidebar-menu-text">{{ trans('label.money_management_1') }}</span>
                             </a>
                         </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/system_log">
                             <span class="sidebar-menu-text">{{ trans('label.money_management_2') }}</span>
                             </a>
                         </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
+                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button" href="/admin/system_log">
                             <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
                             </a>
                         </li>
-                        <li class="sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_4') }}</span>
+                        <li class="pl-4 sidebar-menu-item {{ (request()->is('*project*')) ? 'active open' : '' }} {{ (request()->is('calendar')) ? 'active open' : '' }} ">
+                            <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-project" aria-expanded="false">
+                            {{ trans('label.money_management_4') }}
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
                             </a>
+                            <ul class="sidebar-submenu sm-indent collapse" id="col-project">
+                            <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_0') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_1') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_2') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_3') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_4') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_5') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_6') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_7') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_8') }}</span>
+                                    </a>
+                                </li>
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/project">
+                                        <span class="sidebar-menu-text">{{ trans('label.money_management_4_9') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>    
