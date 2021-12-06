@@ -48,7 +48,12 @@ class WSController extends Controller
             $data->payslip_partern = $employee->payslip_partern;
 
             $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
+            $data->koyouhoken_rate = $pay_partern->koyouhoken_rate;
+            $data->overtime_rate = $pay_partern->overtime_rate;
+            $data->jikyu = $pay_partern->jikyu;
+            $data->kihonkyu = $pay_partern->kihonkyu;
             $data->tsukin_teate = $pay_partern->tsukin_teate;
+
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;
             $data->shotokuzei = $pay_partern->shotokuzei;
@@ -225,9 +230,6 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
 
-        $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
-        $data->kihonkyu = $pay_partern->kihonkyu;
-        $data->jikyu = $pay_partern->jikyu;
         $data->zangyou_teate = 0;
         $data->holiday_teate = 0;
         $data->night_teate = 0;
@@ -239,7 +241,7 @@ class WSController extends Controller
             
             $overworktimecount = $listdata['overworktimecount'];
             list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
-            $overtime_rate = $pay_partern->overtime_rate;
+            $overtime_rate = $data->overtime_rate;
             $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
              + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
         }
@@ -248,9 +250,8 @@ class WSController extends Controller
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
 
-        $data->koyohoken = $pay_partern->koyohoken;
         if ($data->jikyu != "") {
-            $koyouhoken_rate = $pay_partern->koyouhoken_rate;
+            $koyouhoken_rate = $data->koyouhoken_rate;
             $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
         }
 
