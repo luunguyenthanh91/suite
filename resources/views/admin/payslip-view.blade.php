@@ -27,16 +27,16 @@
                 <div class="d-flex" style="width:100%;">
                     <div style="width:100%;text-align:left !important;">
                         <div class="col-lg-12" >
-                                <label>
+                            <label>
                             <u>
-                                    {{ trans('label.payslip_id') }}{{@$data->id}} (
-                                    <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
-                                    <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
-                                    <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
-                                    <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
-                                    )
+                                {{ trans('label.payslip_id') }}{{@$data->id}} (
+                                <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
+                                <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
+                                <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
+                                <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
+                                )
                             </u>
-                                </label>
+                            </label>
                             <br>
                             <label>(( parseMonth('{{@$data->month}}') )) {{@$data->employee_depname}} {{@$data->employee_name}} ({{@$data->user_id}})</label>
                             <br>
@@ -171,7 +171,7 @@
                                             <tr>
                                                 <td>{{ trans('label.month') }}</td>
                                                 <td>
-                                                (( parseMonth('{{$data->month}}') ))
+                                                {{$data->month}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -190,14 +190,6 @@
                                                 <td>{{ trans('label.user_name') }}</td>
                                                 <td>
                                                 (( parseName('{{@$data->employee_name}}') ))
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.worksheet_id') }}</td>
-                                                <td>
-                                                <a target="_blank" href="/admin/worksheet-view/{{@$data->worksheet_id}}">
-                                                    {{@$data->worksheet_id}}
-                                                </a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -275,6 +267,15 @@
                                 <div class="col-lg-12">
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                        
+                                            <tr>
+                                                <td>{{ trans('label.worksheet_id') }}</td>
+                                                <td>
+                                                <a target="_blank" href="/admin/worksheet-view/{{@$data->worksheet_id}}">
+                                                    {{@$data->worksheet_id}}
+                                                </a>
+                                                </td>
+                                            </tr>    
                                             <tr>
                                                 <td>{{ trans('label.work_day_count') }}</td>
                                                 <td>
@@ -766,7 +767,7 @@ new Vue({
         },
         parseMonth (value) {
             return this.isNull(value)? S_HYPEN : 
-            value.replace("-", " 年 ")+" 月度";
+            value.replace("-", "年")+"月度";
         },
         parseAddr(value) {
             return this.isNull(value)? S_HYPEN : value.toUpperCase();

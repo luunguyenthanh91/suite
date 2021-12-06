@@ -87,11 +87,18 @@ class WSController extends Controller
         if ($request->isMethod('post')) {
             $data = Payslip::find($request->id);
             if ($data) {
+                $data->month = $request->month;
+                $data->user_id = $request->user_id;
+                $data->note = $request->note;
+
+                $data->kihonkyu = $request->kihonkyu;
+                $data->tsukin_teate = $request->tsukin_teate;
                 $data->kenkouhoken = $request->kenkouhoken;
                 $data->koseinenkin = $request->koseinenkin;
+                $data->koyohoken = $request->koyohoken;
                 $data->shotokuzei = $request->shotokuzei;
                 $data->juminzei = $request->juminzei;
-                $data->note = $request->note;
+
                 $data->save();
             }
             return redirect('/admin/payslip-view/'.$data->id);
