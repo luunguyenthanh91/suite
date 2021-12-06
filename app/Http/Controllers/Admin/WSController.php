@@ -855,6 +855,8 @@ class WSController extends Controller
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime_count;
+        list($breaktime_hour, $breaktime_min) = explode(':', $breaktime);
+        $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_min);
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
