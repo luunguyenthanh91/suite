@@ -994,7 +994,7 @@ class WSController extends Controller
             
             $breaktime_str = "";
             if ($ws_type == 1) {
-                $breaktime_str = $breaktime;
+                $breaktime_str = $breaktime2;
             }
             
             $data[] = [

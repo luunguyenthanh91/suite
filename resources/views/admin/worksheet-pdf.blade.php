@@ -109,7 +109,7 @@
                 {{ $item['endtime'] }}
                 </td>
                 <td class="border-all data_form"  style="vertical-align:top;text-align:center">
-                {{ $item['breaktime2'] }}
+                {{ $item['breaktime'] }}
                 </td>
                 <td class="border-all data_form"  style="vertical-align:top;text-align:center">
                 {{ $item['time_count'] }}
