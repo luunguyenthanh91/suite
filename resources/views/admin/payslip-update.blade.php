@@ -57,7 +57,7 @@
                                             <tr>
                                                 <td>{{ trans('label.month') }}</td>
                                                 <td>
-                                                <input type="date" class="form-control" name="month" value="{{@$data->month}}">
+                                                <input type="month" class="form-control" name="month" value="{{@$data->month}}">
                                                 </td>
                                             </tr>
                                             <tr>
