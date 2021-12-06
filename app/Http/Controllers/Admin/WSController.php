@@ -40,6 +40,10 @@ class WSController extends Controller
             $data->status = 0;
             $data->month = $request->month;
             $data->user_id = $request->user_id;
+
+            $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
+            $daycount = $listdata['daycount'];
+
             $data->note = $request->note;
             $data->created_on = date('Y-m-d');
             $data->created_by = Auth::guard('admin')->user()->id;
@@ -52,7 +56,7 @@ class WSController extends Controller
             $data->overtime_rate = $pay_partern->overtime_rate;
             $data->jikyu = $pay_partern->jikyu;
             $data->kihonkyu = $pay_partern->kihonkyu;
-            $data->tsukin_teate = $pay_partern->tsukin_teate;
+            $data->tsukin_teate = $pay_partern->tsukin_teate * $daycount;
 
             $data->kenkouhoken = $pay_partern->kenkouhoken;
             $data->koseinenkin = $pay_partern->koseinenkin;

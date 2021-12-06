@@ -130,7 +130,6 @@ return [
     'bn_status1' => '新規',
     'bn_status2' => '承認待ち',
     'bn_status3' => '承認済み',
-    'ws_status2' => '確認待ち',
     'ws_status1' => '新規',
     'ws_status2' => '確認待ち',
     'ws_status3' => '承認待ち',
