@@ -16,7 +16,7 @@
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
             @endif  
-            @if (Auth::guard('admin')->user()->id == 1 )
+            @if (Auth::guard('admin')->user()->id == 1 || $data->status == 0 || $data->status == 1)
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
                 <i class="fas fa-trash-alt"><span class="labelButton">{{ trans('label.delete') }}</span></i>
             </a> 
@@ -34,6 +34,7 @@
                                 <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
                                 <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
                                 <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
+                                <span v-if='{{@$data->status}} == 4'>{{ trans('label.ws_status5') }}</span>
                                 )
                             </u>
                             </label>
