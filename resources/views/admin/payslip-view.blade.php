@@ -116,7 +116,21 @@
                             <div class="col-auto border-left border-right">
                                 <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab3">
                                     <span class="flex d-flex flex-column">
-                                        <strong class="card-title">{{ trans('label.payslip') }}</strong>
+                                        <strong class="card-title">{{ trans('label.ws') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab4">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.plus') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab5">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.minus') }}</strong>
                                     </span>
                                 </a>
                             </div>
@@ -187,6 +201,18 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.pay_day') }}</td>
+                                                <td>
+                                                {{@$data->pay_day}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_total') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->pay_total}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.note') }}</td>
                                                 <td>
                                                     <div class="text-block" v-html="">
@@ -250,27 +276,6 @@
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             <tr>
-                                                <td>{{ trans('label.pay_day') }}</td>
-                                                <td>
-                                                {{@$data->pay_day}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{ trans('label.pay_total') }}</td>
-                                                <td>
-                                                (( parseMoney({{@$data->pay_total}}) ))
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="page-separator">
-                                        <div class="page-separator__text bgWhite">{{ trans("label.ws") }}</div>
-                                    </div>
-                                    <div class="card">
-                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
-                                            <tr>
                                                 <td>{{ trans('label.work_day_count') }}</td>
                                                 <td>
                                                 {{@$data->daycount}}
@@ -291,10 +296,11 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab4">
+                            <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="page-separator">
-                                        <div class="page-separator__text bgWhite">{{ trans("label.plus") }}</div>
-                                    </div>
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             <tr>
@@ -336,10 +342,11 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab5">
+                            <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="page-separator">
-                                        <div class="page-separator__text bgWhite">{{ trans("label.minus") }}</div>
-                                    </div>
                                     <div class="card">
                                         <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
                                             <tr>
