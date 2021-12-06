@@ -25,7 +25,7 @@
                                 <label style="font-size:18px;">{{ $data->month_year }}{{ trans('label.year') }}{{ $data->month_month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><br>
                                 {{ trans('label.myname') }}
                             </center>
-                            <table style="border:0px;font-size:12px;">
+                            <table style="border:0px;">
                                 <tr>
                                     <td>{{ trans('label.dep') }}</td>
                                     <td><div style="margin-left:10px;">{{ $data->employee_depname }}</div></td>
@@ -40,7 +40,7 @@
                 </td>
                 <td style="vertical-align:bottom;width:250px;text-align:right"> 
                     <div style='text-align:center;border-bottom:1px solid black'>
-                    {{ trans('label.pay_day') }}<label style="margin-left:20px;">{{ $data->selyear }}{{ trans('label.year') }}{{ $data->selmonth }}{{ trans('label.month') }}{{ $data->seldate }}{{ trans('label.date') }}</label>
+                    {{ trans('label.pay_day') }}: <label style="margin-left:20px;">{{ $data->selyear }}{{ trans('label.year') }}{{ $data->selmonth }}{{ trans('label.month') }}{{ $data->seldate }}{{ trans('label.date') }}</label>
                     </div>
                 </td>
             </tr>
@@ -98,22 +98,16 @@
                         <tr>
                             <td class="border-all3" style="height:500px;vertical-align:top;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
-                                    @if ($data->jikyu != "") 
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#EEEEEE">{{ trans('label.time_money') }}</td>
-                                        <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->jikyu) }} 円</td>
-                                    </tr>
-                                    @endif
-                                    <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#EEEEEE;">{{ trans('label.kihonkyu') }}</td>
+                                        <td class="headerColor border-all31 title_form" style="width:100px;padding-left:10px;height:30px;vertical-align:middle;background-color:#F1F1F1;">{{ trans('label.kihonkyu') }}</td>
                                         <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kihonkyu) }} 円</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#EEEEEE;">{{ trans('label.zangyou_teate') }}</td>
+                                        <td class="headerColor border-all31 title_form" style="width:100px;padding-left:10px;height:30px;vertical-align:middle;background-color:#F1F1F1;">{{ trans('label.zangyou_teate') }}</td>
                                         <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->zangyou_teate) }} 円</td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;vertical-align:middle;background-color:#EEEEEE;">{{ trans('label.tsukin_teate') }}</td>
+                                        <td class="headerColor border-all31 title_form" style="width:100px;padding-left:10px;height:30px;vertical-align:middle;background-color:#F1F1F1;">{{ trans('label.tsukin_teate') }}</td>
                                         <td class="border-all31"  style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->tsukin_teate) }} 円</td>
                                     </tr>
                                 </table>
@@ -123,7 +117,7 @@
                             <td class="border-all3 title_form" style="height:28px;vertical-align:middle;text-align:center;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#EEEEEE;">
+                                        <td class="headerColor border-all31 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#F1F1F1;">
                                         {{ trans('label.total_plus') }}
                                         </td>
                                         <td class="border-all31 title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
