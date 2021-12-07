@@ -824,7 +824,7 @@ class WSController extends Controller
 
             $sum_pay += $data->kihonkyu + $data->zangyou_teate;
             $sum_shakaihoken += $data->kenkouhoken + $data->koseinenkin;
-            $sum_tax = $data->shotokuzei;
+            $sum_tax += $data->shotokuzei;
         }
 
         return [
