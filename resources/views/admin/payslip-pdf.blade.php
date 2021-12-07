@@ -206,7 +206,7 @@
 
         <table style="width:100%;margin:2px;border-collapse:collapse;height:40px;border:1px solid black">
             <tr>
-                <td style="height:50px;width:500px;vertical-align:middle;text-align:center;background:#EEEEEE;">
+                <td style="height:50px;width:470px;vertical-align:middle;text-align:center;background:#EEEEEE;">
                     <span style="padding:5px;">{{ trans('label.pay_total') }}</span>
                 </td>
                 <td style="text-align:center">
