@@ -135,6 +135,13 @@
                                     </span>
                                 </a>
                             </div>
+                            <div class="col-auto border-left border-right">
+                                <a data-toggle="tab" role="tab" aria-selected="false" class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start tab_click" id="tab6">
+                                    <span class="flex d-flex flex-column">
+                                        <strong class="card-title">{{ trans('label.pay_sum') }}</strong>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body tab-content">
@@ -385,6 +392,34 @@
                                                 <td>{{ trans('label.minus_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->minus_total}}) ))
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="detailtab6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <table class="table thead-border-top-0 table-nowrap table-mobile propertiesTables">   
+                                            <tr>
+                                                <td>{{ trans('label.pay_total1') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->sum_pay}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_total4') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->sum_shakaihoken}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_total3') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->sum_tax}}) ))
                                                 </td>
                                             </tr>
                                         </table>

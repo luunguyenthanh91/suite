@@ -80,6 +80,7 @@ return [
     'pay_total1' => '課税支給累計',
     'pay_total4' => '社会保険累計',
     'pay_total3' => '所得税累計',
+    'pay_sum' => '累計',
     'payslip_msg' => '今月もご苦労様でした。',
     'pay_total2' => '差引支給',
     'pay_day' => '支払日',
