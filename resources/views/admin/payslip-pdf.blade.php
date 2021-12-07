@@ -90,7 +90,7 @@
                         </tr>
                     </table>
                 </td>
-                <td  style="width:250px;">
+                <td  style="width:210px;">
                     <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.plus') }}</td>
@@ -129,7 +129,7 @@
                         </tr>
                     </table>
                 </td>
-                <td style="width:250px;">
+                <td  style="width:210px;">
                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all4 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.minus') }}</td>
@@ -194,7 +194,7 @@
                             <td class="border-all4 title_form" style="height:28px;vertical-align:middle;text-align:center;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#EEEEEE;">
+                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background-color:#FAFAFA !important;">
                                         {{ trans('label.total_minus') }}
                                         </td>
                                         <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;;padding-right:10px;">
