@@ -22,7 +22,7 @@
                     <div style="border:0.1px solid black;width:400px;">
                         <div style="margin-left:20px;padding:10px;">
                             <center>
-                                <label style="font-size:18px;">{{ $data->month_year }}{{ trans('label.year') }}{{ $data->month_month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><label style="font-size:12px;">No.{{$data->id}}</label><br>
+                                <label style="font-size:18px;">{{ $data->month_year }}{{ trans('label.year') }}{{ $data->month_month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><label style="font-size:14px;"> No.{{$data->id}}</label><br>
                                 {{ trans('label.myname') }}
                             </center>
                             <table style="border:0px;font-size:14px;">
