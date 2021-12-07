@@ -90,7 +90,7 @@
                         </tr>
                     </table>
                 </td>
-                <td  style="width:210px;">
+                <td style="width:210px !important;">
                     <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.plus') }}</td>
@@ -129,8 +129,8 @@
                         </tr>
                     </table>
                 </td>
-                <td  style="width:210px;">
-                <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
+                <td style="width:210px !important;">
+                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all4 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.minus') }}</td>
                         </tr>
@@ -143,7 +143,6 @@
                                         @if ($data->kenkouhoken != "") 
                                         {{ number_format($data->kenkouhoken) }} 円
                                         @else 
-                                        -
                                         @endif
                                         </td>
                                     </tr>
@@ -153,7 +152,6 @@
                                         @if ($data->koseinenkin != "") 
                                         {{ number_format($data->koseinenkin) }} 円
                                         @else 
-                                        -
                                         @endif
                                         </td>
                                     </tr>
@@ -163,7 +161,6 @@
                                         @if ($data->koyohoken != "") 
                                         {{ number_format($data->koyohoken) }} 円
                                         @else 
-                                        -
                                         @endif
                                         </td>
                                     </tr>
@@ -173,7 +170,6 @@
                                         @if ($data->shotokuzei != "") 
                                         {{ number_format($data->shotokuzei) }} 円
                                         @else 
-                                        -
                                         @endif
                                         </td>
                                     </tr>
@@ -183,7 +179,6 @@
                                         @if ($data->juminzei != "") 
                                         {{ number_format($data->juminzei) }} 円
                                         @else 
-                                        -
                                         @endif
                                         </td>
                                     </tr>
