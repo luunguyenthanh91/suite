@@ -63,7 +63,7 @@
                 <td>
                     <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
-                            <td class="headerColor border-all2 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;border-color:1px solid black;">{{ trans('label.ws') }}</td>
+                            <td class="headerColor border-all2 title_form" style="width:220px;height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;border-color:1px solid black;">{{ trans('label.ws') }}</td>
                         </tr>
                         <tr>
                             <td style="height:500px;vertical-align:top;">
