@@ -132,7 +132,7 @@
                 <td>
                     <table style='border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
-                            <td class="headerColor border-all4 title_form" style="width:195px;height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.minus') }}</td>
+                            <td class="headerColor border-all4 title_form" style="width:197px;height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.minus') }}</td>
                         </tr>
                         <tr>
                             <td class="border-all4" style="height:500px;vertical-align:top;">
@@ -206,7 +206,7 @@
 
         <table style="width:100%;margin:2px;border-collapse:collapse;height:40px;border:1px solid black">
             <tr>
-                <td style="height:50px;width:453px;vertical-align:middle;text-align:center;background:#EEEEEE;">
+                <td style="height:50px;width:500px;vertical-align:middle;text-align:center;background:#EEEEEE;">
                     <span style="padding:5px;">{{ trans('label.pay_total') }}</span>
                 </td>
                 <td style="text-align:center">
