@@ -23,7 +23,7 @@
                         <div style="margin-left:20px;padding:10px;">
                             <center>
                                 <label style="font-size:18px;">{{ $data->month_year }}{{ trans('label.year') }}{{ $data->month_month }}{{ trans('label.payslip_month') }}</label><label style="font-size:24px;margin-left:40px;">{{ trans('label.payslip_title') }}</label><br>
-                                {{ trans('label.myname') }}
+                                {{ trans('label.myname') }}<label style="font-size:12px;">No.{{$data->id}}</label>
                             </center>
                             <table style="border:0px;font-size:14px;">
                                 <tr>
@@ -50,12 +50,12 @@
             <div class="circle" style="margin-top:5px;margin-left:5px;">
             {{$data->received_by_sign}}
             </div>
-            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}<br>No.{{$data->id}}</div>
+            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
             @else
             <div class="circle2" style="margin-top:5px;margin-left:5px;">
             {{$data->received_by_sign}}
             </div>
-            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}<br>No.{{$data->id}}</div>
+            <div style="font-size:11px;margin-top:5px;text-align:right">{{ trans('label.paid') }}</div>
             @endif
         </div>
         <table style="width:100%;margin-top:15px;">
