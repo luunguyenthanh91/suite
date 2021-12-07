@@ -91,7 +91,7 @@
                     </table>
                 </td>
                 <td style="width:210px !important;">
-                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
+                    <table style='width:210px;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.plus') }}</td>
                         </tr>
@@ -130,7 +130,7 @@
                     </table>
                 </td>
                 <td style="width:210px !important;">
-                    <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
+                    <table style='width:210px;border-collapse:collapse;font-size:10.5;border:0.1px solid black;'>
                         <tr>
                             <td class="headerColor border-all4 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.minus') }}</td>
                         </tr>
