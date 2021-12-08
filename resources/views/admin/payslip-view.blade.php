@@ -47,12 +47,11 @@
                             </div>
                     </div>
                     <div class="col-lg-auto">
-                        <table class="signTable" style="width:270px;">
+                        <table class="signTable">
                             <tr>
                                 <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
-                                <td class="signTableThApprover">{{ trans('label.paid_sign') }}</td>
                             </tr>    
                             <tr>
                                 <td class="signTableDate approveDateGroup">
@@ -63,9 +62,6 @@
                                 </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->approved_on}}
-                                </td>
-                                <td class="signTableDate approveDateGroup">
-                                {{@$data->received_on}}
                                 </td>
                             </tr> 
                             <tr>
@@ -88,14 +84,6 @@
                                     </a> 
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
                                         <div class="circle">{{@$data->approved_by_sign}}</div>
-                                    </div>
-                                </td>
-                                <td class="signTableTd">
-                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteReceive('{{$id}}')" v-if="'{{@$data->received_on}}' == ''">
-                                    {{ trans('label.paid_sign') }}
-                                    </a> 
-                                    <div class="plusRed" v-if="'{{@$data->received_on}}' != ''">
-                                        <div class="circle">{{@$data->received_by_sign}}</div>
                                     </div>
                                 </td>
                             </tr>     
