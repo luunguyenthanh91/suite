@@ -88,6 +88,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td>{{ trans('label.zangyou_teate') }}</td>
+                                                    <td>
+                                                    <input type="text" class="form-control money_parse" name="zangyou_teate" value="{{@$data->zangyou_teate}}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td>{{ trans('label.tsukin_teate') }}</td>
                                                     <td>
                                                     <input type="text" class="form-control money_parse" name="tsukin_teate" value="{{@$data->tsukin_teate}}">

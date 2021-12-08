@@ -119,7 +119,9 @@ class WSController extends Controller
                 $data->note = $request->note;
 
                 $data->kihonkyu = $request->kihonkyu;
+                $data->zangyou_teate = $request->zangyou_teate;
                 $data->tsukin_teate = $request->tsukin_teate;
+
                 $data->kenkouhoken = $request->kenkouhoken;
                 $data->koseinenkin = $request->koseinenkin;
                 $data->koyohoken = $request->koyohoken;
