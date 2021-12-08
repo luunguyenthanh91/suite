@@ -118,6 +118,22 @@
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
                                         <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        {{ trans('label.plus_zei_total') }}
+                                        </td>
+                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
+                                        {{ number_format($data->plus_zei_total) }} 円
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        {{ trans('label.plus_nozei_total') }}
+                                        </td>
+                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
+                                        {{ number_format($data->plus_nozei_total) }} 円
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.total_plus') }}
                                         </td>
                                         <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
