@@ -236,10 +236,7 @@
                     </a> 
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                         <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
-                    </a>     
-                    <!-- <a type="button" class="btn btn-outline-secondary3" style="background:#1E90FF" target="_blank" @click="refresh()">
-                        <i class="fas fa-sync-alt"><span class="labelButton">リフレッシュ</span></i>
-                    </a> -->
+                    </a>
                 </div>
                 <div class="container page__container page-section page_container_custom">
                     <div class="row page_container_custom_marginright">
@@ -350,6 +347,15 @@
                                                     <th scope="col" @click="sort('received_by')">
                                                         <div v-bind:class="[sortBy === 'received_by' ? sortDirection : '']">{{ trans('label.received_by') }}</div>
                                                     </th>
+                                                    <th scope="col" @click="sort('sum_pay')">
+                                                        <div v-bind:class="[sortBy === 'sum_pay' ? sortDirection : '']">{{ trans('label.pay_total1') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('sum_shakaihoken')">
+                                                        <div v-bind:class="[sortBy === 'sum_shakaihoken' ? sortDirection : '']">{{ trans('label.pay_total4') }}</div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('sum_tax')">
+                                                        <div v-bind:class="[sortBy === 'sum_tax' ? sortDirection : '']">{{ trans('label.pay_total3') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('note')">
                                                         <div v-bind:class="[sortBy === 'note' ? sortDirection : '']">{{ trans('label.note') }}</div>
                                                     </th>
@@ -431,6 +437,15 @@
                                                     </td>
                                                     <td>
                                                     ((item.received_by_name)) 
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.sum_pay) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.sum_shakaihoken) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.sum_tax) ))
                                                     </td>
                                                     <td >
                                                     <span class="text-block" v-html="item.note">
