@@ -845,7 +845,8 @@ class WSController extends Controller
         //             ->subject($messageData["title"])
         //             ->attachData($pdf->output(), "hoadon".time().".pdf");
         // });
-        return $pdf->download(trans('label.payslip_id').$data->id.'.pdf');
+        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->employee_name.'('.$data->user_id.')'.'.pdf';
+        return $pdf->download($filename);
     }
 
     public function worksheetpdf(Request $request, $id) {
