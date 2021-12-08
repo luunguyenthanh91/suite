@@ -62,7 +62,25 @@ class WSController extends Controller
             $data->koseinenkin = $pay_partern->koseinenkin;
             $data->shotokuzei = $pay_partern->shotokuzei;
             $data->juminzei = $pay_partern->juminzei;
-            
+
+            $data->zangyou_teate = 0;
+            $data->holiday_teate = 0;
+            $data->night_teate = 0;
+            if ($data->jikyu != "") {
+                $worktimecount = $listdata['worktimecount'];
+                list($work_h, $work_m) = explode(":", $worktimecount);
+                $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
+                
+                $overworktimecount = $listdata['overworktimecount'];
+                list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
+                $overtime_rate = $data->overtime_rate;
+                $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
+            }
+
+            if ($data->koyouhoken_rate != "") {
+                $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
+                $data->koyohoken = round($data->plus_zei_total * $data->koyouhoken_rate/100);
+            }
             
             list($year, $month) = explode("-", $data->month);
             $date = date('Y-m-d', strtotime('+1 month', strtotime(
@@ -233,31 +251,10 @@ class WSController extends Controller
         $data->employee_code = $employee->code;
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
-
-        $data->zangyou_teate = 0;
-        $data->holiday_teate = 0;
-        $data->night_teate = 0;
-        if ($data->jikyu != "") {
-            $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
-            $worktimecount = $listdata['worktimecount'];
-            list($work_h, $work_m) = explode(":", $worktimecount);
-            $data->kihonkyu = round($work_h * $data->jikyu + ($work_m * $data->jikyu/60));
-            
-            $overworktimecount = $listdata['overworktimecount'];
-            list($overtime_work_h, $overtime_work_m) = explode(":", $overworktimecount);
-            $overtime_rate = $data->overtime_rate;
-            $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate
-             + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
-        }
-
+        
         $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
-
-        if ($data->jikyu != "") {
-            $koyouhoken_rate = $data->koyouhoken_rate;
-            $data->koyohoken = round($data->plus_zei_total*$koyouhoken_rate/100);
-        }
 
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
         $data->pay_total = $data->plus_total - $data->minus_total;
