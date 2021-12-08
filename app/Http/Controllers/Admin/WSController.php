@@ -44,7 +44,6 @@ class WSController extends Controller
             $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
             $daycount = $listdata['daycount'];
 
-            $data->note = $request->note;
             $data->created_on = date('Y-m-d');
             $data->created_by = Auth::guard('admin')->user()->id;
 

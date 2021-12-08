@@ -24,10 +24,6 @@
                             <label class="form-label">{{ trans('label.user_id') }}</label>
                             <input type="text" name="user_id" class="form-control"  required>
                         </div>
-                        <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.note') }}</label>
-                            <textarea type="text" class="form-control" name="note" rows="10"></textarea>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         
@@ -317,11 +313,11 @@
                                                     <th scope="col" @click="sort('minus_total')">
                                                         <div v-bind:class="[sortBy === 'minus_total' ? sortDirection : '']">{{ trans('label.minus_total') }}</div>
                                                     </th>
-                                                    <th scope="col"  @click="sort('pay_day')">
-                                                        <div v-bind:class="[sortBy === 'pay_day' ? sortDirection : '']">{{ trans('label.pay_day') }}</div>
-                                                    </th>
                                                     <th scope="col" @click="sort('pay_total')">
                                                         <div v-bind:class="[sortBy === 'pay_total' ? sortDirection : '']">{{ trans('label.pay_total') }}</div>
+                                                    </th>
+                                                    <th scope="col"  @click="sort('pay_day')">
+                                                        <div v-bind:class="[sortBy === 'pay_day' ? sortDirection : '']">{{ trans('label.pay_day') }}</div>
                                                     </th>
                                                     <th scope="col"  @click="sort('created_on')">
                                                         <div v-bind:class="[sortBy === 'created_on' ? sortDirection : '']">{{ trans('label.created_on') }}</div>
@@ -408,11 +404,11 @@
                                                     <td class="moneyCol" >
                                                     (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.minus_total) ))
                                                     </td>
-                                                    <td>
-                                                    ((item.pay_day)) 
-                                                    </td>
                                                     <td class="moneyCol" >
                                                     (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.pay_total) ))
+                                                    </td>
+                                                    <td>
+                                                    ((item.pay_day)) 
                                                     </td>
                                                     <td>
                                                     ((item.created_on)) 
