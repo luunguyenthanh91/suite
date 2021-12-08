@@ -120,7 +120,7 @@
                                         <td class="headerColor border-all31 title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_zei_total') }}
                                         </td>
-                                        <td class="title_form border-all31 " style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
+                                        <td class="title_form border-all31 " style="width:120px;height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
                                         {{ number_format($data->plus_zei_total) }} 円
                                         </td>
                                     </tr>
@@ -128,7 +128,7 @@
                                         <td class="headerColor border-all31 title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_nozei_total') }}
                                         </td>
-                                        <td class="title_form border-all31" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
+                                        <td class="title_form border-all31" style="width:120px;height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
                                         {{ number_format($data->plus_nozei_total) }} 円
                                         </td>
                                     </tr>
@@ -136,7 +136,7 @@
                                         <td class="headerColor title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.total_plus') }}
                                         </td>
-                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
+                                        <td class="title_form" style="width:120px;height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
                                         {{ number_format($data->plus_total) }} 円
                                         </td>
                                     </tr>
