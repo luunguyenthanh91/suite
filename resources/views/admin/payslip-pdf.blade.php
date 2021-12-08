@@ -96,7 +96,7 @@
                             <td class="headerColor border-all3 title_form" style="height:35px;vertical-align:middle;text-align:center;background:#EEEEEE;">{{ trans('label.plus') }}</td>
                         </tr>
                         <tr>
-                            <td class="border-all3" style="height:500px;vertical-align:top;">
+                            <td class="border-all3" style="height:445px;vertical-align:top;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.kihonkyu') }}</td>
@@ -114,21 +114,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="border-all3 title_form" style="height:28px;vertical-align:middle;text-align:center;">
+                            <td class="border-all3 title_form" style="height:85px;vertical-align:middle;text-align:center;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        <td class="headerColor border-all3 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_zei_total') }}
                                         </td>
-                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
+                                        <td class="title_form border-all3 " style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
                                         {{ number_format($data->plus_zei_total) }} 円
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        <td class="headerColor border-all3 title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_nozei_total') }}
                                         </td>
-                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
+                                        <td class="title_form border-all3" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;width:150px !important;;">
                                         {{ number_format($data->plus_nozei_total) }} 円
                                         </td>
                                     </tr>
