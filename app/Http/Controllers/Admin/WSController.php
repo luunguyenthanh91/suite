@@ -78,8 +78,8 @@ class WSController extends Controller
             }
 
             if ($data->koyouhoken_rate != "") {
-                $data->plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
-                $data->koyohoken = round($data->plus_zei_total * $data->koyouhoken_rate/100);
+                $plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
+                $data->koyohoken = round($plus_zei_total * $data->koyouhoken_rate/100);
             }
             
             list($year, $month) = explode("-", $data->month);
