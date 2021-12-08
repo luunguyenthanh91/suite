@@ -781,7 +781,7 @@ new Vue({
         },
         parseMoney (value) {
             if (isNaN(value)) {
-                return "-";
+                return "";
             }
             value = (isNaN(value)) ? 0 : value;
             const formatter = new Intl.NumberFormat('ja-JP', {
