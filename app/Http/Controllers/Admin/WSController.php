@@ -1056,7 +1056,7 @@ class WSController extends Controller
             $approved_by_sign = $approved_user->sign_name;
         }
 
-        $file_name = trans('label.worksheet_id').$employee->id;
+        $filename = trans('label.worksheet_id').$ws->id.'_'.$ws->month.'_'.$employee_name.'('.$ws->user_id.')'.'.pdf';
         
 
         $worktimecount = $this->CalculateTime2($worktimelist);
@@ -1065,7 +1065,7 @@ class WSController extends Controller
         $pdf = PDF::loadView('admin.worksheet-pdf',
             compact('data', 'ws_note', 'id','submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
 
-        return $pdf->download($file_name.'.pdf');
+        return $pdf->download($filename.'.pdf');
     }
 
     function deleteWorkSheet(Request $request,$id) {
