@@ -117,7 +117,7 @@
                             <td class="border-all3 title_form" style="height:83px;vertical-align:middle;text-align:center;">
                                 <table style='width:100%;border-collapse:collapse;font-size:10.5;border:0px'>
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="height:26px;width:120px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        <td class="headerColor border-all31 title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_zei_total') }}
                                         </td>
                                         <td class="title_form border-all31 " style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
@@ -125,7 +125,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor border-all31 title_form" style="height:26px;width:120px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        <td class="headerColor border-all31 title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.plus_nozei_total') }}
                                         </td>
                                         <td class="title_form border-all31" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
@@ -133,7 +133,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="headerColor title_form" style="height:26px;width:120px;vertical-align:middle;text-align:center;background:#FAFAFA;">
+                                        <td class="headerColor title_form" style="height:26px;width:140px;vertical-align:middle;text-align:center;background:#FAFAFA;">
                                         {{ trans('label.total_plus') }}
                                         </td>
                                         <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;padding-right:10px;;">
