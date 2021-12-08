@@ -845,7 +845,7 @@ class WSController extends Controller
         //             ->subject($messageData["title"])
         //             ->attachData($pdf->output(), "hoadon".time().".pdf");
         // });
-        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->employee_name.'('.$data->user_id.')'.'.pdf';
+        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->user_id.'('.$data->employee_name.')'.'.pdf';
         return $pdf->download($filename);
     }
 
@@ -1056,7 +1056,7 @@ class WSController extends Controller
             $approved_by_sign = $approved_user->sign_name;
         }
 
-        $filename = trans('label.worksheet_id').$ws->id.'_'.$ws->month.'_'.$employee_name.'('.$ws->user_id.')'.'.pdf';
+        $filename = trans('label.worksheet_id').$ws->id.'_'.$ws->month.'_'.$ws->user_id.'('.$employee_name.')'.'.pdf';
         
 
         $worktimecount = $this->CalculateTime2($worktimelist);
