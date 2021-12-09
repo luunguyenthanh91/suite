@@ -12,7 +12,7 @@
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
             @if (Auth::guard('admin')->user()->id == 1 || $data->status == 3)
-            <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" href="/admin/sendmail-payslip/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
             </a> 
             @endif  
@@ -991,6 +991,43 @@ new Vue({
                     success: function(res) {
                         Swal.fire({
                             title: "提出の処理が終わりました。"
+                        });
+                        location.href = "/admin/payslip-view/" + _i;
+                    },
+                    error: function(xhr, textStatus, error) {
+                        Swal.fire({
+                            title: "エラーが発生しました!",
+                            type: "warning",
+                        });
+                    }
+                });
+            })
+        },
+        sendmailpayslip(_i) {
+            const that = this;
+            Swal.fire({
+                title: "\給与明細発行通知メールを送信します。<br>よろしいですか？",
+                // text: "\案件入力のチェックが終わりましたか？",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "はい",
+                cancelButtonText: "いいえ",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then(function(t) {
+                if (t.dismiss == "cancel") {
+                    return;
+                }
+                that.loadingTable = 1;
+                $.ajax({
+                    url: "/admin/sendmail-payslip/" + _i,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        Swal.fire({
+                            title: "確認の処理が終わりました。"
                         });
                         location.href = "/admin/payslip-view/" + _i;
                     },

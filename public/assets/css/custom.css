@@ -1768,6 +1768,24 @@ body::-webkit-scrollbar-thumb
     border-color:Sienna !important;
 }
 
+
+.background_sub_1 {
+    background: DeepPink !important;
+    border-color:DeepPink !important;
+}
+.background_sub_2 {
+    background: #007fff !important;
+    border-color:#007fff !important;
+}
+.background_sub_3 {
+    background: MediumOrchid !important;
+    border-color:MediumOrchid !important;
+}
+.background_sub_4 {
+    background: #008000 !important;
+    border-color:#008000 !important;
+}
+
 .btn-circle-border {
     display: inline-block;
     text-decoration: none;
