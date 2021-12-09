@@ -888,6 +888,31 @@ class WSController extends Controller
         return response()->json([]);
     }
 
+    public function sendmailpayslipcheck(Request $request, $id) {
+        $data = Payslip::find($id);
+        $this->getPayslip($data);
+
+        $messageData = [];
+
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $email = $employee->email;
+        list($year2, $month2, $date2) = explode("-", $data->pay_day);
+
+        $messageData["email"] = $email;
+        $messageData["title"] = "給与入金確認をお願いします。";
+        $messageData["employee_name"] = $data->employee_name;
+        $messageData["url"] = "https://workspace.alphacep.co.jp/admin/payslip-view/".$data->id;
+        $messageData["pay_day"] = $year2.trans('label.year').$month2.trans('label.month').$date2.trans('label.date');
+        
+
+        Mail::send('mails.mail-paypal-check', $messageData, function($message)use($messageData) {
+            $message->to($messageData["email"], $messageData["email"])
+                    ->subject($messageData["title"]);
+        });
+        
+        return response()->json([]);
+    }
+
     public function worksheetpdf(Request $request, $id) {
         $data = [];
         $daycount = 0;

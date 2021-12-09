@@ -48,6 +48,7 @@ return [
     'worksheet_pdf2' => '出勤簿',
     'payslip_pdf' => '給与明細書出力(PDF)',
     'sendmail_payslip' => '給与明細発行通知メール',
+    'sendmail_payslip_check' => '給与入金確認依頼メール',
     'payslip_title' => '明細書',
     'dep' => '所属',
     'year' => '年',
