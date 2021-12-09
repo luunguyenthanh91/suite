@@ -862,7 +862,7 @@ class WSController extends Controller
         list($year2, $month2, $date2) = explode("-", $data->pay_day);
 
         $messageData["email"] = $email;
-        $messageData["title"] = $year.trans('label.year').$month.trans('label.month')." 給与明細発行通知";
+        $messageData["title"] = $year.trans('label.year').$month.trans('label.month')."度給与明細発行通知";
         $messageData["employee_name"] = $data->employee_name;
         $messageData["pay_day"] = $year2.trans('label.year').$month2.trans('label.month').$date2.trans('label.date');
         
