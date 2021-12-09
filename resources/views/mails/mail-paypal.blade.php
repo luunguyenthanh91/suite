@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mail Title From onlinewebtutorblog.com</title>
+    <title>AlphaCep Suite</title>
 </head>
 <body>
-    <h1>{{ $title }}</h1>
-    <p>{{ $body }}</p>
+    <!-- <h1>{{ $title }}</h1> -->
+    {{ $body }}
      
-    <p>Thanks, Online Web Tutor Support Team</p>
+    <!-- <p>Thanks, Online Web Tutor Support Team</p> -->
 </body>
 </html>
   

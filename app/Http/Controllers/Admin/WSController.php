@@ -866,13 +866,15 @@ class WSController extends Controller
         $messageData["body"] = $msg;
         
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
-        Mail::send('mails.mail-paypal', $messageData, function($message)use($messageData, $pdf) {
+        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->user_id.'('.$data->employee_name.')'.'.pdf';
+
+        Mail::send('mails.mail-paypal', $messageData, function($message)use($messageData, $pdf, $filename) {
             $message->to($messageData["email"], $messageData["email"])
                     ->subject($messageData["title"])
-                    ->attachData($pdf->output(), "hoadon".time().".pdf");
+                    ->attachData($pdf->output(), $filename);
         });
-        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->user_id.'('.$data->employee_name.')'.'.pdf';
-        return $pdf->download($filename);
+        
+        return response()->json([]);
     }
 
     public function worksheetpdf(Request $request, $id) {

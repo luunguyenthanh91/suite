@@ -30,7 +30,7 @@ class MailNotifyAptach extends Mailable
     */
    public function build()
    {
-       return $this->from('support@alphacep.co.jp' , 'AlphaCep事務局')
+       return $this->from('system@suite.alphacep.co.jp' , 'AlphaCep事務局')
             ->cc(['support@alphacep.co.jp'])
            ->view('mails.mail-paypal')
            ->attach($this->data['path'])

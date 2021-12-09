@@ -1027,9 +1027,9 @@ new Vue({
                     dataType: 'json',
                     success: function(res) {
                         Swal.fire({
-                            title: "確認の処理が終わりました。"
+                            title: "通知メールを送信しました。"
                         });
-                        location.href = "/admin/payslip-view/" + _i;
+                        // location.href = "/admin/payslip-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({

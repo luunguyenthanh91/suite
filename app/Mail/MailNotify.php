@@ -30,7 +30,7 @@ class MailNotify extends Mailable
     */
    public function build()
    {
-       return $this->from('support@alphacep.co.jp' , 'AlphaCep事務局')
+       return $this->from('system@suite.alphacep.co.jp' , 'AlphaCep事務局')
             ->cc(['support@alphacep.co.jp'])
            ->view('mails.mail-notify')
            ->subject('[フリーランス通訳案件] ' . $this->data['address_pd']. ' (' . $this->data['ngay_pd'] . ')');
