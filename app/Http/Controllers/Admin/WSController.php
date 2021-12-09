@@ -860,10 +860,8 @@ class WSController extends Controller
 
         $messageData["email"] = $email;
         $messageData["title"] = $data->month." 給与明細発行通知";
-        $msg = '株式会社 AlphaCep<br>'
-        .$data->employee_name.'様<br>'
-        .$data->pay_day.'支給分 給与明細をお送りいたします。<br><br>今月もお疲れさまでした！<br>以下のURLよりご確認ください。<br>';
-        $messageData["body"] = $msg;
+        $messageData["employee_name"] = $data->employee_name;
+        $messageData["pay_day"] = $data->pay_day;
         
         $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
         $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->user_id.'('.$data->employee_name.')'.'.pdf';

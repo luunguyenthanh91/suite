@@ -30,7 +30,7 @@ class MailCheckOut extends Mailable
     */
    public function build()
    {
-       return $this->from('support@alphacep.co.jp' , 'AlphaCep事務局')
+       return $this->from('system@suite.alphacep.co.jp' , 'AlphaCep事務局')
             ->cc([ $this->data['mail_cc'] ])
            ->view('mails.mail-checkout')
            ->subject($this->data['title']);

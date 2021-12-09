@@ -30,7 +30,7 @@ class MailCheckIn extends Mailable
     */
    public function build()
    {
-       return $this->from('support@alphacep.co.jp' , 'AlphaCep事務局')
+       return $this->from('system@suite.alphacep.co.jp' , 'AlphaCep事務局')
             ->cc([ $this->data['mail_cc'] ])
            ->view('mails.mail-checkin')
            ->subject($this->data['title']);
