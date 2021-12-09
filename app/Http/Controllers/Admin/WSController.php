@@ -901,7 +901,7 @@ class WSController extends Controller
         $messageData["email"] = $email;
         $messageData["title"] = "給与入金確認をお願いします。";
         $messageData["employee_name"] = $data->employee_name;
-        $messageData["url"] = "<a>https://workspace.alphacep.co.jp/admin/payslip-view/".$data->id."</a>";
+        $messageData["url"] = "<a href='https://workspace.alphacep.co.jp/admin/payslip-view/'".$data->id."</a>";
         $messageData["pay_day"] = $year2.trans('label.year').$month2.trans('label.month').$date2.trans('label.date');
         
 
