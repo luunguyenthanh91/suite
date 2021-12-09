@@ -54,6 +54,8 @@ return [
     'payslip_month' => '月度給与',
     'month' => '月',
     'month2' => '月度',
+    'sendmail_on' => 'メール通知日',
+    'sendmail_by' => 'メール通知者',
     'date' => '日',
     'day' => '曜日',
     'datetime' => '日付',
