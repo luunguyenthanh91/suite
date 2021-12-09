@@ -284,6 +284,12 @@ class WSController extends Controller
             $data->approved_by_sign = $approved_user->sign_name;
         }
 
+        $sendmail_user = Admin::where('id' ,$data->sendmail_by)->first();
+        if ($sendmail_user) {
+            $data->sendmail_by_name = $sendmail_user->name;
+            $data->sendmail_by_sign = $sendmail_user->sign_name;
+        }
+
         $received_user = Admin::where('id' ,$data->received_by)->first();
         if ($received_user) {
             $data->received_by_name = $received_user->name;
@@ -851,6 +857,10 @@ class WSController extends Controller
 
     public function sendmailpayslip(Request $request, $id) {
         $data = Payslip::find($id);
+        $data->sendmail_by = strtoupper(Auth::guard('admin')->user()->id);
+        $data->sendmail_on = date('Y-m-d');
+        $data->save();
+
         $this->getPayslip($data);
 
         $messageData = [];
@@ -874,10 +884,6 @@ class WSController extends Controller
                     ->subject($messageData["title"])
                     ->attachData($pdf->output(), $filename);
         });
-
-        $data->sendmail_by = strtoupper(Auth::guard('admin')->user()->id);
-        $data->sendmail_date = date('Y-m-d');
-        $data->save();
         
         return response()->json([]);
     }

@@ -11,7 +11,7 @@
             <a type="button" class="btn btn-outline-secondary3 background_sub_1" target="_blank" href="/admin/payslip-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
-            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_date) )
+            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_on) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
             </a> 
@@ -265,6 +265,18 @@
                                                 <td>{{ trans('label.approved_by') }}</td>
                                                 <td>
                                                 {{@$data->approved_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.sendmail_on') }}</td>
+                                                <td>
+                                                {{@$data->sendmail_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.sendmail_by') }}</td>
+                                                <td>
+                                                {{@$data->sendmail_by_name}}
                                                 </td>
                                             </tr>
                                         </table>
@@ -1029,7 +1041,7 @@ new Vue({
                         Swal.fire({
                             title: "通知メールを送信しました。"
                         });
-                        // location.href = "/admin/payslip-view/" + _i;
+                        location.href = "/admin/payslip-view/" + _i;
                     },
                     error: function(xhr, textStatus, error) {
                         Swal.fire({

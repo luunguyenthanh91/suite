@@ -46,6 +46,8 @@ return [
     'checked_on' => '確認日',
     'approved_by' => '承認者',
     'approved_on' => '承認日',
+    'sendmail_on' => 'メール通知日',
+    'sendmail_by' => 'メール通知者',
     'note' => '備考',
 
 
