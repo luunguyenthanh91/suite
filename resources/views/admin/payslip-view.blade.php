@@ -8,9 +8,14 @@
 	
     <div id="list-data">
         <div class="bodyButtonTop">
-            <a type="button" class="btn btn-outline-secondary3" style="background:#FF8C00" target="_blank" href="/admin/payslip-pdf/{{$id}}">
+            <a type="button" class="btn btn-outline-secondary3 background_sub_1" target="_blank" href="/admin/payslip-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
+            @if (Auth::guard('admin')->user()->id == 1 || $data->status == 3)
+            <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" href="/admin/sendmail-payslip/{{$id}}">
+                <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
+            </a> 
+            @endif  
             @if (Auth::guard('admin')->user()->id == 1 || $data->status == 0 || $data->status == 1)
             <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/payslip-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>

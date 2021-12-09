@@ -849,6 +849,32 @@ class WSController extends Controller
         return $pdf->download($filename);
     }
 
+    public function sendmailpayslip(Request $request, $id) {
+        $data = Payslip::find($id);
+        $this->getPayslip($data);
+
+        $messageData = [];
+
+        $employee = Admin::where('code' ,$data->user_id)->first();
+        $email = $employee->email;
+
+        $messageData["email"] = $email;
+        $messageData["title"] = $data->month." 給与明細発行通知";
+        $msg = '株式会社 AlphaCep<br>'
+        .$data->employee_name.'様<br>'
+        .$data->pay_day.'支給分 給与明細をお送りいたします。<br><br>今月もお疲れさまでした！<br>以下のURLよりご確認ください。<br>';
+        $messageData["body"] = $msg;
+        
+        $pdf = PDF::loadView('admin.payslip-pdf', compact('data'));
+        Mail::send('mails.mail-paypal', $messageData, function($message)use($messageData, $pdf) {
+            $message->to($messageData["email"], $messageData["email"])
+                    ->subject($messageData["title"])
+                    ->attachData($pdf->output(), "hoadon".time().".pdf");
+        });
+        $filename = trans('label.payslip_id').$data->id.'_'.$data->month.'_'.$data->user_id.'('.$data->employee_name.')'.'.pdf';
+        return $pdf->download($filename);
+    }
+
     public function worksheetpdf(Request $request, $id) {
         $data = [];
         $daycount = 0;
