@@ -13,12 +13,12 @@
             </a>  
             @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_on) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
-                <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
+                <i class="fas fa-envelope"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
             </a> 
             @endif   
             @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->received_on) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_3" target="_blank" @click="sendmailpayslipcheck('{{$id}}')">
-                <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
+            <i class="fas fa-envelope"><span class="labelButton">{{ trans('label.sendmail_payslip_check') }}</span></i>
             </a> 
             @endif  
             @if (Auth::guard('admin')->user()->id == 1 || $data->status == 0 || $data->status == 1)
