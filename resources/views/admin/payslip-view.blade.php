@@ -11,7 +11,7 @@
             <a type="button" class="btn btn-outline-secondary3 background_sub_1" target="_blank" href="/admin/payslip-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
-            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && $data->sendmail_date != "") )
+            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_date) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
             </a> 
