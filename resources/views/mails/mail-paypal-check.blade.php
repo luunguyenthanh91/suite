@@ -4,7 +4,6 @@
     <title>AlphaCep Suite</title>
 </head>
 <body>
-    <!-- <h1>{{ $title }}</h1> -->
     {{ $employee_name }}様<br><br>
 
     {{ $pay_day }}付で給与を所定の銀行口座へお振込いたしました。

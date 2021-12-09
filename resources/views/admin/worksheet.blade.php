@@ -596,7 +596,7 @@ new Vue({
         approved_on_to: '',
 		approved_on_month: '',
 
-        checkedNames: [0,2,3],
+        checkedNames: [0,1,2,3],
         month: '',
         month_from: '',
         month_to: '',
@@ -870,7 +870,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,2,3];
+            this.checkedNames = [0,1,2,3];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -918,7 +918,7 @@ new Vue({
             this.user_id='';
             this.user_name='';
 
-            this.checkedNames = [0,2,3];
+            this.checkedNames = [0,1,2,3];
             this.month = '';
             this.month_from = '';
             this.month_to = '';
@@ -965,7 +965,7 @@ new Vue({
 		},
 		setSearchStatus() {
 			this.page = 1;
-            this.checkedNames = [0,2,3];
+            this.checkedNames = [0,1,2,3];
 		},
 		clearSearchTypeJob() {
 			this.page = 1;
