@@ -874,6 +874,10 @@ class WSController extends Controller
                     ->subject($messageData["title"])
                     ->attachData($pdf->output(), $filename);
         });
+
+        $data->sendmail_by = strtoupper(Auth::guard('admin')->user()->id);
+        $data->sendmail_date = date('Y-m-d');
+        $data->save();
         
         return response()->json([]);
     }
