@@ -153,6 +153,16 @@ class CostDocController extends Controller
             $item->approved_by_sign = $approved_user->sign_name;
         }
     }
+
+    function deletecosttransport(Request $request,$id) {
+        $data = CostDoc::find($id);
+
+        CostTransport::where('doc_id', $id)->delete();
+        DocFile::where('item_id', $id)->where('table_name', 'cost_doc')->delete();
+
+        $data->delete();
+        return response()->json([]);
+    }
     
     function addcosttransport(Request $request) {
         try {
