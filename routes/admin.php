@@ -84,6 +84,32 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('get-dashboard', 'ProjectController@dashboard')->name('admin.dashboard');
     // Route::get('/', 'ProjectController@getViewProject');
 
+
+    
+    Route::get('costtransport', 'CostDocController@listCostTransport'); 
+    Route::get('get-costtransport', 'CostDocController@getListCostTransport')->name('admin.getListCostTransport');
+    Route::post('new-costtransport', 'CostDocController@addcosttransport')->name('admin.addcosttransport');
+    Route::get('costtransport-view/{id}', 'CostDocController@viewcosttransport')->name('admin.viewcosttransport');
+    Route::post('costtransport-update/{id}', 'CostDocController@updatecosttransport')->name('admin.updatecosttransport');
+    Route::get('costtransport-update/{id}', 'CostDocController@updatecosttransport')->name('admin.updatecosttransport');
+    Route::get('costtransportsubmit/{id}', 'CostDocController@costtransportsubmit')->name('admin.costtransportsubmit');
+    Route::post('costtransportsubmit/{id}', 'CostDocController@costtransportsubmit')->name('admin.costtransportsubmit');
+    Route::get('costtransportcheck/{id}', 'CostDocController@costtransportcheck')->name('admin.costtransportcheck');
+    Route::post('costtransportcheck/{id}', 'CostDocController@costtransportcheck')->name('admin.costtransportcheck');
+    Route::get('costtransportapprove/{id}', 'CostDocController@costtransportapprove')->name('admin.costtransportapprove');
+    Route::post('costtransportapprove/{id}', 'CostDocController@costtransportapprove')->name('admin.costtransportapprove');
+    Route::post('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
+    Route::get('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
+    Route::get('costtransport-pdf/{id}', 'CostDocController@costtransportpdf');
+
+    // Doc File API
+    Route::get('list-doc/{id}', 'DocFileController@getListDocFile');
+    Route::get('getListDocFile', 'DocFileController@getListDocFile')->name('admin.getListDocFile');
+    
+    
+    // End API Doc File
+    Route::get('getListCostTransportDetail', 'CostDocController@getListCostTransportDetail')->name('admin.getListCostTransportDetail');
+    
     Route::get('bookname', 'BooknameController@listBookname'); 
     Route::get('get-bookname', 'BooknameController@getListBookname')->name('admin.getListBookname');
     Route::post('new-bookname', 'BooknameController@addBookname')->name('admin.addBookname');

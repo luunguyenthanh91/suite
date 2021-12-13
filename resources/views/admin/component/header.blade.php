@@ -11,7 +11,7 @@
         </div>
     </div>  
     <center style="width:100%"> 
-        <form method="get" class="search-form searchHeader" :action="'/admin/' + parseFormUrl(fielSearch)" style="margin-top:-2px;">
+        <!-- <form method="get" class="search-form searchHeader" :action="'/admin/' + parseFormUrl(fielSearch)" style="margin-top:-2px;">
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-secondary3 dropdown-toggle dropdown-toggle-split btn-style-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
@@ -43,7 +43,7 @@
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-        </form>
+        </form> -->
     </center>
     <div  class="col-lg-auto onlyPC" style="text-align:right"> 
         <div class="btn-group">
@@ -165,7 +165,8 @@
                             <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
                             </a>
                         </li>
-                        <li class="pl-4 sidebar-menu-item {{ (request()->is('*project*')) ? 'active open' : '' }} {{ (request()->is('calendar')) ? 'active open' : '' }} ">
+                        <li class="pl-4 sidebar-menu-item {{ (request()->is('*costtransport*')) ? 'active open' : '' }}
+                         {{ (request()->is('calendar')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-project" aria-expanded="false">
                             {{ trans('label.money_management_4') }}
                                 <span class="ml-auto sidebar-menu-toggle-icon"></span>
@@ -176,8 +177,8 @@
                                         <span class="sidebar-menu-text">{{ trans('label.money_management_4_0') }}</span>
                                     </a>
                                 </li>
-                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
-                                    <a class="sidebar-menu-button" href="/admin/project">
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*costtransport')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/costtransport">
                                         <span class="sidebar-menu-text">{{ trans('label.money_management_4_1') }}</span>
                                     </a>
                                 </li>
