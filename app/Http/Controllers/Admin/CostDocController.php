@@ -130,7 +130,9 @@ class CostDocController extends Controller
             $item->employee_depname = $bophan->name;
         }
 
-        list($item->year, $item->month, $item->day) = explode ("-",$item->submited_on);
+        if ($item->submited_on) {
+            list($item->year, $item->month, $item->day) = explode ("-",$item->submited_on);
+        }
 
 
         $submited_user = Admin::where('id' ,$item->submited_by)->first();
