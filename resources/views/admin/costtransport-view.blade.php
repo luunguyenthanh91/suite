@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '旅費交通費申請')
+@section('contentTitle', '旅費交通費申請ビュー')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')	
