@@ -166,7 +166,7 @@
                             </a>
                         </li>
                         <li class="pl-4 sidebar-menu-item {{ (request()->is('*costtransport*')) ? 'active open' : '' }}
-                         {{ (request()->is('calendar')) ? 'active open' : '' }} ">
+                         {{ (request()->is('payslip')) ? 'active open' : '' }} ">
                             <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-project" aria-expanded="false">
                             {{ trans('label.money_management_4') }}
                                 <span class="ml-auto sidebar-menu-toggle-icon"></span>
@@ -182,8 +182,8 @@
                                         <span class="sidebar-menu-text">{{ trans('label.money_management_4_1') }}</span>
                                     </a>
                                 </li>
-                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*project')) ? 'active open' : '' }} ">
-                                    <a class="sidebar-menu-button" href="/admin/project">
+                                <li class="pl-3 sidebar-menu-item {{ (request()->is('*payslip')) ? 'active open' : '' }} ">
+                                    <a class="sidebar-menu-button" href="/admin/payslip">
                                         <span class="sidebar-menu-text">{{ trans('label.money_management_4_2') }}</span>
                                     </a>
                                 </li>

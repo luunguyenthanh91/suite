@@ -308,7 +308,7 @@
                                                     (( item.name ))
                                                     </td>
                                                     <td :class="item.classStyle  + '  moneyCol'" >
-                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.price) ))
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.sumprice) ))
                                                     </td>
                                                     <td>
                                                     <span v-if="item.status==0">{{ trans('label.status0') }}</span>

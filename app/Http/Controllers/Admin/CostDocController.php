@@ -117,6 +117,14 @@ class CostDocController extends Controller
             $item->classStyle = "status6";
         }
 
+        $item->detail = CostTransport::where('doc_id', $item->id)->get();
+
+        $sumprice = 0;
+        foreach ($item->detail as &$item) {
+            $sumprice += $item->price;
+        }
+        $item->sumprice = $sumprice;
+
         $created_user = Admin::where('id' ,$item->created_by)->first();
         if ($created_user) {
             $item->created_by_name = $created_user->name;
@@ -133,7 +141,6 @@ class CostDocController extends Controller
         if ($item->submited_on) {
             list($item->year, $item->month, $item->day) = explode ("-",$item->submited_on);
         }
-
 
         $submited_user = Admin::where('id' ,$item->submited_by)->first();
         if ($submited_user) {
@@ -240,7 +247,7 @@ class CostDocController extends Controller
                             if ($item['action'] != 'delete') {
                                 $dataDoc = new DocFile();
                                 $dataDoc->item_id = $id;
-                                $dataDoc->url = $item['url'];
+                                $dataDoc->url = $this->url().$item['url'];
                                 $dataDoc->table_name = $item['table_name'];
                                 // $dataDoc->file_name = $item['file_name'];
                                 $dataDoc->save();
@@ -251,7 +258,7 @@ class CostDocController extends Controller
                                 if ($item['action'] == 'delete') {
                                     $dataDoc->delete();
                                 } else { 
-                                    $dataDoc->url = $item['url'];
+                                    $dataDoc->url = $this->url().$item['url'];
                                     // $dataDoc->file_name = $item['file_name'];
                                     $dataDoc->save();
                                 }
@@ -281,7 +288,13 @@ class CostDocController extends Controller
         return view('admin.costtransport-update', compact(['data' , 'id']));
     }
 
-    
+    function url(){
+        return sprintf(
+            "%s://%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME']
+        );
+    }
    
     function costtransportsubmit(Request $request,$id) {
         try {
