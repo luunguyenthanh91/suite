@@ -120,8 +120,8 @@ class CostDocController extends Controller
         $item->detail = CostTransport::where('doc_id', $item->id)->get();
 
         $sumprice = 0;
-        foreach ($item->detail as &$item) {
-            $sumprice += $item->price;
+        foreach ($item->detail as &$detailitem) {
+            $sumprice += $detailitem->price;
         }
         $item->sumprice = $sumprice;
 
