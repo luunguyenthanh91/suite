@@ -261,7 +261,7 @@
                                                         <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.request_cost_id') }}</div>
                                                     </th>
                                                     <th @click="sort('name')">
-                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.content') }}</div>
+                                                        <div v-bind:class="[sortBy === 'name' ? sortDirection : '']">{{ trans('label.cost_transport_name2') }}</div>
                                                     </th>
                                                     <th @click="sort('price')">
                                                         <div v-bind:class="[sortBy === 'price' ? sortDirection : '']">{{ trans('label.money2') }}</div>
