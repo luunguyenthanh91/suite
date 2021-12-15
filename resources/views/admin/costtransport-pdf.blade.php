@@ -82,11 +82,11 @@
 
         <table style='width:100%;border-collapse:collapse;margin-top:20px;font-size:10.5'>
             <tr>
-                <td class="headerColor border-all title_form" style="height:30px;">{{ trans('label.cost_date') }}</td>
+                <td class="headerColor border-all title_form" style="height:30px;width:100px;">{{ trans('label.cost_date') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.cost_transport_type') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.cost_transport_place') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.cost_transport_name') }}</td>
-                <td class="headerColor border-all title_form">{{ trans('label.price2') }}</td>
+                <td class="headerColor border-all title_form" style="width:80px;">{{ trans('label.price2') }}</td>
                 <td class="headerColor border-all title_form">{{ trans('label.note') }}</td>
             </tr>
             @foreach($data->detail as $item)
