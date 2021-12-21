@@ -413,7 +413,7 @@ return [
     'send' => '送信',
     'km' => 'KM',
     'last_user' => '決裁者',
-    'new' => '新規登録',
+    'new' => '新規作成',
     'sale_new' => '営業者登録',
     'customer_new' => '顧客登録',
     'add_project' => '案件登録',
