@@ -1113,13 +1113,13 @@ new Vue({
                     // fixed 1
                     setTimeout(function() { 
                         $('.fix-col1').attr("style","z-index:10;left:0px;background:#CCCCCC");
-                        $('.fix-col2').attr("style","z-index:10;left:90px;background:#CCCCCC");
-                        $('.fix-col3').attr("style","z-index:10;left:"+(70 + 90)+"px;background:#CCCCCC");
+                        $('.fix-col2').attr("style","z-index:10;left:40px;background:#CCCCCC");
+                        $('.fix-col3').attr("style","z-index:10;left:"+(70 + 40)+"px;background:#CCCCCC");
 
 
                         $('.fix-col1-detail').attr("style","z-index:9;left:0px;");
-                        $('.fix-col2-detail').attr("style","z-index:9;left:90px;");
-                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(70 + 90)+"px;");
+                        $('.fix-col2-detail').attr("style","z-index:9;left:40px;");
+                        $('.fix-col3-detail').attr("style","z-index:9;left:"+(70 + 40)+"px;");
                     }, 100);
                 },
                 error: function(xhr, textStatus, error) {
