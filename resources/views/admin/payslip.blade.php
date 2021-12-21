@@ -6,7 +6,7 @@
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')
 
-    <div id="list-data">
+    <div id="list-data" style="background:white !important;">
         <div class="modal fade" id="createPayslip">
             <form method="POST" class="modal-dialog char-w-new" action="/admin/new-payslip">
                 @csrf

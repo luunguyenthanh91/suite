@@ -66,15 +66,12 @@
                                     </div>
                                 </td>
                                 <td class="signTableTd">
-                                    <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
-                                        {{ trans('label.submit') }}
-                                    </a>
                                     <div class="plusRed" v-if="'{{@$data->submited_on}}' != ''">
                                         <div class="circle">{{@$data->submited_by_sign}}</div>
                                     </div>
                                 </td>
                                 <td class="signTableTd">
-                                    <a type="hidden" class="btn btn-outline-secondary signButtonCheck" @click="promoteCheck('{{$id}}')" v-if="'{{@$data->checked_on}}' == ''">
+                                    <a type="button" class="btn btn-outline-secondary signButtonCheck" @click="promoteCheck('{{$id}}')" v-if="'{{@$data->checked_on}}' == ''">
                                         {{ trans('label.check') }}
                                     </a>
                                     <div class="plusRed" v-if="'{{@$data->checked_on}}' != ''">
@@ -82,7 +79,7 @@
                                     </div>
                                 </td>
                                 <td class="signTableTd">
-                                    <a type="hidden" class="btn btn-outline-secondary signButton" @click="promoteApprove('{{$id}}')" v-if="'{{@$data->approved_on}}' == ''">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteApprove('{{$id}}')" v-if="'{{@$data->approved_on}}' == ''">
                                         {{ trans('label.approve') }}
                                     </a>
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">

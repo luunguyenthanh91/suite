@@ -5,7 +5,7 @@
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')
-    <div id="list-data">
+    <div id="list-data" style="background:white !important;">
         <div class="modal fade" id="createWorkSheet">
             <form method="POST" class="modal-dialog char-w-new" action="/admin/new-worksheet?type=1">
                 @csrf
@@ -238,7 +238,7 @@
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="sticky-col fix-col1" scope="col" @click="sort('id')">
-                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.worksheetsche_id') }}</div>
+                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.item_id') }}</div>
                                                     </th>
                                                     <th class="sticky-col fix-col2" scope="col" @click="sort('month')">
                                                         <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>

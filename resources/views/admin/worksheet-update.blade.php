@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '勤務表更新')
+@section('contentTitle', '出勤簿更新')
 
 <div class="mdk-drawer-layout__content page-content">
     <!-- Header -->
