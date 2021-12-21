@@ -197,14 +197,14 @@
                                 <div class="d-flex ">
                                     <div class="fullWidth searchToolbar">
                                         <div class="form-group">
-                                            <label class="form-label">{{ trans('label.worksheet_id') }}</label>
+                                            <label class="form-label">{{ trans('label.worksheetsche_id') }}</label>
                                             <div class="d-flex searchToolbarTextbox">
                                                 <div class="btn-group searchToolbarDropdown">
                                                     <button type="button" class="searchToolbarDropdownButton btn btn-outline-secondary3 dropdown-toggle dropdown-toggle-split btn-style-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item" href="#" @click="">
-                                                            {{ trans('label.worksheet_id') }}
+                                                            {{ trans('label.worksheetsche_id') }}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -238,7 +238,7 @@
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th class="sticky-col fix-col1" scope="col" @click="sort('id')">
-                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.worksheet_id') }}</div>
+                                                        <div v-bind:class="[sortBy === 'id' ? sortDirection : '']">{{ trans('label.worksheetsche_id') }}</div>
                                                     </th>
                                                     <th class="sticky-col fix-col2" scope="col" @click="sort('month')">
                                                         <div v-bind:class="[sortBy === 'month' ? sortDirection : '']">{{ trans('label.month') }}</div>
