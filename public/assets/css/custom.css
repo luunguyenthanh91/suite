@@ -1585,7 +1585,7 @@ body::-webkit-scrollbar-thumb
   }
 
   .updateButtonWidth {
-    /* width:150px; */
+    width:150px;
   }
 
 .projectViewMobile {
@@ -1598,6 +1598,25 @@ body::-webkit-scrollbar-thumb
 
 .projectView {
     height: calc(100vh - 230px) !important;
+}
+
+
+
+.cardTopView {
+    padding:10px  !important;
+    margin-bottom:-10px  !important;
+}
+
+.cardTopViewArea {
+    text-align:left !important;
+    margin-top:-25px  !important;
+}
+
+
+.updateButton {
+    margin-top:-8px;
+    color:white;
+    background-color:coral !important
 }
 
 .menuButtonMobile {
@@ -1616,8 +1635,12 @@ body::-webkit-scrollbar-thumb
     background:blue;
 }
 
+
 .newButtonBg {
-    background: 	orange !important;
+    background: 	#da3287 !important;
+}
+.newButtonBg2 {
+    background: 	#8cd460 !important;
 }
 .excelButtonBg {
     background-color:mediumaquamarine !important;
@@ -1888,12 +1911,6 @@ body::-webkit-scrollbar-thumb
       margin-right:5px;
       margin-bottom:5px !important;
     }
-
-  .updateButton {
-      height:25px;
-      margin-top:-2px;
-      color:coral
-  }
 
   .splitter {
     width: 100%;

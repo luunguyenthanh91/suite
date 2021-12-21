@@ -21,6 +21,7 @@ use App\Models\NationalHoliday;
 use App\Models\Payslip;
 use App\Models\PayslipPartern;
 use App\Models\BoPhan;
+use App\Models\HistoryLogSche;
 use App\Models\Bookname;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -428,6 +429,7 @@ class WSController extends Controller
 
             $data->status = 0;
             $data->month = $request->month;
+            $data->type = $request->type;
             $data->user_id = Auth::guard('admin')->user()->code;
             $data->note = $request->note;
             $data->created_on = date('Y-m-d');
@@ -435,7 +437,80 @@ class WSController extends Controller
 
             $data->save();
             
-            return redirect('/admin/worksheet-view/'.$data->id);
+            if ($data->type == 1) {
+                $employee = Admin::where('code' ,$data->user_id)->first();
+                $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
+                $off_hol = $workpartern->off_holiday;
+                $off_sat = $workpartern->off_sat;
+                $off_sun = $workpartern->off_sun;
+                $off_mon = $workpartern->off_mon;
+                $off_tue = $workpartern->off_tue;
+                $off_wed = $workpartern->off_wed;
+                $off_thu = $workpartern->off_thu;
+                $off_fri = $workpartern->off_fri;
+
+                list($year, $month) = explode('-', $data->month);
+
+                $days = $this->days_in_month($month, $year);
+                $week = [
+                    '日', //0
+                    '月', //1
+                    '火', //2
+                    '水', //3
+                    '木', //4
+                    '金', //5
+                    '土', //6
+                ];
+                
+                for($i = 1; $i <=  $days; $i++)
+                {
+                    $timestamp = mktime(0, 0, 0, $month, $i, $year);
+                    $date = date('w', $timestamp);
+
+
+                    $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $offDay = NationalHoliday::where('start', $selDate)->first();
+                    $off = (($offDay && $off_hol==1) || ($off_sat==1 && $date==6) || ($off_sun==1 && $date==0)  ||
+                                ($off_mon==1 && $date==1) || 
+                                ($off_tue==1 && $date==2) ||
+                                ($off_wed==1 && $date==3) ||
+                                ($off_thu==1 && $date==4) ||
+                                ($off_fri==1 && $date==5))? true : false;
+
+                    $time_begin = "";
+                    $time_end = "";
+                    if (!$off) {
+                        $time_begin = "09:00:00";
+                        $time_end = "14:00:00";
+                    }
+
+
+                    $workdate = new HistoryLogSche();
+                    $workdate->date = $selDate;
+                    if (!$off) {
+                        $workdate->time =$time_begin;
+                    }
+                    $workdate->type = 1;
+                    $workdate->userId = Auth::guard('admin')->user()->id;
+                    $workdate->note = $request->note;
+                    $workdate->save();
+
+                    $workdate2 = new HistoryLogSche();
+                    $workdate2->date = $selDate;
+                    if (!$off) {
+                        $workdate2->time =$time_end;
+                    }
+                    $workdate2->type = 2;
+                    $workdate2->userId = Auth::guard('admin')->user()->id;
+                    $workdate2->note = $request->note;
+                    $workdate2->save();
+                }
+
+
+                return redirect('/admin/worksheetsche-view/'.$data->id);
+            } else {
+                return redirect('/admin/worksheet-view/'.$data->id);
+            }
         } catch (Exception $e) {
             echo "<pre>";
             print_r($e->getMessage());
@@ -500,18 +575,39 @@ class WSController extends Controller
                 if ($request->childUpdate) {
                     
                     foreach ($request->childUpdate as $key => $value) {
-                        $updateModelDay = HistoryLog::find($key);
+                        if ($data->type == 1) {
+                            $updateModelDay = HistoryLogSche::find($key);
+                            $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
+
+                            $updateModelDay2 = HistoryLogSche::where('date' ,$updateModelDay->date)->where('type', '2')->first();
+                            $updateModelDay2->time = sprintf('%02d:%02d', str_pad($value['endtime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['endtime_m'], 2, '0', STR_PAD_LEFT));
+                            $updateModelDay2->save();
+                        } else {
+                            $updateModelDay = HistoryLog::find($key);
+                        }
                         $updateModelDay->note = $value['note'];
                         $updateModelDay->save();
                     }
                 }
             }
-            return redirect('/admin/worksheet-view/'.$data->id);
+
+            if ($data->type == 1) {
+                return redirect('/admin/worksheetsche-view/'.$data->id);
+            } else {
+                return redirect('/admin/worksheet-view/'.$data->id);
+            }
         }
 
         $data = WorkSheet::find($id);
         $this->getWorkSheet($data);
-        return view('admin.worksheet-update', compact(['data' , 'id']));
+
+        if ($data->type == 1) {
+            return view('admin.worksheetsche-update', compact(['data' , 'id']));
+
+        } else {
+            return view('admin.worksheet-update', compact(['data' , 'id']));
+
+        }
     }
    
     function worksheetsubmit(Request $request,$id) {
@@ -592,12 +688,11 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDaysItem($user_code, $selMonth) {
+    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {
         $data = [];
         $daycount = 0;
         $worktimelist = [];
         $overworktimelist = [];
-
         
         $employee = Admin::where('code' ,$user_code)->first();
         $user_id = $employee->id;
@@ -663,24 +758,46 @@ class WSController extends Controller
                 else if ($off_sun==1 && $date==0) {}
                 else {
                     $starttime = $workpartern_starttime;
-                    $startdate = $selDate;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    $daycount++;
+                    if ($starttime != "") {
+                        $startdate = $selDate;
+                        $ws_type = 1;
+                        if (!$sche) {
+                            $classStyle = "status2";
+                        } else {
+                            $classStyle = "";
+                        }
+                        $daycount++;
+                    }
                 }
             } else {
-                $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                if ($sche) {
+                    $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                } else {
+                    $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                }
                 if ($historyLog) {
                     $dayid = $historyLog->id;
                     $starttime = $historyLog->time;
                     $startdate = $historyLog->date;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    if ($offDay) {
-                        $classStyle = "status2Minus";
+                    if ($starttime != "") {
+                        $ws_type = 1;
+                        
+                        if (!$sche) {
+                            $classStyle = "status2";
+                            if ($offDay) {
+                                $classStyle = "status2Minus";
+                            } else {
+                                $classStyle = "status7";
+                            }
+                        } else {
+                            $classStyle = "";
+                            if ($offDay) {
+                                $classStyle = "status7Minus";
+                            }
+                        }
+                        $daycount++;
+                        $note = $historyLog->note;
                     }
-                    $daycount++;
-                    $note = $historyLog->note;
                 }
             }
 
@@ -696,8 +813,12 @@ class WSController extends Controller
                     $enddate = $selDate;
                 }
             } else {
-                $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
-                if ($historyLog2) {
+                if ($sche) {
+                    $historyLog2 = HistoryLogSche::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                } else {
+                    $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                }
+            if ($historyLog2) {
                     $endtime = $historyLog2->time;
                     $enddate = $historyLog->date;
                 }
@@ -756,7 +877,11 @@ class WSController extends Controller
                 'date'=>$week[$date],
                 'ws_type'=>$ws_type,
                 'starttime'=>$starttime,
+                'starttime_h'=>$hour1,
+                'starttime_m'=>$min1,
                 'endtime'=>$endtime,
+                'endtime_h'=>$hour2,
+                'endtime_m'=>$min2,
                 'time_count'=> $time_count_str,
                 'overtime_count'=> $overtime_count_str,
                 'classStyle' => $classStyle,
@@ -781,7 +906,11 @@ class WSController extends Controller
     }
 
     function getListWorkDays(Request $request) {
-        $listdata = $this->getListWorkDaysItem($request->user_id, $request->month);
+        $sche = 0;
+        if ($request->sche != "") {
+            $sche = $request->sche;
+        }
+        $listdata = $this->getListWorkDaysItem($request->user_id, $request->month, $sche);
 
         $data = $listdata['data'];
         $count = $listdata['count'];
@@ -920,6 +1049,7 @@ class WSController extends Controller
         $overworktimelist = [];
 
         $ws = WorkSheet::find($id);
+        $sche = ($ws->type == 1)? 1 : 0;
         $employee = Admin::where('code' ,$ws->user_id)->first();
         $user_id = $employee->id;
         $ws_note = $ws->note;
@@ -991,23 +1121,31 @@ class WSController extends Controller
                 else if ($off_sun==1 && $date==0) {}
                 else {
                     $starttime = $workpartern_starttime;
-                    $startdate = $selDate;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    $daycount++;
+                    if ($starttime != "") {
+                        $startdate = $selDate;
+                        $ws_type = 1;
+                        $classStyle = "status2";
+                        $daycount++;
+                    }
                 }
             } else {
-                $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                if ($sche) {
+                    $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                } else {
+                    $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                }
                 if ($historyLog) {
                     $starttime = $historyLog->time;
                     $startdate = $historyLog->date;
-                    $ws_type = 1;
-                    $classStyle = "status2";
-                    if ($offDay) {
-                        $classStyle = "status2Minus";
+                    if ($starttime != "") {
+                        $ws_type = 1;
+                        $classStyle = "status2";
+                        if ($offDay) {
+                            $classStyle = "status2Minus";
+                        }
+                        $daycount++;
+                        $note = $historyLog->note;
                     }
-                    $daycount++;
-                    $note = $historyLog->note;
                 }
             }
 
@@ -1023,7 +1161,12 @@ class WSController extends Controller
                     $enddate = $selDate;
                 }
             } else {
-                $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                if ($sche) {
+                    $historyLog2 = HistoryLogSche::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                } else {
+                    $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+
+                }
                 if ($historyLog2) {
                     $endtime = $historyLog2->time;
                     $enddate = $historyLog->date;
@@ -1031,6 +1174,7 @@ class WSController extends Controller
             }
 
             if ($ws_type == 1) {
+
                 list($year1, $month1, $day1) = explode('-', $startdate);
                 list($hour1, $min1, $sec1) = explode(':', $starttime);
                 list($year2, $month2, $day2) = explode('-', $enddate);
@@ -1120,13 +1264,15 @@ class WSController extends Controller
             $approved_by_sign = $approved_user->sign_name;
         }
 
-        $filename = trans('label.worksheet_id').$ws->id.'_'.$ws->month.'_'.$ws->user_id.'('.$employee_name.')'.'.pdf';
+        $filename_pre = ($sche)? trans('label.worksheetsche') : trans('label.worksheet');
+        $filename = $filename_pre.'_'.$ws->month.'_'.$ws->user_id.'('.$employee_name.')'.'.pdf';
         
 
         $worktimecount = $this->CalculateTime2($worktimelist);
         $overworktimecount = $this->CalculateTime2($overworktimelist);
 
-        $pdf = PDF::loadView('admin.worksheet-pdf',
+        $viewname = ($sche)? 'admin.worksheetsche-pdf': 'admin.worksheet-pdf';
+        $pdf = PDF::loadView($viewname,
             compact('data', 'ws_note', 'id','submited_by_sign', 'checked_by_sign', 'approved_by_sign', 'selyear', 'selmonth', 'employee_depname', 'employee_name', 'employee_code', 'year', 'month', 'day','daycount','worktimecount','overworktimecount'));
 
         return $pdf->download($filename.'.pdf');
@@ -1142,11 +1288,22 @@ class WSController extends Controller
         $data = WorkSheet::find($id);
         $this->getWorkSheet($data);
 
-        return view('admin.worksheet-view', compact(['data' , 'id']));
+        if ($data->type == 1) {
+
+            return view('admin.worksheetsche-view', compact(['data' , 'id']));
+        } else {
+
+            return view('admin.worksheet-view', compact(['data' , 'id']));
+        }
     }
+
 
     function listWorkSheet(Request $request) {
         return view('admin.worksheet', compact([]));
+    }
+
+    function listWorkSheetSche(Request $request) {
+        return view('admin.worksheetsche', compact([]));
     }
 
     public function days_in_month($month, $year) {
@@ -1263,6 +1420,9 @@ class WSController extends Controller
         }
         if(@$request->month != '' ){
 			$data = $data->where('month', 'LIKE' , '%'.$request->month.'%' );
+        }
+        if(@$request->type != '' ){
+			$data = $data->where('type', $request->type );
         }
         if(@$request->user_id != '' ){
 			$data = $data->where('user_id', 'LIKE' , '%'.$request->user_id.'%' );

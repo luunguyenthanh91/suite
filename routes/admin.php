@@ -163,6 +163,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('sendmail-payslip/{id}', 'WSController@sendmailpayslip');
     Route::get('sendmail-payslip-check/{id}', 'WSController@sendmailpayslipcheck');
 
+    Route::get('worksheetsche', 'WSController@listWorkSheetSche'); 
+    Route::get('worksheetsche-view/{id}', 'WSController@viewWorkSheet')->name('admin.viewWorkSheet');
+    Route::post('worksheetsche-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
+    Route::get('worksheetsche-update/{id}', 'WSController@updateWorkSheet')->name('admin.updateWorkSheet');
+
+
     Route::get('worksheetday-view/{id}', 'WSController@viewWorkSheetDay')->name('admin.viewWorkSheetDay');
     Route::post('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');
     Route::get('worksheetday-update/{id}', 'WSController@updateWorkSheetDay')->name('admin.updateWorkSheetDay');

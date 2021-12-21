@@ -11,39 +11,6 @@
         </div>
     </div>  
     <center style="width:100%"> 
-        <!-- <form method="get" class="search-form searchHeader" :action="'/admin/' + parseFormUrl(fielSearch)" style="margin-top:-2px;">
-            <div class="btn-group">
-                <button type="button" class="btn btn-outline-secondary3 dropdown-toggle dropdown-toggle-split btn-style-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" @click="changeSearch(1)">
-                        <i class="fas fa-bell"></i><span class="labelButtonDropMenu">{{ trans('label.search_po') }}</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"  @click="changeSearch(2)">
-                        <i class="fas fa-briefcase"></i><span class="labelButtonDropMenu">{{ trans('label.search_project') }}</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"  @click="changeSearch(3)">
-                    <i class="fas fa-user-shield"></i><span class="labelButtonDropMenu">{{ trans('label.search_sale') }}</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"  @click="changeSearch(4)">
-                        <i class="fas fa-user"></i><span class="labelButtonDropMenu">{{ trans('label.search_interpreter') }}</span>
-                    </a>
-                    <a class="dropdown-item" href="#"  @click="changeSearch(5)">
-                        <i class="fas fa-key"></i><span class="labelButtonDropMenu">{{ trans('label.matching2') }}</span>
-                    </a>
-                </div>
-            </div>
-            <input type="text" name="keyword" required class="form-control" :placeholder="fieldPlaceHolder" >
-            <input type="hidden" name="type" class="form-control" v-if="fielSearch == 5" value="address">
-            <div class="btn-group">
-                <button type="submit" class="btn btn-outline-secondary3 searchBtn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </form> -->
     </center>
     <div  class="col-lg-auto onlyPC" style="text-align:right"> 
         <div class="btn-group">
@@ -108,12 +75,18 @@
                     </ul>
                 </li>
                 <li class="sidebar-menu-item {{ (request()->is('*worksheet*')) ? 'active open' : '' }} 
+                                             {{ (request()->is('*worksheetsche*')) ? 'active open' : '' }} 
                                              {{ (request()->is('*payslip*')) ? 'active open' : '' }} ">
                     <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-ws" aria-expanded="false">
                         {{ trans('label.person_management2') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-ws" style="">
+                        <li class="sidebar-menu-item {{ (request()->is('*/worksheetsche')) ? 'active open' : '' }}">
+                            <a class="sidebar-menu-button" href="/admin/worksheetsche">
+                            <span class="sidebar-menu-text">{{ trans('label.person_management2_0') }}</span>
+                            </a>
+                        </li>  
                         <li class="sidebar-menu-item {{ (request()->is('*/worksheet')) ? 'active open' : '' }}">
                             <a class="sidebar-menu-button" href="/admin/worksheet">
                             <span class="sidebar-menu-text">{{ trans('label.person_management2_1') }}</span>
