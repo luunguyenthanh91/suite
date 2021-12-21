@@ -1082,7 +1082,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListWorkSheet')}}?page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListWorkSheet')}}?type=0&page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;
