@@ -492,7 +492,6 @@ class WSController extends Controller
                     }
                     $workdate->type = 1;
                     $workdate->userId = Auth::guard('admin')->user()->id;
-                    $workdate->note = $request->note;
                     $workdate->save();
 
                     $workdate2 = new HistoryLogSche();
@@ -502,7 +501,6 @@ class WSController extends Controller
                     }
                     $workdate2->type = 2;
                     $workdate2->userId = Auth::guard('admin')->user()->id;
-                    $workdate2->note = $request->note;
                     $workdate2->save();
                 }
 
@@ -577,11 +575,18 @@ class WSController extends Controller
                     foreach ($request->childUpdate as $key => $value) {
                         if ($data->type == 1) {
                             $updateModelDay = HistoryLogSche::find($key);
-                            $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
-
+                            if ($value['ws_type'] == 1) {
+                                $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
+                            } else {
+                                $updateModelDay->time = null;
+                            }
                             $updateModelDay2 = HistoryLogSche::where('date' ,$updateModelDay->date)->where('type', '2')->first();
-                            $updateModelDay2->time = sprintf('%02d:%02d', str_pad($value['endtime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['endtime_m'], 2, '0', STR_PAD_LEFT));
-                            $updateModelDay2->save();
+                            if ($value['ws_type'] == 1) {
+                                $updateModelDay2->time = sprintf('%02d:%02d', str_pad($value['endtime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['endtime_m'], 2, '0', STR_PAD_LEFT));
+                            } else {
+                                $updateModelDay2->time = null;
+                            }
+                             $updateModelDay2->save();
                         } else {
                             $updateModelDay = HistoryLog::find($key);
                         }

@@ -7,40 +7,7 @@
     @include('admin.component.header')
 
     <div id="list-data" style="background:white !important;">
-        <div class="modal fade" id="createWorkSheet">
-            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-worksheet">
-                @csrf
-                <div class="modal-content" >
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.new_worksheet') }}</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.month') }}</label>
-                            <input type="month" name="month" class="form-control" required>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.user_id') }}</label>
-                            <input type="text" name="user_id" class="form-control"  required>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <label class="form-label">{{ trans('label.note') }}</label>
-                            <textarea type="text" class="form-control" name="note" rows="10"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        
-                    <button type="submit" class="btn btn-success">
-                            <span class="labelButton">{{ trans('label.ok') }}</span>
-                        </button>
-                        <button type="button" data-dismiss="modal" class="btn btn-danger">
-                            <span class="labelButton">{{ trans('label.cancel') }}</span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        
         <div class="modal fade" id="myModal">
             <div class="modal-dialog  char-w-new">
                 <div class="modal-content" >
@@ -227,11 +194,7 @@
             <div id="second" class="rightPanel">
 
             <div class="bodyButtonTop">
-                    @if (Auth::guard('admin')->user()->id == 1)
-                    <a type="button" class="btn btn-outline-secondary3 newButtonBg" data-toggle="modal" data-target="#createWorkSheet">
-                        <i class="fa fa-plus-square"><span class="labelButton">{{ trans('label.new') }}</span></i>
-                    </a> 
-                    @endif
+                    
                     <a type="button" class="btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                         <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
                     </a>     

@@ -156,7 +156,7 @@
                                                         <td class="textAlignCenter">
                                                             <select style="width:100px;" class="form-control custom-select" :name="'childUpdate['+item.dayid+'][ws_type]'" v-model="item.ws_type">
                                                                 <option value="1">{{ trans('label.work_day') }}</option>
-                                                                <option value="2">{{ trans('label.do_off_day') }}</option>
+                                                                <option value="0">{{ trans('label.do_off_day') }}</option>
                                                             </select>
                                                         </td>
                                                         <td class="textAlignCenter">
@@ -174,7 +174,7 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <input v-if="item.starttime || item.ws_type==1" type="text" v-model="item.note" :name="'childUpdate['+item.dayid+'][note]'" />
+                                                            <input type="text" v-model="item.note" :name="'childUpdate['+item.dayid+'][note]'" />
                                                         </td>
                                                         <td style="width: 100%; "></td>
                                                     </tr>
