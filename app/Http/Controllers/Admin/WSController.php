@@ -834,10 +834,19 @@ class WSController extends Controller
             }
 
             if ($ws_type == 1) {
-                list($year1, $month1, $day1) = explode('-', $startdate);
-                list($hour1, $min1, $sec1) = explode(':', $starttime);
-                list($year2, $month2, $day2) = explode('-', $enddate);
-                list($hour2, $min2, $sec2) = explode(':', $endtime);
+                if ($startdate != "") {
+                    list($year1, $month1, $day1) = explode('-', $startdate);
+                }
+                if ($starttime != "") {
+                    list($hour1, $min1, $sec1) = explode(':', $starttime);
+                }
+                if ($enddate != "") {
+                    list($year2, $month2, $day2) = explode('-', $enddate);
+                }
+                if ($endtime) {
+                    list($hour2, $min2, $sec2) = explode(':', $endtime);
+                }
+
 
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
