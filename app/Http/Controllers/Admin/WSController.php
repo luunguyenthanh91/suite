@@ -1397,7 +1397,8 @@ class WSController extends Controller
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $item->employee_depname = $bophan->name;
 
-        $listdata = $this->getListWorkDaysItem($user_code, $month);
+        $sche = ($item->type == 1)? 1 : 0;
+        $listdata = $this->getListWorkDaysItem($user_code, $month, $sche);
 
         $item->daycount = $listdata['daycount'];
         $item->worktimecount = $listdata['worktimecount'];
