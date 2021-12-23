@@ -1088,11 +1088,6 @@ class WSController extends Controller
         $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime_count;
         $breaktime_min = $workpartern->breaktime_min;
-        $breaktime2 = "";
-        if ($breaktime != "") {
-            list($breaktime_hour, $breaktime_minute) = explode(':', $breaktime);
-            $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_minute);
-        }
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
@@ -1249,6 +1244,11 @@ class WSController extends Controller
             
             $breaktime_str = "";
             if ($ws_type == 1) {
+                $breaktime2 = "";
+                if ($breaktime != "") {
+                    list($breaktime_hour, $breaktime_minute) = explode(':', $breaktime);
+                    $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_minute);
+                }
                 $breaktime_str = $breaktime2;
             }
             
