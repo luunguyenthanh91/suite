@@ -1248,6 +1248,8 @@ class WSController extends Controller
                 if ($breaktime != "") {
                     list($breaktime_hour, $breaktime_minute) = explode(':', $breaktime);
                     $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_minute);
+                } else {
+                    $breaktime2 = sprintf('%02d:%02d', 0, 0);
                 }
                 $breaktime_str = $breaktime2;
             }
