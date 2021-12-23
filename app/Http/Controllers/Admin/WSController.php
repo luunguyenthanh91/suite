@@ -436,7 +436,7 @@ class WSController extends Controller
             $data->created_by = Auth::guard('admin')->user()->id;
 
             $data->save();
-            
+
             if ($data->type == 1) {
                 $employee = Admin::where('code' ,$data->user_id)->first();
                 $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
@@ -448,6 +448,8 @@ class WSController extends Controller
                 $off_wed = $workpartern->off_wed;
                 $off_thu = $workpartern->off_thu;
                 $off_fri = $workpartern->off_fri;
+                $starttime = $workpartern->starttime;
+                $endtime = $workpartern->endtime;
 
                 list($year, $month) = explode('-', $data->month);
 
@@ -480,8 +482,8 @@ class WSController extends Controller
                     $time_begin = "";
                     $time_end = "";
                     if (!$off) {
-                        $time_begin = "09:00:00";
-                        $time_end = "14:00:00";
+                        $time_begin = $starttime;
+                        $time_end = $endtime;
                     }
 
 
@@ -509,6 +511,7 @@ class WSController extends Controller
             } else {
                 return redirect('/admin/worksheet-view/'.$data->id);
             }
+            
         } catch (Exception $e) {
             echo "<pre>";
             print_r($e->getMessage());
