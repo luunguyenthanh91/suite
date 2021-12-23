@@ -581,17 +581,16 @@ class WSController extends Controller
                             if ($value['ws_type'] == 1) {
                                 $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
                             } else {
-                                $updateModelDay->time = "";
+                                $updateModelDay->time = null;
                             }
                             $updateModelDay->note = $value['note'];
                             $updateModelDay->save();
 
-                            $updateModelDay_end = HistoryLogSche::where('date' ,$updateModelDay->date)->where('type', '2')->first();
-                            $updateModelDay2 = HistoryLogSche::find($updateModelDay_end->id);
+                            $updateModelDay2 = HistoryLogSche::where('date' ,$updateModelDay->date)->where('type', '2')->where('userId', $updateModelDay->userId)->first();
                             if ($value['ws_type'] == 1) {
                                 $updateModelDay2->time = sprintf('%02d:%02d', str_pad($value['endtime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['endtime_m'], 2, '0', STR_PAD_LEFT));
                             } else {
-                                $updateModelDay2->time = "";
+                                $updateModelDay2->time = null;
                             }
                             $updateModelDay2->note = $value['note'];
                             $updateModelDay2->save();
