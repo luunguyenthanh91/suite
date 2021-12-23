@@ -1086,7 +1086,6 @@ class WSController extends Controller
         $workpartern_type = $workpartern->type;
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
-        $breaktime = $workpartern->breaktime_count;
         $breaktime_min = $workpartern->breaktime_min;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
@@ -1108,6 +1107,7 @@ class WSController extends Controller
         
         for($i = 1; $i <=  $days; $i++)
 		{
+            $breaktime = $workpartern->breaktime_count;
             $timestamp = mktime(0, 0, 0, $month, $i, $year);
             $date = date('w', $timestamp);
 
