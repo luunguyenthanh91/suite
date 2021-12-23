@@ -714,6 +714,7 @@ class WSController extends Controller
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime_count;
+        $breaktime_min = $workpartern->breaktime_min;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
@@ -854,7 +855,7 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
-                if ($breaktime != "") {
+                if ($breaktime != "" && ($diff_date->h > $breaktime_min)) {
                     $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
                     list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
@@ -1081,6 +1082,7 @@ class WSController extends Controller
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
         $breaktime = $workpartern->breaktime_count;
+        $breaktime_min = $workpartern->breaktime_min;
         $breaktime2 = "";
         if ($breaktime != "") {
             list($breaktime_hour, $breaktime_min) = explode(':', $breaktime);
@@ -1204,7 +1206,7 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
-                if ($breaktime != "") {
+                if ($breaktime != "" && ($diff_date->h > $breaktime_min)) {
                     $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
                     list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
