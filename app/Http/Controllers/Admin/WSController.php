@@ -581,8 +581,6 @@ class WSController extends Controller
                             if ($value['ws_type'] == 1) {
                                 $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
                             } else {
-                                echo "<pre>";
-            print_r($updateModelDay);die;
                                 $updateModelDay->time = null;
                             }
                             $updateModelDay->note = $value['note'];
@@ -767,52 +765,74 @@ class WSController extends Controller
                 $classStyle = "status6Minus";
             }
 
-            if ($workpartern_type == 1) {
-                if ($offDay && $off_hol==1) { }
-                else if ($off_sat==1 && $date==6) {}
-                else if ($off_sun==1 && $date==0) {}
-                else {
-                    $starttime = $workpartern_starttime;
-                    if ($starttime != "") {
-                        $startdate = $selDate;
-                        $ws_type = 1;
-                        if (!$sche) {
-                            $classStyle = "status2";
+            if ($sche) {
+                $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                $dayid = $historyLog->id;
+                $starttime = $historyLog->time;
+                $startdate = $historyLog->date;
+                if ($starttime != "") {
+                    $ws_type = 1;
+                    
+                    if (!$sche) {
+                        $classStyle = "status2";
+                        if ($offDay) {
+                            $classStyle = "status2Minus";
                         } else {
-                            $classStyle = "";
+                            $classStyle = "status7";
                         }
-                        $daycount++;
+                    } else {
+                        $classStyle = "";
+                        if ($offDay) {
+                            $classStyle = "status7Minus";
+                        }
                     }
+                    $daycount++;
                 }
+                $note = $historyLog->note;
             } else {
-                if ($sche) {
-                    $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                if ($workpartern_type == 1) {
+                    if ($offDay && $off_hol==1) { }
+                    else if ($off_sat==1 && $date==6) {}
+                    else if ($off_sun==1 && $date==0) {}
+                    else {
+                        $starttime = $workpartern_starttime;
+                        if ($starttime != "") {
+                            $startdate = $selDate;
+                            $ws_type = 1;
+                            if (!$sche) {
+                                $classStyle = "status2";
+                            } else {
+                                $classStyle = "";
+                            }
+                            $daycount++;
+                        }
+                    }
                 } else {
                     $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
-                }
-                if ($historyLog) {
-                    $dayid = $historyLog->id;
-                    $starttime = $historyLog->time;
-                    $startdate = $historyLog->date;
-                    if ($starttime != "") {
-                        $ws_type = 1;
-                        
-                        if (!$sche) {
-                            $classStyle = "status2";
-                            if ($offDay) {
-                                $classStyle = "status2Minus";
+                    if ($historyLog) {
+                        $dayid = $historyLog->id;
+                        $starttime = $historyLog->time;
+                        $startdate = $historyLog->date;
+                        if ($starttime != "") {
+                            $ws_type = 1;
+                            
+                            if (!$sche) {
+                                $classStyle = "status2";
+                                if ($offDay) {
+                                    $classStyle = "status2Minus";
+                                } else {
+                                    $classStyle = "status7";
+                                }
                             } else {
-                                $classStyle = "status7";
+                                $classStyle = "";
+                                if ($offDay) {
+                                    $classStyle = "status7Minus";
+                                }
                             }
-                        } else {
-                            $classStyle = "";
-                            if ($offDay) {
-                                $classStyle = "status7Minus";
-                            }
+                            $daycount++;
                         }
-                        $daycount++;
+                        $note = $historyLog->note;
                     }
-                    $note = $historyLog->note;
                 }
             }
 
