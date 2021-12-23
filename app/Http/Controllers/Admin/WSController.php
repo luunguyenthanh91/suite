@@ -581,6 +581,8 @@ class WSController extends Controller
                             if ($value['ws_type'] == 1) {
                                 $updateModelDay->time = sprintf('%02d:%02d', str_pad($value['starttime_h'], 2, '0', STR_PAD_LEFT), str_pad($value['starttime_m'], 2, '0', STR_PAD_LEFT));
                             } else {
+                                echo "<pre>";
+            print_r($updateModelDay);die;
                                 $updateModelDay->time = null;
                             }
                             $updateModelDay->note = $value['note'];
