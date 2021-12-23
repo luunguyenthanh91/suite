@@ -808,8 +808,8 @@ class WSController extends Controller
                             }
                         }
                         $daycount++;
-                        $note = $historyLog->note;
                     }
+                    $note = $historyLog->note;
                 }
             }
 
@@ -1165,8 +1165,8 @@ class WSController extends Controller
                             $classStyle = "status2Minus";
                         }
                         $daycount++;
-                        $note = $historyLog->note;
                     }
+                    $note = $historyLog->note;
                 }
             }
 
