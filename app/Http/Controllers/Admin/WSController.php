@@ -855,7 +855,12 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
-                if ($breaktime != "" && ($diff_date->h > $breaktime_min)) {
+                if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
+                    if ($breaktime != "") {
+                        $breaktime = "";
+                    }
+                }
+                if ($breaktime != "") {
                     $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
                     list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
@@ -1085,8 +1090,8 @@ class WSController extends Controller
         $breaktime_min = $workpartern->breaktime_min;
         $breaktime2 = "";
         if ($breaktime != "") {
-            list($breaktime_hour, $breaktime_min) = explode(':', $breaktime);
-            $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_min);
+            list($breaktime_hour, $breaktime_minute) = explode(':', $breaktime);
+            $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_minute);
         }
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
@@ -1206,7 +1211,12 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
-                if ($breaktime != "" && ($diff_date->h > $breaktime_min)) {
+                if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
+                    if ($breaktime != "") {
+                        $breaktime = "";
+                    }
+                }
+                if ($breaktime != "") {
                     $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
                     list($time_count, $min_count) = explode(':', $diff_date);
                 } else {
