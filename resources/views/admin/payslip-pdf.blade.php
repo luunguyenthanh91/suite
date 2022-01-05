@@ -223,7 +223,7 @@
                                         <td class="headerColor title_form" style="height:26px;width:100px;vertical-align:middle;text-align:center;background-color:#FAFAFA !important;">
                                             {{ trans('label.total_minus') }}
                                         </td>
-                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:center;;padding-right:10px;">
+                                        <td class="title_form" style="height:26px;vertical-align:middle;text-align:right;;padding-right:10px;">
                                             {{ number_format($data->minus_total) }} 円
                                         </td>
                                     </tr>
