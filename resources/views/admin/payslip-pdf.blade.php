@@ -82,10 +82,12 @@
                                         <td class="headerColor border-all2 title_form" style="padding-left:10px;height:30px;width:100px;border-color:1px solid black;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.work_time_count') }}</td>
                                         <td class="border-all2" style="vertical-align:middle;text-align:center">{{ $data->worktimecount }}</td>
                                     </tr>
+                                    @if ($data->overworktimecount != "00:00")
                                     <tr>
                                         <td class="headerColor border-all2 title_form" style="padding-left:10px;width:100px;height:30px;border-color:1px solid black;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.overtime_count') }}</td>
                                         <td class="border-all2" style="vertical-align:middle;text-align:center">{{ $data->overworktimecount }}</td>
                                     </tr>
+                                    @endif
                                 </table>
                             </td>
                         </tr>
@@ -108,14 +110,18 @@
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.kihonkyu') }}</td>
                                         <td class="border-all31" style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->kihonkyu) }} 円</td>
                                     </tr>
+                                    @if ($data->zangyou_teate != "")
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.zangyou_teate') }}</td>
                                         <td class="border-all31" style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->zangyou_teate) }} 円</td>
                                     </tr>
+                                    @endif
+                                    @if ($data->tsukin_teate != "")
                                     <tr>
                                         <td class="headerColor border-all31 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.tsukin_teate') }}</td>
                                         <td class="border-all31" style="vertical-align:middle;text-align:right;padding-right:10px;">{{ number_format($data->tsukin_teate) }} 円</td>
                                     </tr>
+                                    @endif
                                 </table>
                             </td>
                         </tr>
