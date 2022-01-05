@@ -56,6 +56,7 @@ return [
     'person_management2_label_2' => '給与明細',
     'person_management2_label_3' => 'カレンダー',
     'worksheet_id' => '出勤簿No.',
+    'nenmatsuchosei' => '年末調整',
     'payslip_id' => '給与明細No.',
     'worksheet' => '出勤簿',
     'payslip' => '給与明細',

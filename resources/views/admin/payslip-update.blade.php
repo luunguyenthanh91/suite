@@ -139,6 +139,12 @@
                                                     <input type="text" class="form-control money_parse" name="juminzei" value="{{@$data->juminzei}}">
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td>{{ trans('label.nenmatsuchosei') }}</td>
+                                                    <td>
+                                                    <input type="text" class="form-control money_parse" name="nenmatsuchosei" value="{{@$data->nenmatsuchosei}}">
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                     </div>

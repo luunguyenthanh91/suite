@@ -408,6 +408,12 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>{{ trans('label.nenmatsuchosei') }}</td>
+                                                <td>
+                                                (( parseMoney({{@$data->nenmatsuchosei}}) ))
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>{{ trans('label.minus_total') }}</td>
                                                 <td>
                                                 (( parseMoney({{@$data->minus_total}}) ))

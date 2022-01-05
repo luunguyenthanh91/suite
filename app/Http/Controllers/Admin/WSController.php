@@ -127,6 +127,7 @@ class WSController extends Controller
                 $data->koyohoken = $request->koyohoken;
                 $data->shotokuzei = $request->shotokuzei;
                 $data->juminzei = $request->juminzei;
+                $data->nenmatsuchosei = $request->nenmatsuchosei;
 
                 $data->save();
             }
@@ -258,7 +259,7 @@ class WSController extends Controller
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
 
-        $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei;
+        $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei + $data->nenmatsuchosei;
         $data->pay_total = $data->plus_total - $data->minus_total;
 
         $created_user = Admin::where('id' ,$data->created_by)->first();
