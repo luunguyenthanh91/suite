@@ -25,24 +25,16 @@
         <div class="container page__container page-section page_container_custom">
             <div class="gridControl3">
                 <div class="d-flex" style="width:100%;">
+                    <div class="col-lg-auto cardTopViewArea">
+                        <div class="card cardTopView">
+                            (( parseMonth('{{@$data->month}}') ))<br>
+                            {{ trans('label.dep') }}: {{@$data->employee_depname}}<br>
+                            {{ trans('label.name') }}: {{@$data->employee_name}} ({{@$data->user_id}})<br>
+                            {{ trans('label.work_day_count') }}: (( daycount )) <span class="spaceLabel"></span> {{ trans('label.work_time_count') }}: (( worktimecount ))
+                        </div>
+                    </div>
                     <div style="width:100%;text-align:left !important;">
-                        <div class="col-lg-12">
-                            <label>
-                                <u>
-                                    {{ trans('label.worksheet_id') }}{{@$data->id}} (
-                                    <span v-if='{{@$data->status}} == 0 || {{@$data->status}} == ""'>{{ trans('label.ws_status1') }}</span>
-                                    <span v-if='{{@$data->status}} == 1'>{{ trans('label.ws_status2') }}</span>
-                                    <span v-if='{{@$data->status}} == 2'>{{ trans('label.ws_status3') }}</span>
-                                    <span v-if='{{@$data->status}} == 3'>{{ trans('label.ws_status4') }}</span>
-                                    )
-                                </u>
-                            </label>
-                            <br>
-                            <label>(( parseMonth('{{@$data->month}}') )) {{@$data->employee_depname}} {{@$data->employee_name}} ({{@$data->user_id}})</label>
-                            <br>
-                            <label>{{ trans('label.work_day_count') }}: (( daycount ))</label><br>
-                            <label>{{ trans('label.work_time_count') }}: (( worktimecount ))</label>
-                            </div>
+
                     </div>
                     <div class="col-lg-auto">
                         <table class="signTable">
