@@ -84,19 +84,19 @@
                                                 <tr>
                                                     <td>{{ trans('label.kihonkyu') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="kihonkyu" value="{{@$data->kihonkyu}}">
+                                                    <input type="text" class="form-control " name="kihonkyu" value="{{@$data->kihonkyu}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.zangyou_teate') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="zangyou_teate" value="{{@$data->zangyou_teate}}">
+                                                    <input type="text" class="form-control " name="zangyou_teate" value="{{@$data->zangyou_teate}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.tsukin_teate') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="tsukin_teate" value="{{@$data->tsukin_teate}}">
+                                                    <input type="text" class="form-control " name="tsukin_teate" value="{{@$data->tsukin_teate}}">
                                                     </td>
                                                 </tr>
                                             </table>
@@ -112,37 +112,37 @@
                                                 <tr>
                                                     <td>{{ trans('label.kenkouhoken') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="kenkouhoken" value="{{@$data->kenkouhoken}}">
+                                                    <input type="text" class="form-control " name="kenkouhoken" value="{{@$data->kenkouhoken}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.koseinenkin') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="koseinenkin" value="{{@$data->koseinenkin}}">
+                                                    <input type="text" class="form-control " name="koseinenkin" value="{{@$data->koseinenkin}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.koyohoken') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="koyohoken" value="{{@$data->koyohoken}}">
+                                                    <input type="text" class="form-control " name="koyohoken" value="{{@$data->koyohoken}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.shotokuzei') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="shotokuzei" value="{{@$data->shotokuzei}}">
+                                                    <input type="text" class="form-control " name="shotokuzei" value="{{@$data->shotokuzei}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.juminzei') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="juminzei" value="{{@$data->juminzei}}">
+                                                    <input type="text" class="form-control " name="juminzei" value="{{@$data->juminzei}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ trans('label.nenmatsuchosei') }}</td>
                                                     <td>
-                                                    <input type="text" class="form-control money_parse" name="nenmatsuchosei" value="{{@$data->nenmatsuchosei}}">
+                                                    <input type="text" class="form-control " name="nenmatsuchosei" value="{{@$data->nenmatsuchosei}}">
                                                     </td>
                                                 </tr>
                                             </table>
