@@ -201,7 +201,7 @@
                                     @endif
                                     @if ($data->nenmatsuchosei != "")
                                     <tr>
-                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.juminzei') }}</td>
+                                        <td class="headerColor border-all41 title_form" style="padding-left:10px;height:30px;width:100px;vertical-align:middle;background-color:#FAFAFA !important;">{{ trans('label.nenmatsuchosei') }}</td>
                                         <td class="border-all41" style="vertical-align:middle;text-align:right;padding-right:10px;">
                                             {{ number_format($data->nenmatsuchosei) }} 円
                                         </td>
