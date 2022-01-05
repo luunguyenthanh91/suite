@@ -45,17 +45,13 @@
                             </div>
                     </div>
                     <div class="col-lg-auto">
-                        <table class="signTable" style="width:270px;">
+                        <table class="signTable">
                             <tr>
-                                <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.submited_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
                             </tr>    
                             <tr>
-                                <td class="signTableDate approveDateGroup">
-                                {{@$data->created_on}}
-                                </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->submited_on}}
                                 </td>
@@ -67,11 +63,6 @@
                                 </td>
                             </tr> 
                             <tr>
-                                <td class="signTableTd">
-                                    <div class="plusRed">
-                                        <div class="circle">{{@$data->created_by_sign}}</div>
-                                    </div>
-                                </td>
                                 <td class="signTableTd">
                                     <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
                                         {{ trans('label.submit') }}
