@@ -573,8 +573,8 @@ class WSController extends Controller
             if ($data) {
                 $data->note = $request->note;
                 $data->save();
-                if ($request->childUpdate) {
-                    
+                
+                if ($request->childUpdate) {                    
                     foreach ($request->childUpdate as $key => $value) {
                         if ($data->type == 1) {
                             $updateModelDay = HistoryLogSche::find($key);
@@ -712,8 +712,7 @@ class WSController extends Controller
         $workpartern_timecount = $workpartern->timecount;
         $workpartern_type = $workpartern->type;
         $workpartern_starttime = $workpartern->starttime;
-        $workpartern_endtime = $workpartern->endtime;
-        $breaktime = $workpartern->breaktime_count;
+        $workpartern_endtime = $workpartern->endtime;        
         $breaktime_min = $workpartern->breaktime_min;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
@@ -734,6 +733,7 @@ class WSController extends Controller
         
         for($i = 1; $i <=  $days; $i++)
 		{
+            $breaktime = $workpartern->breaktime_count;
             $timestamp = mktime(0, 0, 0, $month, $i, $year);
             $date = date('w', $timestamp);
 
@@ -773,18 +773,9 @@ class WSController extends Controller
                 if ($starttime != "") {
                     $ws_type = 1;
                     
-                    if (!$sche) {
-                        $classStyle = "status2";
-                        if ($offDay) {
-                            $classStyle = "status2Minus";
-                        } else {
-                            $classStyle = "status7";
-                        }
-                    } else {
-                        $classStyle = "";
-                        if ($offDay) {
-                            $classStyle = "status7Minus";
-                        }
+                    $classStyle = "";
+                    if ($offDay) {
+                        $classStyle = "status7Minus";
                     }
                     $daycount++;
                 }
@@ -799,11 +790,7 @@ class WSController extends Controller
                         if ($starttime != "") {
                             $startdate = $selDate;
                             $ws_type = 1;
-                            if (!$sche) {
-                                $classStyle = "status2";
-                            } else {
-                                $classStyle = "";
-                            }
+                            $classStyle = "status2";
                             $daycount++;
                         }
                     }
@@ -816,18 +803,9 @@ class WSController extends Controller
                         if ($starttime != "") {
                             $ws_type = 1;
                             
-                            if (!$sche) {
-                                $classStyle = "status2";
-                                if ($offDay) {
-                                    $classStyle = "status2Minus";
-                                } else {
-                                    $classStyle = "status7";
-                                }
-                            } else {
-                                $classStyle = "";
-                                if ($offDay) {
-                                    $classStyle = "status7Minus";
-                                }
+                            $classStyle = "status2";
+                            if ($offDay) {
+                                $classStyle = "status2Minus";
                             }
                             $daycount++;
                         }
@@ -1366,7 +1344,6 @@ class WSController extends Controller
             return view('admin.worksheet-view', compact(['data' , 'id']));
         }
     }
-
 
     function listWorkSheet(Request $request) {
         return view('admin.worksheet', compact([]));

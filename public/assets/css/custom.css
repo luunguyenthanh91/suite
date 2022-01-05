@@ -1463,7 +1463,13 @@ body::-webkit-scrollbar-thumb
 }
 .group-menu-header .box-menu .sidebar-menu  {
     width: 300px;
-    height: 400px;
+    height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.group-menu-header .box-menu .sidebar-menu2  {
+    width: 300px;
+    height: 100px;
     overflow: hidden;
     overflow-y: auto;
 }

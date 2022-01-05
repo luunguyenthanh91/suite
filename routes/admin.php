@@ -83,9 +83,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::get('/', 'ProjectController@dashboard');
     Route::get('get-dashboard', 'ProjectController@dashboard')->name('admin.dashboard');
     // Route::get('/', 'ProjectController@getViewProject');
-
-
     
+    Route::get('costprepay', 'CostDocController@listCostPrePay'); 
+    Route::get('billprepay-view/{id}', 'CostDocController@viewcosttransport')->name('admin.viewcosttransport');
+    Route::get('billprepay-update/{id}', 'CostDocController@updatecosttransport')->name('admin.updatecosttransport');
+    Route::post('billprepay-update/{id}', 'CostDocController@updatecosttransport')->name('admin.updatecosttransport');
+
+
     Route::get('costtransport', 'CostDocController@listCostTransport'); 
     Route::get('get-costtransport', 'CostDocController@getListCostTransport')->name('admin.getListCostTransport');
     Route::post('new-costtransport', 'CostDocController@addcosttransport')->name('admin.addcosttransport');

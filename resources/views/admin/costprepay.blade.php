@@ -1,18 +1,18 @@
 @extends('admin.layouts.main')
 @section('title', 'Dashboard')
 @section('content')
-@section('contentTitle', '旅費・交通費申請一覧')
+@section('contentTitle', '立替金申請一覧')
 
 <div class="mdk-drawer-layout__content page-content page-notscrool">
     @include('admin.component.header')
 
     <div id="list-data" style="background:white !important;">
         <div class="modal fade" id="create">
-            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-costtransport?type=0">
+            <form method="POST" class="modal-dialog char-w-new" action="/admin/new-costtransport?type=1">
                 @csrf
                 <div class="modal-content" >
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ trans('label.new_costtransport') }}</h4>
+                        <h4 class="modal-title">{{ trans('label.new_costprepay') }}</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -191,7 +191,7 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <input type="text" class="searchToolbarTextboxIndex form-control " v-model="project_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
+                                                <input type="text" class="searchToolbarTextboxIndex form-control " v-model="item_id" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                                 <a type="button" class="searchToolbarSearchButton btn btn-outline-secondary3 searchButtonBg" data-toggle="modal" data-target="#myModal">
                                                     <i class="fas fa-search"><span class="labelButton">{{ trans('label.search') }}</span></i>
                                                 </a>
@@ -265,7 +265,7 @@
                                             <tbody class="list" id="search">
                                                 <tr v-for="item in sortedProducts">
                                                     <td :class="item.classStyle  + ' '" style="left:0px">
-                                                    <a target="_blank" :href="'/admin/costtransport-view/' + item.id">
+                                                    <a target="_blank" :href="'/admin/billprepay-view/' + item.id">
                                                     ((item.id))
                                                     </a>
                                                     </td>
@@ -991,7 +991,7 @@ new Vue({
 
             $.ajax({
                 type: 'GET',
-                url: "{{route('admin.getListCostTransport')}}?type=0&page=" + this.page  + conditionSearch ,
+                url: "{{route('admin.getListCostTransport')}}?type=1&page=" + this.page  + conditionSearch ,
                 success: function(data) {
                     if (data.count > 0) {
                         that.count = data.pageTotal;

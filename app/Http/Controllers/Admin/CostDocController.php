@@ -34,12 +34,19 @@ class CostDocController extends Controller
         return view('admin.costtransport', compact([]));
     }
 
+    function listCostPrePay(Request $request) {
+        return view('admin.costprepay', compact([]));
+    }
+
     function getListCostTransport(Request $request) {
         $page = $request->page - 1;
         
         $data = CostDoc::orderBy($this->defSortName, $this->defSortType);
         if(@$request->item_id != '' ){
 			$data = $data->where('id', 'LIKE' , '%'.$request->item_id.'%' );
+        }
+        if(@$request->type != '' ){
+			$data = $data->where('type', $request->type);
         }
         if(@$request->user_id != '' ){
 			$data = $data->where('user_id', 'LIKE' , '%'.$request->user_id.'%' );
@@ -175,6 +182,7 @@ class CostDocController extends Controller
         try {
             $data = new CostDoc();
             $data->name = $request->name;
+            $data->type = $request->type;
             $data->note = $request->note;
             $data->status = 1;
             $data->created_on = date('Y-m-d');
@@ -182,7 +190,11 @@ class CostDocController extends Controller
 
             $data->save();
             
-            return redirect('/admin/costtransport-view/'.$data->id);
+            if ($data->type == 0) {
+                return redirect('/admin/costtransport-view/'.$data->id);
+            } else if ($data->type == 1) {
+                return redirect('/admin/billprepay-view/'.$data->id);
+            }
         } catch (Exception $e) {
             echo "<pre>";
             print_r($e->getMessage());
@@ -194,7 +206,13 @@ class CostDocController extends Controller
         $data = CostDoc::find($id);
         $this->getCostTransport($data);
 
-        return view('admin.costtransport-view', compact(['data' , 'id']));
+        if ($data->type==1) {
+            return view('admin.billprepay-view', compact(['data' , 'id']));
+
+        } else {
+            return view('admin.costtransport-view', compact(['data' , 'id']));
+
+        }
     }
     function updatecosttransport(Request $request , $id) {
         if ($request->isMethod('post')) {
@@ -214,9 +232,18 @@ class CostDocController extends Controller
                                 $dataTransport->name = $item['name'];
                                 $dataTransport->note = $item['note'];
                                 $dataTransport->place_from = $item['place_from'];
-                                $dataTransport->place_to = $item['place_to'];
+
+                                if ($data->type == 0) {
+                                    $dataTransport->place_to = $item['place_to'];
+
+                                }
                                 $dataTransport->price = $item['price'];
-                                $dataTransport->type = $item['type'];
+                                
+                                
+                                if ($data->type == 0) {
+                                    $dataTransport->type = $item['type'];
+
+                                }
                                 $dataTransport->save();
                             }
                         } else {
@@ -229,9 +256,18 @@ class CostDocController extends Controller
                                     $dataTransport->name = $item['name'];
                                     $dataTransport->note = $item['note'];
                                     $dataTransport->place_from = $item['place_from'];
-                                    $dataTransport->place_to = $item['place_to'];
+
+                                    if ($data->type == 0) {
+                                        $dataTransport->place_to = $item['place_to'];
+                                    }
+
                                     $dataTransport->price = $item['price'];
-                                    $dataTransport->type = $item['type'];
+                                    
+                                    if ($data->type == 0) {
+                                        $dataTransport->type = $item['type'];
+
+                                    }
+
                                     $dataTransport->save();
                                 }
                             }
@@ -274,7 +310,14 @@ class CostDocController extends Controller
                     "message" => "Đã thay đổi dữ liệu thành công.",
                     "status" => 1
                 ];
-                return redirect('/admin/costtransport-view/'.$data->id);
+
+                if ($data->type == 1) {
+                    return redirect('/admin/billprepay-view/'.$data->id);
+
+                } else {
+                    return redirect('/admin/costtransport-view/'.$data->id);
+
+                }
             } catch (\Throwable $th) {
                 print_r($th->getMessage());die;
                 $message = [
@@ -285,7 +328,14 @@ class CostDocController extends Controller
         }
         $data = CostDoc::find($id);
         $this->getCostTransport($data);
-        return view('admin.costtransport-update', compact(['data' , 'id']));
+
+        if ($data->type == 1) {
+            return view('admin.billprepay-update', compact(['data' , 'id']));
+
+        } else {
+            return view('admin.costtransport-update', compact(['data' , 'id']));
+
+        }
     }
 
     function url(){
@@ -387,8 +437,20 @@ class CostDocController extends Controller
         }
         $data->sumprice = $sumprice;
 
-        $pdf = PDF::loadView('admin.costtransport-pdf', compact('data'));
-        $filename = trans('label.costtransport_pdf3').$data->id.'_'.$data->employee_code.'('.$data->employee_name.')'.'.pdf';
+
+        if ($data->type == 1) {
+            $pdf = PDF::loadView('admin.billprepay-pdf', compact('data'));
+            $filename = trans('label.billprepay_pdf3').$data->id.'_'.$data->employee_code.'('.$data->employee_name.')'.'.pdf';
+            
+
+        } else {
+            $pdf = PDF::loadView('admin.costtransport-pdf', compact('data'));
+            $filename = trans('label.costtransport_pdf3').$data->id.'_'.$data->employee_code.'('.$data->employee_name.')'.'.pdf';
+            
+
+        }
+        
+        
         return $pdf->download($filename);
     }
 
