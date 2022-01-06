@@ -11,11 +11,7 @@
             <a type="button" class="btn btn-outline-secondary3 background_sub_1" target="_blank" href="/admin/payslip-pdf/{{$id}}">
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
-            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_on) )
-            <a type="button" class="btn btn-outline-secondary3 background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
-                <i class="fas fa-envelope"><span class="labelButton">{{ trans('label.sendmail_payslip') }}</span></i>
-            </a> 
-            @endif   
+              
             @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->received_on) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_3" target="_blank" @click="sendmailpayslipcheck('{{$id}}')">
             <i class="fas fa-envelope"><span class="labelButton">{{ trans('label.sendmail_payslip_check') }}</span></i>
@@ -62,6 +58,7 @@
                                 <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
+                                <td class="signTableThApprover">{{ trans('label.sendmail_payslip') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.paid_sign') }}</td>
                             </tr>    
                             <tr>
@@ -73,6 +70,9 @@
                                 </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->approved_on}}
+                                </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->sendmail_on}}
                                 </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->received_on}}
@@ -98,6 +98,16 @@
                                     </a> 
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
                                         <div class="circle">{{@$data->approved_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->sendmail_on) )
+                                    <a type="button" class="btn btn-outline-secondary background_sub_2" target="_blank" @click="sendmailpayslip('{{$id}}')">
+                                        {{ trans('label.sendmail_payslip') }}
+                                    </a> 
+                                    @endif 
+                                    <div class="plusRed" v-if="'{{@$data->sendmail_on}}' != ''">
+                                        <div class="circle">{{@$data->sendmail_by_sign}}</div>
                                     </div>
                                 </td>
                                 <td class="signTableTd">

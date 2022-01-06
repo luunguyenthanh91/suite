@@ -283,7 +283,10 @@ class CostDocController extends Controller
                             if ($item['action'] != 'delete') {
                                 $dataDoc = new DocFile();
                                 $dataDoc->item_id = $id;
-                                $dataDoc->url = $this->url().$item['url'];
+                                $dataDoc->url = $item['url'];
+                                if (!str_contains($dataDoc->url, $this->url())){
+                                    $dataDoc->url = $this->url().$dataDoc->url;
+                                }
                                 $dataDoc->table_name = $item['table_name'];
                                 // $dataDoc->file_name = $item['file_name'];
                                 $dataDoc->save();
@@ -294,7 +297,10 @@ class CostDocController extends Controller
                                 if ($item['action'] == 'delete') {
                                     $dataDoc->delete();
                                 } else { 
-                                    $dataDoc->url = $this->url().$item['url'];
+                                    $dataDoc->url = $item['url'];
+                                    if (!str_contains($dataDoc->url, $this->url())){
+                                        $dataDoc->url = $this->url().$dataDoc->url;
+                                    }   
                                     // $dataDoc->file_name = $item['file_name'];
                                     $dataDoc->save();
                                 }

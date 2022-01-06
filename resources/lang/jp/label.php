@@ -84,6 +84,7 @@ return [
     'month' => '月',
     'month2' => '月度',
     'addRecord' => '追加',
+    'sendmail_payslip' => '給与明細メール通知',
     'sendmail_on' => 'メール通知日',
     'sendmail_by' => 'メール通知者',
     'date' => '日',

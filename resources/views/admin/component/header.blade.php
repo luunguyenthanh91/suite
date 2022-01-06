@@ -210,74 +210,32 @@
                     </ul>
                 </li>
                 <li class="sidebar-menu-item {{ (request()->is('*system*')) ? 'active open' : '' }} {{ (request()->is('*mailtemplate*')) ? 'active open' : '' }}">
-                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-system" aria-expanded="false">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-money_management_1" aria-expanded="false">
                     {{ trans('label.money_management_1') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_1') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_2') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
-                            </a>
-                        </li>
+                        
                         
                     </ul>
                 </li>    
                 <li class="sidebar-menu-item {{ (request()->is('*system*')) ? 'active open' : '' }} {{ (request()->is('*mailtemplate*')) ? 'active open' : '' }}">
-                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-system" aria-expanded="false">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-money_management_2" aria-expanded="false">
                     {{ trans('label.money_management_2') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_1') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_2') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
-                            </a>
-                        </li>
+                        
                         
                     </ul>
                 </li>
                 <li class="sidebar-menu-item {{ (request()->is('*system*')) ? 'active open' : '' }} {{ (request()->is('*mailtemplate*')) ? 'active open' : '' }}">
-                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-system" aria-expanded="false">
+                    <a class="sidebar-menu-button js-sidebar-collapse collapsed" data-toggle="collapse" href="#col-money_management_3" aria-expanded="false">
                     {{ trans('label.money_management_3') }}
                         <span class="ml-auto sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu sm-indent collapse" id="col-system" style="">
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_1') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_2') }}</span>
-                            </a>
-                        </li>
-                        <li class="pl-1 sidebar-menu-item {{ (request()->is('*system_log*')) ? 'active open' : '' }} ">
-                            <a class="sidebar-menu-button" href="/admin/system_log">
-                            <span class="sidebar-menu-text">{{ trans('label.money_management_3') }}</span>
-                            </a>
-                        </li>
+                        
                         
                     </ul>
                 </li>
