@@ -80,25 +80,19 @@
                                     <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
                                         {{ trans('label.submit') }}
                                     </a> 
-                                    @if (Auth::guard('admin')->user()->type == 1)
                                     <div class="plusRed" v-if="'{{@$data->submited_on}}' != ''">
                                         <div class="circle">{{@$data->submited_by_sign}}</div>
                                     </div>
-                                    @endif
                                 </td>
                                 <td class="signTableTd">
-                                    @if (Auth::guard('admin')->user()->type == 1)
                                     <div class="plusRed" v-if="'{{@$data->checked_on}}' != ''">
                                         <div class="circle">{{@$data->checked_by_sign}}</div>
                                     </div>
-                                    @endif
                                 </td>
                                 <td class="signTableTd">
-                                    @if (Auth::guard('admin')->user()->type == 1)
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
                                         <div class="circle">{{@$data->approved_by_sign}}</div>
                                     </div>
-                                    @endif
                                 </td>
                             </tr>     
                         </table>

@@ -105,6 +105,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
     Route::get('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
     Route::get('costtransport-pdf/{id}', 'CostDocController@costtransportpdf');
+    Route::get('billprepay-pdf/{id}', 'CostDocController@costtransportpdf');
 
     // Doc File API
     Route::get('list-doc/{id}', 'DocFileController@getListDocFile');
