@@ -102,6 +102,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['adminAuth']], function (
     Route::post('costtransportcheck/{id}', 'CostDocController@costtransportcheck')->name('admin.costtransportcheck');
     Route::get('costtransportapprove/{id}', 'CostDocController@costtransportapprove')->name('admin.costtransportapprove');
     Route::post('costtransportapprove/{id}', 'CostDocController@costtransportapprove')->name('admin.costtransportapprove');
+    Route::get('costtransportsendmailpay/{id}', 'CostDocController@costtransportsendmailpay')->name('admin.costtransportsendmailpay');
+    Route::post('costtransportsendmailpay/{id}', 'CostDocController@costtransportsendmailpay')->name('admin.costtransportsendmailpay');
     Route::post('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
     Route::get('costtransport-delete/{id}', 'CostDocController@deletecosttransport')->name('admin.deletecosttransport');
     Route::get('costtransport-pdf/{id}', 'CostDocController@costtransportpdf');

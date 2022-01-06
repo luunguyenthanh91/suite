@@ -166,6 +166,12 @@ class CostDocController extends Controller
             $item->approved_by_name = $approved_user->name;
             $item->approved_by_sign = $approved_user->sign_name;
         }
+
+        $pay_user = Admin::where('id' ,$item->pay_by)->first();
+        if ($pay_user) {
+            $item->pay_by_name = $pay_user->name;
+            $item->pay_by_sign = $pay_user->sign_name;
+        }
     }
 
     function deletecosttransport(Request $request,$id) {
@@ -412,6 +418,51 @@ class CostDocController extends Controller
                 $data->approved_on = date('Y-m-d');
                 $data->status = 0;
                 $data->save();
+            }
+
+            $message = [
+                "message" => "Đã thay đổi dữ liệu thành công.",
+                "status" => 1
+            ];
+
+            return response()->json(['message'=>"Xóa Công Việc Thành Công."]);
+        } catch (Exception $e) {
+            echo "<pre>";
+            print_r($e->getMessage());die;
+            $message = [
+                "message" => "Có lỗi xảy ra khi thay đổi vào dữ liệu.",
+                "status" => 2
+            ];
+        }
+    }
+
+    function costtransportsendmailpay(Request $request,$id) {
+        try {
+            $data = CostDoc::find($request->id);
+            $this->getCostTransport($data);
+
+            if ($data) {
+                $data->pay_by = strtoupper(Auth::guard('admin')->user()->id);
+                $data->pay_on = date('Y-m-d');
+                $data->save();
+
+                $employee = Admin::where('id' ,$data->created_by)->first();
+                $email = $employee->email;
+                list($year2, $month2, $date2) = explode("-", $data->pay_day);
+
+                $messageData["email"] = $email;
+                $messageData["title"] = "振込通知メール";
+                $messageData["employee_name"] = $data->employee_name;
+                $messageData["money"] = $data->sumprice;
+                $messageData["note"] = $data->name;
+                $messageData["url"] = "https://workspace.alphacep.co.jp/admin/billprepay-view/".$data->id;
+                $messageData["pay_day"] = $year2.trans('label.year').$month2.trans('label.month').$date2.trans('label.date');
+                
+
+                Mail::send('mails.mail-billprepay', $messageData, function($message)use($messageData) {
+                    $message->to($messageData["email"], $messageData["email"])
+                            ->subject($messageData["title"]);
+                });
             }
 
             $message = [

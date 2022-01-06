@@ -49,17 +49,14 @@
 
                     </div>
                     <div class="col-lg-auto">
-                        <table class="signTable" style="width:270px;">
+                        <table class="signTable" style="width:400px;">
                             <tr>
-                                <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.submited_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
                                 <td class="signTableThApprover">{{ trans('label.approved_by') }}</td>
+                                <td class="signTableThApprover">{{ trans('label.pay_by') }}</td>
                             </tr>    
                             <tr>
-                                <td class="signTableDate approveDateGroup">
-                                {{@$data->created_on}}
-                                </td>
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->submited_on}}
                                 </td>
@@ -69,13 +66,11 @@
                                 <td class="signTableDate approveDateGroup">
                                 {{@$data->approved_on}}
                                 </td>
+                                <td class="signTableDate approveDateGroup">
+                                {{@$data->pay_on}}
+                                </td>
                             </tr> 
                             <tr>
-                                <td class="signTableTd">
-                                    <div class="plusRed">
-                                        <div class="circle">{{@$data->created_by_sign}}</div>
-                                    </div>
-                                </td>
                                 <td class="signTableTd">
                                     <a type="button" class="btn btn-outline-secondary signButtonSubmit" @click="promoteSubmit('{{$id}}')" v-if="'{{@$data->submited_on}}' == ''">
                                         {{ trans('label.submit') }}
@@ -85,13 +80,27 @@
                                     </div>
                                 </td>
                                 <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButtonCheck" @click="promoteCheck('{{$id}}')" v-if="'{{@$data->checked_on}}' == ''">
+                                        {{ trans('label.check') }}
+                                    </a>
                                     <div class="plusRed" v-if="'{{@$data->checked_on}}' != ''">
                                         <div class="circle">{{@$data->checked_by_sign}}</div>
                                     </div>
                                 </td>
                                 <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteApprove('{{$id}}')" v-if="'{{@$data->approved_on}}' == ''">
+                                    {{ trans('label.approve') }}
+                                    </a> 
                                     <div class="plusRed" v-if="'{{@$data->approved_on}}' != ''">
                                         <div class="circle">{{@$data->approved_by_sign}}</div>
+                                    </div>
+                                </td>
+                                <td class="signTableTd">
+                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteSendMailPay('{{$id}}')" v-if="'{{@$data->pay_on}}' == ''">
+                                    {{ trans('label.pay_sendmail') }}
+                                    </a> 
+                                    <div class="plusRed" v-if="'{{@$data->pay_on}}' != ''">
+                                        <div class="circle">{{@$data->pay_by_sign}}</div>
                                     </div>
                                 </td>
                             </tr>     
@@ -231,6 +240,18 @@
                                                 <td>{{ trans('label.approved_by') }}</td>
                                                 <td>
                                                 {{@$data->approved_by_name}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_on') }}</td>
+                                                <td>
+                                                {{@$data->pay_on}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ trans('label.pay_by') }}</td>
+                                                <td>
+                                                {{@$data->pay_by_name}}
                                                 </td>
                                             </tr>
                                         </table>
@@ -809,6 +830,42 @@ new Vue({
                     success: function(res) {
                         Swal.fire({
                             title: "承認の処理が終わりました。"
+                        });
+                        location.href = "/admin/costtransport-view/" + _i;
+                    },
+                    error: function(xhr, textStatus, error) {
+                        Swal.fire({
+                            title: "エラーが発生しました!",
+                            type: "warning",
+                        });
+                    }
+                });
+            })
+        },
+        promoteSendMailPay(_i) {
+            const that = this;
+            Swal.fire({
+                title: "\振込通知メールを送信します。よろしいでしょうか？",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "はい",
+                cancelButtonText: "いいえ",
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then(function(t) {
+                if (t.dismiss == "cancel") {
+                    return;
+                }
+                that.loadingTable = 1;
+                $.ajax({
+                    url: "/admin/costtransportsendmailpay/" + _i,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        Swal.fire({
+                            title: "振込通知メールを送信しました。"
                         });
                         location.href = "/admin/costtransport-view/" + _i;
                     },
