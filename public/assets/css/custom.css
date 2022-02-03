@@ -1393,6 +1393,9 @@ body::-webkit-scrollbar-thumb
 .border_bottom{
     border-bottom: 1px solid #ddd;
 }
+.signButton2 {
+    background:brown !important;width:100%;height:100%;color:white
+}
 .signButton {
     background:#008000 !important;width:100%;height:100%;color:white
 }

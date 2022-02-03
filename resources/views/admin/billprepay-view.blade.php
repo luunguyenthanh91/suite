@@ -96,7 +96,7 @@
                                     </div>
                                 </td>
                                 <td class="signTableTd">
-                                    <a type="button" class="btn btn-outline-secondary signButton" @click="promoteSendMailPay('{{$id}}')" v-if="'{{@$data->pay_on}}' == ''">
+                                    <a type="button" class="btn btn-outline-secondary signButton2" @click="promoteSendMailPay('{{$id}}')" v-if="'{{@$data->pay_on}}' == ''">
                                     {{ trans('label.pay_sendmail') }}
                                     </a> 
                                     <div class="plusRed" v-if="'{{@$data->pay_on}}' != ''">

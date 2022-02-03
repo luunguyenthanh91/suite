@@ -314,7 +314,7 @@ class WSController extends Controller
             $data->classStyle = "status6";
         }
 
-        $sumPayslip = $this->getSumPayslip($data->user_id, $data->month);
+        $sumPayslip = $this->getSumPayslip($data->user_id, $data->pay_day);
         $data->sum_pay  = $sumPayslip['sum_pay'];
         $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
         $data->sum_tax  = $sumPayslip['sum_tax'];
@@ -957,14 +957,14 @@ class WSController extends Controller
         ]);
     }
 
-    function getSumPayslip($user_code, $month) {
+    function getSumPayslip($user_code, $pay_day) {
         $sum_pay = 0;
         $sum_shakaihoken = 0;
         $sum_tax = 0;
 
-        list($selYear, $selMonth) = explode ("-", $month);
+        list($selYear, $selMonth, $selDay) = explode ("-", $pay_day);
         $firstMonth = $selYear."-01";
-        $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $month)->where('month', '>=', $firstMonth)->get();
+        $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $selMonth)->where('month', '>=', $firstMonth)->get();
         foreach ( $datalist as $data) {
             $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
             $data->kihonkyu = $pay_partern->kihonkyu;
