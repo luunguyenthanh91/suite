@@ -963,8 +963,8 @@ class WSController extends Controller
         $sum_tax = 0;
 
         list($selYear, $selMonth, $selDay) = explode ("-", $pay_day);
-        $firstMonth = $selYear."-01";
-        $datalist = Payslip::where('user_id', $user_code)->where('month', '<=', $selMonth)->where('month', '>=', $firstMonth)->get();
+        $firstMonth = $selYear."-01-01";
+        $datalist = Payslip::where('user_id', $user_code)->where('pay_day', '<=', $pay_day)->where('pay_day', '>=', $firstMonth)->get();
         foreach ( $datalist as $data) {
             $pay_partern = PayslipPartern::where('id' , $data->payslip_partern)->first();
             $data->kihonkyu = $pay_partern->kihonkyu;
