@@ -706,11 +706,6 @@ class WSController extends Controller
     function getListWorkDaysItem2($user_code, $selMonth, $sche=0) {   
         
         
-        
-        echo "<pre>";
-        print_r($selMonth);
-        die;
-
         $data = [];
         $daycount = 0;
         $worktimelist = [];
