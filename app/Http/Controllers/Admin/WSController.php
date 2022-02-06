@@ -325,7 +325,9 @@ class WSController extends Controller
         $data->overworktimecount = $listdata['overworktimecount'];
 
         $ws = WorkSheet::where('user_id', $data->user_id)->where('month', $data->month)->where('type', '0')->first();
-        $data->worksheet_id = $ws->id;
+        if ($ws) {
+            $data->worksheet_id = $ws->id;
+        }
     }
 
     function viewPayslip(Request $request,$id) {
