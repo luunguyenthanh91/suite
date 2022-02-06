@@ -322,6 +322,11 @@ class WSController extends Controller
         print_r("getPayslip");
         print_r($data->month);
         $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
+        
+        echo "<pre>";
+        print_r("getPayslip");
+        print_r($listdata);
+        
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
         $data->overworktimecount = $listdata['overworktimecount'];
@@ -979,9 +984,11 @@ die;
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
             if ($data->jikyu != "") {
+
                 echo "<pre>";
         print_r("getSumPayslip");
         print_r($data->month);
+
                 $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
                 $worktimecount = $listdata['worktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
