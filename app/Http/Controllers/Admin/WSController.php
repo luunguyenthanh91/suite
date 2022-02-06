@@ -252,6 +252,7 @@ class WSController extends Controller
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
         $data->employee_code = $employee->code;
+
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
         
@@ -297,9 +298,6 @@ class WSController extends Controller
             $data->received_by_name = $received_user->name;
             $data->received_by_sign = $received_user->sign_name;
         }
-
-        list($data->month_year, $data->month_month) = explode ("-",$data->month);
-        list($data->selyear, $data->selmonth, $data->seldate) = explode ("-",$data->pay_day);
 
         $data->classStyle = "";
         if ($data->status == 0) {
