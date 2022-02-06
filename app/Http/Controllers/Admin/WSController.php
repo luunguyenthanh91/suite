@@ -318,7 +318,9 @@ class WSController extends Controller
         $data->sum_tax  = $sumPayslip['sum_tax'];
 
         
-
+        echo "<pre>";
+        print_r("getPayslip");
+        print_r($data->month);
         $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
@@ -331,7 +333,7 @@ class WSController extends Controller
     function viewPayslip(Request $request,$id) {
         $data = Payslip::find($id);
         $this->getPayslip($data);
-
+die;
         return view('admin.payslip-view', compact(['data' , 'id']));
     }
 
@@ -941,6 +943,9 @@ class WSController extends Controller
         if ($request->sche != "") {
             $sche = $request->sche;
         }
+        echo "<pre>";
+        print_r("getListWorkDays");
+        print_r($request->month);
         $listdata = $this->getListWorkDaysItem($request->user_id, $request->month, $sche);
 
         $data = $listdata['data'];
@@ -974,6 +979,9 @@ class WSController extends Controller
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
             if ($data->jikyu != "") {
+                echo "<pre>";
+        print_r("getSumPayslip");
+        print_r($data->month);
                 $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
                 $worktimecount = $listdata['worktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
@@ -1431,6 +1439,10 @@ class WSController extends Controller
         $item->employee_depname = $bophan->name;
 
         $sche = ($item->type == 1)? 1 : 0;
+        
+        echo "<pre>";
+        print_r("getWorkSheet");
+        print_r($month);
         $listdata = $this->getListWorkDaysItem($user_code, $month, $sche);
 
         $item->daycount = $listdata['daycount'];
