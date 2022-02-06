@@ -319,6 +319,12 @@ class WSController extends Controller
         $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
         $data->sum_tax  = $sumPayslip['sum_tax'];
 
+        
+        
+        echo "<pre>";
+        print_r($data->month);
+        die;
+
         $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
@@ -701,12 +707,7 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {
-        
-        echo "<pre>";
-        print_r($selMonth);
-        die;
-
+    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {        
         $data = [];
         $daycount = 0;
         $worktimelist = [];
