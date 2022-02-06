@@ -320,10 +320,6 @@ class WSController extends Controller
         $data->sum_tax  = $sumPayslip['sum_tax'];
 
         
-        
-        echo "<pre>";
-        print_r($data->month);
-        die;
 
         $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
         $data->daycount = $listdata['daycount'];
@@ -707,7 +703,14 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {        
+    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {   
+        
+        
+        
+        echo "<pre>";
+        print_r($selMonth);
+        die;
+
         $data = [];
         $daycount = 0;
         $worktimelist = [];
