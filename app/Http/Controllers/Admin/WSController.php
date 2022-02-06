@@ -702,6 +702,11 @@ class WSController extends Controller
     }
 
     function getListWorkDaysItem($user_code, $selMonth, $sche=0) {
+        
+        echo "<pre>";
+        print_r($selMonth);
+        die;
+
         $data = [];
         $daycount = 0;
         $worktimelist = [];
@@ -919,10 +924,6 @@ class WSController extends Controller
                 'edit' => 0
             ];
 		}
-
-        echo "<pre>";
-        print_r($data);
-        die;
 
         $count = $days;
         $pageTotal = 1;
