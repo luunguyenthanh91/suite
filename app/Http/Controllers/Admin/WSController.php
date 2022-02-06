@@ -319,10 +319,10 @@ class WSController extends Controller
 
         
 
-        $listdata = $this->getListWorkDaysItem2($data->user_id, $data->month);
-        $data->daycount = $listdata['daycount'];
-        $data->worktimecount = $listdata['worktimecount'];
-        $data->overworktimecount = $listdata['overworktimecount'];
+        // $listdata = $this->getListWorkDaysItem2($data->user_id, $data->month);
+        // $data->daycount = $listdata['daycount'];
+        // $data->worktimecount = $listdata['worktimecount'];
+        // $data->overworktimecount = $listdata['overworktimecount'];
 
         $ws = WorkSheet::where('user_id', $data->user_id)->where('month', $data->month)->first();
         $data->worksheet_id = $ws->id;
