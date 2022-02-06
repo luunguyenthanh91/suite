@@ -920,6 +920,10 @@ class WSController extends Controller
             ];
 		}
 
+        echo "<pre>";
+        print_r($data);
+        die;
+
         $count = $days;
         $pageTotal = 1;
 
