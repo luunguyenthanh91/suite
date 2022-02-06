@@ -681,7 +681,7 @@ new Vue({
     delimiters: ["((", "))"],
     mounted() {
         const that = this;
-        this.onLoadPagination();
+        // this.onLoadPagination();
     },
     computed: {
         sortedProducts: function(){
