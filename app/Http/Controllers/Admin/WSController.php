@@ -321,7 +321,7 @@ class WSController extends Controller
 
         
 
-        $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
+        $listdata = $this->getListWorkDaysItem2($data->user_id, $data->month);
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
         $data->overworktimecount = $listdata['overworktimecount'];
@@ -703,13 +703,248 @@ class WSController extends Controller
         }
     }
 
-    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {   
+    function getListWorkDaysItem2($user_code, $selMonth, $sche=0) {   
         
         
         
         echo "<pre>";
         print_r($selMonth);
         die;
+
+        $data = [];
+        $daycount = 0;
+        $worktimelist = [];
+        $overworktimelist = [];
+        
+        $employee = Admin::where('code' ,$user_code)->first();
+        $user_id = $employee->id;
+        $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
+        $workpartern_timecount = $workpartern->timecount;
+        $workpartern_type = $workpartern->type;
+        $workpartern_starttime = $workpartern->starttime;
+        $workpartern_endtime = $workpartern->endtime;        
+        $breaktime_min = $workpartern->breaktime_min;
+        $off_hol = $workpartern->off_holiday;
+        $off_sat = $workpartern->off_sat;
+        $off_sun = $workpartern->off_sun;
+
+        list($year, $month) = explode('-', $selMonth);
+
+        $days = $this->days_in_month($month, $year);
+        $week = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+          ];
+        
+        for($i = 1; $i <=  $days; $i++)
+		{
+            $breaktime = $workpartern->breaktime_count;
+            $timestamp = mktime(0, 0, 0, $month, $i, $year);
+            $date = date('w', $timestamp);
+
+            $ws_type = 0;
+
+            $starttime = "";
+            $hour1 = "";
+            $min1 = "";
+            $sec1 = "";
+            $hour2 = "";
+            $min2 = "";
+            $sec2 = "";
+            $time_count = "";
+            $overtime_count = "";
+            $min_count = "";
+            $offDay_title = "";
+            $dayid = "";
+            $note = "";
+
+            $startdate = "";
+            $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
+            $offDay = NationalHoliday::where('start', $selDate)->first();
+            if ($offDay) {
+                $offDay_title = $offDay->title;
+            }
+
+            $classStyle = "status6";
+            if ($offDay) {
+                $classStyle = "status6Minus";
+            }
+
+            if ($sche) {
+                $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                $dayid = $historyLog->id;
+                $starttime = $historyLog->time;
+                $startdate = $historyLog->date;
+                if ($starttime != "") {
+                    $ws_type = 1;
+                    
+                    $classStyle = "";
+                    if ($offDay) {
+                        $classStyle = "status7Minus";
+                    }
+                    $daycount++;
+                }
+                $note = $historyLog->note;
+            } else {
+                if ($workpartern_type == 1) {
+                    if ($offDay && $off_hol==1) { }
+                    else if ($off_sat==1 && $date==6) {}
+                    else if ($off_sun==1 && $date==0) {}
+                    else {
+                        $starttime = $workpartern_starttime;
+                        if ($starttime != "") {
+                            $startdate = $selDate;
+                            $ws_type = 1;
+                            $classStyle = "status2";
+                            $daycount++;
+                        }
+                    }
+                } else {
+                    $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                    if ($historyLog) {
+                        $dayid = $historyLog->id;
+                        $starttime = $historyLog->time;
+                        $startdate = $historyLog->date;
+                        if ($starttime != "") {
+                            $ws_type = 1;
+                            
+                            $classStyle = "status2";
+                            if ($offDay) {
+                                $classStyle = "status2Minus";
+                            }
+                            $daycount++;
+                        }
+                        $note = $historyLog->note;
+                    }
+                }
+            }
+
+            $endtime = "";
+            $enddate = "";
+
+            if ($workpartern_type == 1) {
+                if ($offDay && $off_hol==1) {}
+                else if ($off_sat==1 && $date==6) {}
+                else if ($off_sun==1 && $date==0) {}
+                else {
+                    $endtime = $workpartern_endtime;
+                    $enddate = $selDate;
+                }
+            } else {
+                if ($sche) {
+                    $historyLog2 = HistoryLogSche::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                } else {
+                    $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                }
+            if ($historyLog2) {
+                    $endtime = $historyLog2->time;
+                    $enddate = $historyLog->date;
+                }
+            }
+
+            if ($ws_type == 1) {
+                if ($startdate != "") {
+                    list($year1, $month1, $day1) = explode('-', $startdate);
+                }
+                if ($starttime != "") {
+                    list($hour1, $min1, $sec1) = explode(':', $starttime);
+                }
+                if ($enddate != "") {
+                    list($year2, $month2, $day2) = explode('-', $enddate);
+                }
+                if ($endtime) {
+                    list($hour2, $min2, $sec2) = explode(':', $endtime);
+                }
+
+
+                $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
+                $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
+                $diff_date = date_diff($d1, $d2);
+                if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
+                    if ($breaktime != "") {
+                        $breaktime = "";
+                    }
+                }
+                if ($breaktime != "") {
+                    $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
+                    list($time_count, $min_count) = explode(':', $diff_date);
+                } else {
+                    $time_count = $diff_date->h;
+                    $min_count = $diff_date->i;
+                }
+               
+                $overtime_count = $time_count - $workpartern_timecount;
+                $worktimelist[] = $time_count.":".$min_count;
+            }
+            
+            $starttime = "";
+            if ($hour1) {
+                $starttime = $hour1.":".$min1;
+            }
+            $endtime = "";
+            if ($hour2) {
+                $endtime = $hour2.":".$min2;
+            }
+            $time_count_str = "";
+            if ($time_count) {
+                $time_count_str = str_pad($time_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+            }
+
+            $overtime_count_str = "";
+            if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
+                $overtime_count_str = str_pad($overtime_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+                $overworktimelist[] = $overtime_count.":".$min_count;
+            }
+
+            $breaktime_str = "";
+            if ($ws_type == 1) {
+                $breaktime_str = $breaktime;
+            }
+            
+            $data[] = [
+                'dayid'=>$dayid,
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$i,
+                'date'=>$week[$date],
+                'ws_type'=>$ws_type,
+                'starttime'=>$starttime,
+                'starttime_h'=>$hour1,
+                'starttime_m'=>$min1,
+                'endtime'=>$endtime,
+                'endtime_h'=>$hour2,
+                'endtime_m'=>$min2,
+                'time_count'=> $time_count_str,
+                'overtime_count'=> $overtime_count_str,
+                'classStyle' => $classStyle,
+                'offdaytitle' => $offDay_title,
+                'breaktime' => $breaktime_str,
+                'note' => $note,
+                'edit' => 0
+            ];
+		}
+
+        $count = $days;
+        $pageTotal = 1;
+
+        return [
+            'data'=>$data,
+            'count'=>$count,
+            'pageTotal' => $pageTotal,
+            'daycount' => $daycount,
+            'worktimecount' => $this->CalculateTime2($worktimelist),
+            'overworktimecount' => $this->CalculateTime2($overworktimelist),
+        ];
+    }
+
+    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {   
+        
+        
 
         $data = [];
         $daycount = 0;
