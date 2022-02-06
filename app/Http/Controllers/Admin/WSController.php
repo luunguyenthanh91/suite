@@ -324,7 +324,7 @@ class WSController extends Controller
         $data->worktimecount = $listdata['worktimecount'];
         $data->overworktimecount = $listdata['overworktimecount'];
 
-        $ws = WorkSheet::where('user_id', $data->user_id)->where('month', $data->month)->first();
+        $ws = WorkSheet::where('user_id', $data->user_id)->where('month', $data->month)->where('type', '0')->first();
         $data->worksheet_id = $ws->id;
     }
 
@@ -1338,7 +1338,6 @@ class WSController extends Controller
         $this->getWorkSheet($data);
 
         if ($data->type == 1) {
-
             return view('admin.worksheetsche-view', compact(['data' , 'id']));
         } else {
 
