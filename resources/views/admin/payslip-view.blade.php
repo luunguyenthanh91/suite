@@ -53,7 +53,7 @@
                             </div>
                     </div>
                     <div class="col-lg-auto">
-                        <table class="signTable" style="width:270px;">
+                        <table class="signTable" style="width:400px;">
                             <tr>
                                 <td class="signTableThCreator">{{ trans('label.created_by') }}</td>
                                 <td class="signTableThChecker">{{ trans('label.checked_by') }}</td>
