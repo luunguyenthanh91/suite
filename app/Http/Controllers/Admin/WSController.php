@@ -252,7 +252,6 @@ class WSController extends Controller
         $employee = Admin::where('code' ,$data->user_id)->first();
         $data->employee_name = $employee->name;
         $data->employee_code = $employee->code;
-
         $bophan = BoPhan::where('id' ,$employee->bophan_id)->first();
         $data->employee_depname = $bophan->name;
         
@@ -299,6 +298,9 @@ class WSController extends Controller
             $data->received_by_sign = $received_user->sign_name;
         }
 
+        list($data->month_year, $data->month_month) = explode ("-",$data->month);
+        list($data->selyear, $data->selmonth, $data->seldate) = explode ("-",$data->pay_day);
+
         $data->classStyle = "";
         if ($data->status == 0) {
             $data->classStyle = "status2";
@@ -317,16 +319,7 @@ class WSController extends Controller
         $data->sum_shakaihoken  = $sumPayslip['sum_shakaihoken'];
         $data->sum_tax  = $sumPayslip['sum_tax'];
 
-        
-        echo "<pre>";
-        print_r("getPayslip");
-        print_r($data->month);
         $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
-        
-        echo "<pre>";
-        print_r("getPayslip");
-        print_r($listdata);
-        
         $data->daycount = $listdata['daycount'];
         $data->worktimecount = $listdata['worktimecount'];
         $data->overworktimecount = $listdata['overworktimecount'];
@@ -338,7 +331,7 @@ class WSController extends Controller
     function viewPayslip(Request $request,$id) {
         $data = Payslip::find($id);
         $this->getPayslip($data);
-die;
+
         return view('admin.payslip-view', compact(['data' , 'id']));
     }
 
@@ -708,10 +701,7 @@ die;
         }
     }
 
-    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {  
-        echo "<pre>";
-        print_r($selMonth);
-
+    function getListWorkDaysItem($user_code, $selMonth, $sche=0) {
         $data = [];
         $daycount = 0;
         $worktimelist = [];
@@ -948,9 +938,6 @@ die;
         if ($request->sche != "") {
             $sche = $request->sche;
         }
-        echo "<pre>";
-        print_r("getListWorkDays");
-        print_r($request->month);
         $listdata = $this->getListWorkDaysItem($request->user_id, $request->month, $sche);
 
         $data = $listdata['data'];
@@ -984,11 +971,6 @@ die;
             $data->jikyu = $pay_partern->jikyu;
             $data->zangyou_teate = 0;
             if ($data->jikyu != "") {
-
-                echo "<pre>";
-        print_r("getSumPayslip");
-        print_r($data->month);
-
                 $listdata = $this->getListWorkDaysItem($data->user_id, $data->month);
                 $worktimecount = $listdata['worktimecount'];
                 list($work_h, $work_m) = explode(":", $worktimecount);
@@ -1446,10 +1428,6 @@ die;
         $item->employee_depname = $bophan->name;
 
         $sche = ($item->type == 1)? 1 : 0;
-        
-        echo "<pre>";
-        print_r("getWorkSheet");
-        print_r($month);
         $listdata = $this->getListWorkDaysItem($user_code, $month, $sche);
 
         $item->daycount = $listdata['daycount'];

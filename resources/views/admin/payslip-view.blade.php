@@ -1268,7 +1268,7 @@ new Vue({
             // if (this.ctv_pd != '') {
             //     conditionSearch += '&ctv_pd=' + this.ctv_pd;
             // }
-            alert(this.month);
+            
             conditionSearch += '&month=' + this.month;
             conditionSearch += '&user_id=' + this.user_id;
             conditionSearch += '&showcount=' + this.showCount; 
