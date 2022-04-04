@@ -1208,7 +1208,7 @@ class WSController extends Controller
                 }
                 if ($historyLog2) {
                     $endtime = $historyLog2->time;
-                    $enddate = $historyLog->date;
+                    $enddate = $historyLog2->date;
                 }
             }
 
