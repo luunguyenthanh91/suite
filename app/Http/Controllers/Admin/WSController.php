@@ -87,11 +87,9 @@ class WSController extends Controller
                 $year . "-" . $month . "-" . str_pad(10, 2, '0', STR_PAD_LEFT)
             )));
             while (true) {
-                list($nextyear, $nextmonth, $nextdate) = explode("-", $date);
-                $timestamp = mktime(0, 0, 0, $nextyear, $nextmonth, $nextdate);
+                $timestamp = strtotime($date);
                 $w_date = date('w', $timestamp);
-                $selDate = $nextyear . "-" . $nextmonth . "-" . str_pad($nextdate, 2, '0', STR_PAD_LEFT);
-                $offDay = NationalHoliday::where('start', $selDate)->first();
+                $offDay = NationalHoliday::where('start', $date)->first();
                 if ($offDay || $w_date==6 || $w_date==0) {
                     $date = date('Y-m-d', strtotime('-1 day', strtotime($date)));
                     continue;
