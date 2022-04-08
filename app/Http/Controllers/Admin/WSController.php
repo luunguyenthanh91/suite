@@ -17,6 +17,7 @@ use Helper;
 use App\Models\Admin;
 use App\Models\HistoryLog;
 use App\Models\WorkPartern;
+use App\Models\MasterGensen;
 use App\Models\NationalHoliday;
 use App\Models\Payslip;
 use App\Models\PayslipPartern;
@@ -77,9 +78,39 @@ class WSController extends Controller
                 $data->zangyou_teate = round($overtime_work_h * $data->jikyu * $overtime_rate + ($overtime_work_m * $data->jikyu * $overtime_rate/60));
             }
 
+            $plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
             if ($data->koyouhoken_rate != "") {
-                $plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
                 $data->koyohoken = round($plus_zei_total * $data->koyouhoken_rate/100);
+            }
+            if (!$data->shotokuzei) {
+                $gensen =MasterGensen::where('range_from', '<=', $plus_zei_total)->where('range_to', '>', $plus_zei_total)->first();
+                if ($gensen) {
+                    $fuyo_number = $employee->fuyo_number;
+                    if ($fuyo_number == 0) {
+                        $data->shotokuzei = $gensen->value_0;
+                    }
+                    else if ($fuyo_number == 1) {
+                        $data->shotokuzei = $gensen->value_1;
+                    }
+                    else if ($fuyo_number == 2) {
+                        $data->shotokuzei = $gensen->value_2;
+                    }
+                    else if ($fuyo_number == 3) {
+                        $data->shotokuzei = $gensen->value_3;
+                    }
+                    else if ($fuyo_number == 4) {
+                        $data->shotokuzei = $gensen->value_4;
+                    }
+                    else if ($fuyo_number == 5) {
+                        $data->shotokuzei = $gensen->value_5;
+                    }
+                    else if ($fuyo_number == 6) {
+                        $data->shotokuzei = $gensen->value_6;
+                    }
+                    else if ($fuyo_number == 7) {
+                        $data->shotokuzei = $gensen->value_7;
+                    }
+                }
             }
             
             list($year, $month) = explode("-", $data->month);
