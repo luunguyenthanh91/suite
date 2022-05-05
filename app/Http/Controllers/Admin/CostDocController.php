@@ -115,13 +115,13 @@ class CostDocController extends Controller
     function getCostTransport($item) {
         $item->classStyle = "";
         if ($item->status == 0) {
-            $item->classStyle = "status2";
+            $item->classStyle = "status6";
         } else if ($item->status == 1) {
             $item->classStyle = "status3";
         } else if ($item->status == 2) {
             $item->classStyle = "status4";
         } else if ($item->status == 3) {
-            $item->classStyle = "status6";
+            $item->classStyle = "status2";
         }
 
         $item->detail = CostTransport::where('doc_id', $item->id)->get();
