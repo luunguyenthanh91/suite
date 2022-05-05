@@ -285,6 +285,9 @@
                                                     <th scope="col"  @click="sort('time_end')" class="textAlignCenter">
                                                         <div v-bind:class="[sortBy === 'time_end' ? sortDirection : '']">{{ trans('label.time_end') }}</div>
                                                     </th>
+                                                    <th scope="col"  @click="sort('breaktime')" class="textAlignCenter">
+                                                        <div v-bind:class="[sortBy === 'breaktime' ? sortDirection : '']">{{ trans('label.breaktime') }}</div>
+                                                    </th>
                                                     <th scope="col"  @click="sort('time_count')" class="textAlignCenter">
                                                         <div v-bind:class="[sortBy === 'time_count' ? sortDirection : '']">{{ trans('label.time_count') }}</div>
                                                     </th>
@@ -321,6 +324,9 @@
                                                     </td>
                                                     <td class="textAlignCenter">
                                                     (( item.endtime ))
+                                                    </td>
+                                                    <td class="textAlignCenter">
+                                                    (( item.breaktime ))
                                                     </td>
                                                     <td  class="textAlignCenter">
                                                     (( item.time_count ))
