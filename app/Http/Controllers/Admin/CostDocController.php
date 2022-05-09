@@ -453,7 +453,7 @@ class CostDocController extends Controller
                 $messageData["email"] = $email;
                 $messageData["title"] = "振込通知メール";
                 $messageData["employee_name"] = $data->employee_name;
-                $messageData["money"] = $data->sumprice;
+                $messageData["money"] = number_format($data->sumprice)."円";
                 $messageData["note"] = $data->name;
                 $messageData["url"] = "https://workspace.alphacep.co.jp/admin/billprepay-view/".$data->id;
                 $messageData["pay_day"] = $year2.trans('label.year').$month2.trans('label.month').$date2.trans('label.date');
