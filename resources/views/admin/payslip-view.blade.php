@@ -12,17 +12,17 @@
                 <i class="fa fa-file-pdf"><span class="labelButton">{{ trans('label.payslip_pdf') }}</span></i>
             </a>  
               
-            @if (Auth::guard('admin')->user()->id == 1 || ($data->status == 3 && !$data->received_on) )
+            @if (Auth::guard('admin')->user()->type == 1 || ($data->status == 3 && !$data->received_on) )
             <a type="button" class="btn btn-outline-secondary3 background_sub_3" target="_blank" @click="sendmailpayslipcheck('{{$id}}')">
             <i class="fas fa-envelope"><span class="labelButton">{{ trans('label.sendmail_payslip_check') }}</span></i>
             </a> 
             @endif  
-            @if (Auth::guard('admin')->user()->id == 1 || $data->status == 0 || $data->status == 1)
+            @if (Auth::guard('admin')->user()->type == 1 || $data->status == 0 || $data->status == 1)
             <a type="button" class="btn btn-outline-secondary3" style="background:green" href="/admin/payslip-update/{{$id}}">
                 <i class="fas fa-edit"><span class="labelButton">{{ trans('label.edit') }}</span></i>
             </a>
             @endif  
-            @if (Auth::guard('admin')->user()->id == 1 || $data->status == 0 || $data->status == 1)
+            @if (Auth::guard('admin')->user()->type == 1 || $data->status == 0 || $data->status == 1)
             <a type="button" class="btn btn-outline-secondary3" style="background:red" @click="deleteRecore('{{$id}}')">
                 <i class="fas fa-trash-alt"><span class="labelButton">{{ trans('label.delete') }}</span></i>
             </a> 

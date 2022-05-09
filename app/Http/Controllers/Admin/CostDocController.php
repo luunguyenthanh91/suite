@@ -439,12 +439,12 @@ class CostDocController extends Controller
     function costtransportsendmailpay(Request $request,$id) {
         try {
             $data = CostDoc::find($request->id);
-            $this->getCostTransport($data);
-
             if ($data) {
                 $data->pay_by = strtoupper(Auth::guard('admin')->user()->id);
                 $data->pay_on = date('Y-m-d');
                 $data->save();
+
+                $this->getCostTransport($data);
 
                 $employee = Admin::where('id' ,$data->created_by)->first();
                 $email = $employee->email;
