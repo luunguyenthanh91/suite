@@ -448,7 +448,7 @@ class CostDocController extends Controller
 
                 $employee = Admin::where('id' ,$data->created_by)->first();
                 $email = $employee->email;
-                list($year2, $month2, $date2) = explode("-", $data->pay_day);
+                list($year2, $month2, $date2) = explode("-", $data->pay_on);
 
                 $messageData["email"] = $email;
                 $messageData["title"] = "振込通知メール";
