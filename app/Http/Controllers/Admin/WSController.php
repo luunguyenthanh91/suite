@@ -892,7 +892,7 @@ class WSController extends Controller
                 if ($diff_date->h > $breaktime_min2 || ($diff_date->h == $breaktime_min2 && $diff_date->i > 0)) {
                     $breaktime = $breaktime2;
                 }
-                if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
+                if ($diff_date->h < $breaktime_min) {
                     if ($breaktime != "") {
                         $breaktime = "";
                     }
@@ -1261,7 +1261,7 @@ class WSController extends Controller
                 if ($diff_date->h > $breaktime_min2 || ($diff_date->h == $breaktime_min2 && $diff_date->i > 0)) {
                     $breaktime = $breaktime2;
                 }
-                if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
+                if ($diff_date->h < $breaktime_min) {
                     if ($breaktime != "") {
                         $breaktime = "";
                     }
