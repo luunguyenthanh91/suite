@@ -745,7 +745,8 @@ class WSController extends Controller
         $workpartern_type = $workpartern->type;
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;        
-        $breaktime_min = $workpartern->breaktime_min;
+        $breaktime_min = $workpartern->breaktime_min;    
+        $breaktime_min2 = $workpartern->breaktime_min2;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
@@ -766,6 +767,7 @@ class WSController extends Controller
         for($i = 1; $i <=  $days; $i++)
 		{
             $breaktime = $workpartern->breaktime_count;
+            $breaktime2 = $workpartern->breaktime_count2;
             $timestamp = mktime(0, 0, 0, $month, $i, $year);
             $date = date('w', $timestamp);
 
@@ -887,6 +889,9 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
+                if ($diff_date->h > $breaktime_min2 || ($diff_date->h == $breaktime_min2 && $diff_date->i > 0)) {
+                    $breaktime = $breaktime2;
+                }
                 if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
                     if ($breaktime != "") {
                         $breaktime = "";
@@ -1119,6 +1124,7 @@ class WSController extends Controller
         $workpartern_starttime = $workpartern->starttime;
         $workpartern_endtime = $workpartern->endtime;
         $breaktime_min = $workpartern->breaktime_min;
+        $breaktime_min2 = $workpartern->breaktime_min2;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
         $off_sun = $workpartern->off_sun;
@@ -1140,6 +1146,7 @@ class WSController extends Controller
         for($i = 1; $i <=  $days; $i++)
 		{
             $breaktime = $workpartern->breaktime_count;
+            $breaktime2 = $workpartern->breaktime_count2;
             $timestamp = mktime(0, 0, 0, $month, $i, $year);
             $date = date('w', $timestamp);
 
@@ -1251,6 +1258,9 @@ class WSController extends Controller
                 $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
                 $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
                 $diff_date = date_diff($d1, $d2);
+                if ($diff_date->h > $breaktime_min2 || ($diff_date->h == $breaktime_min2 && $diff_date->i > 0)) {
+                    $breaktime = $breaktime2;
+                }
                 if ($diff_date->h < $breaktime_min || ($diff_date->h == $breaktime_min && $diff_date->i > 0)) {
                     if ($breaktime != "") {
                         $breaktime = "";
