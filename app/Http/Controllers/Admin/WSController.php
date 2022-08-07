@@ -80,7 +80,7 @@ class WSController extends Controller
 
             $plus_zei_total = $data->kihonkyu + $data->zangyou_teate;
             if ($data->koyouhoken_rate != "") {
-                $data->koyohoken = round($plus_zei_total * $data->koyouhoken_rate/100);
+                $data->koyohoken = round(($plus_zei_total + $data->tsukin_teate) * $data->koyouhoken_rate/100);
             }
             if (!$data->shotokuzei) {
                 $gensen =MasterGensen::where('range_from', '<=', $plus_zei_total)->where('range_to', '>', $plus_zei_total)->first();
