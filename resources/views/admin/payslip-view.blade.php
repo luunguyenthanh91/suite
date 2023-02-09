@@ -821,10 +821,10 @@ new Vue({
             }
             value = (isNaN(value)) ? 0 : value;
 
-            if ("{{@$data->currency}}" == "VND") {
+            if (this.currency == "VND") {
                 const formatter = new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
-                    currency: 'VND',currencyDisplay: 'name'
+                    currency: 'JPY',currencyDisplay: 'name'
                 });
             } else {
                 const formatter = new Intl.NumberFormat('ja-JP', {
