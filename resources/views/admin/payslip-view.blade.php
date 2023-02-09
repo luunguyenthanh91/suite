@@ -623,6 +623,7 @@ new Vue({
         groupAddData: '',
         instan: 25,
         month: '{{@$data->month}}',
+        currency: '{{@$data->currency}}',
         user_id: '{{@$data->user_id}}',
         groups: [],
         listAcountSale: [],
@@ -819,10 +820,18 @@ new Vue({
                 return "";
             }
             value = (isNaN(value)) ? 0 : value;
-            const formatter = new Intl.NumberFormat('ja-JP', {
-                style: 'currency',
-                currency: 'JPY',currencyDisplay: 'name'
-            });
+
+            if ("{{@$data->currency}}" == "VND") {
+                const formatter = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND',currencyDisplay: 'name'
+                });
+            } else {
+                const formatter = new Intl.NumberFormat('ja-JP', {
+                    style: 'currency',
+                    currency: 'JPY',currencyDisplay: 'name'
+                });
+            }
             return formatter.format(value);
         },
         parseMoneyMinus(value) {
