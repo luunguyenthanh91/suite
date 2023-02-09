@@ -601,7 +601,6 @@ jQuery(document).ready(function (){
 
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 var S_HYPEN = "-";
-var currency = '{{@$data->currency}}';
 var viewPC = !/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 new Vue({
@@ -624,7 +623,6 @@ new Vue({
         groupAddData: '',
         instan: 25,
         month: '{{@$data->month}}',
-        currency: '{{@$data->currency}}',
         user_id: '{{@$data->user_id}}',
         groups: [],
         listAcountSale: [],
@@ -822,17 +820,10 @@ new Vue({
             }
             value = (isNaN(value)) ? 0 : value;
 
-            if (currency == "VND") {
-                const formatter = new Intl.NumberFormat('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND',currencyDisplay: 'name'
-                });
-            } else {
-                const formatter = new Intl.NumberFormat('ja-JP', {
+            const formatter = new Intl.NumberFormat('ja-JP', {
                     style: 'currency',
                     currency: 'JPY',currencyDisplay: 'name'
                 });
-            }
             return formatter.format(value);
         },
         parseMoneyMinus(value) {
