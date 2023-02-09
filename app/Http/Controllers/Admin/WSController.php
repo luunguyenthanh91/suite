@@ -457,21 +457,23 @@ class WSController extends Controller
 
     function addWorkSheet(Request $request) {
         try {
+            $user = Auth::guard('admin')->user();
+            
             $data = new WorkSheet();
-
+            $data->work_partern = $user->work_partern;
             $data->status = 0;
             $data->month = $request->month;
             $data->type = $request->type;
-            $data->user_id = Auth::guard('admin')->user()->code;
+            $data->user_id = $user->code;
             $data->note = $request->note;
             $data->created_on = date('Y-m-d');
-            $data->created_by = Auth::guard('admin')->user()->id;
+            $data->created_by = $user->id;
 
             $data->save();
 
             if ($data->type == 1) {
-                $employee = Admin::where('code' ,$data->user_id)->first();
-                $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
+                $workpartern = WorkPartern::where('id' ,$data->work_partern)->first();
+                
                 $off_hol = $workpartern->off_holiday;
                 $off_sat = $workpartern->off_sat;
                 $off_sun = $workpartern->off_sun;
@@ -550,7 +552,6 @@ class WSController extends Controller
             die;
         }
     }
-
     
 
     function viewWorkSheetDay(Request $request,$id) {
@@ -558,6 +559,9 @@ class WSController extends Controller
         $user_id = $data->userId;
         $date = $data->date;
         $time1 = $data->time;
+        if ($data->time_update && $data->approved_on) {
+            $time1 = $data->time_update;
+        }
 
         $employee = Admin::where('id' ,$user_id)->first();
         $employee_name = $employee->name;
@@ -567,6 +571,9 @@ class WSController extends Controller
 
         $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date)->where('type' ,'2')->first();
         $time2 = $historyLog2->time;
+        if ($historyLog2->time_update && $historyLog2->approved_on) {
+            $time2 = $historyLog2->time_update;
+        }
 
         return view('admin.worksheetday-view', compact(['id', 'data', 'employee_code', 'employee_depname', 'employee_name', 'date', 'time1', 'time2']));
     
@@ -586,6 +593,9 @@ class WSController extends Controller
         $user_id = $data->userId;
         $date = $data->date;
         $time1 = $data->time;
+        if ($data->time_update && $data->approved_on) {
+            $time1 = $data->time_update;
+        }
 
         $employee = Admin::where('id' ,$user_id)->first();
         $employee_name = $employee->name;
@@ -595,6 +605,9 @@ class WSController extends Controller
 
         $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('date' ,$date)->where('type' ,'2')->first();
         $time2 = $historyLog2->time;
+        if ($historyLog2->time_update && $historyLog2->approved_on) {
+            $time2 = $historyLog2->time_update;
+        }
 
         return view('admin.worksheetday-update', compact(['id', 'data', 'employee_code', 'employee_depname', 'employee_name', 'date', 'time1', 'time2']));
     }
@@ -605,8 +618,8 @@ class WSController extends Controller
             if ($data) {
                 $data->note = $request->note;
                 $data->save();
-                
-                if ($request->childUpdate) {                    
+
+                if ($request->childUpdate) {
                     foreach ($request->childUpdate as $key => $value) {
                         if ($data->type == 1) {
                             $updateModelDay = HistoryLogSche::find($key);
@@ -740,12 +753,13 @@ class WSController extends Controller
         
         $employee = Admin::where('code' ,$user_code)->first();
         $user_id = $employee->id;
+
         $workpartern = WorkPartern::where('id' ,$employee->work_partern)->first();
         $workpartern_timecount = $workpartern->timecount;
         $workpartern_type = $workpartern->type;
         $workpartern_starttime = $workpartern->starttime;
-        $workpartern_endtime = $workpartern->endtime;        
-        $breaktime_min = $workpartern->breaktime_min;    
+        $workpartern_endtime = $workpartern->endtime;
+        $breaktime_min = $workpartern->breaktime_min;
         $breaktime_min2 = $workpartern->breaktime_min2;
         $off_hol = $workpartern->off_holiday;
         $off_sat = $workpartern->off_sat;
@@ -801,19 +815,21 @@ class WSController extends Controller
 
             if ($sche) {
                 $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
-                $dayid = $historyLog->id;
-                $starttime = $historyLog->time;
-                $startdate = $historyLog->date;
-                if ($starttime != "") {
-                    $ws_type = 1;
-                    
-                    $classStyle = "";
-                    if ($offDay) {
-                        $classStyle = "status7Minus";
+                if ($historyLog) {
+                    $dayid = $historyLog->id;
+                    $starttime = $historyLog->time;
+                    $startdate = $historyLog->date;
+                    if ($starttime != "") {
+                        $ws_type = 1;
+                        
+                        $classStyle = "";
+                        if ($offDay) {
+                            $classStyle = "status7Minus";
+                        }
+                        $daycount++;
                     }
-                    $daycount++;
+                    $note = $historyLog->note;
                 }
-                $note = $historyLog->note;
             } else {
                 if ($workpartern_type == 1) {
                     if ($offDay && $off_hol==1) { }
@@ -833,6 +849,9 @@ class WSController extends Controller
                     if ($historyLog) {
                         $dayid = $historyLog->id;
                         $starttime = $historyLog->time;
+                        if ($historyLog->time_update && $historyLog->approved_on) {
+                            $starttime = $historyLog->time_update;
+                        }
                         $startdate = $historyLog->date;
                         if ($starttime != "") {
                             $ws_type = 1;
@@ -867,6 +886,9 @@ class WSController extends Controller
                 }
             if ($historyLog2) {
                     $endtime = $historyLog2->time;
+                    if ($historyLog2->time_update && $historyLog2->approved_on) {
+                        $endtime = $historyLog2->time_update;
+                    }
                     $enddate = $historyLog2->date;
                 }
             }
@@ -893,7 +915,7 @@ class WSController extends Controller
                     $breaktime = $breaktime2;
                 }
                 if ($diff_date->h < $breaktime_min) {
-                    if ($breaktime != "") {
+                    if ($breaktime != "" && !$workpartern->is_breaktime) {
                         $breaktime = "";
                     }
                 }
@@ -1315,6 +1337,223 @@ class WSController extends Controller
                 'day'=>$i,
                 'date'=>$week[$date],
                 'datenumber'=>$date,
+               
+
+    public function worksheetpdf(Request $request, $id) {
+        $data = [];
+        $daycount = 0;
+        $worktimelist = [];
+        $overworktimelist = [];
+
+        $ws = WorkSheet::find($id);
+        $sche = ($ws->type == 1)? 1 : 0;
+        $employee = Admin::where('code' ,$ws->user_id)->first();
+        $user_id = $employee->id;
+        $ws_note = $ws->note;
+
+        $workpartern = WorkPartern::where('id' ,$ws->work_partern)->first();
+        $workpartern_timecount = $workpartern->timecount;
+        $workpartern_type = $workpartern->type;
+        $workpartern_starttime = $workpartern->starttime;
+        $workpartern_endtime = $workpartern->endtime;
+        $breaktime_min = $workpartern->breaktime_min;
+        $breaktime_min2 = $workpartern->breaktime_min2;
+        $off_hol = $workpartern->off_holiday;
+        $off_sat = $workpartern->off_sat;
+        $off_sun = $workpartern->off_sun;
+
+        $selMonth = $ws->month;
+        list($year, $month) = explode('-', $selMonth);
+
+        $days = $this->days_in_month($month, $year);
+        $week = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+          ];
+        
+        for($i = 1; $i <=  $days; $i++)
+		{
+            $breaktime = $workpartern->breaktime_count;
+            $breaktime2 = $workpartern->breaktime_count2;
+            $timestamp = mktime(0, 0, 0, $month, $i, $year);
+            $date = date('w', $timestamp);
+
+            $ws_type = 0;
+
+            $starttime = "";
+            $hour1 = "";
+            $min1 = "";
+            $sec1 = "";
+            $hour2 = "";
+            $min2 = "";
+            $sec2 = "";
+            $time_count = "";
+            $overtime_count = "";
+            $min_count = "";
+            $offDay_title = "";
+            $note = "";
+
+            $startdate = "";
+            $selDate = $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT);
+            $offDay = NationalHoliday::where('start', $selDate)->first();
+            if ($offDay) {
+                $offDay_title = $offDay->title;
+            }
+
+            $classStyle = "status6";
+            if ($offDay) {
+                $classStyle = "status6Minus";
+            }
+
+            if ($sche) {
+                $historyLog = HistoryLogSche::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                if ($historyLog) {
+                    $starttime = $historyLog->time;
+                    $startdate = $historyLog->date;
+                    if ($starttime != "") {
+                        $ws_type = 1;
+                        $classStyle = "status2";
+                        if ($offDay) {
+                            $classStyle = "status2Minus";
+                        }
+                        $daycount++;
+                    }
+                    $note = $historyLog->note;
+                }
+            } else {
+                if ($workpartern_type == 1) {
+                    if ($offDay && $off_hol==1) { }
+                    else if ($off_sat==1 && $date==6) {}
+                    else if ($off_sun==1 && $date==0) {}
+                    else {
+                        $starttime = $workpartern_starttime;
+                        if ($starttime != "") {
+                            $startdate = $selDate;
+                            $ws_type = 1;
+                            $classStyle = "status2";
+                            $daycount++;
+                        }
+                    }
+                } else {
+                    $historyLog = HistoryLog::where('userId' ,$user_id)->where('type', '1')->where('date', $selDate)->first();
+                    if ($historyLog) {
+                        $starttime = $historyLog->time;
+                        if ($historyLog->time_update && $historyLog->approved_on) {
+                            $starttime = $historyLog->time_update;
+                        }
+                        $startdate = $historyLog->date;
+                        if ($starttime != "") {
+                            $ws_type = 1;
+                            $classStyle = "status2";
+                            if ($offDay) {
+                                $classStyle = "status2Minus";
+                            }
+                            $daycount++;
+                        }
+                        $note = $historyLog->note;
+                    }
+                }
+            }
+
+            $endtime = "";
+            $enddate = "";
+
+            if ($workpartern_type == 1) {
+                if ($offDay && $off_hol==1) {}
+                else if ($off_sat==1 && $date==6) {}
+                else if ($off_sun==1 && $date==0) {}
+                else {
+                    $endtime = $workpartern_endtime;
+                    $enddate = $selDate;
+                }
+            } else {
+                if ($sche) {
+                    $historyLog2 = HistoryLogSche::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+                } else {
+                    $historyLog2 = HistoryLog::where('userId' ,$user_id)->where('type', '2')->where('date', $year . "-" . $month . "-" . str_pad($i, 2, '0', STR_PAD_LEFT))->first();
+
+                }
+                if ($historyLog2) {
+                    $endtime = $historyLog2->time;
+                    if ($historyLog2->time_update && $historyLog2->approved_on) {
+                        $endtime = $historyLog2->time_update;
+                    }
+                    $enddate = $historyLog2->date;
+                }
+            }
+
+            if ($ws_type == 1) {
+
+                list($year1, $month1, $day1) = explode('-', $startdate);
+                list($hour1, $min1, $sec1) = explode(':', $starttime);
+                list($year2, $month2, $day2) = explode('-', $enddate);
+                list($hour2, $min2, $sec2) = explode(':', $endtime);
+
+                $d1 = date_create($startdate." ".sprintf('%02d:%02d:00', $hour1, $min1));
+                $d2 = date_create($enddate." ".sprintf('%02d:%02d:00', $hour2, $min2));
+                $diff_date = date_diff($d1, $d2);
+                if ($diff_date->h > $breaktime_min2 || ($diff_date->h == $breaktime_min2 && $diff_date->i > 0)) {
+                    $breaktime = $breaktime2;
+                }
+                if ($diff_date->h < $breaktime_min) {
+                    if ($breaktime != "" && !$workpartern->is_breaktime) {
+                        $breaktime = "";
+                    }
+                }
+                if ($breaktime != "") {
+                    $diff_date = $this->DiffBreaktime($diff_date->h, $diff_date->i, $breaktime);
+                    list($time_count, $min_count) = explode(':', $diff_date);
+                } else {
+                    $time_count = $diff_date->h;
+                    $min_count = $diff_date->i;
+                }
+                
+                $overtime_count = $time_count - $workpartern_timecount;
+                $worktimelist[] = $time_count.":".$min_count;
+            }
+            
+            $starttime = "";
+            if ($hour1) {
+                $starttime = $hour1.":".$min1;
+            }
+            $endtime = "";
+            if ($hour2) {
+                $endtime = $hour2.":".$min2;
+            }
+            $time_count_str = "";
+            if ($time_count) {
+                $time_count_str = str_pad($time_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+            }
+
+            $overtime_count_str = "";
+            if ($overtime_count > 0 || ($overtime_count == 0 && $min_count > 0 ) ) {
+                $overtime_count_str = str_pad($overtime_count, 2, '0', STR_PAD_LEFT).":".str_pad($min_count, 2, '0', STR_PAD_LEFT);
+                $overworktimelist[] = $overtime_count.":".$min_count;
+            }
+            
+            $breaktime_str = "";
+            if ($ws_type == 1) {
+                $breaktime2 = "";
+                if ($breaktime != "") {
+                    list($breaktime_hour, $breaktime_minute) = explode(':', $breaktime);
+                    $breaktime2 = sprintf('%02d:%02d', $breaktime_hour, $breaktime_minute);
+                } else {
+                    $breaktime2 = sprintf('%02d:%02d', 0, 0);
+                }
+                $breaktime_str = $breaktime2;
+            }
+            
+            $data[] = [
+                'year'=>$year,
+                'month'=>$month,
+                'day'=>$i,
+                'date'=>$week[$date],
+                'datenumber'=>$date,
                 'ws_type'=>$ws_type,
                 'starttime'=>$starttime,
                 'endtime'=>$endtime,
@@ -1367,6 +1606,7 @@ class WSController extends Controller
 
         return $pdf->download($filename.'.pdf');
     }
+
 
     function deleteWorkSheet(Request $request,$id) {
         $data = WorkSheet::find($id);
