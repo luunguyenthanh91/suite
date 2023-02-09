@@ -601,6 +601,7 @@ jQuery(document).ready(function (){
 
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 var S_HYPEN = "-";
+var currency = '{{@$data->currency}}';
 var viewPC = !/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 new Vue({
@@ -821,10 +822,10 @@ new Vue({
             }
             value = (isNaN(value)) ? 0 : value;
 
-            if (this.currency == "VND") {
+            if (currency == "VND") {
                 const formatter = new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
-                    currency: 'JPY',currencyDisplay: 'name'
+                    currency: 'VND',currencyDisplay: 'name'
                 });
             } else {
                 const formatter = new Intl.NumberFormat('ja-JP', {
