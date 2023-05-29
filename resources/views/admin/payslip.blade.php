@@ -211,13 +211,13 @@
                             </div> 
                             <div class="row">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.month') }}</label>
+                                    <label class="form-label">{{ trans('label.month_from') }}</label>
                                     <input type="month" class="form-control search" v-model="month_from" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-12">
-                                    <label class="form-label">{{ trans('label.month') }}</label>
+                                    <label class="form-label">{{ trans('label.month_to') }}</label>
                                     <input type="month" class="form-control search" v-model="month_to" @change="someHandlerChange()" v-on:keyup.enter="someHandlerChange()">
                                 </div>
                             </div>
