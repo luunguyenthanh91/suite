@@ -382,8 +382,11 @@ class WSController extends Controller
         if(@$request->month != '' ){
 			$data = $data->where('month', 'LIKE' , '%'.$request->month.'%' );
         }
-        if(@$request->user_id != '' ){
-			$data = $data->where('user_id', 'LIKE' , '%'.$request->user_id.'%' );
+        if(@$request->month_from != '' ){
+			$data = $data->where('month', '>=' , '%'.$request->month.'%' );
+        }
+        if(@$request->month_to != '' ){
+			$data = $data->where('month', '<=' , '%'.$request->month_to.'%' );
         }
         if(@$request->user_name != '' ){
             $newData = Admin::where('name','like', '%'.$request->user_name.'%')->get();

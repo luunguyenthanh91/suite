@@ -114,6 +114,8 @@ return [
     'koseinenkin' => '厚生年金',
     'koyohoken' => '雇用保険',
     'shotokuzei' => '所得税',
+    'shotokuzei2' => '所得税（源泉）',
+    'shakaihoken' => '社会保険（健康保険・厚生年金）',
     'juminzei' => '住民税',
     'total_minus' => '控除合計',
     'plus_zei_total' => '課税支給額合計',
