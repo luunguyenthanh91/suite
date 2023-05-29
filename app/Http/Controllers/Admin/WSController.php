@@ -288,6 +288,7 @@ class WSController extends Controller
         $data->plus_nozei_total = $data->tsukin_teate;
         $data->plus_total = $data->plus_zei_total + $data->plus_nozei_total;
 
+        $data->shakaihoken = $data->kenkouhoken + $data->koseinenkin;
         $data->minus_total = $data->kenkouhoken + $data->koseinenkin + $data->koyohoken + $data->shotokuzei + $data->juminzei + $data->nenmatsuchosei;
         $data->pay_total = $data->plus_total - $data->minus_total;
 
@@ -444,13 +445,26 @@ class WSController extends Controller
         $countPage = $count === 0 ? 1 : $count;
         $pageTotal = ceil($countPage/$showCount);
 
+        $sum_tsukin_teate = 0;
+        $sum_shakaihoken = 0;
+        $sum_koyohoken = 0;
+        $sum_shotokuzei = 0;
         foreach ($data as &$item) {
             $this->getPayslip($item);
+
+            $sum_tsukin_teate += $item->tsukin_teate;
+            $sum_shakaihoken += $item->shakaihoken;
+            $sum_koyohoken += $item->koyohoken;
+            $sum_shotokuzei += $item->shotokuzei;
         }
 
         return response()->json([
             'data'=>$data,
             'count'=>$count,
+            'sum_tsukin_teate' =>$sum_tsukin_teate,
+            'sum_shakaihoken' => $sum_shakaihoken,
+            'sum_koyohoken' => $sum_koyohoken,
+            'sum_shotokuzei' => $sum_shotokuzei,
             'pageTotal' => $pageTotal
         ]);
     }

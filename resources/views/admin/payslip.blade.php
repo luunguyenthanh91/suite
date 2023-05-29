@@ -289,6 +289,44 @@
                                                     <th scope="col" @click="sort('user_id')">
                                                         <div v-bind:class="[sortBy === 'user_id' ? sortDirection : '']">{{ trans('label.user_id') }}</div>
                                                     </th>
+                                                    
+                                                    <th scope="col" @click="sort('tsukin_teate')">
+                                                        <div v-bind:class="[sortBy === 'tsukin_teate' ? sortDirection : '']">
+                                                            {{ trans('label.tsukin_teate') }}
+                                                            <br>
+                                                        (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(sum_tsukin_teate) ))
+                                                   
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('shakaihoken')">
+                                                        <div v-bind:class="[sortBy === 'shakaihoken' ? sortDirection : '']">{{ trans('label.shakaihoken') }}
+                                                            
+                                                        <br>
+                                                        (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(sum_shakaihoken) ))
+                                                   
+
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('koyohoken')">
+                                                        <div v-bind:class="[sortBy === 'koyohoken' ? sortDirection : '']">{{ trans('label.koyohoken') }}
+                                                            
+                                                        <br>
+                                                        (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(sum_koyohoken) ))
+                                                   
+
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col" @click="sort('shotokuzei')">
+                                                        <div v-bind:class="[sortBy === 'shotokuzei' ? sortDirection : '']">{{ trans('label.shotokuzei2') }}
+                                                            
+                                                            
+                                                        <br>
+                                                        (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(sum_shotokuzei) ))
+                                                   
+
+                                                        </div>
+                                                    </th>
+
                                                     <th scope="col" @click="sort('employee_depname')">
                                                         <div v-bind:class="[sortBy === 'employee_depname' ? sortDirection : '']">{{ trans('label.employee_depname') }}</div>
                                                     </th>
@@ -374,6 +412,24 @@
                                                     <td>
                                                     (( item.user_id ))                                                  
                                                     </td>
+
+                                                    
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.tsukin_teate) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.shakaihoken) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.koyohoken) ))
+                                                    </td>
+                                                    <td class="moneyCol" >
+                                                    (( new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY',currencyDisplay: 'name' }).format(item.shotokuzei) ))
+                                                    </td>
+
+
+
+
                                                     <td>
                                                     (( item.employee_depname ))                                                    
                                                     </td>
@@ -656,6 +712,11 @@ new Vue({
 
         conditionSearch: '',
         sumCount: 0,
+        sum_tsukin_teate: 0,
+        sum_shakaihoken: 0,
+        sum_koyohoken: 0,
+        sum_shotokuzei:0,
+
         listPage: [],
         conditionName: '',
         addModal: 1,
@@ -1137,10 +1198,20 @@ new Vue({
                         that.count = data.pageTotal;
                         that.list = data.data;
                         that.sumCount = data.count;
+                        that.sum_tsukin_teate = data.sum_tsukin_teate;
+                        that.sum_shakaihoken = data.sum_shakaihoken;
+                        that.sum_koyohoken = data.sum_koyohoken;
+                        that.sum_shotokuzei = data.sum_shotokuzei;
+
                     } else {
                         that.count = 0;
                         that.list = [];
                         that.sumCount = data.count;
+                        that.sum_tsukin_teate = data.sum_tsukin_teate;
+                        that.sum_shakaihoken = data.sum_shakaihoken;
+                        that.sum_koyohoken = data.sum_koyohoken;
+                        that.sum_shotokuzei = data.sum_shotokuzei;
+
                     }
                     that.loadingTable = 0;
                     let pageArr = [];
